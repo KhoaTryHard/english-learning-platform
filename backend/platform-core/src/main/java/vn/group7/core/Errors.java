@@ -8,6 +8,28 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 @RestControllerAdvice
 public class Errors {
+  @ExceptionHandler({
+    org.springframework.web.servlet.resource.NoResourceFoundException.class,
+    org.springframework.web.servlet.NoHandlerFoundException.class
+  })
+  ResponseEntity<?> notFound(HttpServletRequest r) {
+    return api(ApiError.missing(), r);
+  }
+
+  @ExceptionHandler({
+    org.springframework.web.bind.MissingServletRequestParameterException.class,
+    org.springframework.web.method.annotation.MethodArgumentTypeMismatchException.class,
+    org.springframework.web.multipart.MultipartException.class
+  })
+  ResponseEntity<?> invalidRequest(HttpServletRequest r) {
+    return api(ApiError.bad("request", "Request không hợp lệ"), r);
+  }
+
+  @ExceptionHandler(org.springframework.web.HttpMediaTypeNotSupportedException.class)
+  ResponseEntity<?> unsupported(HttpServletRequest r) {
+    return api(new ApiError(415, "UNSUPPORTED_FILE_TYPE", "Media type không hỗ trợ"), r);
+  }
+
   @ExceptionHandler(ApiError.class)
   ResponseEntity<?> api(ApiError e, HttpServletRequest r) {
     return ResponseEntity.status(e.status).body(e.body(trace(r)));

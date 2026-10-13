@@ -345,9 +345,12 @@ public class Imports {
               .distinct()
               .count();
       int inv = (int) Math.min(invalid, items.size());
+      boolean conflictOnly =
+          dbDuplicate
+              && errors.stream().allMatch(error -> "IMPORT_DUPLICATE".equals(error.get("code")));
       throw new ApiError(
-          dbDuplicate ? 409 : 422,
-          dbDuplicate ? "IMPORT_DUPLICATE" : "IMPORT_VALIDATION_FAILED",
+          conflictOnly ? 409 : 422,
+          conflictOnly ? "IMPORT_DUPLICATE" : "IMPORT_VALIDATION_FAILED",
           "Import bị từ chối",
           List.of(),
           Map.of(
