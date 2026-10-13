@@ -259,4 +259,43 @@ class UserIntegrationTest {
         ApiError.class,
         () -> db.run("INSERT INTO learner_profile(user_id) VALUES(?)", UUID.randomUUID()));
   }
+
+  @Test
+  void internalSetupAndCohortRequireOwnerCallers() throws Exception {
+    csrf();
+    UUID uid = Input.id(registration("internal@example.com").get("userId").toString());
+    UUID course = UUID.randomUUID(), level = UUID.randomUUID();
+    db.run(
+        "INSERT INTO learning_setup(user_id,current_course_id,current_level_id) VALUES(?,?,?)",
+        uid,
+        course,
+        level);
+    db.run("UPDATE app_user SET status='BLOCKED' WHERE user_id=?", uid);
+    var request =
+        HttpRequest.newBuilder(
+                URI.create(
+                    "http://localhost:" + port + "/internal/v1/users/" + uid + "/learning-setup"))
+            .header("Authorization", "Bearer " + TestSupport.caller("assessment").service("user"))
+            .GET()
+            .build();
+    var response = http.send(request, HttpResponse.BodyHandlers.ofString());
+    assertEquals(200, response.statusCode(), response.body());
+    assertEquals(course.toString(), Json.map(response.body()).get("courseId"));
+    request =
+        HttpRequest.newBuilder(
+                URI.create(
+                    "http://localhost:"
+                        + port
+                        + "/internal/v1/learners/cohort?courseId="
+                        + course
+                        + "&levelId="
+                        + level))
+            .header("Authorization", "Bearer " + TestSupport.caller("progress").service("user"))
+            .GET()
+            .build();
+    response = http.send(request, HttpResponse.BodyHandlers.ofString());
+    assertEquals(200, response.statusCode(), response.body());
+    assertEquals(1, ((List<?>) Json.map(response.body()).get("items")).size());
+    assertEquals(403, call("GET", "/internal/v1/learners/cohort", null, null).statusCode());
+  }
 }

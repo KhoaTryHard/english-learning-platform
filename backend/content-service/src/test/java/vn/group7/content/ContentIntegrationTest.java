@@ -17,7 +17,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.*;
 import vn.group7.core.*;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
 class ContentIntegrationTest {
   @Container
@@ -43,6 +43,7 @@ class ContentIntegrationTest {
   }
 
   @Autowired Db db;
+  @org.springframework.boot.test.web.server.LocalServerPort int port;
   @Autowired ContentStore store;
   @Autowired Imports imports;
   UUID course, module, lesson, user;
@@ -281,5 +282,47 @@ class ContentIntegrationTest {
   @AfterAll
   static void stop() {
     MOCK.stop();
+  }
+
+  @Test
+  void privateContextApisAndCallerAllowlist() throws Exception {
+    var http = java.net.http.HttpClient.newHttpClient();
+    var request =
+        java.net.http.HttpRequest.newBuilder(
+                java.net.URI.create(
+                    "http://localhost:" + port + "/internal/v1/courses/" + course + "/context"))
+            .header("Authorization", "Bearer " + TestSupport.caller("user").service("content"))
+            .GET()
+            .build();
+    var response = http.send(request, java.net.http.HttpResponse.BodyHandlers.ofString());
+    assertEquals(200, response.statusCode(), response.body());
+    assertEquals(1, ((Number) Json.map(response.body()).get("totalLessons")).intValue());
+    request =
+        java.net.http.HttpRequest.newBuilder(
+                java.net.URI.create(
+                    "http://localhost:" + port + "/internal/v1/lessons/" + lesson + "/context"))
+            .header(
+                "Authorization", "Bearer " + TestSupport.caller("assessment").service("content"))
+            .GET()
+            .build();
+    response = http.send(request, java.net.http.HttpResponse.BodyHandlers.ofString());
+    assertEquals(200, response.statusCode(), response.body());
+    assertEquals(false, Json.map(response.body()).get("visibleToLearner"));
+    request =
+        java.net.http.HttpRequest.newBuilder(
+                java.net.URI.create("http://localhost:" + port + "/internal/v1/courses/contexts"))
+            .header("Authorization", "Bearer " + TestSupport.caller("progress").service("content"))
+            .GET()
+            .build();
+    assertEquals(
+        200, http.send(request, java.net.http.HttpResponse.BodyHandlers.ofString()).statusCode());
+    request =
+        java.net.http.HttpRequest.newBuilder(
+                java.net.URI.create("http://localhost:" + port + "/internal/v1/courses/contexts"))
+            .header("Authorization", "Bearer " + TestSupport.caller("api").service("content"))
+            .GET()
+            .build();
+    assertEquals(
+        403, http.send(request, java.net.http.HttpResponse.BodyHandlers.ofString()).statusCode());
   }
 }
