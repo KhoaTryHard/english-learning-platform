@@ -337,8 +337,15 @@ public class ContentStore {
   }
 
   public Map<String, Object> readiness(UUID id) {
-    var r =
-        client.get(assessment, "/internal/v1/lessons/" + id + "/exercise-readiness", "assessment");
+    Map<String, Object> r;
+    try {
+      r =
+          client.get(
+              assessment, "/internal/v1/lessons/" + id + "/exercise-readiness", "assessment");
+    } catch (ApiError e) {
+      if (e.status == 404) throw ApiError.dependency();
+      throw e;
+    }
     if (!id.toString().equals(r.get("lessonId"))
         || !(r.get("ready") instanceof Boolean)
         || !(r.get("questionCount") instanceof Number)) throw ApiError.dependency();
