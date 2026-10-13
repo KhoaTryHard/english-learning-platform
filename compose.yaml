@@ -11,7 +11,7 @@ services:
     - user_runtime
     volumes:
     - user-data:/var/lib/postgresql/data
-    - ./infra/user/init.sh:/docker-entrypoint-initdb.d/01-init.sh:ro
+    - ./user-service/deploy/init-db.sh:/docker-entrypoint-initdb.d/01-init.sh:ro
     networks:
     - user-data
     healthcheck:
@@ -33,7 +33,7 @@ services:
     - content_runtime
     volumes:
     - content-data:/var/lib/postgresql/data
-    - ./infra/content/init.sh:/docker-entrypoint-initdb.d/01-init.sh:ro
+    - ./learning-content-service/deploy/init-db.sh:/docker-entrypoint-initdb.d/01-init.sh:ro
     networks:
     - content-data
     healthcheck:
@@ -44,9 +44,9 @@ services:
       timeout: 3s
       retries: 20
   user-migrate:
-    image: group7-backend:local
-    build: &id001
-      context: .
+    image: group7-user-service:${IMAGE_TAG:-local}
+    build:
+      context: ./user-service
     environment:
       SERVICE: user
       PLATFORM_KEYS: /keys
@@ -62,10 +62,10 @@ services:
       PLATFORM_MODE: migrate
       JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
       PRIVATE_KEY_FILE: /private/user.private.pem
-    volumes: &id002
+    volumes: &id001
     - ./.secrets/keys/public:/keys:ro
     - ./.secrets/keys/user.private.pem:/private/user.private.pem:ro
-    networks: &id003
+    networks: &id002
     - backend
     - user-data
     secrets:
@@ -74,8 +74,9 @@ services:
       user-db:
         condition: service_healthy
   user:
-    image: group7-backend:local
-    build: *id001
+    image: group7-user-service:${IMAGE_TAG:-local}
+    build:
+      context: ./user-service
     environment:
       SERVICE: user
       PLATFORM_KEYS: /keys
@@ -89,8 +90,8 @@ services:
       DB_PASSWORD_FILE: /run/secrets/user_runtime
       JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
       PRIVATE_KEY_FILE: /private/user.private.pem
-    volumes: *id002
-    networks: *id003
+    volumes: *id001
+    networks: *id002
     healthcheck:
       test:
       - CMD-SHELL
@@ -101,13 +102,13 @@ services:
       start_period: 20s
     secrets:
     - user_runtime
-    depends_on: &id007
+    depends_on: &id005
       user-migrate:
         condition: service_completed_successfully
   content-migrate:
-    image: group7-backend:local
-    build: &id004
-      context: .
+    image: group7-learning-content-service:${IMAGE_TAG:-local}
+    build:
+      context: ./learning-content-service
     environment:
       SERVICE: content
       PLATFORM_KEYS: /keys
@@ -124,10 +125,10 @@ services:
       PLATFORM_MODE: migrate
       JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
       PRIVATE_KEY_FILE: /private/content.private.pem
-    volumes: &id005
+    volumes: &id003
     - ./.secrets/keys/public:/keys:ro
     - ./.secrets/keys/content.private.pem:/private/content.private.pem:ro
-    networks: &id006
+    networks: &id004
     - backend
     - content-data
     secrets:
@@ -136,8 +137,9 @@ services:
       content-db:
         condition: service_healthy
   content:
-    image: group7-backend:local
-    build: *id004
+    image: group7-learning-content-service:${IMAGE_TAG:-local}
+    build:
+      context: ./learning-content-service
     environment:
       SERVICE: content
       PLATFORM_KEYS: /keys
@@ -152,8 +154,8 @@ services:
       MEDIA_HOSTS: ${MEDIA_HOSTS:-}
       JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
       PRIVATE_KEY_FILE: /private/content.private.pem
-    volumes: *id005
-    networks: *id006
+    volumes: *id003
+    networks: *id004
     healthcheck:
       test:
       - CMD-SHELL
@@ -162,15 +164,15 @@ services:
       timeout: 5s
       retries: 20
       start_period: 20s
-    secrets: &id008
+    secrets: &id006
     - content_runtime
-    depends_on: &id009
+    depends_on: &id007
       content-migrate:
         condition: service_completed_successfully
   api:
-    image: group7-backend:local
+    image: group7-api-gateway:${IMAGE_TAG:-local}
     build:
-      context: .
+      context: ./api-gateway
     environment:
       SERVICE: api
       PLATFORM_KEYS: /keys
@@ -210,8 +212,9 @@ services:
     networks:
     - backend
   admin-bootstrap:
-    image: group7-backend:local
-    build: *id001
+    image: group7-user-service:${IMAGE_TAG:-local}
+    build:
+      context: ./user-service
     environment:
       SERVICE: user
       PLATFORM_KEYS: /keys
@@ -228,17 +231,18 @@ services:
       ADMIN_PASSWORD_FILE: /run/secrets/admin_password
       JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
       PRIVATE_KEY_FILE: /private/user.private.pem
-    volumes: *id002
-    networks: *id003
+    volumes: *id001
+    networks: *id002
     secrets:
     - user_runtime
     - admin_password
-    depends_on: *id007
+    depends_on: *id005
     profiles:
     - tools
   content-seed:
-    image: group7-backend:local
-    build: *id004
+    image: group7-learning-content-service:${IMAGE_TAG:-local}
+    build:
+      context: ./learning-content-service
     environment:
       SERVICE: content
       PLATFORM_KEYS: /keys
@@ -258,10 +262,10 @@ services:
     volumes:
     - ./.secrets/keys/public:/keys:ro
     - ./.secrets/keys/content.private.pem:/private/content.private.pem:ro
-    - ./database/demo:/seed:ro
-    networks: *id006
-    secrets: *id008
-    depends_on: *id009
+    - ./learning-content-service/deploy/course-levels.json:/seed/course-levels.json:ro
+    networks: *id004
+    secrets: *id006
+    depends_on: *id007
     profiles:
     - tools
 volumes:

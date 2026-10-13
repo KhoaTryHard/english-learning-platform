@@ -2,13 +2,26 @@
 
 Java 21 / Spring Boot 4.0.8 / PostgreSQL 17. User Service and Learning Content Service own separate databases. Gateway exposes 43 public operations; 6 internal operations remain private. Assessment is mocked only in the demo profile.
 
+## Independently deployable folders
+
+```text
+user-service/              # standalone Maven app + Dockerfile + compose + user_db
+learning-content-service/  # standalone Maven app + Dockerfile + compose + content_db
+api-gateway/               # separate gateway image; no business database
+shared/platform-core/      # canonical infrastructure SDK snapshot, no business entities
+```
+
+You can copy either service folder to another machine and build it there: `./mvnw.cmd verify` or `docker build -t group7-user-service:local .` inside `user-service/`; use `group7-learning-content-service:local` in `learning-content-service/`. Each application inherits directly from Spring Boot and includes its SDK snapshot, migrations, templates/test fixtures, wrapper and deployment files. It does not need a sibling folder, repository parent POM or unpublished SDK JAR. See the README inside each folder for peer URLs/public keys and standalone database provisioning.
+
+Root Maven/Compose are optional integration conveniences. Root Compose now uses three different images, each containing only its owner's executable JAR; database volume names are preserved. SDK updates are explicit and checked with `python scripts/sync-sdk.py --check`.
+
 ## Run locally
 
 Requirements: Docker Desktop (Linux containers), OpenSSL and PowerShell 7 or bash. For local Maven tests also install JDK 21.
 
 ```powershell
 ./scripts/init-dev.ps1
-docker compose build user
+docker compose build user content api
 docker compose --profile demo up -d --no-build
 ./scripts/bootstrap-admin.ps1 -Email admin@example.com
 ./scripts/seed-content.ps1

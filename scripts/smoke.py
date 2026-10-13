@@ -68,7 +68,7 @@ def main():
     admin=Client();admin.login(os.environ.get('ADMIN_EMAIL','admin@example.com'),(ROOT/'.secrets/admin_password').read_text().strip())
     admin.op('listUsers',query='?q=smoke&status=ACTIVE');admin.op('getUser',params={'userId':user['userId']});admin.op('patchUser',{'fullName':'Khoa Test'},params={'userId':user['userId']})
     created=admin.op('createCourse',{'name':'Smoke '+uuid.uuid4().hex});admin.op('adminListCourses');admin.op('adminGetCourse',params={'courseId':created['courseId']});admin.op('patchCourse',{'name':'Renamed '+uuid.uuid4().hex},params={'courseId':created['courseId']})
-    seed=json.loads((ROOT/'database/demo/course-levels.json').read_text());course=seed['courses'][0]['courseId'];level=seed['levels'][0]['levelId'];admin.op('patchCourse',{'published':True},params={'courseId':course})
+    seed=json.loads((ROOT/'learning-content-service/deploy/course-levels.json').read_text());course=seed['courses'][0]['courseId'];level=seed['levels'][0]['levelId'];admin.op('patchCourse',{'published':True},params={'courseId':course})
     module=admin.op('createModule',{'courseId':course,'title':'Smoke '+uuid.uuid4().hex,'orderNo':int(time.time())});mid=module['moduleId']
     admin.op('adminListModules');admin.op('adminGetModule',params={'moduleId':mid});admin.op('patchModule',{'published':True},params={'moduleId':mid})
     lesson=admin.op('createLesson',{'moduleId':mid,'title':'Lesson','content':'Learn greetings','orderNo':1});lid=lesson['lessonId']
