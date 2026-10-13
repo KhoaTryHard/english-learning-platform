@@ -190,8 +190,16 @@ public class UserController {
 
   private JWTClaimsSet validate(String token) {
     var c = tokens.verify(token, "user", "api");
-    UUID id = Input.id(c.getSubject()), jti = Input.id(c.getJWTID());
-    var u = user(id);
+    UUID id, jti;
+    Map<String, Object> u;
+    try {
+      id = Input.id(c.getSubject());
+      jti = Input.id(c.getJWTID());
+      u = user(id);
+    } catch (ApiError e) {
+      if (e.status == 503) throw e;
+      throw new ApiError(401, "SESSION_INVALID", "Phiên không hợp lệ");
+    }
     if (!"ACTIVE".equals(u.get("status"))
         || !Objects.equals(u.get("role"), TokenCodec.string(c, "role"))
         || db.count("SELECT count(*) FROM revoked_token WHERE jti=?", jti) > 0)
@@ -338,8 +346,8 @@ public class UserController {
     if (status != null && !Set.of("ACTIVE", "BLOCKED").contains(status))
       throw ApiError.bad("status", "Status không hợp lệ");
     String where =
-        " WHERE (?::varchar IS NULL OR u.status=?) AND (?::varchar IS NULL OR u.email_normalized ILIKE ? OR"
-            + " p.display_name ILIKE ?)";
+        " WHERE (?::varchar IS NULL OR u.status=?) AND (?::varchar IS NULL OR u.email_normalized"
+            + " ILIKE ? OR p.display_name ILIKE ?)";
     String term = q == null ? null : "%" + q + "%";
     Object[] args = {status, status, q, term, term};
     long total =

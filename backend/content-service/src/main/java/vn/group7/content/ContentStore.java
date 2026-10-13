@@ -285,6 +285,9 @@ public class ContentStore {
     var cols = new LinkedHashMap<String, Object>();
     b.forEach((k, v) -> cols.put(r.fields.get(k), v));
     clean(cols, resource);
+    if (resource.equals("modules")) row("courses", (UUID) cols.get("course_id"));
+    if (resource.equals("lessons")) row("modules", (UUID) cols.get("module_id"));
+    if (resource.equals("learning-contents")) row("lessons", (UUID) cols.get("lesson_id"));
     if (resource.equals("learning-contents")) contentValid(cols);
     UUID id = UUID.randomUUID();
     cols.put(r.id, id);

@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
         org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type.SERVLET)
 public class Security {
   @Bean
-  SecurityFilterChain security(HttpSecurity h) throws Exception {
+  SecurityFilterChain filterChain(HttpSecurity h) throws Exception {
     return h.csrf(c -> c.disable())
         .authorizeHttpRequests(a -> a.anyRequest().permitAll())
         .requestCache(c -> c.disable())
