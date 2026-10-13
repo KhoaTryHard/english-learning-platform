@@ -1,0 +1,141 @@
+name: group7-learning-content-service
+services:
+  content-db:
+    environment:
+      POSTGRES_DB: content_db
+      POSTGRES_PASSWORD_FILE: /run/secrets/content_bootstrap
+      POSTGRES_USER: postgres
+    healthcheck:
+      interval: 5s
+      retries: 20
+      test:
+      - CMD-SHELL
+      - pg_isready -U postgres -d content_db
+      timeout: 3s
+    image: postgres:17
+    networks:
+    - content-data
+    secrets:
+    - content_bootstrap
+    - content_migration
+    - content_runtime
+    volumes:
+    - content-data:/var/lib/postgresql/data
+    - ./deploy/init-db.sh:/docker-entrypoint-initdb.d/01-init.sh:ro
+  content-migrate:
+    build:
+      context: .
+    depends_on:
+      content-db:
+        condition: service_healthy
+    environment:
+      ASSESSMENT_URL: ${ASSESSMENT_URL:-http://assessment.internal:8080}
+      CONTENT_URL: ${CONTENT_URL:-http://content.internal:8082}
+      DB_PASSWORD_FILE: /run/secrets/content_migration
+      DB_URL: jdbc:postgresql://content-db:5432/content_db
+      DB_USER: content_migration
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
+      JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
+      MEDIA_HOSTS: ${MEDIA_HOSTS:-}
+      MIGRATE: 'true'
+      PLATFORM_KEYS: /keys
+      PLATFORM_MODE: migrate
+      PRIVATE_KEY_FILE: /private/content.private.pem
+      SECURE_COOKIES: ${SECURE_COOKIES:-false}
+      SERVICE: content
+      USER_URL: ${USER_URL:-http://user.internal:8081}
+    image: group7-learning-content-service:${IMAGE_TAG:-local}
+    networks:
+    - backend
+    - content-data
+    secrets:
+    - content_migration
+    volumes:
+    - ./.secrets/keys/public:/keys:ro
+    - ./.secrets/keys/content.private.pem:/private/content.private.pem:ro
+  content:
+    build:
+      context: .
+    depends_on:
+      content-migrate:
+        condition: service_completed_successfully
+    environment:
+      ASSESSMENT_URL: ${ASSESSMENT_URL:-http://assessment.internal:8080}
+      CONTENT_URL: ${CONTENT_URL:-http://content.internal:8082}
+      DB_PASSWORD_FILE: /run/secrets/content_runtime
+      DB_URL: jdbc:postgresql://content-db:5432/content_db
+      DB_USER: content_runtime
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
+      JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
+      MEDIA_HOSTS: ${MEDIA_HOSTS:-}
+      PLATFORM_KEYS: /keys
+      PRIVATE_KEY_FILE: /private/content.private.pem
+      SECURE_COOKIES: ${SECURE_COOKIES:-false}
+      SERVICE: content
+      USER_URL: ${USER_URL:-http://user.internal:8081}
+    healthcheck:
+      interval: 10s
+      retries: 20
+      start_period: 20s
+      test:
+      - CMD-SHELL
+      - curl -fsS http://localhost:8082/actuator/health || exit 1
+      timeout: 5s
+    image: group7-learning-content-service:${IMAGE_TAG:-local}
+    networks:
+    - backend
+    - content-data
+    secrets:
+    - content_runtime
+    volumes:
+    - ./.secrets/keys/public:/keys:ro
+    - ./.secrets/keys/content.private.pem:/private/content.private.pem:ro
+    ports:
+    - ${SERVICE_BIND_ADDRESS:-127.0.0.1}:${SERVICE_PORT:-8082}:8082
+  content-seed:
+    build:
+      context: .
+    depends_on:
+      content-migrate:
+        condition: service_completed_successfully
+    environment:
+      ASSESSMENT_URL: ${ASSESSMENT_URL:-http://assessment.internal:8080}
+      CONTENT_URL: ${CONTENT_URL:-http://content.internal:8082}
+      DB_PASSWORD_FILE: /run/secrets/content_runtime
+      DB_URL: jdbc:postgresql://content-db:5432/content_db
+      DB_USER: content_runtime
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
+      JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
+      MEDIA_HOSTS: ${MEDIA_HOSTS:-}
+      PLATFORM_KEYS: /keys
+      PLATFORM_MODE: seed
+      PRIVATE_KEY_FILE: /private/content.private.pem
+      SECURE_COOKIES: ${SECURE_COOKIES:-false}
+      SEED_FILE: /seed/course-levels.json
+      SERVICE: content
+      USER_URL: ${USER_URL:-http://user.internal:8081}
+    image: group7-learning-content-service:${IMAGE_TAG:-local}
+    networks:
+    - backend
+    - content-data
+    profiles:
+    - tools
+    secrets:
+    - content_runtime
+    volumes:
+    - ./.secrets/keys/public:/keys:ro
+    - ./.secrets/keys/content.private.pem:/private/content.private.pem:ro
+    - ./deploy/course-levels.json:/seed/course-levels.json:ro
+volumes:
+  content-data: {}
+networks:
+  backend: {}
+  content-data:
+    internal: true
+secrets:
+  content_bootstrap:
+    file: ./.secrets/content_bootstrap
+  content_migration:
+    file: ./.secrets/content_migration
+  content_runtime:
+    file: ./.secrets/content_runtime

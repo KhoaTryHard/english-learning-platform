@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "source": "shared/platform-core",
+  "sha256": {
+    "src/main/java/vn/group7/core/ApiError.java": "c7e7e2f10a6ffcf9ded7164ac9dfeac2e694b8607597c4204bbaa655490348bb",
+    "src/main/java/vn/group7/core/Errors.java": "16522c05c30a5fb18a75c303367e22a908752dc51b5a68ac52b39ac9458f979b",
+    "src/main/java/vn/group7/core/Input.java": "284efe4219b86f10cc9261007382de862603bf97800de988498a39d4d231497f",
+    "src/main/java/vn/group7/core/Json.java": "d61e0daef2f83b0cdb91adbf07a1614496151aa77abc76d325b1f3f6e5a51970",
+    "src/main/java/vn/group7/core/OwnerClient.java": "817d63bdf7a71430482f6e7da7a79d8d5b1a767ab6539ecf19b1fdc9a8ed127a",
+    "src/main/java/vn/group7/core/Passwords.java": "61b24fbde7e2a5bcaa8b4051331191d49e4967d542902176de3741f80b7a0f97",
+    "src/main/java/vn/group7/core/Principal.java": "613f110438976a0eef8219513fcc84b09306f8dcffc74b064270ea9b314e39db",
+    "src/main/java/vn/group7/core/Security.java": "e9fa992a9d56a1d1e6675702ff20de4ad036d2129b22393656b55530a9782a70",
+    "src/main/java/vn/group7/core/ServiceGuard.java": "9129d748b83a1f9c769952034a89ca0e8a156c159c3a71a41b471fbef6cb47ae",
+    "src/main/java/vn/group7/core/TokenCodec.java": "2fb194b07808903334cbb7c8f8d735eb2ae87e1f840b0124d35d6713bfca34f9",
+    "src/main/resources/public-routes.json": "601b0f5f4cbec46a503b5735703eb33f1669bcc97d1a3d7f7080f8cf2582989b",
+    "src/main/resources/public-schemas.json": "a9c36a03166776931a9d354b706dddd36135d60d5bc9153dc11118d08fac7bff",
+    "src/test/java/vn/group7/core/InputTest.java": "527271c5428eafecb59f6e329df7d4e9b2ce0ac9bedc913d9a73e317da25effe"
+  }
+}

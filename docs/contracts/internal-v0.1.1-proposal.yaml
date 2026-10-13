@@ -1,0 +1,2591 @@
+openapi: 3.0.3
+info:
+  title: W3-04 Internal REST contracts — private network only
+  version: 0.1.1-implementation-proposal
+  description: Implementation proposal authorized by user, awaiting Huy/Khoa review;
+    frozen v0.1 preserved. Gateway and User deploy together; requestMethod is a breaking
+    required field.
+servers:
+- url: /internal/v1
+  description: Relative base at owner service; NEVER expose from public Gateway
+paths:
+  /sessions/validate:
+    post:
+      operationId: validateSession
+      summary: validateSession
+      description: User validates fixed algorithm/signature/iss/aud/iat/exp, role
+        and jti. Check account ACTIVE and revoked jti. Invalid/expired/blocked/revoked=>401;
+        unavailable DB/validation=>503. Never log/echo raw token. Gateway maps to
+        401/503; fail closed. Needs internal service identity; user token alone cannot
+        call.
+      security:
+      - serviceIdentity: []
+      x-owner-service: User Service
+      x-allowed-callers:
+      - API Gateway
+      x-contract-status: PROPOSED_FOR_REVIEW
+      responses:
+        '200':
+          description: Validated source response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionPrincipal'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionCheckRequest'
+  /users/{userId}/learning-setup:
+    get:
+      operationId: getUserSetupInternal
+      summary: getUserSetupInternal
+      description: Read current user-owned Course/Level for attempt snapshot/dashboard.
+        userId external reference; service caller authentication and purpose allowlist.
+        No arbitrary client forwarding.
+      security:
+      - serviceIdentity: []
+      x-owner-service: User Service
+      x-allowed-callers:
+      - Assessment Service
+      - Progress Service
+      x-contract-status: PROPOSED_FOR_REVIEW
+      responses:
+        '200':
+          description: Validated source response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Setup'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema: &id001
+          type: string
+          format: uuid
+  /learners/cohort:
+    get:
+      operationId: getLearnerCohort
+      summary: getLearnerCohort
+      description: All role LEARNER incl BLOCKED. Filter current Course/Level; totalLearnersGlobal
+        ignores filters. current setup snapshots; page stable userId. Multiple-page
+        cohort drift open issue for review, generatedAt not global transaction.
+      security:
+      - serviceIdentity: []
+      x-owner-service: User Service
+      x-allowed-callers:
+      - Progress Service
+      x-contract-status: PROPOSED_FOR_REVIEW
+      responses:
+        '200':
+          description: Validated source response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CohortPage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      parameters:
+      - name: courseId
+        in: query
+        required: false
+        schema: *id001
+      - name: levelId
+        in: query
+        required: false
+        schema: *id001
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 100
+  /courses/{courseId}/context:
+    get:
+      operationId: getCourseContext
+      summary: getCourseContext
+      description: Internal source includes total all persisted Lessons, including
+        unpublished, and Levels belonging Course. Consumer uses visibility for new
+        setup/attempt; statistics counts hidden Lessons. No direct database joins.
+      security:
+      - serviceIdentity: []
+      x-owner-service: Learning Content Service
+      x-allowed-callers:
+      - User Service
+      - Assessment Service
+      - Progress Service
+      x-contract-status: PROPOSED_FOR_REVIEW
+      responses:
+        '200':
+          description: Validated source response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseContext'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema: *id001
+  /courses/contexts:
+    get:
+      operationId: listCourseContexts
+      summary: listCourseContexts
+      description: All persisted Courses for unfiltered statistics incl zero-Learner/zero-Result
+        Courses and unpublished; each context counts all Lessons. Stable ID ordering;
+        no source entity writes.
+      security:
+      - serviceIdentity: []
+      x-owner-service: Learning Content Service
+      x-allowed-callers:
+      - Progress Service
+      x-contract-status: PROPOSED_FOR_REVIEW
+      responses:
+        '200':
+          description: Validated source response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseContextPage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 100
+  /lessons/{lessonId}/context:
+    get:
+      operationId: getLessonContext
+      summary: getLessonContext
+      description: Source derives internal hierarchy/ancestor visibility; Assessment
+        validates Exercise lesson/course mapping and new start. Existing attempts
+        use retained snapshot.
+      security:
+      - serviceIdentity: []
+      x-owner-service: Learning Content Service
+      x-allowed-callers:
+      - Assessment Service
+      x-contract-status: PROPOSED_FOR_REVIEW
+      responses:
+        '200':
+          description: Validated source response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LessonContext'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      parameters:
+      - name: lessonId
+        in: path
+        required: true
+        schema: *id001
+  /lessons/{lessonId}/exercise-readiness:
+    get:
+      operationId: getExerciseReadiness
+      summary: getExerciseReadiness
+      description: Content calls before publishing Lesson. ready iff exactly one ready
+        Exercise mapping and >=1 valid supported Question, options/answer keys valid.
+        Missing mapping=>200 ready=false, dependency DB down503. No callback to Content
+        in this endpoint to avoid readiness/visibility cycle.
+      security:
+      - serviceIdentity: []
+      x-owner-service: Assessment Service
+      x-allowed-callers:
+      - Learning Content Service
+      x-contract-status: PROPOSED_FOR_REVIEW
+      responses:
+        '200':
+          description: Validated source response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExerciseReadiness'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      parameters:
+      - name: lessonId
+        in: path
+        required: true
+        schema: *id001
+  /statistics/assessment-results:
+    get:
+      operationId: getAssessmentMetrics
+      summary: getAssessmentMetrics
+      description: Count all stored Results per type incl repeated attempts and TIMEOUT;
+        Quiz/Test scorePercent sum (unrounded point ratio) and denominator result
+        count, filtered start snapshot Course/Level. No Result=>counts0/sum0/count0;
+        Progress exposes average null. Statistics averaging uses unrounded ratios
+        then DTO rounds2 decimals.
+      security:
+      - serviceIdentity: []
+      x-owner-service: Assessment Service
+      x-allowed-callers:
+      - Progress Service
+      x-contract-status: PROPOSED_FOR_REVIEW
+      responses:
+        '200':
+          description: Validated source response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentMetrics'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      parameters:
+      - name: courseId
+        in: query
+        required: false
+        schema: *id001
+      - name: levelId
+        in: query
+        required: false
+        schema: *id001
+components:
+  schemas:
+    Id:
+      type: string
+      format: uuid
+    Timestamp:
+      type: string
+      format: date-time
+      description: RFC3339 UTC; server uses Z suffix.
+    FieldError:
+      type: object
+      additionalProperties: false
+      properties:
+        field:
+          type: string
+          minLength: 1
+          maxLength: 100
+        code:
+          type: string
+          minLength: 1
+          maxLength: 100
+        message:
+          type: string
+          minLength: 1
+          maxLength: 500
+      required:
+      - field
+      - code
+      - message
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+          minLength: 1
+          maxLength: 100
+        message:
+          type: string
+          minLength: 1
+          maxLength: 500
+        traceId:
+          type: string
+          format: uuid
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldError'
+      required:
+      - code
+      - message
+      - traceId
+      - errors
+      example:
+        code: VALIDATION_ERROR
+        message: Dữ liệu không hợp lệ
+        traceId: 10000000-0000-4000-8000-000000000001
+        errors:
+        - field: fullName
+          code: TOO_LONG
+          message: Tối đa 100 ký tự
+    RegisterRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        password:
+          type: string
+          minLength: 15
+          writeOnly: true
+          description: 15 Unicode code points minimum AND at most 72 UTF-8 bytes.
+            No trim/truncation; byte limit enforced by server, not maxLength.
+        fullName:
+          type: string
+          minLength: 0
+          maxLength: 100
+          description: Trim; null or blank normalizes to null.
+          nullable: true
+      required:
+      - email
+      - password
+    LoginRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        password:
+          type: string
+          minLength: 1
+          writeOnly: true
+      required:
+      - email
+      - password
+    Profile:
+      type: object
+      additionalProperties: false
+      properties:
+        userId:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        fullName:
+          type: string
+          minLength: 0
+          maxLength: 100
+          description: Trim; null or blank normalizes to null.
+          nullable: true
+        role:
+          type: string
+          enum:
+          - LEARNER
+          - ADMIN
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - BLOCKED
+      required:
+      - userId
+      - email
+      - fullName
+      - role
+      - status
+    ProfilePatch:
+      type: object
+      additionalProperties: false
+      properties:
+        fullName:
+          type: string
+          minLength: 0
+          maxLength: 100
+          description: Trim; null or blank normalizes to null.
+          nullable: true
+      required:
+      - fullName
+    LoginResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        user:
+          $ref: '#/components/schemas/Profile'
+        expiresAt:
+          type: string
+          format: date-time
+          description: RFC3339 UTC; server uses Z suffix.
+      required:
+      - user
+      - expiresAt
+      description: JWT is only in Set-Cookie; no accessToken/password_hash in JSON.
+    CsrfResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        csrfToken:
+          type: string
+          minLength: 1
+          maxLength: 512
+        headerName:
+          type: string
+          enum:
+          - X-CSRF-Token
+      required:
+      - csrfToken
+      - headerName
+    SetupWrite:
+      type: object
+      additionalProperties: false
+      properties:
+        courseId:
+          type: string
+          format: uuid
+        levelId:
+          type: string
+          format: uuid
+      required:
+      - courseId
+      - levelId
+    Setup:
+      type: object
+      additionalProperties: false
+      properties:
+        courseId:
+          type: string
+          format: uuid
+          nullable: true
+        levelId:
+          type: string
+          format: uuid
+          nullable: true
+        updatedAt:
+          type: string
+          format: date-time
+          description: RFC3339 UTC; server uses Z suffix.
+          nullable: true
+      required:
+      - courseId
+      - levelId
+      - updatedAt
+    AdminUserPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        fullName:
+          type: string
+          minLength: 0
+          maxLength: 100
+          description: Trim; null or blank normalizes to null.
+          nullable: true
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - BLOCKED
+      description: At least one field. Only Learner targets; role/email/password/userId
+        not writable. Protect seeded Admin from status changes pending User policy
+        review.
+      minProperties: 1
+    UserPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
+        page:
+          type: integer
+          minimum: 0
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements:
+          type: integer
+          minimum: 0
+        totalPages:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    CourseCreate:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+      required:
+      - name
+    CoursePatch:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        published:
+          type: boolean
+      minProperties: 1
+    Course:
+      type: object
+      additionalProperties: false
+      properties:
+        courseId:
+          type: string
+          format: uuid
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        published:
+          type: boolean
+      required:
+      - courseId
+      - name
+      - published
+    Level:
+      type: object
+      additionalProperties: false
+      properties:
+        levelId:
+          type: string
+          format: uuid
+        courseId:
+          type: string
+          format: uuid
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+      required:
+      - levelId
+      - courseId
+      - name
+    ModuleCreate:
+      type: object
+      additionalProperties: false
+      properties:
+        courseId:
+          type: string
+          format: uuid
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        orderNo:
+          type: integer
+          minimum: 1
+      required:
+      - courseId
+      - title
+      - orderNo
+    ModulePatch:
+      type: object
+      additionalProperties: false
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        orderNo:
+          type: integer
+          minimum: 1
+        published:
+          type: boolean
+      minProperties: 1
+    Module:
+      type: object
+      additionalProperties: false
+      properties:
+        moduleId:
+          type: string
+          format: uuid
+        courseId:
+          type: string
+          format: uuid
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        orderNo:
+          type: integer
+          minimum: 1
+        published:
+          type: boolean
+      required:
+      - moduleId
+      - courseId
+      - title
+      - orderNo
+      - published
+    LessonCreate:
+      type: object
+      additionalProperties: false
+      properties:
+        moduleId:
+          type: string
+          format: uuid
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        content:
+          type: string
+          minLength: 1
+          maxLength: 20000
+        orderNo:
+          type: integer
+          minimum: 1
+      required:
+      - moduleId
+      - title
+      - content
+      - orderNo
+    LessonPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        content:
+          type: string
+          minLength: 1
+          maxLength: 20000
+        orderNo:
+          type: integer
+          minimum: 1
+        published:
+          type: boolean
+      minProperties: 1
+    Lesson:
+      type: object
+      additionalProperties: false
+      properties:
+        lessonId:
+          type: string
+          format: uuid
+        moduleId:
+          type: string
+          format: uuid
+        courseId:
+          type: string
+          format: uuid
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        content:
+          type: string
+          minLength: 1
+          maxLength: 20000
+        orderNo:
+          type: integer
+          minimum: 1
+        published:
+          type: boolean
+      required:
+      - lessonId
+      - moduleId
+      - courseId
+      - title
+      - content
+      - orderNo
+      - published
+    Vocabulary:
+      type: object
+      additionalProperties: false
+      properties:
+        vocabularyId:
+          type: string
+          format: uuid
+        lessonId:
+          type: string
+          format: uuid
+        courseId:
+          type: string
+          format: uuid
+        word:
+          type: string
+          minLength: 1
+          maxLength: 128
+        meaning:
+          type: string
+          minLength: 1
+          maxLength: 500
+        example:
+          type: string
+          minLength: 0
+          maxLength: 1000
+          nullable: true
+        phonetic:
+          type: string
+          minLength: 0
+          maxLength: 128
+          nullable: true
+        published:
+          type: boolean
+      required:
+      - vocabularyId
+      - lessonId
+      - courseId
+      - word
+      - meaning
+      - example
+      - phonetic
+      - published
+    VocabularyPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        word:
+          type: string
+          minLength: 1
+          maxLength: 128
+        meaning:
+          type: string
+          minLength: 1
+          maxLength: 500
+        example:
+          type: string
+          minLength: 0
+          maxLength: 1000
+          nullable: true
+        phonetic:
+          type: string
+          minLength: 0
+          maxLength: 128
+          nullable: true
+        published:
+          type: boolean
+      description: Update existing imported Vocabulary only. Same uniqueness/normalization
+        as Excel. No manual create API.
+      minProperties: 1
+    LearningContentCreate:
+      type: object
+      additionalProperties: false
+      properties:
+        lessonId:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum:
+          - GRAMMAR
+          - LISTENING
+          - READING
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        text:
+          type: string
+          minLength: 1
+          maxLength: 20000
+          nullable: true
+        resourceUrl:
+          type: string
+          format: uri
+          maxLength: 2048
+          nullable: true
+      required:
+      - lessonId
+      - type
+      - title
+      description: GRAMMAR/READING require text. LISTENING requires configured HTTPS
+        resourceUrl. Server does not fetch arbitrary client URLs; media upload/storage
+        pipeline remains to review.
+    LearningContentPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        text:
+          type: string
+          minLength: 1
+          maxLength: 20000
+          nullable: true
+        resourceUrl:
+          type: string
+          format: uri
+          maxLength: 2048
+          nullable: true
+        published:
+          type: boolean
+      minProperties: 1
+    LearningContent:
+      type: object
+      additionalProperties: false
+      properties:
+        contentId:
+          type: string
+          format: uuid
+        lessonId:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum:
+          - GRAMMAR
+          - LISTENING
+          - READING
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        text:
+          type: string
+          minLength: 1
+          maxLength: 20000
+          nullable: true
+        resourceUrl:
+          type: string
+          format: uri
+          maxLength: 2048
+          nullable: true
+        published:
+          type: boolean
+        availability:
+          type: string
+          enum:
+          - AVAILABLE
+          - UNAVAILABLE
+      required:
+      - contentId
+      - lessonId
+      - type
+      - title
+      - text
+      - resourceUrl
+      - published
+      - availability
+    LessonLearning:
+      type: object
+      additionalProperties: false
+      properties:
+        lesson:
+          $ref: '#/components/schemas/Lesson'
+        vocabulary:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vocabulary'
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningContent'
+        exerciseId:
+          type: string
+          format: uuid
+      required:
+      - lesson
+      - vocabulary
+      - contents
+      - exerciseId
+      description: Published/readiness checks. GET has no LessonCompletion side effect.
+        Unavailable resource item remains explicit.
+    SavedVocabulary:
+      type: object
+      additionalProperties: false
+      properties:
+        vocabularyId:
+          type: string
+          format: uuid
+        addedAt:
+          type: string
+          format: date-time
+          description: RFC3339 UTC; server uses Z suffix.
+        availability:
+          type: string
+          enum:
+          - AVAILABLE
+          - UNAVAILABLE
+        content:
+          type: object
+          additionalProperties: false
+          properties:
+            word:
+              type: string
+              minLength: 1
+              maxLength: 128
+            meaning:
+              type: string
+              minLength: 1
+              maxLength: 500
+            example:
+              type: string
+              minLength: 0
+              maxLength: 1000
+              nullable: true
+            phonetic:
+              type: string
+              minLength: 0
+              maxLength: 128
+              nullable: true
+          required:
+          - word
+          - meaning
+          - example
+          - phonetic
+          nullable: true
+      required:
+      - vocabularyId
+      - addedAt
+      - availability
+      - content
+      description: UNAVAILABLE requires content=null; source unavailable does not
+        delete reference. Resolve only owner saved references, even if parent unpublished.
+    CoursePage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Course'
+        page:
+          type: integer
+          minimum: 0
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements:
+          type: integer
+          minimum: 0
+        totalPages:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    LevelPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Level'
+        page:
+          type: integer
+          minimum: 0
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements:
+          type: integer
+          minimum: 0
+        totalPages:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    ModulePage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Module'
+        page:
+          type: integer
+          minimum: 0
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements:
+          type: integer
+          minimum: 0
+        totalPages:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    LessonPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Lesson'
+        page:
+          type: integer
+          minimum: 0
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements:
+          type: integer
+          minimum: 0
+        totalPages:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    VocabularyPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vocabulary'
+        page:
+          type: integer
+          minimum: 0
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements:
+          type: integer
+          minimum: 0
+        totalPages:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    LearningContentPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningContent'
+        page:
+          type: integer
+          minimum: 0
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements:
+          type: integer
+          minimum: 0
+        totalPages:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    SavedVocabularyPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SavedVocabulary'
+        page:
+          type: integer
+          minimum: 0
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements:
+          type: integer
+          minimum: 0
+        totalPages:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    Option:
+      type: object
+      additionalProperties: false
+      properties:
+        optionId:
+          type: string
+          format: uuid
+        text:
+          type: string
+          minLength: 1
+          maxLength: 1000
+      required:
+      - optionId
+      - text
+    SingleChoiceWrite:
+      type: object
+      additionalProperties: false
+      properties:
+        questionType:
+          type: string
+          enum:
+          - SINGLE_CHOICE
+        content:
+          type: string
+          minLength: 1
+          maxLength: 20000
+        points:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+          minItems: 2
+          maxItems: 6
+        correctOptionId:
+          type: string
+          format: uuid
+      required:
+      - questionType
+      - content
+      - points
+      - options
+      - correctOptionId
+      description: Option IDs unique; correctOptionId must be one of options. Exact
+        one correct option.
+    TrueFalseWrite:
+      type: object
+      additionalProperties: false
+      properties:
+        questionType:
+          type: string
+          enum:
+          - TRUE_FALSE
+        content:
+          type: string
+          minLength: 1
+          maxLength: 20000
+        points:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+        correctAnswer:
+          type: boolean
+      required:
+      - questionType
+      - content
+      - points
+      - correctAnswer
+    QuestionWrite:
+      oneOf:
+      - $ref: '#/components/schemas/SingleChoiceWrite'
+      - $ref: '#/components/schemas/TrueFalseWrite'
+    SingleChoiceQuestion:
+      type: object
+      additionalProperties: false
+      properties:
+        questionId:
+          type: string
+          format: uuid
+        questionType:
+          type: string
+          enum:
+          - SINGLE_CHOICE
+        content:
+          type: string
+          minLength: 1
+          maxLength: 20000
+        points:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+          minItems: 2
+          maxItems: 6
+        correctOptionId:
+          type: string
+          format: uuid
+      required:
+      - questionId
+      - questionType
+      - content
+      - points
+      - options
+      - correctOptionId
+    TrueFalseQuestion:
+      type: object
+      additionalProperties: false
+      properties:
+        questionId:
+          type: string
+          format: uuid
+        questionType:
+          type: string
+          enum:
+          - TRUE_FALSE
+        content:
+          type: string
+          minLength: 1
+          maxLength: 20000
+        points:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+        correctAnswer:
+          type: boolean
+      required:
+      - questionId
+      - questionType
+      - content
+      - points
+      - correctAnswer
+    AdminQuestion:
+      oneOf:
+      - $ref: '#/components/schemas/SingleChoiceQuestion'
+      - $ref: '#/components/schemas/TrueFalseQuestion'
+    SingleChoicePublic:
+      type: object
+      additionalProperties: false
+      properties:
+        questionId:
+          type: string
+          format: uuid
+        questionType:
+          type: string
+          enum:
+          - SINGLE_CHOICE
+        content:
+          type: string
+          minLength: 1
+          maxLength: 20000
+        points:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+          minItems: 2
+          maxItems: 6
+      required:
+      - questionId
+      - questionType
+      - content
+      - points
+      - options
+    TrueFalsePublic:
+      type: object
+      additionalProperties: false
+      properties:
+        questionId:
+          type: string
+          format: uuid
+        questionType:
+          type: string
+          enum:
+          - TRUE_FALSE
+        content:
+          type: string
+          minLength: 1
+          maxLength: 20000
+        points:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+      required:
+      - questionId
+      - questionType
+      - content
+      - points
+    PublicQuestion:
+      oneOf:
+      - $ref: '#/components/schemas/SingleChoicePublic'
+      - $ref: '#/components/schemas/TrueFalsePublic'
+    AssessmentCreate:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          enum:
+          - EXERCISE
+          - QUIZ
+          - TEST
+        courseId:
+          type: string
+          format: uuid
+        lessonId:
+          type: string
+          format: uuid
+          nullable: true
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        timeLimitSeconds:
+          type: integer
+          minimum: 1
+          nullable: true
+      required:
+      - type
+      - courseId
+      - lessonId
+      - title
+      - timeLimitSeconds
+      description: EXERCISE requires lessonId and null time limit. QUIZ/TEST require
+        positive timeLimitSeconds, no default. courseId derives/validates against
+        Lesson if provided. Create draft; question configuration separate.
+    AssessmentPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        timeLimitSeconds:
+          type: integer
+          minimum: 1
+          nullable: true
+        ready:
+          type: boolean
+      description: No type/course/lesson reparenting. ready=true requires questions/answer
+        key and valid time configuration; ready=false stops new attempts, keeps old
+        snapshots.
+      minProperties: 1
+    Assessment:
+      type: object
+      additionalProperties: false
+      properties:
+        assessmentId:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum:
+          - EXERCISE
+          - QUIZ
+          - TEST
+        courseId:
+          type: string
+          format: uuid
+        lessonId:
+          type: string
+          format: uuid
+          nullable: true
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        timeLimitSeconds:
+          type: integer
+          minimum: 1
+          nullable: true
+        ready:
+          type: boolean
+        questionCount:
+          type: integer
+          minimum: 0
+      required:
+      - assessmentId
+      - type
+      - courseId
+      - lessonId
+      - title
+      - timeLimitSeconds
+      - ready
+      - questionCount
+    AssessmentDetail:
+      type: object
+      additionalProperties: false
+      properties:
+        assessmentId:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum:
+          - EXERCISE
+          - QUIZ
+          - TEST
+        courseId:
+          type: string
+          format: uuid
+        lessonId:
+          type: string
+          format: uuid
+          nullable: true
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        timeLimitSeconds:
+          type: integer
+          minimum: 1
+          nullable: true
+        ready:
+          type: boolean
+        questionCount:
+          type: integer
+          minimum: 0
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminQuestion'
+      required:
+      - assessmentId
+      - type
+      - courseId
+      - lessonId
+      - title
+      - timeLimitSeconds
+      - ready
+      - questionCount
+      - questions
+    AssessmentPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Assessment'
+        page:
+          type: integer
+          minimum: 0
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements:
+          type: integer
+          minimum: 0
+        totalPages:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    AnswerSingleChoice:
+      type: object
+      additionalProperties: false
+      properties:
+        questionId:
+          type: string
+          format: uuid
+        questionType:
+          type: string
+          enum:
+          - SINGLE_CHOICE
+        optionId:
+          type: string
+          format: uuid
+      required:
+      - questionId
+      - questionType
+      - optionId
+    AnswerTrueFalse:
+      type: object
+      additionalProperties: false
+      properties:
+        questionId:
+          type: string
+          format: uuid
+        questionType:
+          type: string
+          enum:
+          - TRUE_FALSE
+        value:
+          type: boolean
+      required:
+      - questionId
+      - questionType
+      - value
+    Answer:
+      oneOf:
+      - $ref: '#/components/schemas/AnswerSingleChoice'
+      - $ref: '#/components/schemas/AnswerTrueFalse'
+    AnswersWrite:
+      type: object
+      additionalProperties: false
+      properties:
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Answer'
+      required:
+      - answers
+      description: Full replacement of received answers, not merge. Missing question
+        = unanswered. Unique questionId; must belong to attempt snapshot. Empty list
+        clears answers before deadline.
+    Result:
+      type: object
+      additionalProperties: false
+      properties:
+        resultId:
+          type: string
+          format: uuid
+        submissionId:
+          type: string
+          format: uuid
+        assessmentId:
+          type: string
+          format: uuid
+        assessmentType:
+          type: string
+          enum:
+          - EXERCISE
+          - QUIZ
+          - TEST
+        courseId:
+          type: string
+          format: uuid
+        levelIdAtStart:
+          type: string
+          format: uuid
+        lessonId:
+          type: string
+          format: uuid
+          nullable: true
+        status:
+          type: string
+          enum:
+          - SUBMITTED
+          - TIMEOUT
+        earnedPoints:
+          type: number
+          minimum: 0
+        maxPoints:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+        scorePercent:
+          type: number
+          minimum: 0
+          maximum: 100
+        completedAt:
+          type: string
+          format: date-time
+          description: RFC3339 UTC; server uses Z suffix.
+        progressSync:
+          type: string
+          enum:
+          - EVENTUAL
+      required:
+      - resultId
+      - submissionId
+      - assessmentId
+      - assessmentType
+      - courseId
+      - levelIdAtStart
+      - lessonId
+      - status
+      - earnedPoints
+      - maxPoints
+      - scorePercent
+      - completedAt
+      - progressSync
+      description: Owner is authenticated Learner; scorePercent rounded half-up to
+        two decimals in DTO, grading uses unrounded points. Quiz/Test never complete
+        Lesson; zero-score valid Exercise does.
+    Attempt:
+      type: object
+      additionalProperties: false
+      properties:
+        attemptId:
+          type: string
+          format: uuid
+        assessmentId:
+          type: string
+          format: uuid
+        courseId:
+          type: string
+          format: uuid
+        levelIdAtStart:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+          - IN_PROGRESS
+          - SUBMITTED
+          - TIMEOUT
+        startedAt:
+          type: string
+          format: date-time
+          description: RFC3339 UTC; server uses Z suffix.
+        deadlineAt:
+          type: string
+          format: date-time
+          description: RFC3339 UTC; server uses Z suffix.
+          nullable: true
+        serverNow:
+          type: string
+          format: date-time
+          description: RFC3339 UTC; server uses Z suffix.
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicQuestion'
+          minItems: 1
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Answer'
+        result:
+          type: object
+          additionalProperties: false
+          properties:
+            resultId:
+              type: string
+              format: uuid
+            submissionId:
+              type: string
+              format: uuid
+            assessmentId:
+              type: string
+              format: uuid
+            assessmentType:
+              type: string
+              enum:
+              - EXERCISE
+              - QUIZ
+              - TEST
+            courseId:
+              type: string
+              format: uuid
+            levelIdAtStart:
+              type: string
+              format: uuid
+            lessonId:
+              type: string
+              format: uuid
+              nullable: true
+            status:
+              type: string
+              enum:
+              - SUBMITTED
+              - TIMEOUT
+            earnedPoints:
+              type: number
+              minimum: 0
+            maxPoints:
+              type: number
+              minimum: 0
+              exclusiveMinimum: true
+            scorePercent:
+              type: number
+              minimum: 0
+              maximum: 100
+            completedAt:
+              type: string
+              format: date-time
+              description: RFC3339 UTC; server uses Z suffix.
+            progressSync:
+              type: string
+              enum:
+              - EVENTUAL
+          required:
+          - resultId
+          - submissionId
+          - assessmentId
+          - assessmentType
+          - courseId
+          - levelIdAtStart
+          - lessonId
+          - status
+          - earnedPoints
+          - maxPoints
+          - scorePercent
+          - completedAt
+          - progressSync
+          description: Owner is authenticated Learner; scorePercent rounded half-up
+            to two decimals in DTO, grading uses unrounded points. Quiz/Test never
+            complete Lesson; zero-score valid Exercise does.
+          nullable: true
+      required:
+      - attemptId
+      - assessmentId
+      - courseId
+      - levelIdAtStart
+      - status
+      - startedAt
+      - deadlineAt
+      - serverNow
+      - questions
+      - answers
+      - result
+      description: attemptId maps to submission_id; snapshot persists. Terminal attempt
+        result non-null; in-progress null. No answer keys returned.
+    AttemptPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attempt'
+        page:
+          type: integer
+          minimum: 0
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements:
+          type: integer
+          minimum: 0
+        totalPages:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    ResultPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+        page:
+          type: integer
+          minimum: 0
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements:
+          type: integer
+          minimum: 0
+        totalPages:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    Progress:
+      type: object
+      additionalProperties: false
+      properties:
+        courseId:
+          type: string
+          format: uuid
+        completedLessons:
+          type: integer
+          minimum: 0
+        totalLessons:
+          type: integer
+          minimum: 0
+        progressPercent:
+          type: number
+          minimum: 0
+          maximum: 100
+          nullable: true
+        generatedAt:
+          type: string
+          format: date-time
+          description: RFC3339 UTC; server uses Z suffix.
+        syncState:
+          type: string
+          enum:
+          - EVENTUAL
+      required:
+      - courseId
+      - completedLessons
+      - totalLessons
+      - progressPercent
+      - generatedAt
+      - syncState
+      description: All persisted Lessons in Course, including unpublished. totalLessons=0
+        => progressPercent=null; never divide by zero.
+    HistoryEntry:
+      type: object
+      additionalProperties: false
+      properties:
+        historyId:
+          type: string
+          format: uuid
+        assessmentId:
+          type: string
+          format: uuid
+        assessmentType:
+          type: string
+          enum:
+          - EXERCISE
+          - QUIZ
+          - TEST
+        submissionId:
+          type: string
+          format: uuid
+        resultId:
+          type: string
+          format: uuid
+        courseId:
+          type: string
+          format: uuid
+        levelIdAtStart:
+          type: string
+          format: uuid
+        lessonId:
+          type: string
+          format: uuid
+          nullable: true
+        earnedPoints:
+          type: number
+          minimum: 0
+        maxPoints:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+        scorePercent:
+          type: number
+          minimum: 0
+          maximum: 100
+        completedAt:
+          type: string
+          format: date-time
+          description: RFC3339 UTC; server uses Z suffix.
+      required:
+      - historyId
+      - assessmentId
+      - assessmentType
+      - submissionId
+      - resultId
+      - courseId
+      - levelIdAtStart
+      - lessonId
+      - earnedPoints
+      - maxPoints
+      - scorePercent
+      - completedAt
+    HistoryPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoryEntry'
+        page:
+          type: integer
+          minimum: 0
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements:
+          type: integer
+          minimum: 0
+        totalPages:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    Dashboard:
+      type: object
+      additionalProperties: false
+      properties:
+        setup:
+          $ref: '#/components/schemas/Setup'
+        progress:
+          type: object
+          additionalProperties: false
+          properties:
+            courseId:
+              type: string
+              format: uuid
+            completedLessons:
+              type: integer
+              minimum: 0
+            totalLessons:
+              type: integer
+              minimum: 0
+            progressPercent:
+              type: number
+              minimum: 0
+              maximum: 100
+              nullable: true
+            generatedAt:
+              type: string
+              format: date-time
+              description: RFC3339 UTC; server uses Z suffix.
+            syncState:
+              type: string
+              enum:
+              - EVENTUAL
+          required:
+          - courseId
+          - completedLessons
+          - totalLessons
+          - progressPercent
+          - generatedAt
+          - syncState
+          description: All persisted Lessons in Course, including unpublished. totalLessons=0
+            => progressPercent=null; never divide by zero.
+          nullable: true
+        recentHistory:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoryEntry'
+          maxItems: 5
+        generatedAt:
+          type: string
+          format: date-time
+          description: RFC3339 UTC; server uses Z suffix.
+        syncState:
+          type: string
+          enum:
+          - EVENTUAL
+      required:
+      - setup
+      - progress
+      - recentHistory
+      - generatedAt
+      - syncState
+      description: Progress orchestrates User setup and own history; no setup => progress=null.
+        Required source down => 503, never fake zero.
+    CourseStatistics:
+      type: object
+      additionalProperties: false
+      properties:
+        courseId:
+          type: string
+          format: uuid
+        levelId:
+          type: string
+          format: uuid
+          nullable: true
+        currentLearnerCount:
+          type: integer
+          minimum: 0
+        averageProgressPercent:
+          type: number
+          minimum: 0
+          maximum: 100
+          nullable: true
+        completedLessonCount:
+          type: integer
+          minimum: 0
+        attemptCounts:
+          type: object
+          additionalProperties: false
+          properties:
+            EXERCISE:
+              type: integer
+              minimum: 0
+            QUIZ:
+              type: integer
+              minimum: 0
+            TEST:
+              type: integer
+              minimum: 0
+          required:
+          - EXERCISE
+          - QUIZ
+          - TEST
+        averageQuizTestScorePercent:
+          type: number
+          minimum: 0
+          maximum: 100
+          nullable: true
+      required:
+      - courseId
+      - levelId
+      - currentLearnerCount
+      - averageProgressPercent
+      - completedLessonCount
+      - attemptCounts
+      - averageQuizTestScorePercent
+    Statistics:
+      type: object
+      additionalProperties: false
+      properties:
+        totalLearners:
+          type: integer
+          minimum: 0
+        courses:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseStatistics'
+        generatedAt:
+          type: string
+          format: date-time
+          description: RFC3339 UTC; server uses Z suffix.
+        syncState:
+          type: string
+          enum:
+          - EVENTUAL
+      required:
+      - totalLearners
+      - courses
+      - generatedAt
+      - syncState
+      description: Six metric families DD-11. totalLearners global; cohorts current
+        Course/Level; completions first-completion snapshot; all Result attempts start
+        snapshot. No time filter. Average without denominator null.
+    ImportIssue:
+      type: object
+      additionalProperties: false
+      properties:
+        row:
+          type: integer
+          minimum: 1
+          nullable: true
+        paragraph:
+          type: integer
+          minimum: 1
+          nullable: true
+        field:
+          type: string
+          minLength: 1
+          maxLength: 100
+        code:
+          type: string
+          minLength: 1
+          maxLength: 100
+        message:
+          type: string
+          minLength: 1
+          maxLength: 500
+      required:
+      - row
+      - paragraph
+      - field
+      - code
+      - message
+    ImportOutcome:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - REJECTED
+        totalItems:
+          type: integer
+          minimum: 0
+          nullable: true
+        validCount:
+          type: integer
+          minimum: 0
+          nullable: true
+        invalidCount:
+          type: integer
+          minimum: 0
+          nullable: true
+        createdCount:
+          type: integer
+          minimum: 0
+        createdIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImportIssue'
+      required:
+      - status
+      - totalItems
+      - validCount
+      - invalidCount
+      - createdCount
+      - createdIds
+      - errors
+      description: 'Atomic per file. REJECTED => createdCount=0, createdIds=[]. Parseable:
+        validCount+invalidCount=totalItems, distinct item counts. Container not parseable
+        => counts=null. Locations 1-based; Excel includes header row in physical row
+        index.'
+      example:
+        status: SUCCESS
+        totalItems: 2
+        validCount: 2
+        invalidCount: 0
+        createdCount: 2
+        createdIds:
+        - 10000000-0000-4000-8000-000000000011
+        - 10000000-0000-4000-8000-000000000012
+        errors: []
+    ImportError:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+          minLength: 1
+          maxLength: 100
+        message:
+          type: string
+          minLength: 1
+          maxLength: 500
+        traceId:
+          type: string
+          format: uuid
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldError'
+        import:
+          $ref: '#/components/schemas/ImportOutcome'
+      required:
+      - code
+      - message
+      - traceId
+      - errors
+      - import
+    VocabularyImport:
+      type: object
+      additionalProperties: false
+      properties:
+        file:
+          type: string
+          format: binary
+        lessonId:
+          type: string
+          format: uuid
+      required:
+      - file
+      - lessonId
+    LessonImport:
+      type: object
+      additionalProperties: false
+      properties:
+        file:
+          type: string
+          format: binary
+        moduleId:
+          type: string
+          format: uuid
+        orderNo:
+          type: integer
+          minimum: 1
+      required:
+      - file
+      - moduleId
+      - orderNo
+    SessionCheckRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - token
+      - requestMethod
+      properties:
+        token:
+          type: string
+          minLength: 1
+          writeOnly: true
+        requestMethod:
+          type: string
+          enum:
+          - GET
+          - HEAD
+          - OPTIONS
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        csrfSessionId:
+          type: string
+          nullable: true
+          writeOnly: true
+        csrfToken:
+          type: string
+          nullable: true
+          writeOnly: true
+      description: Unsafe methods require csrfSessionId and csrfToken; session must
+        match JWT jti. Missing requestMethod rejected, not backward compatible.
+    SessionPrincipal:
+      type: object
+      additionalProperties: false
+      properties:
+        userId: *id001
+        role:
+          type: string
+          enum:
+          - LEARNER
+          - ADMIN
+        jti: *id001
+        expiresAt: &id002
+          type: string
+          format: date-time
+        accountStatus:
+          type: string
+          enum:
+          - ACTIVE
+      required:
+      - userId
+      - role
+      - jti
+      - expiresAt
+      - accountStatus
+    CourseContext:
+      type: object
+      additionalProperties: false
+      properties:
+        courseId: *id001
+        published:
+          type: boolean
+        totalLessons: &id003
+          type: integer
+          minimum: 0
+        levels:
+          type: array
+          items:
+            $ref: '#/components/schemas/Level'
+        generatedAt: *id002
+      required:
+      - courseId
+      - published
+      - totalLessons
+      - levels
+      - generatedAt
+    CourseContextPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseContext'
+        page: *id003
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements: *id003
+        generatedAt: *id002
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - generatedAt
+    LessonContext:
+      type: object
+      additionalProperties: false
+      properties:
+        lessonId: *id001
+        moduleId: *id001
+        courseId: *id001
+        visibleToLearner:
+          type: boolean
+      required:
+      - lessonId
+      - moduleId
+      - courseId
+      - visibleToLearner
+    ExerciseReadiness:
+      type: object
+      additionalProperties: false
+      properties:
+        lessonId: *id001
+        ready:
+          type: boolean
+        exerciseId:
+          type: string
+          format: uuid
+          nullable: true
+        questionCount: *id003
+      required:
+      - lessonId
+      - ready
+      - exerciseId
+      - questionCount
+    LearnerCohortItem:
+      type: object
+      additionalProperties: false
+      properties:
+        userId: *id001
+        currentCourseId:
+          type: string
+          format: uuid
+          nullable: true
+        currentLevelId:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+      - userId
+      - currentCourseId
+      - currentLevelId
+    CohortPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearnerCohortItem'
+        page: *id003
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements: *id003
+        totalLearnersGlobal: *id003
+        generatedAt: *id002
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalLearnersGlobal
+      - generatedAt
+    AssessmentMetricRow:
+      type: object
+      additionalProperties: false
+      properties:
+        courseId: *id001
+        levelId:
+          type: string
+          format: uuid
+          nullable: true
+        attemptCounts:
+          type: object
+          additionalProperties: false
+          properties:
+            EXERCISE: *id003
+            QUIZ: *id003
+            TEST: *id003
+          required:
+          - EXERCISE
+          - QUIZ
+          - TEST
+        quizTestScoreSum:
+          type: number
+          minimum: 0
+        quizTestResultCount: *id003
+      required:
+      - courseId
+      - levelId
+      - attemptCounts
+      - quizTestScoreSum
+      - quizTestResultCount
+    AssessmentMetrics:
+      type: object
+      additionalProperties: false
+      properties:
+        courses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssessmentMetricRow'
+        generatedAt: *id002
+      required:
+      - courses
+      - generatedAt
+  responses:
+    '400':
+      description: Malformed input / field validation / unknown fields
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '401':
+      description: Invalid, expired, revoked or missing session
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '403':
+      description: Role/ownership/CSRF denied
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '404':
+      description: Resource missing or hidden to Learner
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '405':
+      description: Method not allowed; forbidden FR-17 DELETE does not mutate data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '409':
+      description: Conflict / not ready / invalid state / uniqueness race
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '413':
+      description: Request or expanded file over configured limit
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '415':
+      description: Unsupported media/file type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '422':
+      description: Parseable import data invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '500':
+      description: Unexpected failure; local transaction rolled back
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '503':
+      description: Session/source dependency unavailable; fail closed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    serviceIdentity:
+      type: http
+      scheme: bearer
+      bearerFormat: ServiceJWT
+      description: 'Dedicated internal service identity (proposed): fixed alg, validated
+        signature/iss/aud/exp/sub service name. Not browser JWT. HTTPS/internal transport
+        and key policy pending Huy.'
+x-contract-status: PROPOSED

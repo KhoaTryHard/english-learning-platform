@@ -1,0 +1,35 @@
+name: group7-api-gateway
+services:
+  api:
+    build:
+      context: .
+    environment:
+      ASSESSMENT_URL: ${ASSESSMENT_URL:-http://assessment.internal:8080}
+      CONTENT_URL: ${CONTENT_URL:-http://content.internal:8082}
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
+      JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
+      PLATFORM_KEYS: /keys
+      PRIVATE_KEY_FILE: /private/api.private.pem
+      SECURE_COOKIES: ${SECURE_COOKIES:-false}
+      SERVICE: api
+      USER_URL: ${USER_URL:-http://user.internal:8081}
+    healthcheck:
+      interval: 10s
+      retries: 20
+      start_period: 20s
+      test:
+      - CMD-SHELL
+      - curl -fsS http://localhost:8080/actuator/health || exit 1
+      timeout: 5s
+    image: group7-api-gateway:${IMAGE_TAG:-local}
+    networks:
+    - backend
+    ports:
+    - ${SERVICE_BIND_ADDRESS:-127.0.0.1}:${SERVICE_PORT:-8080}:8080
+    volumes:
+    - ./.secrets/keys/public:/keys:ro
+    - ./.secrets/keys/api.private.pem:/private/api.private.pem:ro
+volumes: {}
+networks:
+  backend: {}
+secrets: {}
