@@ -73,6 +73,9 @@ public class Imports {
     try (var zip = new ZipInputStream(new ByteArrayInputStream(bytes))) {
       ZipEntry e;
       while ((e = zip.getNextEntry()) != null) {
+        String entryName = e.getName().toLowerCase(Locale.ROOT);
+        if (entryName.contains("vba") || entryName.contains("/embeddings/"))
+          throw fileError(415, "UNSUPPORTED_FILE_TYPE", "Không hỗ trợ macro/embedded object");
         if (++count > 2000
             || e.getName().startsWith("/")
             || e.getName().contains("..")
@@ -266,6 +269,7 @@ public class Imports {
     var errors = new ArrayList<Map<String, Object>>();
     var items = type.equals("vocabulary") ? excel(bytes, errors) : word(files, errors);
     Set<String> keys = new HashSet<>();
+    boolean dbDuplicate = false;
     for (var item : items) {
       var f = item.fields;
       for (var field :
@@ -306,9 +310,11 @@ public class Imports {
                 parent,
                 w,
                 m)
-            > 0)
+            > 0) {
+          dbDuplicate = true;
           errors.add(
               issue(item.location, null, "word", "IMPORT_DUPLICATE", "Từ đã có trong Lesson"));
+        }
       }
       if (type.equals("lessons")
           && f.get("title") != null
@@ -318,7 +324,8 @@ public class Imports {
                   parent,
                   Input.norm(f.get("title").toString()),
                   order)
-              > 0)
+              > 0) {
+        dbDuplicate = true;
         errors.add(
             issue(
                 null,
@@ -326,6 +333,7 @@ public class Imports {
                 "title",
                 "IMPORT_DUPLICATE",
                 "Trùng title/thứ tự trong Module"));
+      }
     }
     if (items.isEmpty())
       errors.add(issue(null, null, "file", "EMPTY_IMPORT", "File không có nội dung"));
@@ -337,12 +345,6 @@ public class Imports {
               .distinct()
               .count();
       int inv = (int) Math.min(invalid, items.size());
-      boolean dbDuplicate =
-          errors.stream()
-              .anyMatch(
-                  x ->
-                      "IMPORT_DUPLICATE".equals(x.get("code"))
-                          && x.get("message").toString().contains("đã có"));
       throw new ApiError(
           dbDuplicate ? 409 : 422,
           dbDuplicate ? "IMPORT_DUPLICATE" : "IMPORT_VALIDATION_FAILED",

@@ -149,6 +149,12 @@ class ContentIntegrationTest {
                 () -> imports.run("lessons", fixture("lesson-missing-title.docx"), module, 3))
             .status);
     assertEquals(2, db.count("SELECT count(*) FROM lesson"));
+    assertEquals(
+        409,
+        assertThrows(
+                ApiError.class,
+                () -> imports.run("lessons", fixture("lesson-valid.docx"), module, 2))
+            .status);
   }
 
   @Test
