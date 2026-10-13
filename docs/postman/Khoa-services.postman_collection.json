@@ -38,7 +38,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/auth/csrf",
+            "url": "{{baseUrl}}/api/v1/auth/csrf",
             "description": "Proposed synchronizer token with short-lived server pre-session; no access JWT required. Return Cache-Control:no-store and HttpOnly pre-session cookie. Rotate/destroy pre-session on login, get new CSRF token for authenticated session. Tokens not in URL/logs; no business data. Login requires configured Origin check as additional defense."
           },
           "event": [
@@ -68,7 +68,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/auth/register",
+            "url": "{{baseUrl}}/api/v1/auth/register",
             "description": "Email trim/lowercase <=254, no dot/+tag stripping. Password code point/UTF-8 byte checks; BCrypt. fullName blank => null. Unknown fields including role =>400. Assign LEARNER; seeded Admin only. No implicit login. 409 REGISTRATION_CONFLICT generic message; transactional account/profile creation.",
             "body": {
               "mode": "raw",
@@ -107,7 +107,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/auth/login",
+            "url": "{{baseUrl}}/api/v1/auth/login",
             "description": "Generic 401 INVALID_CREDENTIALS for absent email, incorrect password or blocked account. Set access_token cookie (HttpOnly; Secure on HTTPS; SameSite=Lax; Path=/api/v1; host-only). 30 minute JWT default environment configurable; no refresh. JSON never returns JWT. Rotate pre-session and CSRF state; fetch /auth/csrf again after successful login.",
             "body": {
               "mode": "raw",
@@ -142,7 +142,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/auth/logout",
+            "url": "{{baseUrl}}/api/v1/auth/logout",
             "description": "Validate CSRF and current JWT. Persist jti/exp in User DB before deleting access_token with identical Path/Domain scope, Max-Age=0. Also invalidate CSRF/pre-session state. Revocation failure =>503/500, never success 204; no refresh token. Strict draft: expired/revoked session =>401 (idempotent repeated logout UX needs reviewer confirmation)."
           },
           "event": [
@@ -168,7 +168,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/me/profile",
+            "url": "{{baseUrl}}/api/v1/me/profile",
             "description": "Identity from authenticated principal. DTO fullName maps LEARNER_PROFILE.display_name. Only fullName writable; null/blank clear name. No arbitrary userId/email/role/status update."
           },
           "event": [
@@ -198,7 +198,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/me/profile",
+            "url": "{{baseUrl}}/api/v1/me/profile",
             "description": "Identity from authenticated principal. DTO fullName maps LEARNER_PROFILE.display_name. Only fullName writable; null/blank clear name. No arbitrary userId/email/role/status update.",
             "body": {
               "mode": "raw",
@@ -233,7 +233,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/me/learning-setup",
+            "url": "{{baseUrl}}/api/v1/me/learning-setup",
             "description": "User-owned currentCourseId/currentLevelId; validate selected Level belongs Course through internal Content API and Course available. Missing setup =>200 with null IDs/timestamp. No Goal, no clearing History/My Vocabulary. New validation dependency fails503 before write. Version/snapshot of setup at attempt start needs Huy review."
           },
           "event": [
@@ -263,7 +263,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/me/learning-setup",
+            "url": "{{baseUrl}}/api/v1/me/learning-setup",
             "description": "User-owned currentCourseId/currentLevelId; validate selected Level belongs Course through internal Content API and Course available. Missing setup =>200 with null IDs/timestamp. No Goal, no clearing History/My Vocabulary. New validation dependency fails503 before write. Version/snapshot of setup at attempt start needs Huy review.",
             "body": {
               "mode": "raw",
@@ -298,7 +298,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/users",
+            "url": "{{baseUrl}}/api/v1/admin/users",
             "description": "Tìm/danh sách User"
           },
           "event": [
@@ -324,7 +324,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/users/{{userId}}",
+            "url": "{{baseUrl}}/api/v1/admin/users/{{userId}}",
             "description": "Xem User"
           },
           "event": [
@@ -354,7 +354,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/users/{{userId}}",
+            "url": "{{baseUrl}}/api/v1/admin/users/{{userId}}",
             "description": "Draft ACTIVE/BLOCKED status vocabulary pending review. Only target LEARNER; no Admin creation/escalation/password reset/delete. BLOCKED denies next protected request through User session check. No ownership bypass from client headers.",
             "body": {
               "mode": "raw",
@@ -394,7 +394,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/courses",
+            "url": "{{baseUrl}}/api/v1/courses",
             "description": "Browsing only published objects whose ancestors are published. Hidden direct ID =>404 CONTENT_UNAVAILABLE. No completion by GET. Level belongs Course; no assumed Level-to-Lesson filter until Huy confirms model. GET Lesson includes ready Exercise external ID; required readiness source failure503, no cross-service DB read."
           },
           "event": [
@@ -420,7 +420,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/courses/{{courseId}}",
+            "url": "{{baseUrl}}/api/v1/courses/{{courseId}}",
             "description": "Browsing only published objects whose ancestors are published. Hidden direct ID =>404 CONTENT_UNAVAILABLE. No completion by GET. Level belongs Course; no assumed Level-to-Lesson filter until Huy confirms model. GET Lesson includes ready Exercise external ID; required readiness source failure503, no cross-service DB read."
           },
           "event": [
@@ -446,7 +446,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/courses/{{courseId}}/levels",
+            "url": "{{baseUrl}}/api/v1/courses/{{courseId}}/levels",
             "description": "Browsing only published objects whose ancestors are published. Hidden direct ID =>404 CONTENT_UNAVAILABLE. No completion by GET. Level belongs Course; no assumed Level-to-Lesson filter until Huy confirms model. GET Lesson includes ready Exercise external ID; required readiness source failure503, no cross-service DB read."
           },
           "event": [
@@ -472,7 +472,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/courses/{{courseId}}/modules",
+            "url": "{{baseUrl}}/api/v1/courses/{{courseId}}/modules",
             "description": "Browsing only published objects whose ancestors are published. Hidden direct ID =>404 CONTENT_UNAVAILABLE. No completion by GET. Level belongs Course; no assumed Level-to-Lesson filter until Huy confirms model. GET Lesson includes ready Exercise external ID; required readiness source failure503, no cross-service DB read."
           },
           "event": [
@@ -498,7 +498,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/modules/{{moduleId}}/lessons",
+            "url": "{{baseUrl}}/api/v1/modules/{{moduleId}}/lessons",
             "description": "Browsing only published objects whose ancestors are published. Hidden direct ID =>404 CONTENT_UNAVAILABLE. No completion by GET. Level belongs Course; no assumed Level-to-Lesson filter until Huy confirms model. GET Lesson includes ready Exercise external ID; required readiness source failure503, no cross-service DB read."
           },
           "event": [
@@ -524,7 +524,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/lessons/{{lessonId}}",
+            "url": "{{baseUrl}}/api/v1/lessons/{{lessonId}}",
             "description": "Browsing only published objects whose ancestors are published. Hidden direct ID =>404 CONTENT_UNAVAILABLE. No completion by GET. Level belongs Course; no assumed Level-to-Lesson filter until Huy confirms model. GET Lesson includes ready Exercise external ID; required readiness source failure503, no cross-service DB read."
           },
           "event": [
@@ -550,7 +550,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/me/vocabulary",
+            "url": "{{baseUrl}}/api/v1/me/vocabulary",
             "description": "Saved-only access to user-owned relation; resolve source even if parent unpublished or current Course changed. Source truly unresolved =>availability UNAVAILABLE/content null; keep relationship. Never permit arbitrary hidden Vocabulary browsing."
           },
           "event": [
@@ -576,7 +576,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/me/vocabulary/{{vocabularyId}}",
+            "url": "{{baseUrl}}/api/v1/me/vocabulary/{{vocabularyId}}",
             "description": "No request body/word creation. New save verifies Vocabulary and ancestors visible; repeat existing save returns same saved state200 without duplicate, even if parent later unpublished. UNIQUE(user_id,vocabulary_id). Content DB only."
           },
           "event": [
@@ -602,7 +602,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/me/vocabulary/{{vocabularyId}}",
+            "url": "{{baseUrl}}/api/v1/me/vocabulary/{{vocabularyId}}",
             "description": "Delete only own reference, never source. Repeat remove =>204. Source unavailable does not prevent removal. Path user identity never accepted from client."
           },
           "event": [
@@ -628,7 +628,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/courses",
+            "url": "{{baseUrl}}/api/v1/admin/courses",
             "description": "Admin sees published and unpublished. Stable order: orderNo then ID for Module/Lesson; ID for Course."
           },
           "event": [
@@ -658,7 +658,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/courses",
+            "url": "{{baseUrl}}/api/v1/admin/courses",
             "description": "Create published=false; validate internal parent, uniqueness of normalized title/name and sibling orderNo (new W3-04 proposal). No write to other DB. No parent mutation after creation in this draft; hierarchy move not specified by W2.",
             "body": {
               "mode": "raw",
@@ -693,7 +693,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/courses/{{courseId}}",
+            "url": "{{baseUrl}}/api/v1/admin/courses/{{courseId}}",
             "description": "Xem Admin course"
           },
           "event": [
@@ -723,7 +723,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/courses/{{courseId}}",
+            "url": "{{baseUrl}}/api/v1/admin/courses/{{courseId}}",
             "description": "No deleted_at/is_deleted, no DELETE operation. published is availability not deletion. Lesson publish requires valid title/body and ready Exercise via Assessment API; unavailable dependency503, not ready409. Keep completion/result/history/saved relations on unpublish. Parent IDs immutable in draft; ordering/title conflicts409.",
             "body": {
               "mode": "raw",
@@ -758,7 +758,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/modules",
+            "url": "{{baseUrl}}/api/v1/admin/modules",
             "description": "Admin sees published and unpublished. Stable order: orderNo then ID for Module/Lesson; ID for Course."
           },
           "event": [
@@ -788,7 +788,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/modules",
+            "url": "{{baseUrl}}/api/v1/admin/modules",
             "description": "Create published=false; validate internal parent, uniqueness of normalized title/name and sibling orderNo (new W3-04 proposal). No write to other DB. No parent mutation after creation in this draft; hierarchy move not specified by W2.",
             "body": {
               "mode": "raw",
@@ -823,7 +823,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/modules/{{moduleId}}",
+            "url": "{{baseUrl}}/api/v1/admin/modules/{{moduleId}}",
             "description": "Xem Admin module"
           },
           "event": [
@@ -853,7 +853,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/modules/{{moduleId}}",
+            "url": "{{baseUrl}}/api/v1/admin/modules/{{moduleId}}",
             "description": "No deleted_at/is_deleted, no DELETE operation. published is availability not deletion. Lesson publish requires valid title/body and ready Exercise via Assessment API; unavailable dependency503, not ready409. Keep completion/result/history/saved relations on unpublish. Parent IDs immutable in draft; ordering/title conflicts409.",
             "body": {
               "mode": "raw",
@@ -888,7 +888,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/lessons",
+            "url": "{{baseUrl}}/api/v1/admin/lessons",
             "description": "Admin sees published and unpublished. Stable order: orderNo then ID for Module/Lesson; ID for Course."
           },
           "event": [
@@ -918,7 +918,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/lessons",
+            "url": "{{baseUrl}}/api/v1/admin/lessons",
             "description": "Create published=false; validate internal parent, uniqueness of normalized title/name and sibling orderNo (new W3-04 proposal). No write to other DB. No parent mutation after creation in this draft; hierarchy move not specified by W2.",
             "body": {
               "mode": "raw",
@@ -953,7 +953,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/lessons/{{lessonId}}",
+            "url": "{{baseUrl}}/api/v1/admin/lessons/{{lessonId}}",
             "description": "Xem Admin lesson"
           },
           "event": [
@@ -983,7 +983,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/lessons/{{lessonId}}",
+            "url": "{{baseUrl}}/api/v1/admin/lessons/{{lessonId}}",
             "description": "No deleted_at/is_deleted, no DELETE operation. published is availability not deletion. Lesson publish requires valid title/body and ready Exercise via Assessment API; unavailable dependency503, not ready409. Keep completion/result/history/saved relations on unpublish. Parent IDs immutable in draft; ordering/title conflicts409.",
             "body": {
               "mode": "raw",
@@ -1018,7 +1018,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/vocabulary",
+            "url": "{{baseUrl}}/api/v1/admin/vocabulary",
             "description": "Danh sách Vocabulary đã import"
           },
           "event": [
@@ -1044,7 +1044,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/vocabulary/{{vocabularyId}}",
+            "url": "{{baseUrl}}/api/v1/admin/vocabulary/{{vocabularyId}}",
             "description": "Xem Vocabulary"
           },
           "event": [
@@ -1074,7 +1074,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/vocabulary/{{vocabularyId}}",
+            "url": "{{baseUrl}}/api/v1/admin/vocabulary/{{vocabularyId}}",
             "description": "Updates visible through My Vocabulary by reference. No manual creation; only Excel import creates Vocabulary. No source delete policy assumed; removal not exposed until explicit review.",
             "body": {
               "mode": "raw",
@@ -1109,7 +1109,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/learning-contents",
+            "url": "{{baseUrl}}/api/v1/admin/learning-contents",
             "description": "Danh sách Grammar/Listening/Reading"
           },
           "event": [
@@ -1139,7 +1139,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/learning-contents",
+            "url": "{{baseUrl}}/api/v1/admin/learning-contents",
             "description": "published=false. Vocabulary excluded. Validate Lesson and content-type required text/resource; HTTPS media only, resource handling/security architecture still pending. No media/file upload expansion.",
             "body": {
               "mode": "raw",
@@ -1174,7 +1174,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/learning-contents/{{contentId}}",
+            "url": "{{baseUrl}}/api/v1/admin/learning-contents/{{contentId}}",
             "description": "Xem learning content"
           },
           "event": [
@@ -1204,7 +1204,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/learning-contents/{{contentId}}",
+            "url": "{{baseUrl}}/api/v1/admin/learning-contents/{{contentId}}",
             "description": "Validate merged record against type. Missing/inaccessible Listening resource must not be presented as valid audio; availability explicit. No Lesson/source reparenting or assumed deletion.",
             "body": {
               "mode": "raw",
@@ -1239,7 +1239,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/imports/vocabulary",
+            "url": "{{baseUrl}}/api/v1/admin/imports/vocabulary",
             "description": "Synchronous atomic file import. Auth/CSRF then target/container/whole file validation before one Content transaction. No skip/update/partial success. Duplicate DB or commit race409 rollback. Validation422, malformed container400, limits413, wrong format415. No business rows on failure; ImportError holds location/counts. Two files are separate transactions. Do not automatically retry after response loss; inspect created records before resending, duplicate returns409.",
             "body": {
               "mode": "formdata",
@@ -1280,7 +1280,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/imports/lessons",
+            "url": "{{baseUrl}}/api/v1/admin/imports/lessons",
             "description": "Synchronous atomic file import. Auth/CSRF then target/container/whole file validation before one Content transaction. No skip/update/partial success. Duplicate DB or commit race409 rollback. Validation422, malformed container400, limits413, wrong format415. No business rows on failure; ImportError holds location/counts. Two files are separate transactions. Do not automatically retry after response loss; inspect created records before resending, duplicate returns409.",
             "body": {
               "mode": "formdata",
@@ -1326,7 +1326,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/import-templates/vocabulary",
+            "url": "{{baseUrl}}/api/v1/admin/import-templates/vocabulary",
             "description": "Return raw .xlsx/.docx template v0.1 with Content-Disposition attachment. Preserve format; no native Google conversion."
           },
           "event": [
@@ -1352,7 +1352,7 @@
                 "value": "{{frontendOrigin}}"
               }
             ],
-            "url": "{{{baseUrl}}}/api/v1/admin/import-templates/lessons",
+            "url": "{{baseUrl}}/api/v1/admin/import-templates/lessons",
             "description": "Return raw .xlsx/.docx template v0.1 with Content-Disposition attachment. Preserve format; no native Google conversion."
           },
           "event": [

@@ -18,4 +18,8 @@ proposal=yaml.safe_load((root/'docs/contracts/internal-v0.1.1-proposal.yaml').re
 request=proposal['components']['schemas']['SessionCheckRequest']
 assert request['required']==['token','requestMethod']
 assert request['additionalProperties'] is False
+collection=json.loads((root/'docs/postman/Khoa-services.postman_collection.json').read_text(encoding='utf-8'))
+requests=[item for folder in collection['item'] for item in folder['item']]
+assert len(requests)==43
+assert all(item['request']['url'].startswith('{{baseUrl}}/api/v1') for item in requests)
 print('Frozen SHA-256 and 43 public owner operations: PASS; internal 0.1.1 is separate')

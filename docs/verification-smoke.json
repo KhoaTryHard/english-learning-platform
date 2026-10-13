@@ -1,0 +1,380 @@
+{
+  "status": "PASS",
+  "publicOperations": 43,
+  "requests": 62,
+  "assessment": "MOCK_ONLY",
+  "checks": [
+    {
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "status": 200,
+      "operation": "getCsrf"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/register",
+      "status": 201,
+      "operation": "register"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "status": 200,
+      "operation": "getCsrf"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "status": 200,
+      "operation": "login"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "status": 200,
+      "operation": "getCsrf"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/me/profile",
+      "status": 200,
+      "operation": "getMyProfile"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/me/profile",
+      "status": 200,
+      "operation": "patchMyProfile"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/me/learning-setup",
+      "status": 200,
+      "operation": "getLearningSetup"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "status": 200,
+      "operation": "getCsrf"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "status": 200,
+      "operation": "login"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "status": 200,
+      "operation": "getCsrf"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/users",
+      "status": 200,
+      "operation": "listUsers"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/users/31982304-48a8-4c72-a1f7-eea46609aa72",
+      "status": 200,
+      "operation": "getUser"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/admin/users/31982304-48a8-4c72-a1f7-eea46609aa72",
+      "status": 200,
+      "operation": "patchUser"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/courses",
+      "status": 201,
+      "operation": "createCourse"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/courses",
+      "status": 200,
+      "operation": "adminListCourses"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/courses/5a0468ac-e332-4bfb-9909-ec9354fa188e",
+      "status": 200,
+      "operation": "adminGetCourse"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/admin/courses/5a0468ac-e332-4bfb-9909-ec9354fa188e",
+      "status": 200,
+      "operation": "patchCourse"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/admin/courses/10000000-0000-4000-8000-000000000001",
+      "status": 200,
+      "operation": "patchCourse"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/modules",
+      "status": 201,
+      "operation": "createModule"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/modules",
+      "status": 200,
+      "operation": "adminListModules"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/modules/4955e729-61ce-4672-87aa-daa710e46436",
+      "status": 200,
+      "operation": "adminGetModule"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/admin/modules/4955e729-61ce-4672-87aa-daa710e46436",
+      "status": 200,
+      "operation": "patchModule"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/lessons",
+      "status": 201,
+      "operation": "createLesson"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/lessons",
+      "status": 200,
+      "operation": "adminListLessons"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/lessons/0149ba55-521a-405f-ab82-cb78faa8f2dc",
+      "status": 200,
+      "operation": "adminGetLesson"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/admin/lessons/0149ba55-521a-405f-ab82-cb78faa8f2dc",
+      "status": 200,
+      "operation": "patchLesson"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/imports/vocabulary",
+      "status": 201,
+      "operation": "importVocabulary"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/vocabulary",
+      "status": 200,
+      "operation": "adminListVocabulary"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/vocabulary/5b183926-38af-44f4-a711-ac6600cea08d",
+      "status": 200,
+      "operation": "adminGetVocabulary"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/admin/vocabulary/5b183926-38af-44f4-a711-ac6600cea08d",
+      "status": 200,
+      "operation": "patchVocabulary"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/learning-contents",
+      "status": 201,
+      "operation": "createLearningContent"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/learning-contents",
+      "status": 200,
+      "operation": "adminListLearningContent"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/learning-contents/724d1eba-cce0-4cb4-84d7-754049eaaf38",
+      "status": 200,
+      "operation": "adminGetLearningContent"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/admin/learning-contents/724d1eba-cce0-4cb4-84d7-754049eaaf38",
+      "status": 200,
+      "operation": "patchLearningContent"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/imports/lessons",
+      "status": 201,
+      "operation": "importLessons"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/imports/lessons",
+      "status": 422,
+      "operation": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/import-templates/vocabulary",
+      "status": 200,
+      "operation": "getTemplateVocabulary"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/import-templates/lessons",
+      "status": 200,
+      "operation": "getTemplateLessons"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/me/learning-setup",
+      "status": 200,
+      "operation": "putLearningSetup"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/courses",
+      "status": 200,
+      "operation": "listCourses"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/courses/10000000-0000-4000-8000-000000000001",
+      "status": 200,
+      "operation": "getCourse"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/courses/10000000-0000-4000-8000-000000000001/levels",
+      "status": 200,
+      "operation": "listLevels"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/courses/10000000-0000-4000-8000-000000000001/modules",
+      "status": 200,
+      "operation": "listModules"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/modules/4955e729-61ce-4672-87aa-daa710e46436/lessons",
+      "status": 200,
+      "operation": "listLessons"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/lessons/0149ba55-521a-405f-ab82-cb78faa8f2dc",
+      "status": 200,
+      "operation": "getLessonLearning"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/me/vocabulary/5b183926-38af-44f4-a711-ac6600cea08d",
+      "status": 200,
+      "operation": "saveVocabulary"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/me/vocabulary/5b183926-38af-44f4-a711-ac6600cea08d",
+      "status": 200,
+      "operation": "saveVocabulary"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/me/vocabulary",
+      "status": 200,
+      "operation": "listSavedVocabulary"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/admin/courses/10000000-0000-4000-8000-000000000001",
+      "status": 200,
+      "operation": "patchCourse"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/me/vocabulary/5b183926-38af-44f4-a711-ac6600cea08d",
+      "status": 200,
+      "operation": "saveVocabulary"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/me/vocabulary",
+      "status": 200,
+      "operation": "listSavedVocabulary"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/admin/vocabulary/5b183926-38af-44f4-a711-ac6600cea08d",
+      "status": 200,
+      "operation": "patchVocabulary"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/me/vocabulary",
+      "status": 200,
+      "operation": "listSavedVocabulary"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/me/vocabulary/5b183926-38af-44f4-a711-ac6600cea08d",
+      "status": 204,
+      "operation": "removeVocabulary"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/me/vocabulary/5b183926-38af-44f4-a711-ac6600cea08d",
+      "status": 204,
+      "operation": "removeVocabulary"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/v1/courses/contexts",
+      "status": 404,
+      "operation": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/admin/courses/10000000-0000-4000-8000-000000000001",
+      "status": 405,
+      "operation": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/users",
+      "status": 403,
+      "operation": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/me/profile",
+      "status": 403,
+      "operation": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/logout",
+      "status": 204,
+      "operation": "logout"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/me/profile",
+      "status": 401,
+      "operation": null
+    }
+  ]
+}

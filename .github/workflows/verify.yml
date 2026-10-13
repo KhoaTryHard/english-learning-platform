@@ -28,7 +28,8 @@ jobs:
         with:
           name: test-reports
           path: |
-            backend/**/target/surefire-reports/
+            backend/**/target/surefire-reports/*
+            docs/verification-junit.json
             docs/verification-smoke.json
             docs/verification-operations.json
             compose.log
