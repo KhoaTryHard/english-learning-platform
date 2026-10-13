@@ -16,18 +16,30 @@ import org.springframework.stereotype.Component;
 public class TokenCodec {
   private final Path root;
   private final String self;
+  private final Path privateKey;
   private static final Set<String> SERVICES =
       Set.of("api", "user", "content", "assessment", "progress");
 
+  @org.springframework.beans.factory.annotation.Autowired
   public TokenCodec(
-      @Value("${platform.keys}") String keys, @Value("${platform.service}") String service) {
+      @Value("${platform.keys}") String keys,
+      @Value("${platform.service}") String service,
+      @Value("${platform.private-key:}") String configuredPrivateKey) {
     root = Path.of(keys);
     self = service;
+    privateKey =
+        configuredPrivateKey == null || configuredPrivateKey.isBlank()
+            ? root.resolve(self + ".private.pem")
+            : Path.of(configuredPrivateKey);
+  }
+
+  public TokenCodec(String keys, String service) {
+    this(keys, service, "");
   }
 
   private byte[] pem(String name) throws Exception {
-    return Base64.getMimeDecoder()
-        .decode(Files.readString(root.resolve(name)).replaceAll("-----[^-]+-----", ""));
+    Path file = name.equals(self + ".private.pem") ? privateKey : root.resolve(name);
+    return Base64.getMimeDecoder().decode(Files.readString(file).replaceAll("-----[^-]+-----", ""));
   }
 
   public String sign(String kind, String audience, Map<String, Object> values, Instant expiry) {

@@ -61,9 +61,10 @@ services:
       MIGRATE: 'true'
       PLATFORM_MODE: migrate
       JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
+      PRIVATE_KEY_FILE: /private/user.private.pem
     volumes: &id002
     - ./.secrets/keys/public:/keys:ro
-    - ./.secrets/keys/user.private.pem:/keys/user.private.pem:ro
+    - ./.secrets/keys/user.private.pem:/private/user.private.pem:ro
     networks: &id003
     - backend
     - user-data
@@ -87,6 +88,7 @@ services:
       DB_USER: user_runtime
       DB_PASSWORD_FILE: /run/secrets/user_runtime
       JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
+      PRIVATE_KEY_FILE: /private/user.private.pem
     volumes: *id002
     networks: *id003
     healthcheck:
@@ -121,9 +123,10 @@ services:
       MIGRATE: 'true'
       PLATFORM_MODE: migrate
       JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
+      PRIVATE_KEY_FILE: /private/content.private.pem
     volumes: &id005
     - ./.secrets/keys/public:/keys:ro
-    - ./.secrets/keys/content.private.pem:/keys/content.private.pem:ro
+    - ./.secrets/keys/content.private.pem:/private/content.private.pem:ro
     networks: &id006
     - backend
     - content-data
@@ -148,6 +151,7 @@ services:
       DB_PASSWORD_FILE: /run/secrets/content_runtime
       MEDIA_HOSTS: ${MEDIA_HOSTS:-}
       JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
+      PRIVATE_KEY_FILE: /private/content.private.pem
     volumes: *id005
     networks: *id006
     healthcheck:
@@ -176,9 +180,10 @@ services:
       FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
       SECURE_COOKIES: ${SECURE_COOKIES:-false}
       JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
+      PRIVATE_KEY_FILE: /private/api.private.pem
     volumes:
     - ./.secrets/keys/public:/keys:ro
-    - ./.secrets/keys/api.private.pem:/keys/api.private.pem:ro
+    - ./.secrets/keys/api.private.pem:/private/api.private.pem:ro
     networks:
     - backend
     healthcheck:
@@ -222,6 +227,7 @@ services:
       ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@example.com}
       ADMIN_PASSWORD_FILE: /run/secrets/admin_password
       JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
+      PRIVATE_KEY_FILE: /private/user.private.pem
     volumes: *id002
     networks: *id003
     secrets:
@@ -248,9 +254,10 @@ services:
       PLATFORM_MODE: seed
       SEED_FILE: /seed/course-levels.json
       JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
+      PRIVATE_KEY_FILE: /private/content.private.pem
     volumes:
     - ./.secrets/keys/public:/keys:ro
-    - ./.secrets/keys/content.private.pem:/keys/content.private.pem:ro
+    - ./.secrets/keys/content.private.pem:/private/content.private.pem:ro
     - ./database/demo:/seed:ro
     networks: *id006
     secrets: *id008
