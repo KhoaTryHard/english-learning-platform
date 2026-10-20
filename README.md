@@ -16,7 +16,7 @@ Web học tiếng Anh MVP của Nhóm 7. Monorepo gồm React responsive và Jav
 |---|---|
 | Lê Tiến Hưng — @LeTHung | PM, toàn bộ frontend desktop/mobile responsive |
 | Nguyễn Đăng Khoa — @KhoaTryHard | Gateway, User, Learning Content |
-| Nguyễn Quang Huy — username chờ xác minh | Assessment, Progress, Kafka; Architecture/Data |
+| Nguyễn Quang Huy — @Huy1188 | Assessment, Progress, Kafka; Architecture/Data |
 
 Code User/Content/Gateway hiện nằm ở PR #1 (Draft, chưa merge lúc đối chiếu 20/10/2026). Scaffold không thay thế code đó. Tích hợp theo migration-plan, giữ DB/data và kiểm tra lại CI.
 
