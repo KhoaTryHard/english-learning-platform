@@ -41,7 +41,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-`check`: lint, 14 unit/UI tests, typecheck/build, kiểm tra hash approved contract và loại demo khỏi production. Browser suite mặc định là **MOCK**, desktop/mobile. Từ 27/10/2026 không dùng CI/CD: chạy các lệnh trên thủ công, giữ screenshot/report/trace trong `playwright-report/` và `test-results/`, ghi kết quả cùng SHA/môi trường trong PR. Report chứa dữ liệu tài khoản thử cần được kiểm tra trước khi chia sẻ.
+`check`: lint, 22 unit/UI tests (gồm 8 negative Lesson UI cases bổ sung ngày 27/10), typecheck/build, kiểm tra hash approved contract và loại demo khỏi production. Browser suite mặc định là **MOCK**, desktop/mobile. Từ 27/10/2026 không dùng CI/CD: chạy các lệnh trên thủ công, giữ screenshot/report/trace trong `playwright-report/` và `test-results/`, ghi kết quả cùng SHA/môi trường trong PR. Report chứa dữ liệu tài khoản thử cần được kiểm tra trước khi chia sẻ.
 
 Suite thật yêu cầu provision User/Content/Gateway, DB và nội dung công bố trước:
 

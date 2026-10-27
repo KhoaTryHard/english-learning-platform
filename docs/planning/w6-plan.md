@@ -1,5 +1,7 @@
 # W6 — 26/10–01/11/2026, kế hoạch cập nhật 27/10
 
+[Checkpoint code/test/issue của Hưng ngày 27/10](../evidence/w6-hung-checkpoint-2026-10-27.md): frontend có code và self-QA; peer review/real integration vẫn mở, không coi kế hoạch dưới đây là biên bản đã nghiệm thu xong tuần.
+
 Lê Tiến Hưng yêu cầu phân đủ development W5–W8. [Kế hoạch tổng](w5-w8-plan.md) và [manifest issue](w5-w8-issues.json) thay cách ghi Backlog W6+ trước đây. [Milestone W6](https://github.com/KhoaTryHard/english-learning-platform/milestone/1).
 
 ## Mục tiêu W6
@@ -30,7 +32,7 @@ PR frontend #22 vẫn base chore/monorepo-structure-task-plan. Review/merge #18 
 ## Test, DoD và capacity
 
 - Kiểm thử thủ công: npm run check, browser MOCK/LIVE và backend owner test commands theo phạm vi; CI/CD đã bỏ, hai workflow vẫn tắt.
-- Mỗi PASS ghi SHA/env/seed/command/expected/actual/log/ảnh; mock readiness và API thật tách rõ. Code đã có 14 unit/UI + 6 MOCK + 2 LIVE first-slice không tự chứng minh Assessment/Kafka/Progress.
+- Mỗi PASS ghi SHA/env/seed/command/expected/actual/log/ảnh; mock readiness và API thật tách rõ. Checkpoint mới có 22 unit/UI PASS; 6 browser MOCK + 2 LIVE first-slice là evidence trước checkpoint, không tự chứng minh Assessment/Kafka/Progress.
 - Dấu hoàn thành phần code/test giữ nguyên; đóng task khi đủ scope AC và peer review/acceptance. Parent hoàn tất sau đủ children/related AC.
 - Huy 23h là điểm nghẽn; review capacity và tiến độ tại #26 (triage sớm nếu không đạt #20/#42/#25). Thiếu giờ phải replan và nêu ảnh hưởng W7/W8, không tự bỏ AC hoặc fake Done.
 
