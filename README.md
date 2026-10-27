@@ -17,6 +17,7 @@ Web học tiếng Anh MVP của Nhóm 7. Monorepo gồm React responsive và Jav
 ## Bắt đầu
 - [Cây thư mục và quyết định tổ chức](docs/architecture/repository-layout.md)
 - [Phân công và task GitHub](docs/planning/task-index.md)
+- [Kế hoạch đầy đủ W5–W8 và workload](docs/planning/w5-w8-plan.md)
 - [Quy trình làm việc](CONTRIBUTING.md)
 - [Kế hoạch chuyển code đang có](docs/architecture/migration-plan.md)
 - [Nguồn yêu cầu/thiết kế](docs/references.md)
