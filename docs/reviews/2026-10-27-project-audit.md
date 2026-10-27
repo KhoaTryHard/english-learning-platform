@@ -1,5 +1,7 @@
 # Rà soát dự án — 27/10/2026 (Asia/Saigon)
 
+**Cập nhật sau audit:** theo yêu cầu Hưng, đã bỏ CI/CD và sửa trực tiếp 23 tài liệu Drive; W5 Evidence/Review đã có actual ngày 27/10. Xem [kết quả đồng bộ và rà issue](2026-10-27-document-cleanup.md). Nội dung bên dưới giữ snapshot trước chỉnh để truy vết; các nhận xét “Drive chỉ đọc”, “evidence còn mẫu” và khuyến nghị đồng bộ là trạng thái của đợt audit ban đầu.
+
 Người điều phối: **Lê Tiến Hưng — LeTHung**. Nguồn: [Trello t5d](https://trello.com/b/2sSouPca/t5d), [Drive nhóm](https://drive.google.com/drive/folders/1_mG-XznoqDQku_86nEmsBntTLxNYts_h), [GitHub](https://github.com/KhoaTryHard/english-learning-platform). Trello và Drive chỉ đọc trong phiên này.
 
 ## Kết luận

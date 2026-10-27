@@ -1,5 +1,7 @@
 # Danh mục Drive đã rà — 27/10/2026
 
+Tên/nhận xét trong bảng dưới là snapshot trước chỉnh. Đã cập nhật 18 Google Docs + 5 Word, giữ nguyên ID/link; tên mới, kết quả và phần còn mở xem [báo cáo đồng bộ](2026-10-27-document-cleanup.md). 13 contract/template/fixtures giữ nguyên để bảo toàn baseline và dữ liệu kiểm thử.
+
 36 file trong 6 thư mục con của folder dự án được cung cấp. Đã đọc nội dung, contract/fixtures; kiểm tra trực quan 10 hình Architecture/Database W3 và các màn Figma phục vụ frontend. Không phải kiểm định hình thức từng trang hay chữ ký nghiệm thu.
 
 | Thư mục | Tài liệu / file | Nhận xét |

@@ -6,7 +6,9 @@ Lê Tiến Hưng (PM/Frontend) lập replan ngày 27/10 theo yêu cầu bắt đ
 
 Bù nền tảng FE W5 (#5), có Course/Lesson focus mode (#8) và luồng Assessment/Attempt/Result W6 (#9) theo API v0.1/Figma v0.6. Đưa code thực vào PR review được, chạy frontend độc lập và thử với owner APIs khi sẵn. Không yêu cầu Hưng viết lại backend của Khoa/Huy; không đặt full MVP Done trong W6.
 
-Nhánh `feature/w6-hung-learner-frontend` kế thừa `chore/monorepo-structure-task-plan` (PR #18). PR frontend trỏ nhánh nền đó để chỉ review phần mới; review/merge #18 trước rồi retarget PR con về develop, kiểm tra diff/CI lại. Không merge #1 hoặc #18 thay nhóm.
+Nhánh `feature/w6-hung-learner-frontend` kế thừa `chore/monorepo-structure-task-plan` (PR #18). PR frontend trỏ nhánh nền đó để chỉ review phần mới; review/merge #18 trước rồi retarget PR con về develop, kiểm tra diff và chạy thủ công các kiểm thử bị ảnh hưởng. Không merge #1 hoặc #18 thay nhóm.
+
+Quyết định của Hưng ngày 27/10: bỏ CI/CD. Workflow Frontend và Verify owner services đã tắt; frontend workflow được gỡ khỏi nhánh này. Giữ kiểm thử thủ công và peer review; bằng chứng CI đã chạy chỉ giữ như lịch sử đúng SHA. Owner backend gỡ workflow cũ khi chuyển cây PR #1.
 
 ## Phân công, thứ tự và mốc đề xuất
 
@@ -44,4 +46,4 @@ W7 **02–08/11**: ưu tiên khép first slice/Assessment integration, sau đó 
 
 ## Công việc đã thực hiện trong phiên
 
-Đã cập nhật các issue sẵn có, tạo #19/#20/#21, lập audit và source inventory, thêm code frontend/contract types/CI/tests. Trello/Drive/Figma chỉ đọc. Kết quả lệnh và phạm vi runtime ghi riêng trong [evidence](../evidence/w6-frontend.md).
+Đã cập nhật các issue sẵn có, tạo #19/#20/#21, lập audit và source inventory, thêm code frontend/contract types/tests. Phiên audit ban đầu chỉ đọc Drive; phiên đồng bộ tiếp theo sửa trực tiếp tài liệu theo yêu cầu Hưng. Trello/Figma chỉ đọc. Kết quả lệnh và phạm vi runtime ghi riêng trong [evidence](../evidence/w6-frontend.md).

@@ -39,7 +39,7 @@ Nguồn: W4-03 và Trello t4-c live; W3-05 UI v0.6 mới cập nhật. 6 gói W5
 - Hưng: FE-01/02 + phần đầu FE-03/07 ở W5-03; FE-03→07 hoàn thiện qua Backlog; PM điều phối W5-00/04/05.
 - Khoa: BE-U1/U2/C1/C2/G1 ở W5-01 và gói remaining User/Content/Gateway; BE-C3/C4 ở My Vocabulary/Import. Audit PR #1 trước estimate để không làm trùng.
 - Huy: BE-A1→A4/P1/P2/K1/K2 foundation W5-02; đầy đủ qua ba gói Assessment, Kafka/Progress, Progress/Stats/Architecture.
-- BE-UT/BE-APT là migration/test/CI/docs trong AC từng owner task, không chuyển cho PM.
+- BE-UT/BE-APT là migration/kiểm thử thủ công/tài liệu trong AC từng owner task, không chuyển cho PM. Từ 27/10/2026 bỏ CI/CD, giữ log và kết quả theo SHA trong PR.
 - Huy đã xác nhận tài khoản @Huy1188 ngày 21/10/2026. Responsible vẫn Nguyễn Quang Huy. GitHub chưa ghi nhận Assignee khi gán #4/#15–#17; owner kiểm tra quyền cộng tác/lời mời, sau đó gán lại.
 
 ## Dependency

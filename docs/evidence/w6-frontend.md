@@ -1,5 +1,7 @@
 # Frontend evidence — 27/10/2026 (giờ Việt Nam)
 
+**Quy trình cập nhật cùng ngày:** bỏ CI/CD theo yêu cầu Hưng; hai workflow repository đã tắt. Chạy lại thủ công `npm run check` PASS (14 unit/UI, lint/build/contract guard) và `npm run test:e2e` PASS (6 MOCK) sau thay đổi tài liệu/workflow; code nghiệp vụ không đổi. Hai LIVE tests trong bảng bên dưới là kết quả đã chạy trước trong cùng ngày, không phải lần chạy lại backend. Xem [báo cáo đồng bộ](../reviews/2026-10-27-document-cleanup.md).
+
 Code frontend commit `ef1ed16d04febac7b25f8bce28a3b62d1558c348`; các commit docs tiếp theo chỉ bổ sung báo cáo/bằng chứng.
 
 Owner: Lê Tiến Hưng. Branch `feature/w6-hung-learner-frontend`, kế thừa scaffold PR #18 tại `11702c8`. Backend để chạy integration là bản **không sửa code** của PR #1, SHA `56450fc0034021f1653a95a0b8ad7e3f1aa6e73f`, xuất riêng vào `.git/integration-backend` trong máy kiểm thử. Không merge PR #1 vào frontend hoặc develop.

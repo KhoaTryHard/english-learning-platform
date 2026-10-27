@@ -30,7 +30,7 @@ Web học tiếng Anh MVP của Nhóm 7. Monorepo gồm React responsive và Jav
 | Nguyễn Đăng Khoa — @KhoaTryHard | Gateway, User, Learning Content |
 | Nguyễn Quang Huy — @Huy1188 | Assessment, Progress, Kafka; Architecture/Data |
 
-Code User/Content/Gateway hiện nằm ở PR #1 (Draft, chưa merge lúc đối chiếu 20/10/2026). Scaffold không thay thế code đó. Tích hợp theo migration-plan, giữ DB/data và kiểm tra lại CI.
+Code User/Content/Gateway hiện nằm ở PR #1 (Draft, chưa merge lúc đối chiếu 27/10/2026). Scaffold không thay thế code đó. Tích hợp theo migration-plan, giữ DB/data và chạy lại kiểm thử thủ công. Dự án bỏ CI/CD từ 27/10; xem [quy trình](CONTRIBUTING.md) và [báo cáo đồng bộ Drive/issue](docs/reviews/2026-10-27-document-cleanup.md).
 
 ## Nguyên tắc
 Một React app cho desktop/mobile; API/state/business logic dùng chung. Database và migration thuộc từng service. My Vocabulary thuộc Content. Kafka nối AssessmentCompleted từ Assessment sang Progress. API qua Gateway, không join SQL xuyên service.

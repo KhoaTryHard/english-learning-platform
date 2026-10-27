@@ -1,6 +1,6 @@
 # Quyết định tổ chức repository — 20/10/2026
 
-Cập nhật 27/10: frontend đã có runtime/package/CI tại [frontend](../../frontend/README.md), CSS tokens theo Figma v0.6. Backend vẫn scaffold ở nhánh này; code Khoa ở PR #1, migration theo owner. Phần đề xuất ngày 20/10 bên dưới được giữ làm nguồn quyết định tổ chức.
+Cập nhật 27/10: frontend đã có runtime/package và lệnh kiểm thử thủ công tại [frontend](../../frontend/README.md), CSS tokens theo Figma v0.6. Dự án không dùng CI/CD. Backend vẫn scaffold ở nhánh này; code Khoa ở PR #1, migration theo owner. Phần đề xuất ngày 20/10 bên dưới được giữ làm nguồn quyết định tổ chức.
 
 ## Phương án được đề xuất trong PR scaffold
 Monorepo cho nhóm 3 người, một frontend responsive, 4 backend domain services + Gateway. Chỉ tạo các package cần thiết; chưa thêm Nx/Turborepo/Eureka/Config Server/Kubernetes. Các folder scaffold không đại diện chức năng đã code/test.
