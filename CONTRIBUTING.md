@@ -1,4 +1,9 @@
 # Quy trình làm việc
+
+PR cần ít nhất một thành viên khác review trước merge. CI pass không thay reviewer acceptance. Với PR xếp chồng, merge PR nền trước, đổi base PR con về develop rồi kiểm tra diff/CI lại. Không force-push nhánh của thành viên khác.
+
+Frontend dùng Node 24, `npm ci`, `npm run check` và `npm run test:e2e` trong frontend. Evidence ghi rõ MOCK/API thật/SHA/BLOCKED; không backdate commit/test hoặc biến estimate thành giờ actual.
+
 - main: ổn định/demo; develop: tích hợp; feature/<issue>-<slug>, fix/<issue>-<slug>.
 - Mỗi PR trỏ issue, task code FE/BE/PB và nguồn Trello; nêu actual test, mock và blocker.
 - Mở PR vào develop, thay đổi vừa phạm vi; không tự merge PR Draft hoặc coi CI partial là full acceptance.

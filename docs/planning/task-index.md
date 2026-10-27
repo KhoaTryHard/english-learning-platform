@@ -1,4 +1,18 @@
-# Task index — 20/10/2026
+# Task index — cập nhật 27/10/2026
+
+W6 **26/10–01/11** theo [plan](w6-plan.md), [milestone](https://github.com/KhoaTryHard/english-learning-platform/milestone/1). Board hiện hành: [t5d](https://trello.com/b/2sSouPca/t5d), chỉ đọc. Snapshot bên dưới ngày 20/10 là lịch sử tạo issue, không phải current status.
+
+| Issue | Lát W6 / carryover | Owner | Trạng thái quản lý |
+|---|---|---|---|
+| #5 | FE-01/02 bù W5 | Hưng | Có code mới/PR, chờ peer review; không đóng |
+| #8 | W6-01 FE-03 Lesson/Dashboard | Hưng | Chọn W6; Progress aggregate phụ thuộc Huy |
+| #9 | W6-02 FE-04 Attempt/Result | Hưng | Chọn W6; integration Assessment/Gateway còn owner gate |
+| [#19](https://github.com/KhoaTryHard/english-learning-platform/issues/19) | W6-00 Audit/actual/W6 plan | Hưng | Có báo cáo trong repo, chưa thay ký nhận nhóm |
+| [#20](https://github.com/KhoaTryHard/english-learning-platform/issues/20) | W6-03 Schema/dictionary | Huy | Responsible trong body; assignability Huy1188 vẫn 404 |
+| [#21](https://github.com/KhoaTryHard/english-learning-platform/issues/21) | W6-04 Gateway/header | Khoa | Có assignee; phối hợp Huy cung cấp APIs |
+| #6/#7 | Test evidence và review/handoff W5 carryover | Hưng điều phối | Bổ sung actual, không backdate |
+
+# Snapshot tạo issue — 20/10/2026
 
 Nguồn: W4-03 và Trello t4-c live; W3-05 UI v0.6 mới cập nhật. 6 gói W5 + 10 gói remaining Backlog; W5 không tương đương hoàn thành toàn PB.
 
@@ -10,8 +24,8 @@ Nguồn: W4-03 và Trello t4-c live; W3-05 UI v0.6 mới cập nhật. 6 gói W5
 | [#5](https://github.com/KhoaTryHard/english-learning-platform/issues/5) | W5-03 | Hưng | Kế hoạch W5 |
 | [#6](https://github.com/KhoaTryHard/english-learning-platform/issues/6) | W5-04 | Hưng | Kế hoạch W5 |
 | [#7](https://github.com/KhoaTryHard/english-learning-platform/issues/7) | W5-05 | Hưng | Kế hoạch W5 |
-| [#8](https://github.com/KhoaTryHard/english-learning-platform/issues/8) | FE-03 | Hưng | Backlog W6+, chưa cam kết lịch |
-| [#9](https://github.com/KhoaTryHard/english-learning-platform/issues/9) | FE-04 | Hưng | Backlog W6+, chưa cam kết lịch |
+| [#8](https://github.com/KhoaTryHard/english-learning-platform/issues/8) | FE-03 | Hưng | Đã chọn W6 ngày 27/10; xem plan |
+| [#9](https://github.com/KhoaTryHard/english-learning-platform/issues/9) | FE-04 | Hưng | Đã chọn W6 ngày 27/10; xem plan |
 | [#10](https://github.com/KhoaTryHard/english-learning-platform/issues/10) | FE-05 | Hưng | Backlog W6+, chưa cam kết lịch |
 | [#11](https://github.com/KhoaTryHard/english-learning-platform/issues/11) | FE-06 | Hưng | Backlog W6+, chưa cam kết lịch |
 | [#12](https://github.com/KhoaTryHard/english-learning-platform/issues/12) | FE-07 | Hưng | Backlog W6+, chưa cam kết lịch |
