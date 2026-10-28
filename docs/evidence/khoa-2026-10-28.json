@@ -1,0 +1,141 @@
+{
+  "checkedAt": "2026-10-28T20:42:01.818814+07:00",
+  "sourceCommit": "b5893c93309d6b387ea1b8abf891b7247b0c8d08",
+  "sourceDigestSha256": "880fef12c9a314bae7da8514478a73536a85bdc19cee847aea2ccd31073f773a",
+  "status": "PARTIAL_READY_FOR_PEER_REVIEW",
+  "unitAndProxy": {
+    "status": "PASS",
+    "executions": 26,
+    "suites": [
+      {
+        "service": "backend/services/user-service",
+        "suite": "vn.group7.core.SecurityBoundaryTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/services/user-service",
+        "suite": "vn.group7.core.InputTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/services/learning-content-service",
+        "suite": "vn.group7.core.SecurityBoundaryTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/services/learning-content-service",
+        "suite": "vn.group7.content.ImportBoundaryTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/services/learning-content-service",
+        "suite": "vn.group7.core.InputTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/api-gateway",
+        "suite": "vn.group7.core.SecurityBoundaryTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/api-gateway",
+        "suite": "vn.group7.api.GatewayRoutingTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/api-gateway",
+        "suite": "vn.group7.core.InputTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ],
+    "scope": "Real HTTP proxy to explicitly stubbed session/Assessment/Progress; no live DB or Huy runtime",
+    "command": "bash mvnw -Dtest=InputTest,SecurityBoundaryTest,ImportBoundaryTest,GatewayRoutingTest -Dsurefire.failIfNoSpecifiedTests=false -DargLine=-javaagent:<m2>/org/mockito/mockito-core/5.20.0/mockito-core-5.20.0.jar verify",
+    "javaVersion": "21.0.12"
+  },
+  "isolatedBuilds": {
+    "status": "PASS",
+    "isolatedBuildRequested": true,
+    "services": [
+      {
+        "service": "backend/services/user-service",
+        "parent": "Spring Boot",
+        "siblingMavenDependency": false,
+        "dockerContext": "backend/services/user-service",
+        "isolatedBuild": "PASS",
+        "ownerOnlyExecutableJar": "PASS"
+      },
+      {
+        "service": "backend/services/learning-content-service",
+        "parent": "Spring Boot",
+        "siblingMavenDependency": false,
+        "dockerContext": "backend/services/learning-content-service",
+        "isolatedBuild": "PASS",
+        "ownerOnlyExecutableJar": "PASS"
+      },
+      {
+        "service": "backend/api-gateway",
+        "parent": "Spring Boot",
+        "siblingMavenDependency": false,
+        "dockerContext": "backend/api-gateway",
+        "isolatedBuild": "PASS",
+        "ownerOnlyExecutableJar": "PASS"
+      }
+    ]
+  },
+  "composeConfig": {
+    "status": "PASS",
+    "files": [
+      "compose.yaml",
+      "backend/api-gateway/compose.yaml",
+      "backend/services/user-service/compose.yaml",
+      "backend/services/learning-content-service/compose.yaml"
+    ],
+    "rootVolumeAndCredentialPathsPreserved": true
+  },
+  "contractHashes": "PASS unchanged public/internal v0.1",
+  "publicGatewayRoutes": 63,
+  "postgresIntegration": {
+    "status": "BLOCKED_ENVIRONMENT",
+    "attemptedCommand": "bash mvnw -pl backend/services/learning-content-service -Dtest=ContentIntegrationTest test",
+    "exitCode": 1,
+    "cause": "Testcontainers startup: no valid Docker environment; /var/run/docker.sock absent",
+    "businessTestsExecuted": 0
+  },
+  "notRun": [
+    "PostgreSQL T-09 import/rollback/duplicate rerun",
+    "restart persistence and backup/restore",
+    "LIVE Assessment/Progress/Kafka",
+    "full security/session/revoked token/DB outage runtime regression"
+  ],
+  "externalGates": {
+    "huyAssignable": "Not resolved; attempted assignee add had no effect",
+    "huySecurityApproval": "Pending",
+    "peerReview": "Pending",
+    "capacityAndActualHours": "Not asserted",
+    "remotePublication": "Push rejected by automatic approval review; user authorization required"
+  }
+}
