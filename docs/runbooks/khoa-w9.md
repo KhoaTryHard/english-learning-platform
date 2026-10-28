@@ -1,6 +1,6 @@
 # User/Content/Gateway: runbook kiểm thử và bàn giao W9
 
-Chuẩn: Java 21, PostgreSQL 17, Maven Wrapper, Docker Engine/Compose. Không CI/CD. Checkout SHA của PR; ghi SHA và ngày thực của mỗi lần chạy. Assessment/Progress thật do Huy cung cấp; demo WireMock phải ghi MOCK.
+Chuẩn: Java 25, PostgreSQL 17, Maven Wrapper, Docker Engine/Compose. Không CI/CD. Checkout SHA của PR; ghi SHA và ngày thực của mỗi lần chạy. Assessment/Progress thật do Huy cung cấp; demo WireMock phải ghi MOCK.
 
 ## Chuẩn bị và chạy
 
@@ -23,5 +23,39 @@ Chuẩn: Java 21, PostgreSQL 17, Maven Wrapper, Docker Engine/Compose. Không CI
 `docker compose stop user content api` giữ volumes. Không dùng `down -v` hoặc xóa volume để khắc phục lỗi. Trước migration/rollout lưu backup vào kho bảo mật ngoài Git: `docker compose exec -T user-db pg_dump -U postgres -d user_db -Fc > user.dump`, tương tự Content. Binary redirect trên PowerShell cần 7.4+ hoặc dump trong container rồi docker cp.
 
 Restore vào database test mới, tên riêng, không ghi đè source DB. So sánh row counts, FK/unique/CHECK, Flyway history, role grants và schema validation; kết thúc chỉ xóa database restore do phiên test tạo. `python scripts/verify-operations.py` thực hiện round-trip/restart trên môi trường test đã chuẩn bị. Giữ log đã loại credentials/cookie/token.
+
+### Chạy độc lập trên Windows/Java 25
+
+Đặt `JAVA_HOME` tới JDK 25 và thêm `$env:JAVA_HOME\bin` vào PATH của phiên PowerShell trước khi chạy `./mvnw.cmd -B verify`. Java hệ thống có thể khác Java của dự án. Dockerfiles dùng Temurin 25 cho cả build và runtime.
+
+Ví dụ cấu hình môi trường **test riêng**, dùng cùng các biến này cho mọi lệnh Compose/bootstrap/seed/test/stop:
+
+```powershell
+$env:COMPOSE_PROJECT_NAME = 'khoa-alignment-20261028'
+$env:IMAGE_TAG = 'khoa-audit-20261028'
+$env:GATEWAY_PORT = '18080'
+$env:GATEWAY_URL = 'http://localhost:18080'
+$env:FRONTEND_ORIGIN = 'http://127.0.0.1:5173'
+./scripts/init-dev.ps1
+docker compose build user content api
+docker compose --profile demo up -d --no-build --wait
+./scripts/bootstrap-admin.ps1 -Email admin@example.com
+./scripts/seed-content.ps1
+$env:SMOKE_REPORT = '.tools/smoke-current.json'
+python scripts/smoke.py
+$env:SESSION_REPORT = '.tools/session-current.json'
+$env:ALLOW_TEST_FAULT_INJECTION = '1'
+python scripts/verify-session-outage.py
+Remove-Item Env:ALLOW_TEST_FAULT_INJECTION
+$env:OPS_REPORT = '.tools/operations-current.json'
+python scripts/verify-operations.py
+docker compose --profile demo stop
+```
+
+Session regression tạm thu hồi SELECT trên bảng session trong DB test rồi khôi phục trong `finally`: xác minh 503, CSRF/session sai 403, không tạo Course và request hợp lệ thành công sau phục hồi. Đây là lỗi quyền truy cập kho session, không thay test network partition/pool exhaustion. Chỉ bật fault injection trên project test cô lập.
+
+Operations script so sánh digest/row count của **mọi bảng public**, definitions constraints, table/sequence owners và ACLs, gồm Flyway/session; sau đó restart cả DB và app. Restore vào database mới trong **cùng cluster test**, chưa chứng minh disaster recovery sang máy mới. Không chạy browser/smoke đồng thời vì dữ liệu thay đổi sẽ làm so sánh không nhất quán. Report-path variables giữ các báo cáo lịch sử khỏi bị ghi đè.
+
+Frontend PR #22: đặt `GATEWAY_URL=http://127.0.0.1:18080` trong phiên frontend; origin phải khớp cấu hình trên. Chạy suite `playwright.live.config.ts` với `RUN_LIVE_INTEGRATION=1`, Course/Level và Lesson/Vocabulary published có sẵn. Lát này là LIVE User/Content/Gateway/PostgreSQL; readiness vẫn MOCK khi dùng profile demo.
 
 Mỗi evidence gồm command, SHA từng service, môi trường, seed/fixture, expected/actual, PASS/FAIL/BLOCKED/NOT_RUN, MOCK/LIVE và log/ảnh. Không backdate hoặc lấy lần CI cũ làm lần chạy mới. Peer review và Huy integration/QA vẫn là điều kiện nghiệm thu riêng.

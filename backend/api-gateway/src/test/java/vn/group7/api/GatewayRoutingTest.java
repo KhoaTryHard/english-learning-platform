@@ -22,10 +22,13 @@ class GatewayRoutingTest {
   Gateway gateway;
   HttpServer assessment, progress, content;
   final AtomicInteger contentCalls = new AtomicInteger();
+  final AtomicInteger assessmentCalls = new AtomicInteger();
+  final AtomicInteger progressCalls = new AtomicInteger();
   final List<String> attemptKeys = new ArrayList<>();
   final Map<String, String> attempts = new HashMap<>();
   String role, accountStatus;
   boolean sessionDown;
+  boolean sessionRejected;
 
   @BeforeEach void start() throws Exception {
     for (String name : List.of("api", "user", "content", "assessment", "progress")) {
@@ -43,6 +46,7 @@ class GatewayRoutingTest {
     });
     assessment = server(); progress = server();
     assessment.createContext("/", exchange -> {
+      assessmentCalls.incrementAndGet();
       try {
         String bearer = exchange.getRequestHeaders().getFirst("Authorization").substring(7);
         assertEquals("api", new TokenCodec(keys.toString(), "assessment").verify(bearer, "service", "assessment").getSubject());
@@ -57,6 +61,7 @@ class GatewayRoutingTest {
       } finally { exchange.close(); }
     });
     progress.createContext("/", exchange -> {
+      progressCalls.incrementAndGet();
       try {
         var principal = new TokenCodec(keys.toString(), "progress").verify(exchange.getRequestHeaders().getFirst("X-Gateway-Principal"), "principal", "progress");
         assertEquals(role, TokenCodec.string(principal, "role"));
@@ -69,6 +74,7 @@ class GatewayRoutingTest {
     OwnerClient sessions = new OwnerClient(tokens) {
       @Override public Map<String, Object> call(String base, String path, String owner, Map<String, Object> body) {
         if (sessionDown) throw ApiError.dependency();
+        if (sessionRejected) throw new ApiError(403, "CSRF_INVALID", "CSRF không hợp lệ");
         return Map.of("userId", UUID.randomUUID().toString(), "jti", UUID.randomUUID().toString(),
             "role", role, "accountStatus", accountStatus, "expiresAt", Instant.now().plusSeconds(60).toString());
       }
@@ -130,6 +136,12 @@ class GatewayRoutingTest {
     var unavailable = request("GET", "/api/v1/me/progress", null);
     assertEquals(503, unavailable.getStatus());
     assertFalse(unavailable.getContentAsString().contains("opaque-user-token"));
+    String writePath = "/api/v1/assessments/" + UUID.randomUUID() + "/attempts";
+    assertEquals(503, request("POST", writePath, "blocked-key").getStatus());
+    sessionDown = false; sessionRejected = true;
+    assertEquals(403, request("POST", writePath, "blocked-key").getStatus());
+    assertEquals(0, assessmentCalls.get());
+    assertEquals(0, progressCalls.get());
     assertEquals(0, contentCalls.get());
   }
   @Test void ownerDownDoesNotFallBackToContentAndInternalStaysPrivate() throws Exception {

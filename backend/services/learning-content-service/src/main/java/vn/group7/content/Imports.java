@@ -109,6 +109,13 @@ public class Imports {
       }
       if (files.isEmpty() || !files.containsKey("[Content_Types].xml"))
         throw fileError(415, "UNSUPPORTED_FILE_TYPE", "Cần file OOXML không mã hóa");
+      // The filename and ZIP entry names do not identify a macro-enabled OOXML container.
+      var types = document(files.get("[Content_Types].xml")).getElementsByTagNameNS("*", "*");
+      for (int i = 0; i < types.getLength(); i++) {
+        String type = ((Element) types.item(i)).getAttribute("ContentType").toLowerCase(Locale.ROOT);
+        if (type.contains("macroenabled") || type.contains("vbaproject"))
+          throw fileError(415, "UNSUPPORTED_FILE_TYPE", "Không hỗ trợ macro-enabled OOXML");
+      }
       return files;
     } catch (ApiError e) {
       throw e;

@@ -261,6 +261,41 @@ class UserIntegrationTest {
   }
 
   @Test
+  void cohortPagingFiltersKeepGlobalCountAndBlockedLearners() throws Exception {
+    UUID course = UUID.randomUUID(), level = UUID.randomUUID();
+    for (int i = 0; i < 3; i++) {
+      UUID id = UUID.randomUUID();
+      db.run("INSERT INTO app_user(user_id,email_normalized,password_hash,role,status)"
+          + " VALUES(?,?,?,'LEARNER',?)", id, "cohort" + i + "@example.com", "test-hash",
+          i == 0 ? "BLOCKED" : "ACTIVE");
+      if (i < 2) db.run("INSERT INTO learning_setup(user_id,current_course_id,current_level_id)"
+          + " VALUES(?,?,?)", id, course, level);
+    }
+    var seen = new HashSet<String>();
+    for (int page = 0; page < 2; page++) {
+      var response = cohortRequest("?courseId=" + course + "&levelId=" + level + "&size=1&page=" + page);
+      assertEquals(200, response.statusCode(), response.body());
+      var body = Json.map(response.body());
+      assertEquals(3, ((Number) body.get("totalLearnersGlobal")).intValue());
+      assertEquals(2, ((Number) body.get("totalElements")).intValue());
+      var items = (List<?>) body.get("items");
+      assertEquals(1, items.size());
+      assertTrue(seen.add(((Map<?, ?>) items.getFirst()).get("userId").toString()));
+    }
+    var empty = Json.map(cohortRequest("?courseId=" + UUID.randomUUID()).body());
+    assertEquals(3, ((Number) empty.get("totalLearnersGlobal")).intValue());
+    assertEquals(0, ((Number) empty.get("totalElements")).intValue());
+    assertEquals(400, cohortRequest("?courseId=invalid").statusCode());
+  }
+
+  HttpResponse<String> cohortRequest(String query) throws Exception {
+    return http.send(HttpRequest.newBuilder(URI.create("http://localhost:" + port
+        + "/internal/v1/learners/cohort" + query))
+        .header("Authorization", "Bearer " + TestSupport.caller("progress").service("user"))
+        .GET().build(), HttpResponse.BodyHandlers.ofString());
+  }
+
+  @Test
   void internalSetupAndCohortRequireOwnerCallers() throws Exception {
     csrf();
     UUID uid = Input.id(registration("internal@example.com").get("userId").toString());

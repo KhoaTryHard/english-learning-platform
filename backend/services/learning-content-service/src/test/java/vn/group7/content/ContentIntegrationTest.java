@@ -121,6 +121,22 @@ class ContentIntegrationTest {
   }
 
   @Test
+  void macroContainersLeaveNoBusinessRows() throws Exception {
+    long vocabularyBefore = db.count("SELECT count(*) FROM vocabulary");
+    long lessonsBefore = db.count("SELECT count(*) FROM lesson");
+    for (String type : List.of("vocabulary", "lessons")) {
+      String name = type.equals("vocabulary") ? "vocabulary-valid.xlsx" : "lesson-valid.docx";
+      var file = ImportContainerTest.upload(name, true);
+      var error = assertThrows(ApiError.class,
+          () -> imports.run(type, file, type.equals("vocabulary") ? lesson : module, 2));
+      assertEquals(415, error.status);
+      assertEquals(0, ((Map<?, ?>) error.extra.get("import")).get("createdCount"));
+    }
+    assertEquals(vocabularyBefore, db.count("SELECT count(*) FROM vocabulary"));
+    assertEquals(lessonsBefore, db.count("SELECT count(*) FROM lesson"));
+  }
+
+  @Test
   void atomicExcelAndWordRules() throws Exception {
     var result = imports.run("vocabulary", fixture("vocabulary-valid.xlsx"), lesson, null);
     assertEquals(2, result.get("createdCount"));
@@ -290,6 +306,31 @@ class ContentIntegrationTest {
   @AfterAll
   static void stop() {
     MOCK.stop();
+  }
+
+  @Test
+  void contextPagingIncludesDraftCoursesAndHiddenLessonDenominator() throws Exception {
+    store.create("courses", Map.of("name", "Second course"));
+    var seen = new HashSet<String>();
+    long totalLessons = 0;
+    var http = java.net.http.HttpClient.newHttpClient();
+    for (int page = 0; page < 2; page++) {
+      var request = java.net.http.HttpRequest.newBuilder(java.net.URI.create("http://localhost:"
+          + port + "/internal/v1/courses/contexts?size=1&page=" + page))
+          .header("Authorization", "Bearer " + TestSupport.caller("progress").service("content"))
+          .GET().build();
+      var response = http.send(request, java.net.http.HttpResponse.BodyHandlers.ofString());
+      assertEquals(200, response.statusCode(), response.body());
+      var body = Json.map(response.body());
+      assertEquals(2, ((Number) body.get("totalElements")).intValue());
+      var items = (List<?>) body.get("items");
+      assertEquals(1, items.size());
+      var item = (Map<?, ?>) items.getFirst();
+      assertTrue(seen.add(item.get("courseId").toString()));
+      assertEquals(false, item.get("published"));
+      totalLessons += ((Number) item.get("totalLessons")).longValue();
+    }
+    assertEquals(1, totalLessons);
   }
 
   @Test

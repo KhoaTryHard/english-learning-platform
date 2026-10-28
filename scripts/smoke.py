@@ -90,7 +90,9 @@ def main():
     missing=set(OPS)-COVERED
     assert not missing,f'Unverified operations: {missing}'
     report={'status':'PASS','publicOperations':len(COVERED),'requests':len(CHECKS),'assessment':'MOCK_ONLY','checks':CHECKS}
-    (ROOT/'docs/verification-smoke.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
+    destination=Path(os.environ.get('SMOKE_REPORT',str(ROOT/'docs/verification-smoke.json')))
+    destination.parent.mkdir(parents=True,exist_ok=True)
+    destination.write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(f'Gateway smoke PASS: {len(COVERED)} public operations; {len(CHECKS)} requests; Assessment mock only')
 
 if __name__=='__main__':main()

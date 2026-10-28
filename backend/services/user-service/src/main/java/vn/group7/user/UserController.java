@@ -220,7 +220,12 @@ public class UserController {
     var c = validate((String) b.get("token"));
     if (!Set.of("GET", "HEAD", "OPTIONS").contains(method)) {
       var sid = b.get("csrfSessionId");
-      Session s = sid instanceof String ? sessions.findById((String) sid) : null;
+      Session s;
+      try {
+        s = sid instanceof String ? sessions.findById((String) sid) : null;
+      } catch (org.springframework.dao.DataAccessException unavailableSessionStore) {
+        throw ApiError.dependency();
+      }
       Long exp = s == null ? null : s.getAttribute("jwtExpiry");
       if (s == null
           || !c.getJWTID().equals(s.getAttribute("jti"))

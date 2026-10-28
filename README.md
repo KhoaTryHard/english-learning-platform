@@ -1,6 +1,6 @@
 # English Learning Platform — Khoa implementation
 
-Java 21 / Spring Boot 4.0.8 / PostgreSQL 17. User Service and Learning Content Service own separate databases. Gateway routes all 63 public operations, including 43 User/Content operations implemented here; 6 internal operations remain private. Assessment/Progress runtime is supplied by Huy. Assessment is mocked only in the demo profile.
+Java 25 / Spring Boot 4.0.8 / PostgreSQL 17. User Service and Learning Content Service own separate databases. Gateway routes all 63 public operations, including 43 User/Content operations implemented here; 6 internal operations remain private. Assessment/Progress runtime is supplied by Huy. Assessment is mocked only in the demo profile.
 
 ## Independently deployable folders
 
@@ -17,7 +17,7 @@ Root Maven/Compose are optional integration conveniences. Root Compose now uses 
 
 ## Run locally
 
-Requirements: Docker Desktop (Linux containers), OpenSSL and PowerShell 7 or bash. For local Maven tests also install JDK 21.
+Requirements: Docker Desktop (Linux containers), OpenSSL and PowerShell 7 or bash. For local Maven tests also install JDK 25.
 
 ```powershell
 ./scripts/init-dev.ps1
@@ -30,7 +30,7 @@ docker compose --profile demo up -d --no-build
 Gateway: http://localhost:8080. Frontend Origin default: http://localhost:5173. Admin password is in the ignored local `.secrets/admin_password` file; do not copy it into Git or API reports. CLI provisioning exits after completion; seeded Course is a draft, Levels belong only to Course.
 
 ```powershell
-$env:JAVA_HOME='C:/path/to/jdk-21'
+$env:JAVA_HOME='C:/path/to/jdk-25'
 ./mvnw.cmd verify
 python -m pip install -r scripts/requirements-dev.txt
 python scripts/smoke.py
