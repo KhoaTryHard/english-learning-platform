@@ -39,7 +39,7 @@ def snapshot(service, database):
         values = match.group(1).split(', ')
         if not all(re.fullmatch(r"'[^']*'::character varying", value) for value in values):
             return match.group(0)
-        return 'ARRAY[' + ', '.join('(' + value + ')::text' for value in values) + ']'
+        return '(ARRAY[' + ', '.join('(' + value + ')::text' for value in values) + '])'
     constraints = re.sub(r'\(\(ARRAY\[(.*?)\]\)::text\[\]\)', array_cast, constraints)
     grants = sql(service, database, "SELECT relname, pg_get_userbyid(relowner), coalesce(relacl::text,'') FROM pg_class WHERE relnamespace='public'::regnamespace AND relkind IN ('r','S') ORDER BY relname")
     return {'tables': result, 'constraints': constraints, 'ownersAndGrants': grants}
