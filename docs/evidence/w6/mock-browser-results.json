@@ -1,0 +1,43 @@
+{
+  "dateVN": "2026-10-27",
+  "frontendCodeCommit": "ef1ed16d04febac7b25f8bce28a3b62d1558c348",
+  "mode": "MOCK / MSW; no real backend or Kafka",
+  "results": [
+    {
+      "name": "register → login → setup → lesson → Exercise/Result, save vocabulary and retake",
+      "project": "desktop",
+      "status": "passed",
+      "durationMs": 8909
+    },
+    {
+      "name": "Quiz deadline and saved FALSE survive refresh and logout/login",
+      "project": "desktop",
+      "status": "passed",
+      "durationMs": 5510
+    },
+    {
+      "name": "responsive screens and assets have no horizontal overflow",
+      "project": "desktop",
+      "status": "passed",
+      "durationMs": 4185
+    },
+    {
+      "name": "register → login → setup → lesson → Exercise/Result, save vocabulary and retake",
+      "project": "mobile",
+      "status": "passed",
+      "durationMs": 7615
+    },
+    {
+      "name": "Quiz deadline and saved FALSE survive refresh and logout/login",
+      "project": "mobile",
+      "status": "passed",
+      "durationMs": 4901
+    },
+    {
+      "name": "responsive screens and assets have no horizontal overflow",
+      "project": "mobile",
+      "status": "passed",
+      "durationMs": 4909
+    }
+  ]
+}

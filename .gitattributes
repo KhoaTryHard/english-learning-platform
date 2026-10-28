@@ -1,0 +1,4 @@
+* text=auto eol=lf
+contracts/http/public-v0.1.yaml -text
+*.png binary
+*.svg text eol=lf

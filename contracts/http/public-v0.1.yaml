@@ -1,0 +1,5139 @@
+openapi: 3.0.3
+info:
+  title: W3-04 — English Online Learning Platform API
+  version: 0.1.0-proposed
+  description: Khoa author 11/10/2026. REVIEW DRAFT; W2 business rules fixed, DD-01..13
+    and W3-04 technical choices proposed. Not production implementation/approval.
+    All external paths through Gateway; service boundaries User/Content/Assessment/Progress.
+servers:
+- url: /api/v1
+  description: Relative Gateway base; no actual deployed host assumed
+paths:
+  /auth/csrf:
+    get:
+      operationId: getCsrf
+      summary: Lấy CSRF token trước login/register
+      description: Proposed synchronizer token with short-lived server pre-session;
+        no access JWT required. Return Cache-Control:no-store and HttpOnly pre-session
+        cookie. Rotate/destroy pre-session on login, get new CSRF token for authenticated
+        session. Tokens not in URL/logs; no business data. Login requires configured
+        Origin check as additional defense.
+      tags:
+      - User Service
+      security: []
+      responses:
+        '200':
+          description: Lấy CSRF token trước login/register — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CsrfResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: User Service
+      x-roles:
+      - PUBLIC
+      x-fr:
+      - FR-01
+      - FR-02
+      - FR-03
+      x-uc:
+      - UC-01
+      x-pb:
+      - PB-01
+      x-ac:
+      - AC-01
+      - AC-02
+      - AC-19
+      x-design-decisions:
+      - DD-03
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-01
+      - L-02
+  /auth/register:
+    post:
+      operationId: register
+      summary: Đăng ký Learner
+      description: Email trim/lowercase <=254, no dot/+tag stripping. Password code
+        point/UTF-8 byte checks; BCrypt. fullName blank => null. Unknown fields including
+        role =>400. Assign LEARNER; seeded Admin only. No implicit login. 409 REGISTRATION_CONFLICT
+        generic message; transactional account/profile creation.
+      tags:
+      - User Service
+      security:
+      - csrfHeader: []
+      responses:
+        '201':
+          description: Đăng ký Learner — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: User Service
+      x-roles:
+      - PUBLIC
+      x-fr:
+      - FR-01
+      - FR-05
+      x-uc:
+      - UC-01
+      x-pb:
+      - PB-01
+      x-ac:
+      - AC-01
+      - AC-19
+      x-design-decisions:
+      - DD-01
+      - DD-03
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-01
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+  /auth/login:
+    post:
+      operationId: login
+      summary: Đăng nhập bằng email/password
+      description: Generic 401 INVALID_CREDENTIALS for absent email, incorrect password
+        or blocked account. Set access_token cookie (HttpOnly; Secure on HTTPS; SameSite=Lax;
+        Path=/api/v1; host-only). 30 minute JWT default environment configurable;
+        no refresh. JSON never returns JWT. Rotate pre-session and CSRF state; fetch
+        /auth/csrf again after successful login.
+      tags:
+      - User Service
+      security:
+      - csrfHeader: []
+      responses:
+        '200':
+          description: Đăng nhập bằng email/password — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: User Service
+      x-roles:
+      - PUBLIC
+      x-fr:
+      - FR-02
+      - FR-05
+      x-uc:
+      - UC-01
+      x-pb:
+      - PB-01
+      x-ac:
+      - AC-02
+      - AC-19
+      x-design-decisions:
+      - DD-01
+      - DD-03
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-02
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+  /auth/logout:
+    post:
+      operationId: logout
+      summary: Thu hồi JWT rồi xóa cookie
+      description: 'Validate CSRF and current JWT. Persist jti/exp in User DB before
+        deleting access_token with identical Path/Domain scope, Max-Age=0. Also invalidate
+        CSRF/pre-session state. Revocation failure =>503/500, never success 204; no
+        refresh token. Strict draft: expired/revoked session =>401 (idempotent repeated
+        logout UX needs reviewer confirmation).'
+      tags:
+      - User Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '204':
+          description: Thu hồi JWT rồi xóa cookie — success
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: User Service
+      x-roles:
+      - AUTHENTICATED
+      x-fr:
+      - FR-03
+      - FR-05
+      x-uc:
+      - UC-01
+      x-pb:
+      - PB-01
+      x-ac:
+      - AC-02
+      - AC-19
+      x-design-decisions:
+      - DD-03
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens: []
+  /me/profile:
+    get:
+      operationId: getMyProfile
+      summary: Xem Profile của mình
+      description: Identity from authenticated principal. DTO fullName maps LEARNER_PROFILE.display_name.
+        Only fullName writable; null/blank clear name. No arbitrary userId/email/role/status
+        update.
+      tags:
+      - User Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Xem Profile của mình — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: User Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-04
+      - FR-05
+      x-uc:
+      - UC-01
+      x-pb:
+      - PB-02
+      x-ac:
+      - AC-03
+      - AC-19
+      x-design-decisions:
+      - DD-02
+      - DD-03
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-03
+    patch:
+      operationId: patchMyProfile
+      summary: Cập nhật fullName của mình
+      description: Identity from authenticated principal. DTO fullName maps LEARNER_PROFILE.display_name.
+        Only fullName writable; null/blank clear name. No arbitrary userId/email/role/status
+        update.
+      tags:
+      - User Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '200':
+          description: Cập nhật fullName của mình — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: User Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-04
+      - FR-05
+      x-uc:
+      - UC-01
+      x-pb:
+      - PB-02
+      x-ac:
+      - AC-03
+      - AC-19
+      x-design-decisions:
+      - DD-02
+      - DD-03
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-03
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfilePatch'
+  /me/learning-setup:
+    get:
+      operationId: getLearningSetup
+      summary: Đọc Course/Level hiện tại
+      description: User-owned currentCourseId/currentLevelId; validate selected Level
+        belongs Course through internal Content API and Course available. Missing
+        setup =>200 with null IDs/timestamp. No Goal, no clearing History/My Vocabulary.
+        New validation dependency fails503 before write. Version/snapshot of setup
+        at attempt start needs Huy review.
+      tags:
+      - User Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Đọc Course/Level hiện tại — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Setup'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: User Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-06
+      - FR-07
+      x-uc:
+      - UC-02
+      x-pb:
+      - PB-03
+      x-ac:
+      - AC-05
+      - AC-06
+      x-design-decisions:
+      - DD-03
+      - DD-04
+      - DD-11
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-04
+    put:
+      operationId: putLearningSetup
+      summary: Lưu hoặc đổi Course/Level
+      description: User-owned currentCourseId/currentLevelId; validate selected Level
+        belongs Course through internal Content API and Course available. Missing
+        setup =>200 with null IDs/timestamp. No Goal, no clearing History/My Vocabulary.
+        New validation dependency fails503 before write. Version/snapshot of setup
+        at attempt start needs Huy review.
+      tags:
+      - User Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '200':
+          description: Lưu hoặc đổi Course/Level — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Setup'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: User Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-06
+      - FR-07
+      x-uc:
+      - UC-02
+      x-pb:
+      - PB-03
+      x-ac:
+      - AC-05
+      - AC-06
+      x-design-decisions:
+      - DD-03
+      - DD-04
+      - DD-11
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-04
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetupWrite'
+  /admin/users:
+    get:
+      operationId: listUsers
+      summary: Tìm/danh sách User
+      description: Tìm/danh sách User
+      tags:
+      - User Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Tìm/danh sách User — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: User Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-05
+      x-uc:
+      - UC-07
+      x-pb:
+      - PB-09
+      x-ac:
+      - AC-04
+      x-design-decisions:
+      - DD-03
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-02
+      parameters:
+      - &id002
+        name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      - &id003
+        name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      - name: q
+        in: query
+        required: false
+        schema:
+          type: string
+          minLength: 0
+          maxLength: 254
+      - name: status
+        in: query
+        required: false
+        schema: &id007
+          type: string
+          enum:
+          - ACTIVE
+          - BLOCKED
+  /admin/users/{userId}:
+    get:
+      operationId: getUser
+      summary: Xem User
+      description: Xem User
+      tags:
+      - User Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Xem User — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: User Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-05
+      x-uc:
+      - UC-07
+      x-pb:
+      - PB-09
+      x-ac:
+      - AC-04
+      x-design-decisions:
+      - DD-03
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-02
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema: &id001
+          type: string
+          format: uuid
+    patch:
+      operationId: patchUser
+      summary: Sửa tên/trạng thái Learner
+      description: Draft ACTIVE/BLOCKED status vocabulary pending review. Only target
+        LEARNER; no Admin creation/escalation/password reset/delete. BLOCKED denies
+        next protected request through User session check. No ownership bypass from
+        client headers.
+      tags:
+      - User Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '200':
+          description: Sửa tên/trạng thái Learner — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: User Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-05
+      x-uc:
+      - UC-07
+      x-pb:
+      - PB-09
+      x-ac:
+      - AC-04
+      x-design-decisions:
+      - DD-02
+      - DD-03
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-02
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminUserPatch'
+  /courses:
+    get:
+      operationId: listCourses
+      summary: Course khả dụng
+      description: Browsing only published objects whose ancestors are published.
+        Hidden direct ID =>404 CONTENT_UNAVAILABLE. No completion by GET. Level belongs
+        Course; no assumed Level-to-Lesson filter until Huy confirms model. GET Lesson
+        includes ready Exercise external ID; required readiness source failure503,
+        no cross-service DB read.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Course khả dụng — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoursePage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-06
+      x-uc:
+      - UC-02
+      x-pb:
+      - PB-03
+      x-ac:
+      - AC-05
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-06
+      - L-07
+      - L-08
+      - L-09
+      - L-10
+      - L-11
+      parameters:
+      - *id002
+      - *id003
+  /courses/{courseId}:
+    get:
+      operationId: getCourse
+      summary: Xem Course
+      description: Browsing only published objects whose ancestors are published.
+        Hidden direct ID =>404 CONTENT_UNAVAILABLE. No completion by GET. Level belongs
+        Course; no assumed Level-to-Lesson filter until Huy confirms model. GET Lesson
+        includes ready Exercise external ID; required readiness source failure503,
+        no cross-service DB read.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Xem Course — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-06
+      - FR-08
+      x-uc:
+      - UC-03
+      x-pb:
+      - PB-04
+      x-ac:
+      - AC-07
+      - AC-08
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-06
+      - L-07
+      - L-08
+      - L-09
+      - L-10
+      - L-11
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema: *id001
+  /courses/{courseId}/levels:
+    get:
+      operationId: listLevels
+      summary: Level thuộc Course
+      description: Browsing only published objects whose ancestors are published.
+        Hidden direct ID =>404 CONTENT_UNAVAILABLE. No completion by GET. Level belongs
+        Course; no assumed Level-to-Lesson filter until Huy confirms model. GET Lesson
+        includes ready Exercise external ID; required readiness source failure503,
+        no cross-service DB read.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Level thuộc Course — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LevelPage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-06
+      - FR-07
+      x-uc:
+      - UC-02
+      x-pb:
+      - PB-03
+      x-ac:
+      - AC-05
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-06
+      - L-07
+      - L-08
+      - L-09
+      - L-10
+      - L-11
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema: *id001
+      - *id002
+      - *id003
+  /courses/{courseId}/modules:
+    get:
+      operationId: listModules
+      summary: Module thuộc Course
+      description: Browsing only published objects whose ancestors are published.
+        Hidden direct ID =>404 CONTENT_UNAVAILABLE. No completion by GET. Level belongs
+        Course; no assumed Level-to-Lesson filter until Huy confirms model. GET Lesson
+        includes ready Exercise external ID; required readiness source failure503,
+        no cross-service DB read.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Module thuộc Course — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModulePage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-08
+      x-uc:
+      - UC-03
+      x-pb:
+      - PB-04
+      x-ac:
+      - AC-07
+      - AC-08
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-06
+      - L-07
+      - L-08
+      - L-09
+      - L-10
+      - L-11
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema: *id001
+      - *id002
+      - *id003
+  /modules/{moduleId}/lessons:
+    get:
+      operationId: listLessons
+      summary: Lesson thuộc Module
+      description: Browsing only published objects whose ancestors are published.
+        Hidden direct ID =>404 CONTENT_UNAVAILABLE. No completion by GET. Level belongs
+        Course; no assumed Level-to-Lesson filter until Huy confirms model. GET Lesson
+        includes ready Exercise external ID; required readiness source failure503,
+        no cross-service DB read.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Lesson thuộc Module — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LessonPage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-08
+      x-uc:
+      - UC-03
+      x-pb:
+      - PB-04
+      x-ac:
+      - AC-07
+      - AC-08
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-06
+      - L-07
+      - L-08
+      - L-09
+      - L-10
+      - L-11
+      parameters:
+      - name: moduleId
+        in: path
+        required: true
+        schema: *id001
+      - *id002
+      - *id003
+  /lessons/{lessonId}:
+    get:
+      operationId: getLessonLearning
+      summary: Học Lesson và học liệu
+      description: Browsing only published objects whose ancestors are published.
+        Hidden direct ID =>404 CONTENT_UNAVAILABLE. No completion by GET. Level belongs
+        Course; no assumed Level-to-Lesson filter until Huy confirms model. GET Lesson
+        includes ready Exercise external ID; required readiness source failure503,
+        no cross-service DB read.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Học Lesson và học liệu — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LessonLearning'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-08
+      - FR-09
+      x-uc:
+      - UC-03
+      x-pb:
+      - PB-04
+      x-ac:
+      - AC-07
+      - AC-08
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-06
+      - L-07
+      - L-08
+      - L-09
+      - L-10
+      - L-11
+      parameters:
+      - name: lessonId
+        in: path
+        required: true
+        schema: *id001
+  /me/vocabulary:
+    get:
+      operationId: listSavedVocabulary
+      summary: My Vocabulary của mình
+      description: Saved-only access to user-owned relation; resolve source even if
+        parent unpublished or current Course changed. Source truly unresolved =>availability
+        UNAVAILABLE/content null; keep relationship. Never permit arbitrary hidden
+        Vocabulary browsing.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: My Vocabulary của mình — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedVocabularyPage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-10
+      - FR-11
+      x-uc:
+      - UC-06
+      x-pb:
+      - PB-05
+      x-ac:
+      - AC-09
+      - AC-10
+      x-design-decisions:
+      - DD-12
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-16
+      parameters:
+      - *id002
+      - *id003
+  /me/vocabulary/{vocabularyId}:
+    put:
+      operationId: saveVocabulary
+      summary: Lưu Vocabulary có sẵn
+      description: No request body/word creation. New save verifies Vocabulary and
+        ancestors visible; repeat existing save returns same saved state200 without
+        duplicate, even if parent later unpublished. UNIQUE(user_id,vocabulary_id).
+        Content DB only.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '200':
+          description: Lưu Vocabulary có sẵn — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedVocabulary'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-10
+      x-uc:
+      - UC-06
+      x-pb:
+      - PB-05
+      x-ac:
+      - AC-09
+      x-design-decisions:
+      - DD-04
+      - DD-12
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-08
+      - L-16
+      parameters:
+      - name: vocabularyId
+        in: path
+        required: true
+        schema: *id001
+    delete:
+      operationId: removeVocabulary
+      summary: Bỏ lưu, giữ Vocabulary nguồn
+      description: Delete only own reference, never source. Repeat remove =>204. Source
+        unavailable does not prevent removal. Path user identity never accepted from
+        client.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '204':
+          description: Bỏ lưu, giữ Vocabulary nguồn — success
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-11
+      x-uc:
+      - UC-06
+      x-pb:
+      - PB-05
+      x-ac:
+      - AC-10
+      x-design-decisions:
+      - DD-12
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-16
+      parameters:
+      - name: vocabularyId
+        in: path
+        required: true
+        schema: *id001
+  /admin/courses:
+    get:
+      operationId: adminListCourses
+      summary: Danh sách Admin courses
+      description: 'Admin sees published and unpublished. Stable order: orderNo then
+        ID for Module/Lesson; ID for Course.'
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Danh sách Admin courses — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoursePage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-17
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-03
+      parameters:
+      - *id002
+      - *id003
+    post:
+      operationId: createCourse
+      summary: Tạo course
+      description: Create published=false; validate internal parent, uniqueness of
+        normalized title/name and sibling orderNo (new W3-04 proposal). No write to
+        other DB. No parent mutation after creation in this draft; hierarchy move
+        not specified by W2.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '201':
+          description: Tạo course — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-17
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-03
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseCreate'
+  /admin/courses/{courseId}:
+    get:
+      operationId: adminGetCourse
+      summary: Xem Admin course
+      description: Xem Admin course
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Xem Admin course — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-17
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-03
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema: *id001
+    patch:
+      operationId: patchCourse
+      summary: Cập nhật/publish course
+      description: No deleted_at/is_deleted, no DELETE operation. published is availability
+        not deletion. Lesson publish requires valid title/body and ready Exercise
+        via Assessment API; unavailable dependency503, not ready409. Keep completion/result/history/saved
+        relations on unpublish. Parent IDs immutable in draft; ordering/title conflicts409.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '200':
+          description: Cập nhật/publish course — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-17
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-03
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CoursePatch'
+  /admin/modules:
+    get:
+      operationId: adminListModules
+      summary: Danh sách Admin modules
+      description: 'Admin sees published and unpublished. Stable order: orderNo then
+        ID for Module/Lesson; ID for Course.'
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Danh sách Admin modules — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModulePage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-17
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-03
+      parameters:
+      - *id002
+      - *id003
+      - name: courseId
+        in: query
+        required: false
+        schema: *id001
+    post:
+      operationId: createModule
+      summary: Tạo module
+      description: Create published=false; validate internal parent, uniqueness of
+        normalized title/name and sibling orderNo (new W3-04 proposal). No write to
+        other DB. No parent mutation after creation in this draft; hierarchy move
+        not specified by W2.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '201':
+          description: Tạo module — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-17
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-03
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModuleCreate'
+  /admin/modules/{moduleId}:
+    get:
+      operationId: adminGetModule
+      summary: Xem Admin module
+      description: Xem Admin module
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Xem Admin module — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-17
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-03
+      parameters:
+      - name: moduleId
+        in: path
+        required: true
+        schema: *id001
+    patch:
+      operationId: patchModule
+      summary: Cập nhật/publish module
+      description: No deleted_at/is_deleted, no DELETE operation. published is availability
+        not deletion. Lesson publish requires valid title/body and ready Exercise
+        via Assessment API; unavailable dependency503, not ready409. Keep completion/result/history/saved
+        relations on unpublish. Parent IDs immutable in draft; ordering/title conflicts409.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '200':
+          description: Cập nhật/publish module — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-17
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-03
+      parameters:
+      - name: moduleId
+        in: path
+        required: true
+        schema: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModulePatch'
+  /admin/lessons:
+    get:
+      operationId: adminListLessons
+      summary: Danh sách Admin lessons
+      description: 'Admin sees published and unpublished. Stable order: orderNo then
+        ID for Module/Lesson; ID for Course.'
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Danh sách Admin lessons — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LessonPage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-17
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-03
+      parameters:
+      - *id002
+      - *id003
+      - name: moduleId
+        in: query
+        required: false
+        schema: *id001
+    post:
+      operationId: createLesson
+      summary: Tạo lesson
+      description: Create published=false; validate internal parent, uniqueness of
+        normalized title/name and sibling orderNo (new W3-04 proposal). No write to
+        other DB. No parent mutation after creation in this draft; hierarchy move
+        not specified by W2.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '201':
+          description: Tạo lesson — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lesson'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-17
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-03
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LessonCreate'
+  /admin/lessons/{lessonId}:
+    get:
+      operationId: adminGetLesson
+      summary: Xem Admin lesson
+      description: Xem Admin lesson
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Xem Admin lesson — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lesson'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-17
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-03
+      parameters:
+      - name: lessonId
+        in: path
+        required: true
+        schema: *id001
+    patch:
+      operationId: patchLesson
+      summary: Cập nhật/publish lesson
+      description: No deleted_at/is_deleted, no DELETE operation. published is availability
+        not deletion. Lesson publish requires valid title/body and ready Exercise
+        via Assessment API; unavailable dependency503, not ready409. Keep completion/result/history/saved
+        relations on unpublish. Parent IDs immutable in draft; ordering/title conflicts409.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '200':
+          description: Cập nhật/publish lesson — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lesson'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-17
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-03
+      parameters:
+      - name: lessonId
+        in: path
+        required: true
+        schema: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LessonPatch'
+  /admin/vocabulary:
+    get:
+      operationId: adminListVocabulary
+      summary: Danh sách Vocabulary đã import
+      description: Danh sách Vocabulary đã import
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Danh sách Vocabulary đã import — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VocabularyPage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-18
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      - DD-05
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-04
+      parameters:
+      - *id002
+      - *id003
+      - name: lessonId
+        in: query
+        required: false
+        schema: *id001
+  /admin/vocabulary/{vocabularyId}:
+    get:
+      operationId: adminGetVocabulary
+      summary: Xem Vocabulary
+      description: Xem Vocabulary
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Xem Vocabulary — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vocabulary'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-18
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-04
+      parameters:
+      - name: vocabularyId
+        in: path
+        required: true
+        schema: *id001
+    patch:
+      operationId: patchVocabulary
+      summary: Sửa Vocabulary nguồn
+      description: Updates visible through My Vocabulary by reference. No manual creation;
+        only Excel import creates Vocabulary. No source delete policy assumed; removal
+        not exposed until explicit review.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '200':
+          description: Sửa Vocabulary nguồn — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vocabulary'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-18
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      - DD-05
+      - DD-12
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-04
+      parameters:
+      - name: vocabularyId
+        in: path
+        required: true
+        schema: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VocabularyPatch'
+  /admin/learning-contents:
+    get:
+      operationId: adminListLearningContent
+      summary: Danh sách Grammar/Listening/Reading
+      description: Danh sách Grammar/Listening/Reading
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Danh sách Grammar/Listening/Reading — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LearningContentPage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-18
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-04
+      parameters:
+      - *id002
+      - *id003
+      - name: lessonId
+        in: query
+        required: false
+        schema: *id001
+      - name: type
+        in: query
+        required: false
+        schema: &id017
+          type: string
+          enum:
+          - GRAMMAR
+          - LISTENING
+          - READING
+    post:
+      operationId: createLearningContent
+      summary: Tạo Grammar/Listening/Reading
+      description: published=false. Vocabulary excluded. Validate Lesson and content-type
+        required text/resource; HTTPS media only, resource handling/security architecture
+        still pending. No media/file upload expansion.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '201':
+          description: Tạo Grammar/Listening/Reading — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LearningContent'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-18
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-04
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LearningContentCreate'
+  /admin/learning-contents/{contentId}:
+    get:
+      operationId: adminGetLearningContent
+      summary: Xem learning content
+      description: Xem learning content
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Xem learning content — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LearningContent'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-18
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-04
+      parameters:
+      - name: contentId
+        in: path
+        required: true
+        schema: *id001
+    patch:
+      operationId: patchLearningContent
+      summary: Sửa/publish learning content
+      description: Validate merged record against type. Missing/inaccessible Listening
+        resource must not be presented as valid audio; availability explicit. No Lesson/source
+        reparenting or assumed deletion.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '200':
+          description: Sửa/publish learning content — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LearningContent'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-18
+      x-uc:
+      - UC-08
+      x-pb:
+      - PB-10
+      x-ac:
+      - AC-16
+      x-design-decisions:
+      - DD-04
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-04
+      parameters:
+      - name: contentId
+        in: path
+        required: true
+        schema: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LearningContentPatch'
+  /lessons/{lessonId}/exercise:
+    get:
+      operationId: getLessonExercise
+      summary: Exercise cuối Lesson
+      description: Visible Lesson and ready Exercise required. No answer keys. Exactly
+        one ready Exercise mapping per Lesson is a draft readiness constraint; no
+        changes to unlimited retake.
+      tags:
+      - Assessment Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Exercise cuối Lesson — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assessment'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Assessment Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-12
+      x-uc:
+      - UC-03
+      - UC-04
+      x-pb:
+      - PB-06
+      x-ac:
+      - AC-08
+      - AC-11
+      x-design-decisions:
+      - DD-04
+      - DD-08
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-12
+      parameters:
+      - name: lessonId
+        in: path
+        required: true
+        schema: *id001
+  /assessments:
+    get:
+      operationId: listAssessments
+      summary: Danh sách Quiz/Test/Exercise khả dụng
+      description: Ready assessments only, Course/Lesson visibility via Content. Metadata
+        only, no answer key.
+      tags:
+      - Assessment Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Danh sách Quiz/Test/Exercise khả dụng — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentPage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Assessment Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-12
+      - FR-13
+      x-uc:
+      - UC-04
+      x-pb:
+      - PB-06
+      - PB-07
+      x-ac:
+      - AC-11
+      - AC-14
+      x-design-decisions:
+      - DD-04
+      - DD-08
+      - DD-09
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-12
+      - L-13
+      parameters:
+      - *id002
+      - *id003
+      - name: courseId
+        in: query
+        required: false
+        schema: *id001
+      - name: type
+        in: query
+        required: false
+        schema: &id004
+          type: string
+          enum:
+          - EXERCISE
+          - QUIZ
+          - TEST
+  /assessments/{assessmentId}:
+    get:
+      operationId: getAssessment
+      summary: Thông tin bài đánh giá
+      description: Thông tin bài đánh giá
+      tags:
+      - Assessment Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Thông tin bài đánh giá — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assessment'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Assessment Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-12
+      - FR-13
+      x-uc:
+      - UC-04
+      x-pb:
+      - PB-06
+      - PB-07
+      x-ac:
+      - AC-11
+      - AC-14
+      x-design-decisions:
+      - DD-04
+      - DD-08
+      - DD-09
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-12
+      - L-13
+      parameters:
+      - name: assessmentId
+        in: path
+        required: true
+        schema: *id001
+  /assessments/{assessmentId}/attempts:
+    post:
+      operationId: startAttempt
+      summary: Bắt đầu attempt/retake mới
+      description: No request body; principal provides userId. Snapshot questions/answer
+        key/points/time and courseId/levelIdAtStart from validated current setup.
+        Draft rejects setup Course mismatch409 LEARNING_SETUP_MISMATCH pending reviewers.
+        Same Idempotency-Key returns original attempt201 even after unpublish; new
+        retake new key, unlimited attempts. No one-active-attempt restriction. Snapshot
+        create atomic in Assessment DB; dependency failure before creation503.
+      tags:
+      - Assessment Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '201':
+          description: Bắt đầu attempt/retake mới — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attempt'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Assessment Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-12
+      - FR-13
+      - FR-15
+      x-uc:
+      - UC-04
+      x-pb:
+      - PB-06
+      - PB-07
+      x-ac:
+      - AC-11
+      - AC-12
+      - AC-14
+      x-design-decisions:
+      - DD-04
+      - DD-08
+      - DD-09
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-12
+      - L-13
+      parameters:
+      - name: assessmentId
+        in: path
+        required: true
+        schema: *id001
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema: *id001
+        description: Transport retry only; a new retake uses a new key. User+operation+key
+          bound; different body same key => 409.
+  /me/attempts:
+    get:
+      operationId: listMyAttempts
+      summary: Danh sách attempt để resume
+      description: Owner only; includes in-progress and terminal, latest startedAt
+        then ID. Expires/finalizes timed attempts before reporting terminal state;
+        dependency session failure503. Does not restart timer.
+      tags:
+      - Assessment Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Danh sách attempt để resume — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttemptPage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Assessment Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-12
+      - FR-13
+      - FR-15
+      x-uc:
+      - UC-04
+      x-pb:
+      - PB-06
+      - PB-07
+      x-ac:
+      - AC-12
+      - AC-14
+      x-design-decisions:
+      - DD-09
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-12
+      - L-13
+      parameters:
+      - *id002
+      - *id003
+      - name: assessmentId
+        in: query
+        required: false
+        schema: *id001
+      - name: status
+        in: query
+        required: false
+        schema: &id025
+          type: string
+          enum:
+          - IN_PROGRESS
+          - SUBMITTED
+          - TIMEOUT
+  /attempts/{attemptId}:
+    get:
+      operationId: getAttempt
+      summary: Resume attempt và đọc đồng hồ server
+      description: Owner-only independent of new browsing availability. Snapshot persists
+        after content edits/unpublish. On now>=deadline finalize TIMEOUT from saved
+        answers, return existing Result; exactly one Result. Relogin/refresh keep
+        deadline. GET may perform expiry reconciliation, never accept new answers/create
+        attempt.
+      tags:
+      - Assessment Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Resume attempt và đọc đồng hồ server — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attempt'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Assessment Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-12
+      - FR-13
+      - FR-15
+      x-uc:
+      - UC-04
+      x-pb:
+      - PB-06
+      - PB-07
+      x-ac:
+      - AC-12
+      - AC-14
+      x-design-decisions:
+      - DD-08
+      - DD-09
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-12
+      - L-13
+      parameters:
+      - name: attemptId
+        in: path
+        required: true
+        schema: *id001
+  /attempts/{attemptId}/answers:
+    put:
+      operationId: saveAnswers
+      summary: Lưu đáp án trước deadline
+      description: Replace entire saved-answer set, validate unique question IDs/type/option
+        membership against snapshot. Lock attempt. Server receipt/lock-time now<deadline
+        required. At/after deadline finalize TIMEOUT and return terminal Attempt200;
+        received late answers ignored. Already terminal =>200 existing Attempt, no
+        mutation. Frontend treats status to distinguish saved from timeout, never
+        assumes 200 means answers accepted. UI serializes saves per attempt; concurrent
+        stale saves remain open revision-design risk.
+      tags:
+      - Assessment Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '200':
+          description: Lưu đáp án trước deadline — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attempt'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Assessment Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-12
+      - FR-13
+      x-uc:
+      - UC-04
+      x-pb:
+      - PB-06
+      - PB-07
+      x-ac:
+      - AC-11
+      - AC-14
+      x-design-decisions:
+      - DD-08
+      - DD-09
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-12
+      - L-13
+      parameters:
+      - name: attemptId
+        in: path
+        required: true
+        schema: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnswersWrite'
+  /attempts/{attemptId}/submit:
+    post:
+      operationId: submitAttempt
+      summary: Nộp đáp án đã lưu và nhận Result
+      description: 'No body: first PUT answers and await acknowledgement, then submit.
+        Missing answers score0, no pass threshold. Lock shared with finalizer; unique
+        Result submission; first terminal transition commits Submission/Result/Outbox
+        in same Assessment transaction. Repeat returns same Result200. Expired Quiz/Test
+        return TIMEOUT Result, ignore late client answers. Result returned without
+        waiting Kafka/Progress. Exercise completion emitted after valid Result, even
+        score0.'
+      tags:
+      - Assessment Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '200':
+          description: Nộp đáp án đã lưu và nhận Result — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Assessment Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-12
+      - FR-13
+      - FR-14
+      - FR-15
+      - FR-16
+      x-uc:
+      - UC-03
+      - UC-04
+      x-pb:
+      - PB-06
+      - PB-07
+      - PB-08
+      x-ac:
+      - AC-11
+      - AC-12
+      - AC-13
+      - AC-14
+      - AC-15
+      x-design-decisions:
+      - DD-08
+      - DD-09
+      - DD-10
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-12
+      - L-13
+      - L-14
+      parameters:
+      - name: attemptId
+        in: path
+        required: true
+        schema: *id001
+  /results/{resultId}:
+    get:
+      operationId: getResult
+      summary: Xem Result của mình
+      description: Ownership checked at Assessment; own historical Result survives
+        source edit/unpublish and Course change. No arbitrary user result lookup.
+      tags:
+      - Assessment Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Xem Result của mình — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Assessment Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-15
+      x-uc:
+      - UC-04
+      - UC-05
+      x-pb:
+      - PB-07
+      - PB-08
+      x-ac:
+      - AC-12
+      x-design-decisions:
+      - DD-08
+      - DD-10
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-14
+      parameters:
+      - name: resultId
+        in: path
+        required: true
+        schema: *id001
+  /me/results:
+    get:
+      operationId: listResults
+      summary: Lịch sử Result của mình
+      description: Authoritative Results in Assessment; completedAt DESC then resultId
+        stable. Retakes remain separate. History projection may lag.
+      tags:
+      - Assessment Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Lịch sử Result của mình — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultPage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Assessment Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-15
+      x-uc:
+      - UC-04
+      - UC-05
+      x-pb:
+      - PB-07
+      - PB-08
+      x-ac:
+      - AC-12
+      x-design-decisions:
+      - DD-08
+      - DD-10
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-14
+      - L-15
+      parameters:
+      - *id002
+      - *id003
+      - name: courseId
+        in: query
+        required: false
+        schema: *id001
+      - name: assessmentId
+        in: query
+        required: false
+        schema: *id001
+      - name: type
+        in: query
+        required: false
+        schema: *id004
+  /admin/assessments:
+    get:
+      operationId: adminListAssessments
+      summary: Danh sách Assessment Admin
+      description: Owner Assessment DB. Validate Content refs by internal API, no
+        DB FK across services. Exercise lesson required; Quiz/Test positive seconds.
+        Readiness requires >=1 valid SINGLE_CHOICE/TRUE_FALSE Question and matching
+        answer keys/options; options unique, points>0. questionId must belong URL
+        assessment. Edit preserves existing attempt snapshots and Results; if merged
+        definition invalid reject400, not silently corrupt ready state. New Question
+        IDs server-generated, option IDs supplied as unique UUIDs. No Assessment import,
+        manual grading, delete or automatic question-type expansion.
+      tags:
+      - Assessment Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Danh sách Assessment Admin — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentPage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Assessment Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-19
+      x-uc:
+      - UC-09
+      x-pb:
+      - PB-11
+      x-ac:
+      - AC-17
+      x-design-decisions:
+      - DD-04
+      - DD-08
+      - DD-09
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-05
+      parameters:
+      - *id002
+      - *id003
+      - name: courseId
+        in: query
+        required: false
+        schema: *id001
+      - name: type
+        in: query
+        required: false
+        schema: *id004
+    post:
+      operationId: createAssessment
+      summary: Tạo Assessment draft
+      description: Owner Assessment DB. Validate Content refs by internal API, no
+        DB FK across services. Exercise lesson required; Quiz/Test positive seconds.
+        Readiness requires >=1 valid SINGLE_CHOICE/TRUE_FALSE Question and matching
+        answer keys/options; options unique, points>0. questionId must belong URL
+        assessment. Edit preserves existing attempt snapshots and Results; if merged
+        definition invalid reject400, not silently corrupt ready state. New Question
+        IDs server-generated, option IDs supplied as unique UUIDs. No Assessment import,
+        manual grading, delete or automatic question-type expansion.
+      tags:
+      - Assessment Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '201':
+          description: Tạo Assessment draft — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assessment'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Assessment Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-19
+      x-uc:
+      - UC-09
+      x-pb:
+      - PB-11
+      x-ac:
+      - AC-17
+      x-design-decisions:
+      - DD-04
+      - DD-08
+      - DD-09
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-05
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssessmentCreate'
+  /admin/assessments/{assessmentId}:
+    get:
+      operationId: adminGetAssessment
+      summary: Xem Assessment và đáp án Admin
+      description: Owner Assessment DB. Validate Content refs by internal API, no
+        DB FK across services. Exercise lesson required; Quiz/Test positive seconds.
+        Readiness requires >=1 valid SINGLE_CHOICE/TRUE_FALSE Question and matching
+        answer keys/options; options unique, points>0. questionId must belong URL
+        assessment. Edit preserves existing attempt snapshots and Results; if merged
+        definition invalid reject400, not silently corrupt ready state. New Question
+        IDs server-generated, option IDs supplied as unique UUIDs. No Assessment import,
+        manual grading, delete or automatic question-type expansion.
+      tags:
+      - Assessment Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Xem Assessment và đáp án Admin — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentDetail'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Assessment Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-19
+      x-uc:
+      - UC-09
+      x-pb:
+      - PB-11
+      x-ac:
+      - AC-17
+      x-design-decisions:
+      - DD-04
+      - DD-08
+      - DD-09
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-05
+      parameters:
+      - name: assessmentId
+        in: path
+        required: true
+        schema: *id001
+    patch:
+      operationId: patchAssessment
+      summary: Sửa cấu hình/readiness Assessment
+      description: Owner Assessment DB. Validate Content refs by internal API, no
+        DB FK across services. Exercise lesson required; Quiz/Test positive seconds.
+        Readiness requires >=1 valid SINGLE_CHOICE/TRUE_FALSE Question and matching
+        answer keys/options; options unique, points>0. questionId must belong URL
+        assessment. Edit preserves existing attempt snapshots and Results; if merged
+        definition invalid reject400, not silently corrupt ready state. New Question
+        IDs server-generated, option IDs supplied as unique UUIDs. No Assessment import,
+        manual grading, delete or automatic question-type expansion.
+      tags:
+      - Assessment Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '200':
+          description: Sửa cấu hình/readiness Assessment — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assessment'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Assessment Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-19
+      x-uc:
+      - UC-09
+      x-pb:
+      - PB-11
+      x-ac:
+      - AC-17
+      x-design-decisions:
+      - DD-04
+      - DD-08
+      - DD-09
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-05
+      parameters:
+      - name: assessmentId
+        in: path
+        required: true
+        schema: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssessmentPatch'
+  /admin/assessments/{assessmentId}/questions:
+    post:
+      operationId: createQuestion
+      summary: Tạo câu hỏi có quy tắc chấm
+      description: Owner Assessment DB. Validate Content refs by internal API, no
+        DB FK across services. Exercise lesson required; Quiz/Test positive seconds.
+        Readiness requires >=1 valid SINGLE_CHOICE/TRUE_FALSE Question and matching
+        answer keys/options; options unique, points>0. questionId must belong URL
+        assessment. Edit preserves existing attempt snapshots and Results; if merged
+        definition invalid reject400, not silently corrupt ready state. New Question
+        IDs server-generated, option IDs supplied as unique UUIDs. No Assessment import,
+        manual grading, delete or automatic question-type expansion.
+      tags:
+      - Assessment Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '201':
+          description: Tạo câu hỏi có quy tắc chấm — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminQuestion'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Assessment Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-19
+      x-uc:
+      - UC-09
+      x-pb:
+      - PB-11
+      x-ac:
+      - AC-17
+      x-design-decisions:
+      - DD-04
+      - DD-08
+      - DD-09
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-05
+      parameters:
+      - name: assessmentId
+        in: path
+        required: true
+        schema: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionWrite'
+  /admin/assessments/{assessmentId}/questions/{questionId}:
+    put:
+      operationId: replaceQuestion
+      summary: Thay cấu hình câu hỏi
+      description: Owner Assessment DB. Validate Content refs by internal API, no
+        DB FK across services. Exercise lesson required; Quiz/Test positive seconds.
+        Readiness requires >=1 valid SINGLE_CHOICE/TRUE_FALSE Question and matching
+        answer keys/options; options unique, points>0. questionId must belong URL
+        assessment. Edit preserves existing attempt snapshots and Results; if merged
+        definition invalid reject400, not silently corrupt ready state. New Question
+        IDs server-generated, option IDs supplied as unique UUIDs. No Assessment import,
+        manual grading, delete or automatic question-type expansion.
+      tags:
+      - Assessment Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '200':
+          description: Thay cấu hình câu hỏi — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminQuestion'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Assessment Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-19
+      x-uc:
+      - UC-09
+      x-pb:
+      - PB-11
+      x-ac:
+      - AC-17
+      x-design-decisions:
+      - DD-04
+      - DD-08
+      - DD-09
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-05
+      parameters:
+      - name: assessmentId
+        in: path
+        required: true
+        schema: *id001
+      - name: questionId
+        in: path
+        required: true
+        schema: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionWrite'
+  /me/progress:
+    get:
+      operationId: getProgress
+      summary: Progress Course của mình
+      description: Any own Course progress incl previous Course. Total includes all
+        persisted Lessons, not just published; completed unique user+lesson; Exercise
+        Result only. No history =>0 completed; no Lessons =>null percent. Content
+        denominator unavailable503. GeneratedAt is response time, syncState EVENTUAL
+        does not imply caught up.
+      tags:
+      - Progress Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Progress Course của mình — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Progress'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Progress Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-16
+      x-uc:
+      - UC-05
+      x-pb:
+      - PB-08
+      x-ac:
+      - AC-15
+      x-design-decisions:
+      - DD-04
+      - DD-10
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-05
+      - L-15
+      parameters:
+      - name: courseId
+        in: query
+        required: true
+        schema: *id001
+  /me/history:
+    get:
+      operationId: getHistory
+      summary: Learning History của mình
+      description: Own projection from validated events, completedAt DESC+historyId;
+        all Course history retained. GET Result by ID authoritative in Assessment.
+        Quiz/Test do not increment completed Lessons.
+      tags:
+      - Progress Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Learning History của mình — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoryPage'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Progress Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-15
+      - FR-16
+      x-uc:
+      - UC-05
+      x-pb:
+      - PB-08
+      x-ac:
+      - AC-12
+      - AC-15
+      x-design-decisions:
+      - DD-10
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-15
+      parameters:
+      - *id002
+      - *id003
+      - name: courseId
+        in: query
+        required: false
+        schema: *id001
+      - name: type
+        in: query
+        required: false
+        schema: *id004
+  /me/dashboard:
+    get:
+      operationId: getDashboard
+      summary: Dashboard cơ bản của mình
+      description: 'Composition only: User current setup + own Progress/History (latest5).
+        No recommendation/Goal/new metric. User/Content sources down503. No setup
+        =>null progress and retained recentHistory.'
+      tags:
+      - Progress Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Dashboard cơ bản của mình — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Progress Service
+      x-roles:
+      - LEARNER
+      x-fr:
+      - FR-16
+      x-uc:
+      - UC-05
+      x-pb:
+      - PB-08
+      x-ac:
+      - AC-15
+      x-design-decisions:
+      - DD-10
+      - DD-11
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - L-05
+  /admin/statistics:
+    get:
+      operationId: getStatistics
+      summary: Sáu nhóm thống kê cơ bản
+      description: Progress orchestrates source APIs User/Content/Assessment. levelId
+        requires courseId and belongs Course else400. Global totalLearners includes
+        all LEARNER statuses; current cohort Course/Level; average progress cohort
+        incl0 and all Course Lessons, no learners/no Lessons=>null. Completed count
+        unique first completion Course/Level snapshot; attempt counts all valid Results
+        incl retakes/TIMEOUT; score average all Quiz/Test Results (not best/latest),
+        no results=>null. No time range. Any mandatory source unavailable503; no fake
+        zeros. Eventual History/Progress, per-source timestamps must be reviewed for
+        inconsistent snapshots.
+      tags:
+      - Progress Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Sáu nhóm thống kê cơ bản — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statistics'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Progress Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-20
+      x-uc:
+      - UC-10
+      x-pb:
+      - PB-12
+      x-ac:
+      - AC-18
+      x-design-decisions:
+      - DD-11
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-07
+      parameters:
+      - name: courseId
+        in: query
+        required: false
+        schema: *id001
+      - name: levelId
+        in: query
+        required: false
+        schema: *id001
+  /admin/imports/vocabulary:
+    post:
+      operationId: importVocabulary
+      summary: Import Vocabulary Excel
+      description: Synchronous atomic file import. Auth/CSRF then target/container/whole
+        file validation before one Content transaction. No skip/update/partial success.
+        Duplicate DB or commit race409 rollback. Validation422, malformed container400,
+        limits413, wrong format415. No business rows on failure; ImportError holds
+        location/counts. Two files are separate transactions. Do not automatically
+        retry after response loss; inspect created records before resending, duplicate
+        returns409.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '201':
+          description: Import Vocabulary Excel — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportOutcome'
+        '400':
+          description: Malformed input / field validation / unknown fields
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportError'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          description: Resource missing or hidden to Learner
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportError'
+        '409':
+          description: Conflict / not ready / invalid state / uniqueness race
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportError'
+        '413':
+          description: Request or expanded file over configured limit
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportError'
+        '415':
+          description: Unsupported media/file type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportError'
+        '422':
+          description: Parseable import data invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportError'
+        '500':
+          description: Unexpected failure; local transaction rolled back
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportError'
+        '503':
+          description: Session/source dependency unavailable; fail closed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportError'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-21
+      x-uc:
+      - UC-11
+      x-pb:
+      - PB-13
+      x-ac:
+      - AC-23
+      x-design-decisions:
+      - DD-05
+      - DD-07
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-06
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VocabularyImport'
+            encoding:
+              file:
+                contentType: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  /admin/imports/lessons:
+    post:
+      operationId: importLessons
+      summary: Import Lesson Word
+      description: Synchronous atomic file import. Auth/CSRF then target/container/whole
+        file validation before one Content transaction. No skip/update/partial success.
+        Duplicate DB or commit race409 rollback. Validation422, malformed container400,
+        limits413, wrong format415. No business rows on failure; ImportError holds
+        location/counts. Two files are separate transactions. Do not automatically
+        retry after response loss; inspect created records before resending, duplicate
+        returns409.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+        csrfHeader: []
+      responses:
+        '201':
+          description: Import Lesson Word — success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportOutcome'
+        '400':
+          description: Malformed input / field validation / unknown fields
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportError'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          description: Resource missing or hidden to Learner
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportError'
+        '409':
+          description: Conflict / not ready / invalid state / uniqueness race
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportError'
+        '413':
+          description: Request or expanded file over configured limit
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportError'
+        '415':
+          description: Unsupported media/file type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportError'
+        '422':
+          description: Parseable import data invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportError'
+        '500':
+          description: Unexpected failure; local transaction rolled back
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportError'
+        '503':
+          description: Session/source dependency unavailable; fail closed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportError'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-21
+      x-uc:
+      - UC-11
+      x-pb:
+      - PB-13
+      x-ac:
+      - AC-23
+      x-design-decisions:
+      - DD-04
+      - DD-06
+      - DD-07
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-06
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LessonImport'
+            encoding:
+              file:
+                contentType: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+  /admin/import-templates/vocabulary:
+    get:
+      operationId: getTemplateVocabulary
+      summary: Tải mẫu vocabulary
+      description: Return raw .xlsx/.docx template v0.1 with Content-Disposition attachment.
+        Preserve format; no native Google conversion.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Tải mẫu vocabulary — success
+          content:
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-21
+      x-uc:
+      - UC-11
+      x-pb:
+      - PB-13
+      x-ac:
+      - AC-23
+      x-design-decisions:
+      - DD-05
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-06
+  /admin/import-templates/lessons:
+    get:
+      operationId: getTemplateLessons
+      summary: Tải mẫu lessons
+      description: Return raw .xlsx/.docx template v0.1 with Content-Disposition attachment.
+        Preserve format; no native Google conversion.
+      tags:
+      - Learning Content Service
+      security:
+      - accessCookie: []
+      responses:
+        '200':
+          description: Tải mẫu lessons — success
+          content:
+            application/vnd.openxmlformats-officedocument.wordprocessingml.document:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+        '503':
+          $ref: '#/components/responses/503'
+      x-owner-service: Learning Content Service
+      x-roles:
+      - ADMIN
+      x-fr:
+      - FR-21
+      x-uc:
+      - UC-11
+      x-pb:
+      - PB-13
+      x-ac:
+      - AC-23
+      x-design-decisions:
+      - DD-06
+      x-contract-status: PROPOSED_FOR_REVIEW
+      x-ui-screens:
+      - A-06
+components:
+  schemas:
+    Id: *id001
+    Timestamp: &id008
+      type: string
+      format: date-time
+      description: RFC3339 UTC; server uses Z suffix.
+    FieldError:
+      type: object
+      additionalProperties: false
+      properties:
+        field:
+          type: string
+          minLength: 1
+          maxLength: 100
+        code:
+          type: string
+          minLength: 1
+          maxLength: 100
+        message:
+          type: string
+          minLength: 1
+          maxLength: 500
+      required:
+      - field
+      - code
+      - message
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+          minLength: 1
+          maxLength: 100
+        message:
+          type: string
+          minLength: 1
+          maxLength: 500
+        traceId: *id001
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldError'
+      required:
+      - code
+      - message
+      - traceId
+      - errors
+      example:
+        code: VALIDATION_ERROR
+        message: Dữ liệu không hợp lệ
+        traceId: 10000000-0000-4000-8000-000000000001
+        errors:
+        - field: fullName
+          code: TOO_LONG
+          message: Tối đa 100 ký tự
+    RegisterRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        email: &id005
+          type: string
+          format: email
+          maxLength: 254
+        password:
+          type: string
+          minLength: 15
+          writeOnly: true
+          description: 15 Unicode code points minimum AND at most 72 UTF-8 bytes.
+            No trim/truncation; byte limit enforced by server, not maxLength.
+        fullName: &id006
+          type: string
+          minLength: 0
+          maxLength: 100
+          description: Trim; null or blank normalizes to null.
+          nullable: true
+      required:
+      - email
+      - password
+    LoginRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        email: *id005
+        password:
+          type: string
+          minLength: 1
+          writeOnly: true
+      required:
+      - email
+      - password
+    Profile:
+      type: object
+      additionalProperties: false
+      properties:
+        userId: *id001
+        email: *id005
+        fullName: *id006
+        role:
+          type: string
+          enum:
+          - LEARNER
+          - ADMIN
+        status: *id007
+      required:
+      - userId
+      - email
+      - fullName
+      - role
+      - status
+    ProfilePatch:
+      type: object
+      additionalProperties: false
+      properties:
+        fullName: *id006
+      required:
+      - fullName
+    LoginResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        user:
+          $ref: '#/components/schemas/Profile'
+        expiresAt: *id008
+      required:
+      - user
+      - expiresAt
+      description: JWT is only in Set-Cookie; no accessToken/password_hash in JSON.
+    CsrfResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        csrfToken:
+          type: string
+          minLength: 1
+          maxLength: 512
+        headerName:
+          type: string
+          enum:
+          - X-CSRF-Token
+      required:
+      - csrfToken
+      - headerName
+    SetupWrite:
+      type: object
+      additionalProperties: false
+      properties:
+        courseId: *id001
+        levelId: *id001
+      required:
+      - courseId
+      - levelId
+    Setup:
+      type: object
+      additionalProperties: false
+      properties:
+        courseId:
+          type: string
+          format: uuid
+          nullable: true
+        levelId:
+          type: string
+          format: uuid
+          nullable: true
+        updatedAt:
+          type: string
+          format: date-time
+          description: RFC3339 UTC; server uses Z suffix.
+          nullable: true
+      required:
+      - courseId
+      - levelId
+      - updatedAt
+    AdminUserPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        fullName: *id006
+        status: *id007
+      description: At least one field. Only Learner targets; role/email/password/userId
+        not writable. Protect seeded Admin from status changes pending User policy
+        review.
+      minProperties: 1
+    UserPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
+        page: &id009
+          type: integer
+          minimum: 0
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements: *id009
+        totalPages: *id009
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    CourseCreate:
+      type: object
+      additionalProperties: false
+      properties:
+        name: &id010
+          type: string
+          minLength: 1
+          maxLength: 200
+      required:
+      - name
+    CoursePatch:
+      type: object
+      additionalProperties: false
+      properties:
+        name: *id010
+        published: &id011
+          type: boolean
+      minProperties: 1
+    Course:
+      type: object
+      additionalProperties: false
+      properties:
+        courseId: *id001
+        name: *id010
+        published: *id011
+      required:
+      - courseId
+      - name
+      - published
+    Level:
+      type: object
+      additionalProperties: false
+      properties:
+        levelId: *id001
+        courseId: *id001
+        name: *id010
+      required:
+      - levelId
+      - courseId
+      - name
+    ModuleCreate:
+      type: object
+      additionalProperties: false
+      properties:
+        courseId: *id001
+        title: *id010
+        orderNo:
+          type: integer
+          minimum: 1
+      required:
+      - courseId
+      - title
+      - orderNo
+    ModulePatch:
+      type: object
+      additionalProperties: false
+      properties:
+        title: *id010
+        orderNo:
+          type: integer
+          minimum: 1
+        published: *id011
+      minProperties: 1
+    Module:
+      type: object
+      additionalProperties: false
+      properties:
+        moduleId: *id001
+        courseId: *id001
+        title: *id010
+        orderNo:
+          type: integer
+          minimum: 1
+        published: *id011
+      required:
+      - moduleId
+      - courseId
+      - title
+      - orderNo
+      - published
+    LessonCreate:
+      type: object
+      additionalProperties: false
+      properties:
+        moduleId: *id001
+        title: *id010
+        content: &id012
+          type: string
+          minLength: 1
+          maxLength: 20000
+        orderNo:
+          type: integer
+          minimum: 1
+      required:
+      - moduleId
+      - title
+      - content
+      - orderNo
+    LessonPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        title: *id010
+        content: *id012
+        orderNo:
+          type: integer
+          minimum: 1
+        published: *id011
+      minProperties: 1
+    Lesson:
+      type: object
+      additionalProperties: false
+      properties:
+        lessonId: *id001
+        moduleId: *id001
+        courseId: *id001
+        title: *id010
+        content: *id012
+        orderNo:
+          type: integer
+          minimum: 1
+        published: *id011
+      required:
+      - lessonId
+      - moduleId
+      - courseId
+      - title
+      - content
+      - orderNo
+      - published
+    Vocabulary:
+      type: object
+      additionalProperties: false
+      properties:
+        vocabularyId: *id001
+        lessonId: *id001
+        courseId: *id001
+        word: &id013
+          type: string
+          minLength: 1
+          maxLength: 128
+        meaning: &id014
+          type: string
+          minLength: 1
+          maxLength: 500
+        example: &id015
+          type: string
+          minLength: 0
+          maxLength: 1000
+          nullable: true
+        phonetic: &id016
+          type: string
+          minLength: 0
+          maxLength: 128
+          nullable: true
+        published: *id011
+      required:
+      - vocabularyId
+      - lessonId
+      - courseId
+      - word
+      - meaning
+      - example
+      - phonetic
+      - published
+    VocabularyPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        word: *id013
+        meaning: *id014
+        example: *id015
+        phonetic: *id016
+        published: *id011
+      description: Update existing imported Vocabulary only. Same uniqueness/normalization
+        as Excel. No manual create API.
+      minProperties: 1
+    LearningContentCreate:
+      type: object
+      additionalProperties: false
+      properties:
+        lessonId: *id001
+        type: *id017
+        title: *id010
+        text:
+          type: string
+          minLength: 1
+          maxLength: 20000
+          nullable: true
+        resourceUrl:
+          type: string
+          format: uri
+          maxLength: 2048
+          nullable: true
+      required:
+      - lessonId
+      - type
+      - title
+      description: GRAMMAR/READING require text. LISTENING requires configured HTTPS
+        resourceUrl. Server does not fetch arbitrary client URLs; media upload/storage
+        pipeline remains to review.
+    LearningContentPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        title: *id010
+        text:
+          type: string
+          minLength: 1
+          maxLength: 20000
+          nullable: true
+        resourceUrl:
+          type: string
+          format: uri
+          maxLength: 2048
+          nullable: true
+        published: *id011
+      minProperties: 1
+    LearningContent:
+      type: object
+      additionalProperties: false
+      properties:
+        contentId: *id001
+        lessonId: *id001
+        type: *id017
+        title: *id010
+        text:
+          type: string
+          minLength: 1
+          maxLength: 20000
+          nullable: true
+        resourceUrl:
+          type: string
+          format: uri
+          maxLength: 2048
+          nullable: true
+        published: *id011
+        availability:
+          type: string
+          enum:
+          - AVAILABLE
+          - UNAVAILABLE
+      required:
+      - contentId
+      - lessonId
+      - type
+      - title
+      - text
+      - resourceUrl
+      - published
+      - availability
+    LessonLearning:
+      type: object
+      additionalProperties: false
+      properties:
+        lesson:
+          $ref: '#/components/schemas/Lesson'
+        vocabulary:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vocabulary'
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningContent'
+        exerciseId: *id001
+      required:
+      - lesson
+      - vocabulary
+      - contents
+      - exerciseId
+      description: Published/readiness checks. GET has no LessonCompletion side effect.
+        Unavailable resource item remains explicit.
+    SavedVocabulary:
+      type: object
+      additionalProperties: false
+      properties:
+        vocabularyId: *id001
+        addedAt: *id008
+        availability:
+          type: string
+          enum:
+          - AVAILABLE
+          - UNAVAILABLE
+        content:
+          type: object
+          additionalProperties: false
+          properties:
+            word: *id013
+            meaning: *id014
+            example: *id015
+            phonetic: *id016
+          required:
+          - word
+          - meaning
+          - example
+          - phonetic
+          nullable: true
+      required:
+      - vocabularyId
+      - addedAt
+      - availability
+      - content
+      description: UNAVAILABLE requires content=null; source unavailable does not
+        delete reference. Resolve only owner saved references, even if parent unpublished.
+    CoursePage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Course'
+        page: *id009
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements: *id009
+        totalPages: *id009
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    LevelPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Level'
+        page: *id009
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements: *id009
+        totalPages: *id009
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    ModulePage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Module'
+        page: *id009
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements: *id009
+        totalPages: *id009
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    LessonPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Lesson'
+        page: *id009
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements: *id009
+        totalPages: *id009
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    VocabularyPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vocabulary'
+        page: *id009
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements: *id009
+        totalPages: *id009
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    LearningContentPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningContent'
+        page: *id009
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements: *id009
+        totalPages: *id009
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    SavedVocabularyPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SavedVocabulary'
+        page: *id009
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements: *id009
+        totalPages: *id009
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    Option:
+      type: object
+      additionalProperties: false
+      properties:
+        optionId: *id001
+        text:
+          type: string
+          minLength: 1
+          maxLength: 1000
+      required:
+      - optionId
+      - text
+    SingleChoiceWrite:
+      type: object
+      additionalProperties: false
+      properties:
+        questionType: &id020
+          type: string
+          enum:
+          - SINGLE_CHOICE
+        content: &id018
+          type: string
+          minLength: 1
+          maxLength: 20000
+        points: &id019
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+        options: &id021
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+          minItems: 2
+          maxItems: 6
+        correctOptionId: *id001
+      required:
+      - questionType
+      - content
+      - points
+      - options
+      - correctOptionId
+      description: Option IDs unique; correctOptionId must be one of options. Exact
+        one correct option.
+    TrueFalseWrite:
+      type: object
+      additionalProperties: false
+      properties:
+        questionType: &id022
+          type: string
+          enum:
+          - TRUE_FALSE
+        content: *id018
+        points: *id019
+        correctAnswer: *id011
+      required:
+      - questionType
+      - content
+      - points
+      - correctAnswer
+    QuestionWrite:
+      oneOf:
+      - $ref: '#/components/schemas/SingleChoiceWrite'
+      - $ref: '#/components/schemas/TrueFalseWrite'
+    SingleChoiceQuestion:
+      type: object
+      additionalProperties: false
+      properties:
+        questionId: *id001
+        questionType: *id020
+        content: *id018
+        points: *id019
+        options: *id021
+        correctOptionId: *id001
+      required:
+      - questionId
+      - questionType
+      - content
+      - points
+      - options
+      - correctOptionId
+    TrueFalseQuestion:
+      type: object
+      additionalProperties: false
+      properties:
+        questionId: *id001
+        questionType: *id022
+        content: *id018
+        points: *id019
+        correctAnswer: *id011
+      required:
+      - questionId
+      - questionType
+      - content
+      - points
+      - correctAnswer
+    AdminQuestion:
+      oneOf:
+      - $ref: '#/components/schemas/SingleChoiceQuestion'
+      - $ref: '#/components/schemas/TrueFalseQuestion'
+    SingleChoicePublic:
+      type: object
+      additionalProperties: false
+      properties:
+        questionId: *id001
+        questionType:
+          type: string
+          enum:
+          - SINGLE_CHOICE
+        content: *id018
+        points: *id019
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+          minItems: 2
+          maxItems: 6
+      required:
+      - questionId
+      - questionType
+      - content
+      - points
+      - options
+    TrueFalsePublic:
+      type: object
+      additionalProperties: false
+      properties:
+        questionId: *id001
+        questionType:
+          type: string
+          enum:
+          - TRUE_FALSE
+        content: *id018
+        points: *id019
+      required:
+      - questionId
+      - questionType
+      - content
+      - points
+    PublicQuestion:
+      oneOf:
+      - $ref: '#/components/schemas/SingleChoicePublic'
+      - $ref: '#/components/schemas/TrueFalsePublic'
+    AssessmentCreate:
+      type: object
+      additionalProperties: false
+      properties:
+        type: *id004
+        courseId: *id001
+        lessonId:
+          type: string
+          format: uuid
+          nullable: true
+        title: *id010
+        timeLimitSeconds: &id023
+          type: integer
+          minimum: 1
+          nullable: true
+      required:
+      - type
+      - courseId
+      - lessonId
+      - title
+      - timeLimitSeconds
+      description: EXERCISE requires lessonId and null time limit. QUIZ/TEST require
+        positive timeLimitSeconds, no default. courseId derives/validates against
+        Lesson if provided. Create draft; question configuration separate.
+    AssessmentPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        title: *id010
+        timeLimitSeconds: *id023
+        ready: *id011
+      description: No type/course/lesson reparenting. ready=true requires questions/answer
+        key and valid time configuration; ready=false stops new attempts, keeps old
+        snapshots.
+      minProperties: 1
+    Assessment:
+      type: object
+      additionalProperties: false
+      properties:
+        assessmentId: *id001
+        type: *id004
+        courseId: *id001
+        lessonId: &id024
+          type: string
+          format: uuid
+          nullable: true
+        title: *id010
+        timeLimitSeconds: *id023
+        ready: *id011
+        questionCount: *id009
+      required:
+      - assessmentId
+      - type
+      - courseId
+      - lessonId
+      - title
+      - timeLimitSeconds
+      - ready
+      - questionCount
+    AssessmentDetail:
+      type: object
+      additionalProperties: false
+      properties:
+        assessmentId: *id001
+        type: *id004
+        courseId: *id001
+        lessonId: *id024
+        title: *id010
+        timeLimitSeconds: *id023
+        ready: *id011
+        questionCount: *id009
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminQuestion'
+      required:
+      - assessmentId
+      - type
+      - courseId
+      - lessonId
+      - title
+      - timeLimitSeconds
+      - ready
+      - questionCount
+      - questions
+    AssessmentPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Assessment'
+        page: *id009
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements: *id009
+        totalPages: *id009
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    AnswerSingleChoice:
+      type: object
+      additionalProperties: false
+      properties:
+        questionId: *id001
+        questionType:
+          type: string
+          enum:
+          - SINGLE_CHOICE
+        optionId: *id001
+      required:
+      - questionId
+      - questionType
+      - optionId
+    AnswerTrueFalse:
+      type: object
+      additionalProperties: false
+      properties:
+        questionId: *id001
+        questionType:
+          type: string
+          enum:
+          - TRUE_FALSE
+        value: *id011
+      required:
+      - questionId
+      - questionType
+      - value
+    Answer:
+      oneOf:
+      - $ref: '#/components/schemas/AnswerSingleChoice'
+      - $ref: '#/components/schemas/AnswerTrueFalse'
+    AnswersWrite:
+      type: object
+      additionalProperties: false
+      properties:
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Answer'
+      required:
+      - answers
+      description: Full replacement of received answers, not merge. Missing question
+        = unanswered. Unique questionId; must belong to attempt snapshot. Empty list
+        clears answers before deadline.
+    Result:
+      type: object
+      additionalProperties: false
+      properties: &id026
+        resultId: *id001
+        submissionId: *id001
+        assessmentId: *id001
+        assessmentType: *id004
+        courseId: *id001
+        levelIdAtStart: *id001
+        lessonId:
+          type: string
+          format: uuid
+          nullable: true
+        status:
+          type: string
+          enum:
+          - SUBMITTED
+          - TIMEOUT
+        earnedPoints: &id028
+          type: number
+          minimum: 0
+        maxPoints: *id019
+        scorePercent:
+          type: number
+          minimum: 0
+          maximum: 100
+        completedAt: *id008
+        progressSync:
+          type: string
+          enum:
+          - EVENTUAL
+      required: &id027
+      - resultId
+      - submissionId
+      - assessmentId
+      - assessmentType
+      - courseId
+      - levelIdAtStart
+      - lessonId
+      - status
+      - earnedPoints
+      - maxPoints
+      - scorePercent
+      - completedAt
+      - progressSync
+      description: Owner is authenticated Learner; scorePercent rounded half-up to
+        two decimals in DTO, grading uses unrounded points. Quiz/Test never complete
+        Lesson; zero-score valid Exercise does.
+    Attempt:
+      type: object
+      additionalProperties: false
+      properties:
+        attemptId: *id001
+        assessmentId: *id001
+        courseId: *id001
+        levelIdAtStart: *id001
+        status: *id025
+        startedAt: *id008
+        deadlineAt:
+          type: string
+          format: date-time
+          description: RFC3339 UTC; server uses Z suffix.
+          nullable: true
+        serverNow: *id008
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicQuestion'
+          minItems: 1
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Answer'
+        result:
+          type: object
+          additionalProperties: false
+          properties: *id026
+          required: *id027
+          description: Owner is authenticated Learner; scorePercent rounded half-up
+            to two decimals in DTO, grading uses unrounded points. Quiz/Test never
+            complete Lesson; zero-score valid Exercise does.
+          nullable: true
+      required:
+      - attemptId
+      - assessmentId
+      - courseId
+      - levelIdAtStart
+      - status
+      - startedAt
+      - deadlineAt
+      - serverNow
+      - questions
+      - answers
+      - result
+      description: attemptId maps to submission_id; snapshot persists. Terminal attempt
+        result non-null; in-progress null. No answer keys returned.
+    AttemptPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attempt'
+        page: *id009
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements: *id009
+        totalPages: *id009
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    ResultPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+        page: *id009
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements: *id009
+        totalPages: *id009
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    Progress:
+      type: object
+      additionalProperties: false
+      properties: &id029
+        courseId: *id001
+        completedLessons: *id009
+        totalLessons: *id009
+        progressPercent:
+          type: number
+          minimum: 0
+          maximum: 100
+          nullable: true
+        generatedAt: *id008
+        syncState:
+          type: string
+          enum:
+          - EVENTUAL
+      required: &id030
+      - courseId
+      - completedLessons
+      - totalLessons
+      - progressPercent
+      - generatedAt
+      - syncState
+      description: All persisted Lessons in Course, including unpublished. totalLessons=0
+        => progressPercent=null; never divide by zero.
+    HistoryEntry:
+      type: object
+      additionalProperties: false
+      properties:
+        historyId: *id001
+        assessmentId: *id001
+        assessmentType: *id004
+        submissionId: *id001
+        resultId: *id001
+        courseId: *id001
+        levelIdAtStart: *id001
+        lessonId:
+          type: string
+          format: uuid
+          nullable: true
+        earnedPoints: *id028
+        maxPoints: *id019
+        scorePercent:
+          type: number
+          minimum: 0
+          maximum: 100
+        completedAt: *id008
+      required:
+      - historyId
+      - assessmentId
+      - assessmentType
+      - submissionId
+      - resultId
+      - courseId
+      - levelIdAtStart
+      - lessonId
+      - earnedPoints
+      - maxPoints
+      - scorePercent
+      - completedAt
+    HistoryPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoryEntry'
+        page: *id009
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+        totalElements: *id009
+        totalPages: *id009
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+    Dashboard:
+      type: object
+      additionalProperties: false
+      properties:
+        setup:
+          $ref: '#/components/schemas/Setup'
+        progress:
+          type: object
+          additionalProperties: false
+          properties: *id029
+          required: *id030
+          description: All persisted Lessons in Course, including unpublished. totalLessons=0
+            => progressPercent=null; never divide by zero.
+          nullable: true
+        recentHistory:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoryEntry'
+          maxItems: 5
+        generatedAt: *id008
+        syncState:
+          type: string
+          enum:
+          - EVENTUAL
+      required:
+      - setup
+      - progress
+      - recentHistory
+      - generatedAt
+      - syncState
+      description: Progress orchestrates User setup and own history; no setup => progress=null.
+        Required source down => 503, never fake zero.
+    CourseStatistics:
+      type: object
+      additionalProperties: false
+      properties:
+        courseId: *id001
+        levelId:
+          type: string
+          format: uuid
+          nullable: true
+        currentLearnerCount: *id009
+        averageProgressPercent:
+          type: number
+          minimum: 0
+          maximum: 100
+          nullable: true
+        completedLessonCount: *id009
+        attemptCounts:
+          type: object
+          additionalProperties: false
+          properties:
+            EXERCISE: *id009
+            QUIZ: *id009
+            TEST: *id009
+          required:
+          - EXERCISE
+          - QUIZ
+          - TEST
+        averageQuizTestScorePercent:
+          type: number
+          minimum: 0
+          maximum: 100
+          nullable: true
+      required:
+      - courseId
+      - levelId
+      - currentLearnerCount
+      - averageProgressPercent
+      - completedLessonCount
+      - attemptCounts
+      - averageQuizTestScorePercent
+    Statistics:
+      type: object
+      additionalProperties: false
+      properties:
+        totalLearners: *id009
+        courses:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseStatistics'
+        generatedAt: *id008
+        syncState:
+          type: string
+          enum:
+          - EVENTUAL
+      required:
+      - totalLearners
+      - courses
+      - generatedAt
+      - syncState
+      description: Six metric families DD-11. totalLearners global; cohorts current
+        Course/Level; completions first-completion snapshot; all Result attempts start
+        snapshot. No time filter. Average without denominator null.
+    ImportIssue:
+      type: object
+      additionalProperties: false
+      properties:
+        row:
+          type: integer
+          minimum: 1
+          nullable: true
+        paragraph:
+          type: integer
+          minimum: 1
+          nullable: true
+        field:
+          type: string
+          minLength: 1
+          maxLength: 100
+        code:
+          type: string
+          minLength: 1
+          maxLength: 100
+        message:
+          type: string
+          minLength: 1
+          maxLength: 500
+      required:
+      - row
+      - paragraph
+      - field
+      - code
+      - message
+    ImportOutcome:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - REJECTED
+        totalItems:
+          type: integer
+          minimum: 0
+          nullable: true
+        validCount:
+          type: integer
+          minimum: 0
+          nullable: true
+        invalidCount:
+          type: integer
+          minimum: 0
+          nullable: true
+        createdCount: *id009
+        createdIds:
+          type: array
+          items: *id001
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImportIssue'
+      required:
+      - status
+      - totalItems
+      - validCount
+      - invalidCount
+      - createdCount
+      - createdIds
+      - errors
+      description: 'Atomic per file. REJECTED => createdCount=0, createdIds=[]. Parseable:
+        validCount+invalidCount=totalItems, distinct item counts. Container not parseable
+        => counts=null. Locations 1-based; Excel includes header row in physical row
+        index.'
+      example:
+        status: SUCCESS
+        totalItems: 2
+        validCount: 2
+        invalidCount: 0
+        createdCount: 2
+        createdIds:
+        - 10000000-0000-4000-8000-000000000011
+        - 10000000-0000-4000-8000-000000000012
+        errors: []
+    ImportError:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+          minLength: 1
+          maxLength: 100
+        message:
+          type: string
+          minLength: 1
+          maxLength: 500
+        traceId: *id001
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldError'
+        import:
+          $ref: '#/components/schemas/ImportOutcome'
+      required:
+      - code
+      - message
+      - traceId
+      - errors
+      - import
+    VocabularyImport:
+      type: object
+      additionalProperties: false
+      properties:
+        file:
+          type: string
+          format: binary
+        lessonId: *id001
+      required:
+      - file
+      - lessonId
+    LessonImport:
+      type: object
+      additionalProperties: false
+      properties:
+        file:
+          type: string
+          format: binary
+        moduleId: *id001
+        orderNo:
+          type: integer
+          minimum: 1
+      required:
+      - file
+      - moduleId
+      - orderNo
+  responses:
+    '400':
+      description: Malformed input / field validation / unknown fields
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '401':
+      description: Invalid, expired, revoked or missing session
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '403':
+      description: Role/ownership/CSRF denied
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '404':
+      description: Resource missing or hidden to Learner
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '405':
+      description: Method not allowed; forbidden FR-17 DELETE does not mutate data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '409':
+      description: Conflict / not ready / invalid state / uniqueness race
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '413':
+      description: Request or expanded file over configured limit
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '415':
+      description: Unsupported media/file type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '422':
+      description: Parseable import data invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '500':
+      description: Unexpected failure; local transaction rolled back
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '503':
+      description: Session/source dependency unavailable; fail closed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    accessCookie:
+      type: apiKey
+      in: cookie
+      name: access_token
+      description: JWT HttpOnly cookie; fixed verification algorithm; sub/role/jti/iss/aud/iat/exp.
+        Server account/revocation checks on every protected request.
+    csrfHeader:
+      type: apiKey
+      in: header
+      name: X-CSRF-Token
+      description: Separate CSRF token validated against pre-session or authenticated
+        session. Required for all mutations incl register/login/logout.
+x-scope-baseline: W2 02/10/2026
+x-reviewers:
+- Nguyễn Quang Huy
+- Lê Tiến Hưng
+x-design-status: PROPOSED
+x-w3-card: https://trello.com/c/zqeduhFA
