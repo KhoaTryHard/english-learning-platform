@@ -23,11 +23,12 @@ class AssessmentReadinessLiveTest {
         Path.of(System.getenv("READINESS_PRIVATE_KEYS")), System.getenv("FRONTEND_ORIGIN"));
     var report = new LinkedHashMap<String, Object>();
     report.put("phase", phase); report.put("checkedAt", Instant.now().toString());
-    report.put("backendSha", manifest.get("backendSha")); report.put("assessment", manifest.get("assessment"));
-    report.put("fixtureIds", manifest.get("fixtures"));
+    report.put("backendSha", manifest.get("backendSha"));
+    report.put("assessment", phase.equals("prepare") ? Map.of("status", "NOT_PROVIDED_OR_NOT_EXERCISED") : manifest.get("assessment"));
     report.put("manifestSha256", java.util.HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256")
         .digest(Files.readAllBytes(input))));
-    report.put("scope", "External HTTP acceptance; supplied LIVE runtime/DB provenance requires Huy/Khoa review");
+    report.put("scope", phase.equals("prepare") ? "Real User/Content/Gateway fixture preparation only; no Assessment requests"
+        : "External HTTP acceptance; supplied LIVE runtime/DB provenance requires Huy/Khoa review");
     report.put("notCovered", List.of("attempt retry/retake", "Progress/Kafka", "team contract approval"));
     report.put("checks", driver.checks);
     try {
@@ -52,6 +53,7 @@ class AssessmentReadinessLiveTest {
       report.put("failureType", failure.getClass().getSimpleName());
       throw failure;
     } finally {
+      report.put("fixtureIds", manifest.get("fixtures"));
       Files.createDirectories(output.toAbsolutePath().getParent());
       Files.writeString(output, Json.text(report), StandardOpenOption.CREATE_NEW);
     }
