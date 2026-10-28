@@ -27,3 +27,8 @@ Service IDs: `api`, `user`, `content`, `assessment`, `progress`; issuer service 
 Ví dụ service base URL chỉ là cấu hình môi trường: USER_URL, CONTENT_URL, ASSESSMENT_URL, PROGRESS_URL. Không public expose /internal/v1; không chia private key của api cho Huy. Sinh key test riêng, trao public keys và cấu hình issuer/audience qua kênh nhóm đã có; tài liệu này không gửi thông tin đăng nhập.
 
 Unit/proxy HTTP tests ghi trong checkpoint. CSRF rotation/session/JTI, DB outage và LIVE integration phải chạy với User/PostgreSQL thật; không dùng stub để khép các mục đó. Huy review caller/security và quyết định compatibility/rollout còn OPEN (#42).
+
+
+## Bổ sung regression Java 25 — 28/10/2026
+
+`SessionValidationTest` kiểm tra MockMvc/advice: repository `DataAccessException` → 503 `DEPENDENCY_UNAVAILABLE`, missing session/wrong CSRF → 403, valid session → 200; không leak chi tiết DB/token. `GatewayRoutingTest` xác minh request bị từ chối không tới owner stub, cả unsafe POST. `scripts/verify-session-outage.py` xác minh lại với Gateway/User/Content/PostgreSQL thật bằng lỗi quyền SELECT trên session test, giữ nguyên số Course và phục hồi thành công. Đây không phải network/pool-outage matrix đầy đủ. Xem [checkpoint hiện hành](../reviews/2026-10-28-khoa.md) cho SHA/môi trường/report. Proposal v0.1.1 tiếp tục chờ quyết định nhóm.

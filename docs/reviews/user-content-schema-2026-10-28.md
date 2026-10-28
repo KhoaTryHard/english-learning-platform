@@ -21,3 +21,6 @@ ERD source hiện hành: [docs/erd.md](../erd.md) đã có `LESSON ||--o{ LEARNI
 #31: User cohort source bao gồm mọi LEARNER kể cả BLOCKED, totalLearnersGlobal độc lập filter; Content totalLessons đếm mọi persisted Lesson, kể cả unpublished. Các nguồn là HTTP owner APIs, không join DB chéo. Paging ổn định theo UUID; generatedAt không là snapshot transaction xuyên nhiều page/service. Không tự diễn giải source lỗi thành số 0. Đầu vào caller/context và handoff ở [internal auth review](../contracts/internal-auth-review-2026-10-28.md).
 
 Static mapping hoàn tất phía Khoa. Integration tests PostgreSQL và peer acceptance vẫn phải có bằng chứng riêng; không đóng #20/#31 chỉ từ tài liệu này.
+
+
+Bổ sung ngày 28/10, Java 25: PostgreSQL integration tests đã PASS, gồm cohort paging/filter/invalid UUID/global count/BLOCKED và Content context paging/hidden denominator. [Checkpoint hiện hành](2026-10-28-khoa.md) ghi SHA và môi trường; nhận bàn giao và acceptance của Huy vẫn OPEN. Nội dung mapping phía trên là audit lịch sử, không thay schema Assessment/Progress.

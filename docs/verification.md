@@ -1,3 +1,9 @@
+# Verification hiện hành — 28/10/2026, Java 25
+
+Owner regression PASS tại source `a9f4664263cfe159ea6c8e14ace9d805e9b311ad`. [Checkpoint](reviews/2026-10-28-khoa.md) và [report](evidence/khoa-java25-2026-10-28.json) ghi 47 JUnit, 3 isolated builds/images, 4 Compose configs, 43 owner operations/62 Gateway requests, 2 frontend LIVE first-slice tests, session fault 503/403, all-table same-cluster restore và DB/app restart persistence. Assessment readiness MOCK; full Assessment/Progress/Kafka, internal v0.1.1 decision và peer acceptance chưa hoàn tất. Dùng [runbook](runbooks/khoa-w9.md) để chạy lại; các report dưới đây là lịch sử và được giữ nguyên.
+
+---
+
 # Verification evidence — 14/10/2026 (Asia/Saigon)
 
 **PASS:** [CI run 38436751397](https://github.com/KhoaTryHard/english-learning-platform/actions/runs/38436751397), tested application source `72cddb1d9f2715cfdad142950667503f7fc779f3`.

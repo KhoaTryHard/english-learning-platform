@@ -136,6 +136,6 @@
     "huySecurityApproval": "Pending",
     "peerReview": "Pending",
     "capacityAndActualHours": "Not asserted",
-    "remotePublication": "Push rejected by automatic approval review; user authorization required"
+    "remotePublication": "Published: b5893c9 -> 36f6a05; 67eb8ed -> 575b739, matching root trees. Historical Java 21 execution; PR remains pending acceptance."
   }
 }

@@ -49,3 +49,8 @@
 ## Open reviewer actions
 
 Khoa code/contract/fixture evidence does not close Huy's schema/architecture work or Hưng's WBS review. API-04 SRS/UC-AC 0.4 still requires actual cross-review. API-05/07/08/11 across Assessment/Progress require owner integration; this package provides Content context/readiness adapter and User setup/cohort only. API-14/Figma not assessed. FIXTURE-01 files and expected results are in docs/fixtures, parser tests and verification report.
+
+
+## Issue alignment — 28/10/2026
+
+[Checkpoint hiện hành](reviews/2026-10-28-khoa.md) nối #3/#13/#14/#21/#31/#41/#42 với code, test độc lập, tích hợp thật và review/merge. Bằng chứng Java 25 ở [report](evidence/khoa-java25-2026-10-28.json); public API rows trên giữ approved v0.1. #14 macro container →415 trước transaction; #42 session repository unavailable →503, invalid CSRF/session →403. Các gate Huy/Hưng và proposal không được đóng bằng owner tests.

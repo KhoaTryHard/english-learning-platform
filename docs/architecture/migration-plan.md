@@ -1,6 +1,12 @@
 # Tích hợp code hiện có vào cây mới
 
-## Hiện trạng xác minh 20/10/2026
+## Trạng thái hiện hành — 28/10/2026
+
+PR #18 đã được Khoa review với hỗ trợ Codex và merge vào `develop` tại `9eff18971470679b25375a4c813f75ade2a23ecf`. PR #1 đã đổi base về `develop`, còn Draft chờ peer review backend và quyết định internal auth. Ba app đã nằm trong `backend/`, build độc lập bằng Java 25; root Maven/Compose, scripts và README đã theo cây mới. Không đổi bytes approved v0.1/V1 SQL, tên volume hoặc credential paths.
+
+Regression và kết quả nghiệm thu hiện hành: [checkpoint Khoa](../reviews/2026-10-28-khoa.md). Assessment/Progress/Kafka thật còn chờ Huy; không lấy demo readiness làm implementation. README từng service có lệnh standalone.
+
+## Kế hoạch lịch sử — xác minh 20/10/2026
 main/develop: 879a0dea35f3d7ee10f6db4dd6a364c4ff7562e5, chỉ README.
 PR #1 Draft → develop: feature/khoa-user-content-postgres, 56450fc0034021f1653a95a0b8ad7e3f1aa6e73f; ba deployable roots đã có code. Không đóng/merge PR này tự động.
 
