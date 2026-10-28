@@ -32,3 +32,28 @@ Unit/proxy HTTP tests ghi trong checkpoint. CSRF rotation/session/JTI, DB outage
 ## Bổ sung regression Java 25 — 28/10/2026
 
 `SessionValidationTest` kiểm tra MockMvc/advice: repository `DataAccessException` → 503 `DEPENDENCY_UNAVAILABLE`, missing session/wrong CSRF → 403, valid session → 200; không leak chi tiết DB/token. `GatewayRoutingTest` xác minh request bị từ chối không tới owner stub, cả unsafe POST. `scripts/verify-session-outage.py` xác minh lại với Gateway/User/Content/PostgreSQL thật bằng lỗi quyền SELECT trên session test, giữ nguyên số Course và phục hồi thành công. Đây không phải network/pool-outage matrix đầy đủ. Xem [checkpoint hiện hành](../reviews/2026-10-28-khoa.md) cho SHA/môi trường/report. Proposal v0.1.1 tiếp tục chờ quyết định nhóm.
+
+## Phiếu quyết định nhóm cho #42
+
+**Trạng thái: PROPOSED / AWAITING_HUY_REVIEW_AND_PM_RECORD.** Khoa yêu cầu chuẩn bị review proposal; chưa có phản hồi của Huy hoặc quyết định baseline của Hưng được ghi nhận. Không dùng phiếu này như approval. Proposal SHA-256 và SHA source được ghi trong evidence của gói handoff.
+
+| Mục cần quyết định | Đề xuất bàn giao | Kết quả nhóm hiện tại |
+|---|---|---|
+| Contract | Chấp nhận nội dung `internal-v0.1.1-proposal.yaml` cho User/Gateway; giữ bản v0.1 đóng băng | Chờ Huy review, Khoa xác nhận và Hưng ghi baseline/version cuối |
+| Session input | `token` + `requestMethod` bắt buộc; unsafe methods cần `csrfSessionId`/`csrfToken` khớp jti | Runtime/tests có sẵn; chưa là quyết định nhóm |
+| Fail closed | Token hết hạn/revoked/BLOCKED →401; CSRF/session CSRF sai →403; dependency →503; thiếu requestMethod →400 | Evidence owner PASS; Huy review consumer |
+| Caller | `api` là caller duy nhất của session validate; Assessment không gọi endpoint này để thay Gateway | Chờ Huy kiểm đường tích hợp |
+| Assertion | Assessment xác minh service JWT của api + `X-Gateway-Principal`: audience owner, method/path, expiry, user/role/sessionJti; không tin browser headers | Chờ Huy xác nhận implementation |
+| Version/rollout | Breaking request shape, coordinated User/Gateway release, public v0.1 không đổi | Chưa chốt nhãn/version và release pair cuối |
+
+Huy phản hồi trong #42: `Đồng ý` hoặc `Yêu cầu sửa`, kèm SHA đã review và từng điểm còn khác. Khoa ghi kết quả review phía mình sau khi đọc phản hồi; Hưng ghi baseline/version quyết định thực tế. Khi chốt, cập nhật bảng bằng link phản hồi, ngày thực, SHA tài liệu/code, version cuối và cặp image triển khai/rollback. Không tự điền tên người khác như người đã duyệt. Không sửa đè `internal-v0.1.yaml` hoặc đổi proposal thành APPROVED trước quyết định đó.
+
+### Triển khai và rollback User/Gateway theo cặp
+
+1. Trong project test, ghi cặp SHA/image hiện tại của **User và Gateway**, snapshot cấu hình cùng public-key fingerprints và backup DB. Chọn cặp rollback đã được chấp nhận; `575b739` cũng dùng proposal nên không gọi nó là runtime token-only v0.1.
+2. Build hai image từ cùng source đã review, giữ keys/DB; `IMAGE_TAG` của Compose root dùng chung cho các app nên cần bảo đảm tag Content tương ứng cũng tồn tại. Ghi image IDs/digests vào evidence, không chỉ ghi tên tag.
+3. Dừng Gateway để tránh traffic trong lúc đổi cặp: `docker compose stop api`. Với `IMAGE_TAG` đã chọn, chạy `docker compose up -d --no-deps --force-recreate --wait user`, rồi tương tự `api`. Không cho traffic qua cặp phiên bản hỗn hợp.
+4. Chạy Auth/CSRF/revoked/BLOCKED/401/403/503 và owner smoke trên project test. Runtime request token-only phải bị từ chối, không default GET. Chỉ kết luận rollout PASS theo report thực tế.
+5. Nếu regression: dừng `api`, chọn **cả hai image của cặp rollback đã ghi**, tái tạo `user` rồi `api` và chạy lại auth smoke. Nếu chưa có cặp được chấp nhận, dừng môi trường test, ghi BLOCKED; không tự hạ CSRF hoặc restore DB vào nguồn đang dùng. Gói này không đổi migration nên rollback không cần sửa schema.
+
+Quy trình trên là đề xuất cho môi trường test. Chuyển baseline chính thức và nghiệm thu production transport/key rotation vẫn cần quyết định của nhóm ở #42/W10.

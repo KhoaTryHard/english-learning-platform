@@ -1,0 +1,18 @@
+{
+  "environment": "TEST",
+  "backendSha": "REPLACE_WITH_FULL_TESTED_BACKEND_SHA",
+  "gatewayUrl": "http://localhost:18080",
+  "assessmentUrl": "http://localhost:18083",
+  "assessmentUrlFromContent": "http://assessment-live:8080",
+  "courseId": "10000000-0000-4000-8000-000000000001",
+  "levelId": "10000000-0000-4000-8000-000000000002",
+  "assessment": {
+    "kind": "LIVE",
+    "sourceSha": "REPLACE_WITH_HUY_FULL_IMPLEMENTATION_SHA",
+    "image": "REPLACE_WITH_ACTUAL_IMAGE_TAG_OR_DIGEST",
+    "dbEngine": "REPLACE_WITH_ENGINE_AND_VERSION",
+    "migration": "REPLACE_WITH_MIGRATION_VERSION",
+    "seedCommand": "REPLACE_WITH_HUY_TEST_SEED_COMMAND",
+    "runtimeEvidence": "REPLACE_WITH_SANITIZED_RUNTIME_DB_AND_KEY_SETUP_EVIDENCE_LINK"
+  }
+}

@@ -59,3 +59,79 @@ Operations script so sánh digest/row count của **mọi bảng public**, defin
 Frontend PR #22: đặt `GATEWAY_URL=http://127.0.0.1:18080` trong phiên frontend; origin phải khớp cấu hình trên. Chạy suite `playwright.live.config.ts` với `RUN_LIVE_INTEGRATION=1`, Course/Level và Lesson/Vocabulary published có sẵn. Lát này là LIVE User/Content/Gateway/PostgreSQL; readiness vẫn MOCK khi dùng profile demo.
 
 Mỗi evidence gồm command, SHA từng service, môi trường, seed/fixture, expected/actual, PASS/FAIL/BLOCKED/NOT_RUN, MOCK/LIVE và log/ảnh. Không backdate hoặc lấy lần CI cũ làm lần chạy mới. Peer review và Huy integration/QA vẫn là điều kiện nghiệm thu riêng.
+
+## Nghiệm thu readiness với Assessment thật — #25/#42
+
+Hiện repo chỉ có scaffold Assessment; chưa có URL, image, migrations/seed hoặc SHA implementation của Huy. **LIVE readiness: NOT_RUN / WAITING_HUY_RUNTIME.** Bộ chạy dưới đây chuẩn bị sẵn cho lần bàn giao; không tự cung cấp Assessment giả. [Phiếu review auth và rollout/rollback](../contracts/internal-auth-review-2026-10-28.md) chờ phản hồi thực của Huy và ghi nhận baseline của Hưng.
+
+### Huy bàn giao trước khi chạy
+
+- PR/branch + SHA đầy đủ, image tag/digest hoặc lệnh build/run, DB engine/version, migrations, seed command và log runtime không có secret.
+- URL từ máy Khoa để probe và URL từ container Content, cổng và mạng Docker. Mặc định dùng project test riêng; service thật tên `assessment-live`, gắn `<COMPOSE_PROJECT_NAME>_backend`. Tên/cổng thực tế phải theo deployment Huy bàn giao, không dùng service `assessment` WireMock trong root Compose.
+- Assessment giữ private key của chính nó; Khoa nhận public key. Assessment nhận public keys `content`, `api` và các caller thực sự cần. Các key của caller dùng probe phải là cùng key Content/Gateway của stack test, không thay private key của nhau.
+- Endpoint `GET /internal/v1/lessons/{lessonId}/exercise-readiness`: chỉ caller Content; thiếu mapping trả200/ready=false, đúng một Exercise ready và >=1 câu hợp lệ mới ready=true; DB lỗi503; không callback sang Content. Các fixture không hợp lệ do Huy tạo theo schema thật, không thêm đường seed/SQL xuyên service.
+- `ServiceGuard` SDK hiện chỉ có allowlist endpoint nội bộ của User/Content; readiness chưa nằm trong allowlist. Huy có thể reuse `TokenCodec`, nhưng nếu reuse guard phải bổ sung mapping readiness → caller `content` và tests trong Assessment; copy guard hiện tại nguyên trạng sẽ từ chối cả caller Content hợp lệ.
+
+### Kết nối và tạo fixture Content
+
+Chọn project test riêng (ví dụ `khoa-readiness-live`), cổng Gateway `18080`, Java25. Không đặt `COMPOSE_PROFILES=demo`; không dùng `--profile demo`. Nếu project đã từng chạy mock thì dừng riêng container mock trước. Huy khởi động Assessment và DB thật bằng deployment của mình rồi kết nối vào network backend của project. Nếu chạy trên host thay vì Docker thì `ASSESSMENT_URL` dùng `host.docker.internal:<cổng thực>`; `localhost` trong Content container không trỏ tới máy host.
+
+```powershell
+$env:COMPOSE_PROJECT_NAME = 'khoa-readiness-live'
+$env:IMAGE_TAG = 'khoa-audit-20261028' # hoặc tag đã build từ SHA hiện hành
+$env:GATEWAY_PORT = '18080'
+$env:GATEWAY_URL = 'http://localhost:18080'
+$env:FRONTEND_ORIGIN = 'http://127.0.0.1:5173'
+$env:ASSESSMENT_URL = 'http://assessment-live:8080' # sửa theo bàn giao thực
+./scripts/init-dev.ps1
+docker compose config --quiet
+docker compose up -d --no-build --wait user content api
+./scripts/bootstrap-admin.ps1 -Email admin@example.com
+./scripts/seed-content.ps1
+# Sau khi thay URL/key, tái tạo consumer để nhận cấu hình mới:
+docker compose up -d --no-deps --force-recreate --wait content api
+```
+
+Kiểm tra config từ `docker compose config` và image/deployment của Assessment, xác nhận URL đích đúng service thật. Không công bố output chứa secret. Nếu key đã được nạp trước đó, restart/recreate consumer sau khi trao public keys; không sinh lại key đã dùng.
+
+Copy [manifest mẫu](../fixtures/readiness-live.example.json) vào `.tools/readiness-live/manifest.json`. Điền `backendSha` từ `git rev-parse HEAD`, URL thật, Course/Level test đã seed. `assessmentUrl` là URL truy cập từ máy chạy test; `assessmentUrlFromContent` phải bằng `ASSESSMENT_URL`. Sau khi Huy bàn giao, điền SHA/image/DB/migration/seed/runtime evidence thật trong `assessment`. Không đưa password/token/private-key bytes vào manifest.
+
+```powershell
+New-Item -ItemType Directory -Force .tools/readiness-live | Out-Null
+Copy-Item docs/fixtures/readiness-live.example.json .tools/readiness-live/manifest.json
+# Điền manifest như hướng dẫn rồi chạy:
+./scripts/verify-readiness-live.ps1 -Phase prepare `
+  -Manifest .tools/readiness-live/manifest.json -Report .tools/readiness-live/prepare.json
+```
+
+`prepare` chỉ tạo một Module published và sáu Lesson draft, xuất `manifest.json.prepared.json` với IDs; Course test sẽ được published. Chỉ chạy vào dữ liệu test. Gửi danh sách IDs cho Huy seed Assessment: `missingMapping` không gán Exercise; `notReady` có Exercise chưa ready/không có câu hỏi hợp lệ; `ready`, `serviceDown`, `databaseDown`, `recovery` có Exercise ready và câu hỏi hợp lệ. Huy điền exerciseId/questionCount tương ứng trong bản prepared manifest cùng provenance runtime. Không sửa lessonId hoặc reuse Lesson giữa các ca.
+
+### Các pha kiểm thử, lỗi và phục hồi
+
+Với JDK25 trên JAVA_HOME/PATH, chạy từ root repo, dùng bản prepared manifest đã điền. `online` yêu cầu Assessment/DB thật đang hoạt động. Các pha sau thao tác **chỉ trên service/DB test Huy đã xác định**; bộ test không tự dừng process/DB.
+
+```powershell
+$taskManifest = '.tools/readiness-live/manifest.json.prepared.json'
+./scripts/verify-readiness-live.ps1 -Phase online -Manifest $taskManifest -Report .tools/readiness-live/online.json
+# Huy dừng service Assessment test; giữ DB và User/Content/Gateway hoạt động.
+./scripts/verify-readiness-live.ps1 -Phase service-down -Manifest $taskManifest -Report .tools/readiness-live/service-down.json
+# Huy khôi phục Assessment, sau đó dừng/mất kết nối DB Assessment test; process vẫn trả HTTP503.
+./scripts/verify-readiness-live.ps1 -Phase database-down -Manifest $taskManifest -Report .tools/readiness-live/database-down.json
+# Huy khôi phục cả service/DB; xác nhận healthy.
+./scripts/verify-readiness-live.ps1 -Phase recovery -Manifest $taskManifest -Report .tools/readiness-live/recovery.json
+```
+
+Mỗi report path phải mới; không ghi đè report cũ. Khi rerun `online`/`recovery` sau publish thành công, tạo bộ Lesson/Exercise test mới bằng manifest fresh. Report lỗi giữ tên ca/status, không ghi token/password/raw body. Wrapper khôi phục biến môi trường process khi kết thúc. Bộ test dùng `TokenCodec` hiện có để ký JWT, không tự triển khai crypto.
+
+| Pha/ca | Điều kiện cần chứng minh |
+|---|---|
+| online/missingMapping, notReady | Direct readiness200/ready=false; publish409 ASSESSMENT_NOT_READY; GET Admin xác nhận Lesson vẫn draft |
+| online/ready | Đúng lessonId/exerciseId/questionCount; publish200/published=true; Learner thật chọn Course/Level và GET Lesson200 có đúng exerciseId |
+| online/auth | Service JWT caller api bị403; JWT Content chữ ký hỏng bị401; không trả readiness nghiệp vụ |
+| service-down | Probe kết nối Assessment thất bại; publish503 DEPENDENCY_UNAVAILABLE; Lesson vẫn draft |
+| database-down | Direct Assessment trả503 DEPENDENCY_UNAVAILABLE; publish503 và Lesson vẫn draft |
+| recovery | Các Lesson bị lỗi trước vẫn draft; Lesson recovery publish200 và Learner GET200 sau khi nguồn hoạt động trở lại |
+
+Kết quả chuẩn bị là `FIXTURES_CREATED_LIVE_NOT_RUN`; mỗi pha đạt chỉ là `PHASE_PASS_REVIEW_REQUIRED`. Không có nhãn tự động full LIVE PASS. Cần **cả bốn report pha**, cùng manifest SHA/fixture IDs và deployment log của Huy xác nhận dùng DB thật; Huy/Khoa review evidence, gồm việc Content thực sự gọi đúng URL từ container và readiness không callback Content. Report HTTP không tự chứng minh schema/DB/no-callback; Huy bổ sung source/runtime test phía mình.
+
+Sau nghiệm thu: bổ sung link report ở #3/#13 và #25/#26. #42 chỉ khép sau quyết định contract và handoff/review của nhóm. Retry/retake giữ ở #21/#25/#26; Kafka/Progress chưa thuộc bộ readiness. PR #1 còn Draft tới khi blocker tương ứng và peer review được xử lý; không đóng #3 chỉ vì wrapper đã chuẩn bị.
