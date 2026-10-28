@@ -2,7 +2,13 @@
 
 Lê Tiến Hưng yêu cầu phân đủ bốn tuần development theo [Timeline Trello](https://trello.com/c/YR8sC8P2). Có **39 issue**, gồm **19 issue cũ được tái sử dụng và 20 issue mới #23–#42**; đủ bốn milestone. Trello chỉ đọc; bỏ CI/CD, kiểm thử thủ công và peer review trong từng tuần. Đây là kế hoạch PM có mục tiêu/remaining, chưa phải xác nhận capacity hoặc nghiệm thu thay thành viên.
 
-Dữ liệu kiểm tra được ở [w5-w8-issues.json](w5-w8-issues.json). Trạng thái checklist mới nhất ở GitHub; JSON là snapshot lập kế hoạch, không tự đồng bộ kết quả chạy sau này.
+Dữ liệu kiểm tra được ở [w5-w8-issues.json](w5-w8-issues.json). Snapshot kế hoạch gốc là 27/10; ngày 28/10 đã đồng bộ riêng checkpoint Khoa cho #3/#13/#14/#21/#31/#41/#42. `checklist` của bảy issue là hiện hành; `checklistAtPlanning` giữ lịch sử. Các issue owner khác, estimates/targets/allocations không đổi; không tự tạo actual hay capacity.
+
+## Checkpoint Khoa — 28/10/2026
+
+[Evidence Java 25](https://github.com/KhoaTryHard/english-learning-platform/blob/28f22cb44052e5f271a91a771ef15007ed881b73/docs/evidence/khoa-java25-2026-10-28.json), source `a9f4664263cfe159ea6c8e14ace9d805e9b311ad`, published backend `28f22cb44052e5f271a91a771ef15007ed881b73`: 47 JUnit, 3 isolated builds/Docker images, 4 Compose configs, 63 route mappings PASS. Hai lỗi macro-enabled import và session DB 500 đã sửa. Smoke 43 owner operations/62 requests, frontend PR #22 desktop/mobile, session fault 503/403, all-table same-cluster restore/restart PASS trên PostgreSQL thật. Readiness Assessment vẫn MOCK; Huy nhận bàn giao, contract decision, full LIVE và peer acceptance còn mở. Khoa cập nhật với Codex, chưa phải Hưng/Huy approval.
+
+PR #18 đã merge `9eff189`; PR #1 base `develop`, còn Draft. #23 giữ WAITING_ACCEPTANCE. Các giá trị remaining ở bảng lịch sử dưới đây là kế hoạch 27/10, chưa được re-estimate sau kết quả này. JSON và GitHub tách code/test độc lập/tích hợp/review; không đóng issue vì một phần đã PASS.
 
 ## Phạm vi, baseline và phân công
 
