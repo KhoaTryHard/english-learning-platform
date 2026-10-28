@@ -11,7 +11,7 @@ services:
     - user_runtime
     volumes:
     - user-data:/var/lib/postgresql/data
-    - ./user-service/deploy/init-db.sh:/docker-entrypoint-initdb.d/01-init.sh:ro
+    - ./backend/services/user-service/deploy/init-db.sh:/docker-entrypoint-initdb.d/01-init.sh:ro
     networks:
     - user-data
     healthcheck:
@@ -33,7 +33,7 @@ services:
     - content_runtime
     volumes:
     - content-data:/var/lib/postgresql/data
-    - ./learning-content-service/deploy/init-db.sh:/docker-entrypoint-initdb.d/01-init.sh:ro
+    - ./backend/services/learning-content-service/deploy/init-db.sh:/docker-entrypoint-initdb.d/01-init.sh:ro
     networks:
     - content-data
     healthcheck:
@@ -46,13 +46,14 @@ services:
   user-migrate:
     image: group7-user-service:${IMAGE_TAG:-local}
     build:
-      context: ./user-service
+      context: ./backend/services/user-service
     environment:
       SERVICE: user
       PLATFORM_KEYS: /keys
       USER_URL: http://user:8081
       CONTENT_URL: http://content:8082
       ASSESSMENT_URL: ${ASSESSMENT_URL:-http://assessment:8080}
+      PROGRESS_URL: ${PROGRESS_URL:-http://progress:8080}
       FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
       SECURE_COOKIES: ${SECURE_COOKIES:-false}
       DB_URL: jdbc:postgresql://user-db:5432/user_db
@@ -76,13 +77,14 @@ services:
   user:
     image: group7-user-service:${IMAGE_TAG:-local}
     build:
-      context: ./user-service
+      context: ./backend/services/user-service
     environment:
       SERVICE: user
       PLATFORM_KEYS: /keys
       USER_URL: http://user:8081
       CONTENT_URL: http://content:8082
       ASSESSMENT_URL: ${ASSESSMENT_URL:-http://assessment:8080}
+      PROGRESS_URL: ${PROGRESS_URL:-http://progress:8080}
       FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
       SECURE_COOKIES: ${SECURE_COOKIES:-false}
       DB_URL: jdbc:postgresql://user-db:5432/user_db
@@ -108,13 +110,14 @@ services:
   content-migrate:
     image: group7-learning-content-service:${IMAGE_TAG:-local}
     build:
-      context: ./learning-content-service
+      context: ./backend/services/learning-content-service
     environment:
       SERVICE: content
       PLATFORM_KEYS: /keys
       USER_URL: http://user:8081
       CONTENT_URL: http://content:8082
       ASSESSMENT_URL: ${ASSESSMENT_URL:-http://assessment:8080}
+      PROGRESS_URL: ${PROGRESS_URL:-http://progress:8080}
       FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
       SECURE_COOKIES: ${SECURE_COOKIES:-false}
       DB_URL: jdbc:postgresql://content-db:5432/content_db
@@ -139,13 +142,14 @@ services:
   content:
     image: group7-learning-content-service:${IMAGE_TAG:-local}
     build:
-      context: ./learning-content-service
+      context: ./backend/services/learning-content-service
     environment:
       SERVICE: content
       PLATFORM_KEYS: /keys
       USER_URL: http://user:8081
       CONTENT_URL: http://content:8082
       ASSESSMENT_URL: ${ASSESSMENT_URL:-http://assessment:8080}
+      PROGRESS_URL: ${PROGRESS_URL:-http://progress:8080}
       FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
       SECURE_COOKIES: ${SECURE_COOKIES:-false}
       DB_URL: jdbc:postgresql://content-db:5432/content_db
@@ -172,13 +176,14 @@ services:
   api:
     image: group7-api-gateway:${IMAGE_TAG:-local}
     build:
-      context: ./api-gateway
+      context: ./backend/api-gateway
     environment:
       SERVICE: api
       PLATFORM_KEYS: /keys
       USER_URL: http://user:8081
       CONTENT_URL: http://content:8082
       ASSESSMENT_URL: ${ASSESSMENT_URL:-http://assessment:8080}
+      PROGRESS_URL: ${PROGRESS_URL:-http://progress:8080}
       FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
       SECURE_COOKIES: ${SECURE_COOKIES:-false}
       JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
@@ -214,13 +219,14 @@ services:
   admin-bootstrap:
     image: group7-user-service:${IMAGE_TAG:-local}
     build:
-      context: ./user-service
+      context: ./backend/services/user-service
     environment:
       SERVICE: user
       PLATFORM_KEYS: /keys
       USER_URL: http://user:8081
       CONTENT_URL: http://content:8082
       ASSESSMENT_URL: ${ASSESSMENT_URL:-http://assessment:8080}
+      PROGRESS_URL: ${PROGRESS_URL:-http://progress:8080}
       FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
       SECURE_COOKIES: ${SECURE_COOKIES:-false}
       DB_URL: jdbc:postgresql://user-db:5432/user_db
@@ -242,13 +248,14 @@ services:
   content-seed:
     image: group7-learning-content-service:${IMAGE_TAG:-local}
     build:
-      context: ./learning-content-service
+      context: ./backend/services/learning-content-service
     environment:
       SERVICE: content
       PLATFORM_KEYS: /keys
       USER_URL: http://user:8081
       CONTENT_URL: http://content:8082
       ASSESSMENT_URL: ${ASSESSMENT_URL:-http://assessment:8080}
+      PROGRESS_URL: ${PROGRESS_URL:-http://progress:8080}
       FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
       SECURE_COOKIES: ${SECURE_COOKIES:-false}
       DB_URL: jdbc:postgresql://content-db:5432/content_db
@@ -262,7 +269,7 @@ services:
     volumes:
     - ./.secrets/keys/public:/keys:ro
     - ./.secrets/keys/content.private.pem:/private/content.private.pem:ro
-    - ./learning-content-service/deploy/course-levels.json:/seed/course-levels.json:ro
+    - ./backend/services/learning-content-service/deploy/course-levels.json:/seed/course-levels.json:ro
     networks: *id004
     secrets: *id006
     depends_on: *id007

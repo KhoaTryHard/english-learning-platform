@@ -3,10 +3,10 @@ from pathlib import Path
 import argparse,subprocess,tempfile,shutil,os,json,zipfile,xml.etree.ElementTree as ET
 
 ROOT=Path(__file__).resolve().parents[1]
-SERVICES={'user-service':'user','learning-content-service':'content','api-gateway':'api'}
+SERVICES={'backend/services/user-service':'user','backend/services/learning-content-service':'content','backend/api-gateway':'api'}
 NS={'m':'http://maven.apache.org/POM/4.0.0'}
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--build',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--build',action='store_true');parser.add_argument('--report',type=Path);args=parser.parse_args()
     results=[]
     for folder,owner in SERVICES.items():
         app=ROOT/folder;pom=ET.parse(app/'pom.xml').getroot()
@@ -33,6 +33,9 @@ def main():
                 assert not any('/platform-core-' in n for n in names)
             result['isolatedBuild']='PASS';result['ownerOnlyExecutableJar']='PASS'
         results.append(result)
-    (ROOT/'docs/verification-service-split.json').write_bytes(json.dumps({'status':'PASS','isolatedBuildRequested':args.build,'services':results},indent=2).encode())
+    if args.report:
+        report_path=ROOT/args.report
+        report_path.parent.mkdir(parents=True,exist_ok=True)
+        report_path.write_bytes(json.dumps({'status':'PASS','isolatedBuildRequested':args.build,'services':results},indent=2).encode())
     print('Standalone service folders verified'+(' with isolated Maven builds' if args.build else ''))
 if __name__=='__main__':main()

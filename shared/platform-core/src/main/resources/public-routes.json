@@ -1,1 +1,506 @@
-[{"path": "/api/v1/auth/csrf", "method": "GET", "owner": "User Service", "roles": ["PUBLIC"]}, {"path": "/api/v1/auth/register", "method": "POST", "owner": "User Service", "roles": ["PUBLIC"]}, {"path": "/api/v1/auth/login", "method": "POST", "owner": "User Service", "roles": ["PUBLIC"]}, {"path": "/api/v1/auth/logout", "method": "POST", "owner": "User Service", "roles": ["AUTHENTICATED"]}, {"path": "/api/v1/me/profile", "method": "GET", "owner": "User Service", "roles": ["LEARNER"]}, {"path": "/api/v1/me/profile", "method": "PATCH", "owner": "User Service", "roles": ["LEARNER"]}, {"path": "/api/v1/me/learning-setup", "method": "GET", "owner": "User Service", "roles": ["LEARNER"]}, {"path": "/api/v1/me/learning-setup", "method": "PUT", "owner": "User Service", "roles": ["LEARNER"]}, {"path": "/api/v1/admin/users", "method": "GET", "owner": "User Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/users/{userId}", "method": "GET", "owner": "User Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/users/{userId}", "method": "PATCH", "owner": "User Service", "roles": ["ADMIN"]}, {"path": "/api/v1/courses", "method": "GET", "owner": "Learning Content Service", "roles": ["LEARNER"]}, {"path": "/api/v1/courses/{courseId}", "method": "GET", "owner": "Learning Content Service", "roles": ["LEARNER"]}, {"path": "/api/v1/courses/{courseId}/levels", "method": "GET", "owner": "Learning Content Service", "roles": ["LEARNER"]}, {"path": "/api/v1/courses/{courseId}/modules", "method": "GET", "owner": "Learning Content Service", "roles": ["LEARNER"]}, {"path": "/api/v1/modules/{moduleId}/lessons", "method": "GET", "owner": "Learning Content Service", "roles": ["LEARNER"]}, {"path": "/api/v1/lessons/{lessonId}", "method": "GET", "owner": "Learning Content Service", "roles": ["LEARNER"]}, {"path": "/api/v1/me/vocabulary", "method": "GET", "owner": "Learning Content Service", "roles": ["LEARNER"]}, {"path": "/api/v1/me/vocabulary/{vocabularyId}", "method": "PUT", "owner": "Learning Content Service", "roles": ["LEARNER"]}, {"path": "/api/v1/me/vocabulary/{vocabularyId}", "method": "DELETE", "owner": "Learning Content Service", "roles": ["LEARNER"]}, {"path": "/api/v1/admin/courses", "method": "GET", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/courses", "method": "POST", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/courses/{courseId}", "method": "GET", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/courses/{courseId}", "method": "PATCH", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/modules", "method": "GET", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/modules", "method": "POST", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/modules/{moduleId}", "method": "GET", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/modules/{moduleId}", "method": "PATCH", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/lessons", "method": "GET", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/lessons", "method": "POST", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/lessons/{lessonId}", "method": "GET", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/lessons/{lessonId}", "method": "PATCH", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/vocabulary", "method": "GET", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/vocabulary/{vocabularyId}", "method": "GET", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/vocabulary/{vocabularyId}", "method": "PATCH", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/learning-contents", "method": "GET", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/learning-contents", "method": "POST", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/learning-contents/{contentId}", "method": "GET", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/learning-contents/{contentId}", "method": "PATCH", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/imports/vocabulary", "method": "POST", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/imports/lessons", "method": "POST", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/import-templates/vocabulary", "method": "GET", "owner": "Learning Content Service", "roles": ["ADMIN"]}, {"path": "/api/v1/admin/import-templates/lessons", "method": "GET", "owner": "Learning Content Service", "roles": ["ADMIN"]}]
+[
+  {
+    "path": "/api/v1/auth/csrf",
+    "method": "GET",
+    "owner": "User Service",
+    "roles": [
+      "PUBLIC"
+    ]
+  },
+  {
+    "path": "/api/v1/auth/register",
+    "method": "POST",
+    "owner": "User Service",
+    "roles": [
+      "PUBLIC"
+    ]
+  },
+  {
+    "path": "/api/v1/auth/login",
+    "method": "POST",
+    "owner": "User Service",
+    "roles": [
+      "PUBLIC"
+    ]
+  },
+  {
+    "path": "/api/v1/auth/logout",
+    "method": "POST",
+    "owner": "User Service",
+    "roles": [
+      "AUTHENTICATED"
+    ]
+  },
+  {
+    "path": "/api/v1/me/profile",
+    "method": "GET",
+    "owner": "User Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/me/profile",
+    "method": "PATCH",
+    "owner": "User Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/me/learning-setup",
+    "method": "GET",
+    "owner": "User Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/me/learning-setup",
+    "method": "PUT",
+    "owner": "User Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/users",
+    "method": "GET",
+    "owner": "User Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/users/{userId}",
+    "method": "GET",
+    "owner": "User Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/users/{userId}",
+    "method": "PATCH",
+    "owner": "User Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/courses",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/courses/{courseId}",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/courses/{courseId}/levels",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/courses/{courseId}/modules",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/modules/{moduleId}/lessons",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/lessons/{lessonId}",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/me/vocabulary",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/me/vocabulary/{vocabularyId}",
+    "method": "PUT",
+    "owner": "Learning Content Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/me/vocabulary/{vocabularyId}",
+    "method": "DELETE",
+    "owner": "Learning Content Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/courses",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/courses",
+    "method": "POST",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/courses/{courseId}",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/courses/{courseId}",
+    "method": "PATCH",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/modules",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/modules",
+    "method": "POST",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/modules/{moduleId}",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/modules/{moduleId}",
+    "method": "PATCH",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/lessons",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/lessons",
+    "method": "POST",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/lessons/{lessonId}",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/lessons/{lessonId}",
+    "method": "PATCH",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/vocabulary",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/vocabulary/{vocabularyId}",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/vocabulary/{vocabularyId}",
+    "method": "PATCH",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/learning-contents",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/learning-contents",
+    "method": "POST",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/learning-contents/{contentId}",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/learning-contents/{contentId}",
+    "method": "PATCH",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/lessons/{lessonId}/exercise",
+    "method": "GET",
+    "owner": "Assessment Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/assessments",
+    "method": "GET",
+    "owner": "Assessment Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/assessments/{assessmentId}",
+    "method": "GET",
+    "owner": "Assessment Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/assessments/{assessmentId}/attempts",
+    "method": "POST",
+    "owner": "Assessment Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/me/attempts",
+    "method": "GET",
+    "owner": "Assessment Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/attempts/{attemptId}",
+    "method": "GET",
+    "owner": "Assessment Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/attempts/{attemptId}/answers",
+    "method": "PUT",
+    "owner": "Assessment Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/attempts/{attemptId}/submit",
+    "method": "POST",
+    "owner": "Assessment Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/results/{resultId}",
+    "method": "GET",
+    "owner": "Assessment Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/me/results",
+    "method": "GET",
+    "owner": "Assessment Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/assessments",
+    "method": "GET",
+    "owner": "Assessment Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/assessments",
+    "method": "POST",
+    "owner": "Assessment Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/assessments/{assessmentId}",
+    "method": "GET",
+    "owner": "Assessment Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/assessments/{assessmentId}",
+    "method": "PATCH",
+    "owner": "Assessment Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/assessments/{assessmentId}/questions",
+    "method": "POST",
+    "owner": "Assessment Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/assessments/{assessmentId}/questions/{questionId}",
+    "method": "PUT",
+    "owner": "Assessment Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/me/progress",
+    "method": "GET",
+    "owner": "Progress Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/me/history",
+    "method": "GET",
+    "owner": "Progress Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/me/dashboard",
+    "method": "GET",
+    "owner": "Progress Service",
+    "roles": [
+      "LEARNER"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/statistics",
+    "method": "GET",
+    "owner": "Progress Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/imports/vocabulary",
+    "method": "POST",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/imports/lessons",
+    "method": "POST",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/import-templates/vocabulary",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  },
+  {
+    "path": "/api/v1/admin/import-templates/lessons",
+    "method": "GET",
+    "owner": "Learning Content Service",
+    "roles": [
+      "ADMIN"
+    ]
+  }
+]

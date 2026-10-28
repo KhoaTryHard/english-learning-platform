@@ -3,7 +3,7 @@ from pathlib import Path
 import argparse,hashlib,json,sys
 
 ROOT=Path(__file__).resolve().parents[1]
-SERVICES=('user-service','learning-content-service','api-gateway')
+SERVICES=('backend/services/user-service','backend/services/learning-content-service','backend/api-gateway')
 PARTS=('src/main/java/vn/group7/core','src/main/resources','src/test/java/vn/group7/core')
 def snapshot():
     base=ROOT/'shared/platform-core'

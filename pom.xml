@@ -16,9 +16,9 @@
     <poi.version>5.4.1</poi.version>
   </properties>
   <modules>
-    <module>user-service</module>
-    <module>learning-content-service</module>
-    <module>api-gateway</module>
+    <module>backend/services/user-service</module>
+    <module>backend/services/learning-content-service</module>
+    <module>backend/api-gateway</module>
   </modules>
   <dependencyManagement>
     <dependencies>
