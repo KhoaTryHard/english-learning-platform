@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/internal/v1/lessons/[0-9a-f-]+/exercise-readiness",
+    "headers": {
+      "Authorization": {
+        "matches": "Bearer .+"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"lessonId\":\"{{request.pathSegments.[3]}}\",\"ready\":true,\"exerciseId\":\"20000000-0000-4000-8000-000000000001\",\"questionCount\":1}",
+    "transformers": [
+      "response-template"
+    ]
+  }
+}

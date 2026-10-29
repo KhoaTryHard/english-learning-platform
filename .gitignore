@@ -1,8 +1,10 @@
+.tools/
+.secrets/
+**/target/
 node_modules/
 dist/
 build/
 coverage/
-target/
 .env
 .env.*
 !.env.example
@@ -11,3 +13,6 @@ target/
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+__pycache__/
+*.pyc

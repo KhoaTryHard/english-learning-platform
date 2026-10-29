@@ -1,0 +1,25 @@
+{
+  "vocabulary-valid.xlsx": {
+    "items": 2,
+    "createdCount": 2
+  },
+  "vocabulary-invalid.xlsx": {
+    "status": 422,
+    "createdCount": 0,
+    "errors": [
+      "IMPORT_DUPLICATE",
+      "INVALID"
+    ]
+  },
+  "lesson-valid.docx": {
+    "createdCount": 1,
+    "published": false
+  },
+  "lesson-leading-empty.docx": {
+    "createdCount": 1
+  },
+  "lesson-missing-title.docx": {
+    "status": 422,
+    "createdCount": 0
+  }
+}

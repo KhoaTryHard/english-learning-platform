@@ -1,3 +1,22 @@
-# API Gateway — Khoa
+# api-gateway — deploy independently
 
-Target cho code Gateway PR #1. Routing/auth forwarding/CSRF/errors theo approved API; không DB domain, không business logic Assessment/Progress. Xem migration-plan trước đổi context/path.
+This folder is a standalone Java 25 / Spring Boot 4.0.8 application. Its Maven parent is Spring Boot from Maven Central; it does not require the repository parent POM, sibling services or a locally installed platform-core JAR. Infrastructure SDK sources/resources are vendored here and checked against the versioned snapshot in the parent repository.
+
+```powershell
+./mvnw.cmd verify
+docker build -t group7-api-gateway:local .
+./deploy/init-dev.ps1
+```
+
+Before starting, provision trusted peer public keys **user.public.pem, content.public.pem** into `.secrets/keys/public/`. Each service signs only with its own private key. Obtain public keys from the same Gateway/service deployments; independently generated peer key pairs will not authenticate each other. The parent repository's development setup provisions a matching set for the full local stack.
+
+Copy `.env.example` to `.env` and configure real peer URLs, frontend origin, TLS cookie policy, media hosts and bind address. By default the app is exposed on loopback port 8080; bind your private deployment interface for remote Gateway access. Internal and public service APIs still require caller authentication; browsers enter through Gateway.
+
+```powershell
+docker compose up -d --build --wait
+```
+
+Gateway has no database and uses configured owner URLs.
+Health: GET /actuator/health. Configure USER_URL, CONTENT_URL, ASSESSMENT_URL and PROGRESS_URL to reachable owner services. All 63 approved public routes are mapped; Assessment/Progress require their actual owner runtimes. Forwarding tests with stubs do not certify those runtimes.
+
+For Linux/macOS use `bash deploy/init-dev.sh` and `bash mvnw verify`. `docker compose down` retains database volumes. This standalone deployment creates its own Compose project/volumes; migrating an existing deployment must preserve or explicitly restore its data. The parent compose continues to use its original volume names.

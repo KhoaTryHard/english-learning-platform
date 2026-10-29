@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "isolatedBuildRequested": true,
+  "services": [
+    {
+      "service": "user-service",
+      "parent": "Spring Boot",
+      "siblingMavenDependency": false,
+      "dockerContext": "user-service",
+      "isolatedBuild": "PASS",
+      "ownerOnlyExecutableJar": "PASS"
+    },
+    {
+      "service": "learning-content-service",
+      "parent": "Spring Boot",
+      "siblingMavenDependency": false,
+      "dockerContext": "learning-content-service",
+      "isolatedBuild": "PASS",
+      "ownerOnlyExecutableJar": "PASS"
+    },
+    {
+      "service": "api-gateway",
+      "parent": "Spring Boot",
+      "siblingMavenDependency": false,
+      "dockerContext": "api-gateway",
+      "isolatedBuild": "PASS",
+      "ownerOnlyExecutableJar": "PASS"
+    }
+  ]
+}
