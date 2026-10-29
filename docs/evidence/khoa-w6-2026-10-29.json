@@ -1,0 +1,730 @@
+{
+  "recordedAt": "2026-10-29T15:03:56+07:00",
+  "owner": "Nguyen Dang Khoa / KhoaTryHard",
+  "status": "OWNER_W6_VERIFIED_EXTERNAL_ACCEPTANCE_OPEN",
+  "scope": "Khoa W1-W6; User/Content/Gateway only",
+  "sourceCommit": "dd344d10483e622a1ea312b46c809418663584f0",
+  "initialTestedCommit": "5eaba0615deecf17b0f4024a4bdc5ea4ae4b6da6",
+  "applicationSourcesUnchangedFromInitial": true,
+  "environment": {
+    "javaHome": ".tools/jdk/jdk-25.0.5+8",
+    "mavenJava": "Temurin 25.0.5+8",
+    "dockerServer": "29.8.2",
+    "runtimeJava": "Picked up JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC\nopenjdk version \"25.0.4.1\" 2026-08-18 LTS\nOpenJDK Runtime Environment Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS)\nOpenJDK 64-Bit Server VM Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS, mixed mode, sharing)",
+    "postgresql": "17.11 (Debian 17.11-1.pgdg13+2)",
+    "composeProject": "khoa-w6-close-20261029",
+    "imageTag": "khoa-w6-20261029",
+    "images": {
+      "user": {
+        "imageId": "sha256:05e193c5383113911d4e46f30b433840a570e9aa3712ab7544226416af871d12",
+        "configuredImage": "group7-user-service:khoa-w6-20261029",
+        "health": "healthy"
+      },
+      "content": {
+        "imageId": "sha256:cd054ac89543db541ba878867454404c25f4b550b6bb3f85c8508f5d74729ccb",
+        "configuredImage": "group7-learning-content-service:khoa-w6-20261029",
+        "health": "healthy"
+      },
+      "api": {
+        "imageId": "sha256:3890c14b76c32369fb89691d3cd7bf7f92c53ff5515a3aeddc823c879f56c32f",
+        "configuredImage": "group7-api-gateway:khoa-w6-20261029",
+        "health": "healthy"
+      }
+    },
+    "gatewayUrl": "http://127.0.0.1:18080",
+    "frontendOrigin": "http://127.0.0.1:5173"
+  },
+  "fullVerify": {
+    "command": "mvnw.cmd -B verify",
+    "sourceCommit": "5eaba0615deecf17b0f4024a4bdc5ea4ae4b6da6",
+    "status": "PASS",
+    "executionsPassed": 51,
+    "skipped": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipReason": "AssessmentReadinessLiveTest opt-in; waiting for real Huy runtime",
+    "scope": "Real PostgreSQL owner integration; Gateway/Assessment owner and readiness-driver stubs explicitly labeled"
+  },
+  "gatewayRegression": {
+    "command": "mvnw.cmd -B -pl backend/api-gateway -Dtest=GatewayRoutingTest test",
+    "sourceCommit": "99e3ef4b038b66df999774064653edde9083ffb6",
+    "status": "PASS",
+    "tests": 7,
+    "newTests": 2,
+    "scope": "HTTP owner stubs; actual method/CSRF context and 12 malformed session response cases",
+    "noOwnerRequestsOnMalformedSession": true,
+    "runtimeCodeChanged": false
+  },
+  "currentSuiteReports": [
+    {
+      "path": "backend/api-gateway/target/surefire-reports/TEST-vn.group7.api.GatewayRoutingTest.xml",
+      "suite": "vn.group7.api.GatewayRoutingTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "backend/api-gateway/target/surefire-reports/TEST-vn.group7.core.InputTest.xml",
+      "suite": "vn.group7.core.InputTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "backend/api-gateway/target/surefire-reports/TEST-vn.group7.core.SecurityBoundaryTest.xml",
+      "suite": "vn.group7.core.SecurityBoundaryTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "backend/services/learning-content-service/target/surefire-reports/TEST-vn.group7.content.AssessmentReadinessLiveTest.xml",
+      "suite": "vn.group7.content.AssessmentReadinessLiveTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    {
+      "path": "backend/services/learning-content-service/target/surefire-reports/TEST-vn.group7.content.ContentIntegrationTest.xml",
+      "suite": "vn.group7.content.ContentIntegrationTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "backend/services/learning-content-service/target/surefire-reports/TEST-vn.group7.content.ImportBoundaryTest.xml",
+      "suite": "vn.group7.content.ImportBoundaryTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "backend/services/learning-content-service/target/surefire-reports/TEST-vn.group7.content.ImportContainerTest.xml",
+      "suite": "vn.group7.content.ImportContainerTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "backend/services/learning-content-service/target/surefire-reports/TEST-vn.group7.content.ReadinessAcceptanceTest.xml",
+      "suite": "vn.group7.content.ReadinessAcceptanceTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "backend/services/learning-content-service/target/surefire-reports/TEST-vn.group7.core.InputTest.xml",
+      "suite": "vn.group7.core.InputTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "backend/services/learning-content-service/target/surefire-reports/TEST-vn.group7.core.SecurityBoundaryTest.xml",
+      "suite": "vn.group7.core.SecurityBoundaryTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "backend/services/user-service/target/surefire-reports/TEST-vn.group7.core.InputTest.xml",
+      "suite": "vn.group7.core.InputTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "backend/services/user-service/target/surefire-reports/TEST-vn.group7.core.SecurityBoundaryTest.xml",
+      "suite": "vn.group7.core.SecurityBoundaryTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "backend/services/user-service/target/surefire-reports/TEST-vn.group7.user.SessionValidationTest.xml",
+      "suite": "vn.group7.user.SessionValidationTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "backend/services/user-service/target/surefire-reports/TEST-vn.group7.user.UserIntegrationTest.xml",
+      "suite": "vn.group7.user.UserIntegrationTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "counting": "Gateway focused rerun replaces that suite in the current inventory; do not sum 51 + 7 as distinct tests. SDK suites repeat per app.",
+  "standalone": {
+    "status": "PASS",
+    "isolatedBuildRequested": true,
+    "services": [
+      {
+        "service": "backend/services/user-service",
+        "parent": "Spring Boot",
+        "siblingMavenDependency": false,
+        "dockerContext": "backend/services/user-service",
+        "isolatedBuild": "PASS",
+        "ownerOnlyExecutableJar": "PASS"
+      },
+      {
+        "service": "backend/services/learning-content-service",
+        "parent": "Spring Boot",
+        "siblingMavenDependency": false,
+        "dockerContext": "backend/services/learning-content-service",
+        "isolatedBuild": "PASS",
+        "ownerOnlyExecutableJar": "PASS"
+      },
+      {
+        "service": "backend/api-gateway",
+        "parent": "Spring Boot",
+        "siblingMavenDependency": false,
+        "dockerContext": "backend/api-gateway",
+        "isolatedBuild": "PASS",
+        "ownerOnlyExecutableJar": "PASS"
+      }
+    ]
+  },
+  "powershellWrappers": {
+    "status": "PASS",
+    "scope": "Windows PowerShell 5.1; fake Docker process writes stderr with success/failure exits",
+    "cases": [
+      {
+        "script": "bootstrap-admin.ps1",
+        "nativeExit": 0,
+        "wrapperExit": 0,
+        "status": "PASS"
+      },
+      {
+        "script": "bootstrap-admin.ps1",
+        "nativeExit": 7,
+        "wrapperExit": 1,
+        "status": "PASS"
+      },
+      {
+        "script": "seed-content.ps1",
+        "nativeExit": 0,
+        "wrapperExit": 0,
+        "status": "PASS"
+      },
+      {
+        "script": "seed-content.ps1",
+        "nativeExit": 7,
+        "wrapperExit": 1,
+        "status": "PASS"
+      }
+    ]
+  },
+  "contracts": {
+    "status": "PASS",
+    "publicRoutes": 63,
+    "ownerPublicOperations": 43,
+    "frozenBaselinePreserved": true
+  },
+  "composeConfigs": {
+    "status": "PASS",
+    "count": 4
+  },
+  "dockerBuild": {
+    "status": "PASS",
+    "initialAttempt": "FAIL_MAVEN_CENTRAL_DNS_DEPENDENCY_DOWNLOAD",
+    "retry": "PASS",
+    "imagesBuilt": 3,
+    "command": "docker compose build user content api"
+  },
+  "smoke": {
+    "status": "PASS",
+    "publicOperations": 43,
+    "requests": 62,
+    "assessment": "MOCK_ONLY",
+    "checks": [
+      {
+        "method": "GET",
+        "path": "/api/v1/auth/csrf",
+        "status": 200,
+        "operation": "getCsrf"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/auth/register",
+        "status": 201,
+        "operation": "register"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/auth/csrf",
+        "status": 200,
+        "operation": "getCsrf"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/auth/login",
+        "status": 200,
+        "operation": "login"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/auth/csrf",
+        "status": 200,
+        "operation": "getCsrf"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/me/profile",
+        "status": 200,
+        "operation": "getMyProfile"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/me/profile",
+        "status": 200,
+        "operation": "patchMyProfile"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/me/learning-setup",
+        "status": 200,
+        "operation": "getLearningSetup"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/auth/csrf",
+        "status": 200,
+        "operation": "getCsrf"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/auth/login",
+        "status": 200,
+        "operation": "login"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/auth/csrf",
+        "status": 200,
+        "operation": "getCsrf"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/users",
+        "status": 200,
+        "operation": "listUsers"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/users/f660ee31-2ef0-4ce2-90b2-ca6a6ee64120",
+        "status": 200,
+        "operation": "getUser"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/users/f660ee31-2ef0-4ce2-90b2-ca6a6ee64120",
+        "status": 200,
+        "operation": "patchUser"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/admin/courses",
+        "status": 201,
+        "operation": "createCourse"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/courses",
+        "status": 200,
+        "operation": "adminListCourses"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/courses/2ff6c6ab-d087-4671-b9e7-ad6e1f24f8c6",
+        "status": 200,
+        "operation": "adminGetCourse"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/courses/2ff6c6ab-d087-4671-b9e7-ad6e1f24f8c6",
+        "status": 200,
+        "operation": "patchCourse"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/courses/10000000-0000-4000-8000-000000000001",
+        "status": 200,
+        "operation": "patchCourse"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/admin/modules",
+        "status": 201,
+        "operation": "createModule"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/modules",
+        "status": 200,
+        "operation": "adminListModules"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/modules/d67f6f97-5add-4e34-954e-aa357cdf9913",
+        "status": 200,
+        "operation": "adminGetModule"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/modules/d67f6f97-5add-4e34-954e-aa357cdf9913",
+        "status": 200,
+        "operation": "patchModule"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/admin/lessons",
+        "status": 201,
+        "operation": "createLesson"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/lessons",
+        "status": 200,
+        "operation": "adminListLessons"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/lessons/606b992d-491e-41d4-b3cb-805862005d56",
+        "status": 200,
+        "operation": "adminGetLesson"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/lessons/606b992d-491e-41d4-b3cb-805862005d56",
+        "status": 200,
+        "operation": "patchLesson"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/admin/imports/vocabulary",
+        "status": 201,
+        "operation": "importVocabulary"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/vocabulary",
+        "status": 200,
+        "operation": "adminListVocabulary"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/vocabulary/231ef847-6e3b-4db9-871b-e068e63f59dc",
+        "status": 200,
+        "operation": "adminGetVocabulary"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/vocabulary/231ef847-6e3b-4db9-871b-e068e63f59dc",
+        "status": 200,
+        "operation": "patchVocabulary"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/admin/learning-contents",
+        "status": 201,
+        "operation": "createLearningContent"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/learning-contents",
+        "status": 200,
+        "operation": "adminListLearningContent"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/learning-contents/b8994a8d-1a9f-4285-97ed-da28e9d0f182",
+        "status": 200,
+        "operation": "adminGetLearningContent"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/learning-contents/b8994a8d-1a9f-4285-97ed-da28e9d0f182",
+        "status": 200,
+        "operation": "patchLearningContent"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/admin/imports/lessons",
+        "status": 201,
+        "operation": "importLessons"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/admin/imports/lessons",
+        "status": 422,
+        "operation": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/import-templates/vocabulary",
+        "status": 200,
+        "operation": "getTemplateVocabulary"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/import-templates/lessons",
+        "status": 200,
+        "operation": "getTemplateLessons"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/v1/me/learning-setup",
+        "status": 200,
+        "operation": "putLearningSetup"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/courses",
+        "status": 200,
+        "operation": "listCourses"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/courses/10000000-0000-4000-8000-000000000001",
+        "status": 200,
+        "operation": "getCourse"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/courses/10000000-0000-4000-8000-000000000001/levels",
+        "status": 200,
+        "operation": "listLevels"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/courses/10000000-0000-4000-8000-000000000001/modules",
+        "status": 200,
+        "operation": "listModules"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/modules/d67f6f97-5add-4e34-954e-aa357cdf9913/lessons",
+        "status": 200,
+        "operation": "listLessons"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/lessons/606b992d-491e-41d4-b3cb-805862005d56",
+        "status": 200,
+        "operation": "getLessonLearning"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/v1/me/vocabulary/231ef847-6e3b-4db9-871b-e068e63f59dc",
+        "status": 200,
+        "operation": "saveVocabulary"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/v1/me/vocabulary/231ef847-6e3b-4db9-871b-e068e63f59dc",
+        "status": 200,
+        "operation": "saveVocabulary"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/me/vocabulary",
+        "status": 200,
+        "operation": "listSavedVocabulary"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/courses/10000000-0000-4000-8000-000000000001",
+        "status": 200,
+        "operation": "patchCourse"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/v1/me/vocabulary/231ef847-6e3b-4db9-871b-e068e63f59dc",
+        "status": 200,
+        "operation": "saveVocabulary"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/me/vocabulary",
+        "status": 200,
+        "operation": "listSavedVocabulary"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/vocabulary/231ef847-6e3b-4db9-871b-e068e63f59dc",
+        "status": 200,
+        "operation": "patchVocabulary"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/me/vocabulary",
+        "status": 200,
+        "operation": "listSavedVocabulary"
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/v1/me/vocabulary/231ef847-6e3b-4db9-871b-e068e63f59dc",
+        "status": 204,
+        "operation": "removeVocabulary"
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/v1/me/vocabulary/231ef847-6e3b-4db9-871b-e068e63f59dc",
+        "status": 204,
+        "operation": "removeVocabulary"
+      },
+      {
+        "method": "GET",
+        "path": "/internal/v1/courses/contexts",
+        "status": 404,
+        "operation": null
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/v1/admin/courses/10000000-0000-4000-8000-000000000001",
+        "status": 405,
+        "operation": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/users",
+        "status": 403,
+        "operation": null
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/me/profile",
+        "status": 403,
+        "operation": null
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/auth/logout",
+        "status": 204,
+        "operation": "logout"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/me/profile",
+        "status": 401,
+        "operation": null
+      }
+    ]
+  },
+  "sessionFault": {
+    "status": "PASS",
+    "scope": "REAL Gateway/User/Content/PostgreSQL; session-table privilege fault only",
+    "invalidCsrf": 403,
+    "missingSession": 403,
+    "sessionStoreFailure": 503,
+    "failureCode": "DEPENDENCY_UNAVAILABLE",
+    "contentRowsUnchangedOnFailure": true,
+    "permissionRestored": true,
+    "recoveryCreatesCourse": true,
+    "notCovered": [
+      "network partition",
+      "pool exhaustion",
+      "full Assessment/Progress integration"
+    ]
+  },
+  "contentAbsentDependency": {
+    "status": "PASS",
+    "scope": "REAL Gateway/User/Content/PostgreSQL; configured Assessment endpoint absent",
+    "assessmentRuntime": "NOT_AVAILABLE",
+    "assessmentLiveAcceptance": "NOT_RUN_WAITING_HUY_RUNTIME",
+    "publishStatus": 503,
+    "errorCode": "DEPENDENCY_UNAVAILABLE",
+    "lessonRemainsDraft": true,
+    "lessonId": "4b0bcb2c-4785-4415-be78-b4739257c931"
+  },
+  "liveAssessment": {
+    "status": "NOT_RUN_WAITING_HUY_RUNTIME",
+    "online": "NOT_RUN",
+    "serviceDown": "NOT_RUN",
+    "databaseDown": "NOT_RUN",
+    "recovery": "NOT_RUN",
+    "retryRetake": "NOT_RUN",
+    "missing": [
+      "implementation SHA/image",
+      "DB migrations and seed",
+      "reachable URLs",
+      "public keys",
+      "no-callback source/runtime evidence"
+    ]
+  },
+  "review": {
+    "kind": "Khoa owner self-review assisted by Codex",
+    "peerApproval": "PENDING",
+    "pr1": "OPEN_DRAFT_BASE_DEVELOP",
+    "internalV011": "PROPOSAL_AWAITING_HUY_REVIEW_AND_GROUP_VERSION_DECISION",
+    "issue23": "WAITING_ACCEPTANCE"
+  },
+  "publication": {
+    "transport": "GitHub connector Git Data API after direct git push DNS failure",
+    "force": false,
+    "testCommitLocalAndRemote": "99e3ef4b038b66df999774064653edde9083ffb6",
+    "tree": "979f6ccb5c7a08a11cc0747dc4f6b1da2195adf6",
+    "fixCommitLocalAndRemote": "dd344d10483e622a1ea312b46c809418663584f0"
+  },
+  "notRerun": [
+    "Frontend browser suite",
+    "Backup/restore/restart operations",
+    "W7/W8 expansion",
+    "Full security/network/pool/transport/Windows ACL matrix"
+  ],
+  "hours": {
+    "w6EstimateSnapshotHours": 13,
+    "actualHours": null,
+    "capacityConfirmed": false
+  },
+  "logSha256": {
+    "bootstrap-admin.ps1-0.log": "3c431ee0dbbc7fa643819d51c65073b978bfe08a9e68c728bc1916433e26a201",
+    "bootstrap-admin.ps1-7.log": "3c431ee0dbbc7fa643819d51c65073b978bfe08a9e68c728bc1916433e26a201",
+    "bootstrap-fixed.log": "3de4d7c669ee96d0c82af8b0f7c244adf0c3c7d97a26b5f7bfd4975838fe374c",
+    "bootstrap.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compose-start.log": "d010d34fb7868e7a63da3a24d8b2c6bbf9d166255c68afc865183b45372fada8",
+    "content-dependency.log": "a7cb470ece0e208efb280a5c4c70509006db69a642a9d762dad4a66f709d2426",
+    "contracts.log": "edda92331631945c0d9f47662c625eec83c5467b963529036a3c4b222bbb50fd",
+    "docker-build-retry.log": "13e65d7e99af5851dd883d84200aa382e97ee9f4e3c876b134e16b2a99f06230",
+    "docker-build.log": "0e17c299b74e3732418c74148bb88c1cf84cc73650c648d26d7f2d339ea4ee99",
+    "gateway-final.log": "b14d0c99a4dce45104f65a33d69ddc239914a752ddfcb7dec1d7c8743c4e897e",
+    "init-dev.log": "dfef363aefe8806b8ca6d305164c46e9e0429985f1c44155a4b98bc1865dd3be",
+    "isolated-builds.log": "4f4822e25a2376440dabfdc3f2ac0d73a128d3e1da621e1e7732f33dc2352143",
+    "maven-verify.log": "4c8350fa1320658e399bcde556200e5796c28bb3aad54a1022e069482d966f42",
+    "seed-content.ps1-0.log": "d36e6cfe1bcb5da12986ec1f32c3137835f0d577991b28781d84b7d4c616638b",
+    "seed-content.ps1-7.log": "d36e6cfe1bcb5da12986ec1f32c3137835f0d577991b28781d84b7d4c616638b",
+    "seed.log": "a8b97ba5d13c803f90667990701f7fa493103f6425dd9f0b7f17893f9bd25acf",
+    "session-runtime.log": "e3dc31965056a58db299080d06132d04d85b748c7cf111c7be86efc030e5c666",
+    "smoke.log": "aeb6a542613e282eea601c723d6b12e9d8322e7cfd4b70e22eb9e0a50edbea7b",
+    "stop-assessment-mock.log": "ccb9671617de709dce60a60cd39bc38132786b98377f0a4af5e32bc07114f1ff",
+    "compose-stop.log": "d466f6d8105c89d71f14496d6de00cab304eafc9e71e81de07e13ef29d3b50d2"
+  },
+  "rawLogs": ".tools/khoa-w6-close-20261029 (ignored; sanitized summary only published)",
+  "cleanup": {
+    "testStackStopped": true,
+    "volumesPreserved": true,
+    "project": "khoa-w6-close-20261029"
+  },
+  "documentSync": {
+    "status": "WAITING_GOOGLEDOCS_CONNECTION",
+    "driveFilesReadable": true,
+    "googleDocsConnectionActive": false,
+    "browserFallback": "STOPPED_URL_ALLOWLIST_UNVERIFIED"
+  }
+}
