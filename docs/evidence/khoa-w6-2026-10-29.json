@@ -722,9 +722,81 @@
     "project": "khoa-w6-close-20261029"
   },
   "documentSync": {
-    "status": "WAITING_GOOGLEDOCS_CONNECTION",
+    "status": "COMPLETE_VERIFIED",
     "driveFilesReadable": true,
-    "googleDocsConnectionActive": false,
-    "browserFallback": "STOPPED_URL_ALLOWLIST_UNVERIFIED"
+    "googleDocsConnectionActive": true,
+    "verifiedAt": "2026-10-29T15:28:14+07:00",
+    "account": "khoadangnguyen.dev@gmail.com",
+    "documentCount": 6,
+    "method": "Native Google Docs connector; Khoa checkpoint appended, then read back",
+    "preservation": "Original text preserved; one Khoa checkpoint per document; estimates and other owners' text unchanged",
+    "documents": [
+      {
+        "documentId": "1uZJpQUbJIPB4VMH5fpJaPgsf30o6VrXhYWRGtg8q3T8",
+        "title": "W5-01 — Gói công việc và ma trận kiểm thử",
+        "url": "https://docs.google.com/document/d/1uZJpQUbJIPB4VMH5fpJaPgsf30o6VrXhYWRGtg8q3T8/edit",
+        "originalPreserved": true,
+        "checkpointCount": 1,
+        "beforePlaintextSha256": "ebd31352f4fe2fe53433cfb5be88e9e78b6658f53b6ce02a48c68fefa15bd535",
+        "afterPlaintextSha256": "d4429fa2c5f1046c5cc9141c035c3c2ed6a3a2c845158da6982a79a44ff573a1",
+        "beforeChars": 9732,
+        "afterChars": 11788
+      },
+      {
+        "documentId": "15_pgC2eS_3gfJ9L5B0XYT2AoMnLuJgkIDZUDk1RWIzo",
+        "title": "W5-04 — Nhật ký kiểm thử và bằng chứng",
+        "url": "https://docs.google.com/document/d/15_pgC2eS_3gfJ9L5B0XYT2AoMnLuJgkIDZUDk1RWIzo/edit",
+        "originalPreserved": true,
+        "checkpointCount": 1,
+        "beforePlaintextSha256": "efb2221d0ed703a90657fed8cc4c5d03ec32cf5188e5f484b24200764df46769",
+        "afterPlaintextSha256": "f4b5f09f82fdf6697221ea97b22d4bc269f6f27ef8b08bc9e52bdf3f67f11d9b",
+        "beforeChars": 6061,
+        "afterChars": 8696
+      },
+      {
+        "documentId": "1Hv4nXpUpe3StJIoRegE5nv8yAnckDI__nbsdFe5LAW4",
+        "title": "W5-05 — Tổng kết W5 và bàn giao W6",
+        "url": "https://docs.google.com/document/d/1Hv4nXpUpe3StJIoRegE5nv8yAnckDI__nbsdFe5LAW4/edit",
+        "originalPreserved": true,
+        "checkpointCount": 1,
+        "beforePlaintextSha256": "97337b88135895535ca23da31858040c8b5163c4a4a35f4f95260dbd10a1d716",
+        "afterPlaintextSha256": "6c28ecbf967a0c65413716fb93ce034934b1d91ec1d465918dce95c61ee53c18",
+        "beforeChars": 4477,
+        "afterChars": 6484
+      },
+      {
+        "documentId": "1COqL4ejbRNb-_PsJV7ZJkWQbLkKzD847wcEJKEoYfxs",
+        "title": "W6 — Kế hoạch thực hiện tuần 6",
+        "url": "https://docs.google.com/document/d/1COqL4ejbRNb-_PsJV7ZJkWQbLkKzD847wcEJKEoYfxs/edit",
+        "originalPreserved": true,
+        "checkpointCount": 1,
+        "beforePlaintextSha256": "aba285ef03741c62c61494bc9609cc010ee8bfa6f400b46df27b54127467f400",
+        "afterPlaintextSha256": "948f9f789c882c3f674efad967914d8479fa53732bb841cbcf69e23da646cb59",
+        "beforeChars": 2637,
+        "afterChars": 3930
+      },
+      {
+        "documentId": "1VyA1AjuFVNxjjF1KK2SEtY-IC4Qkpg_77gxXJOebCc0",
+        "title": "W6 — Nhật ký kiểm thử và tổng kết",
+        "url": "https://docs.google.com/document/d/1VyA1AjuFVNxjjF1KK2SEtY-IC4Qkpg_77gxXJOebCc0/edit",
+        "originalPreserved": true,
+        "checkpointCount": 1,
+        "beforePlaintextSha256": "5b527a2f507ce2f1e3bd7fee77d017cd7547b0ff3450a3d4ca88bdd14823aca2",
+        "afterPlaintextSha256": "2cfe424bc087f79c8f206bb0a9d7e3017867023c7294ce31ca39fb5acd0318e7",
+        "beforeChars": 4502,
+        "afterChars": 6571
+      },
+      {
+        "documentId": "1KzjdFCakEtnrJVuuM5gr_N48k7VkrK1AdIP3gwE_bro",
+        "title": "W6-02 — Khoa hoàn thiện User, Content, Gateway và internal auth",
+        "url": "https://docs.google.com/document/d/1KzjdFCakEtnrJVuuM5gr_N48k7VkrK1AdIP3gwE_bro/edit",
+        "originalPreserved": true,
+        "checkpointCount": 1,
+        "beforePlaintextSha256": "70e3f7ef80d6e954bde35ccb2230b04d765dfe15d659ab0a1b7795a8e8189001",
+        "afterPlaintextSha256": "7d189f9c84b91f03950a7dccf81c1b7571085c3eb4f50c8cb86102d76d02be83",
+        "beforeChars": 2169,
+        "afterChars": 4433
+      }
+    ]
   }
 }
