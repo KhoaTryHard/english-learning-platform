@@ -29,6 +29,8 @@ class GatewayRoutingTest {
   String role, accountStatus;
   boolean sessionDown;
   boolean sessionRejected;
+  Map<String, Object> sessionResponse;
+  Map<String, Object> lastSessionCheck;
 
   @BeforeEach void start() throws Exception {
     for (String name : List.of("api", "user", "content", "assessment", "progress")) {
@@ -73,8 +75,10 @@ class GatewayRoutingTest {
     content.start(); assessment.start(); progress.start();
     OwnerClient sessions = new OwnerClient(tokens) {
       @Override public Map<String, Object> call(String base, String path, String owner, Map<String, Object> body) {
+        lastSessionCheck = new LinkedHashMap<>(body);
         if (sessionDown) throw ApiError.dependency();
         if (sessionRejected) throw new ApiError(403, "CSRF_INVALID", "CSRF không hợp lệ");
+        if (sessionResponse != null) return sessionResponse;
         return Map.of("userId", UUID.randomUUID().toString(), "jti", UUID.randomUUID().toString(),
             "role", role, "accountStatus", accountStatus, "expiresAt", Instant.now().plusSeconds(60).toString());
       }
@@ -150,5 +154,46 @@ class GatewayRoutingTest {
     assertEquals(503, unavailable.getStatus()); assertEquals(0, contentCalls.get());
     assertEquals(404, request("GET", "/internal/v1/courses/contexts", null).getStatus());
     assertEquals(405, request("DELETE", "/api/v1/admin/courses/" + UUID.randomUUID(), null).getStatus());
+  }
+
+  @Test void sessionValidationReceivesActualMethodAndCsrfContext() throws Exception {
+    String path = "/api/v1/assessments/" + UUID.randomUUID() + "/attempts";
+    assertEquals(201, request("POST", path, "method-context").getStatus());
+    assertEquals(Map.of("token", "opaque-user-token", "requestMethod", "POST",
+        "csrfSessionId", "session", "csrfToken", "csrf"), lastSessionCheck);
+    assertEquals(200, request("GET", "/api/v1/me/progress", null).getStatus());
+    assertEquals("GET", lastSessionCheck.get("requestMethod"));
+    assertEquals("opaque-user-token", lastSessionCheck.get("token"));
+  }
+
+  @Test void malformedSuccessfulSessionResponsesNeverReachAnOwner() throws Exception {
+    var valid = Map.<String, Object>of("userId", UUID.randomUUID().toString(),
+        "jti", UUID.randomUUID().toString(), "role", "LEARNER", "accountStatus", "ACTIVE",
+        "expiresAt", Instant.now().plusSeconds(60).toString());
+    var invalid = new ArrayList<Map<String, Object>>();
+    for (String field : valid.keySet()) {
+      var missing = new LinkedHashMap<>(valid);
+      missing.remove(field);
+      invalid.add(missing);
+    }
+    for (var replacement : Map.<String, Object>of("userId", "invalid-id", "jti", "invalid-id",
+        "role", "OWNER", "accountStatus", "BLOCKED", "expiresAt", "invalid-time").entrySet()) {
+      var malformed = new LinkedHashMap<>(valid);
+      malformed.put(replacement.getKey(), replacement.getValue());
+      invalid.add(malformed);
+    }
+    var expired = new LinkedHashMap<>(valid);
+    expired.put("expiresAt", Instant.now().minusSeconds(1).toString());
+    invalid.add(expired);
+    for (var value : invalid) {
+      sessionResponse = value;
+      var response = request("POST", "/api/v1/assessments/" + UUID.randomUUID() + "/attempts", "rejected");
+      assertEquals(503, response.getStatus());
+      assertEquals("DEPENDENCY_UNAVAILABLE", Json.map(response.getContentAsString()).get("code"));
+      assertFalse(response.getContentAsString().contains("opaque-user-token"));
+    }
+    assertEquals(0, assessmentCalls.get());
+    assertEquals(0, progressCalls.get());
+    assertEquals(0, contentCalls.get());
   }
 }
