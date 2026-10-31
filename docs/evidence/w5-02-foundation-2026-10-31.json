@@ -5,7 +5,7 @@
   "scope": "W5-02 foundation; refs #4/#20/#25/#16/#17",
   "branch": "feature/huy-assessment-foundation",
   "publishedAssessmentCheckpoint": "2f5288af67149af13896fbe4159ffdc4d58acc26",
-  "sourceState": "Final foundation source identified by manifest; implementation commit and Draft PR recorded after publication",
+  "sourceState": "Historical application verification at testedSourceCommit; documentation cleanup is not a new test run",
   "sourceManifestSha256": "2026872b99cfd5d57a0e671601564f743422286f8a8ff7b9029797aaf4e23588",
   "sourceFilesSha256": {
     "backend/services/assessment-service/.dockerignore": "af34644c544f1ad243e5c7e8ede85c91862a87fd378104fff7e4fb1210925a45",
@@ -223,11 +223,6 @@
       "result": "PASS",
       "command": "java scripts/GenerateKey.java target/key-smoke"
     },
-    "wordLocalUpdate": {
-      "result": "PASS",
-      "evidence": "docs/evidence/w5-02-local-word-update.json",
-      "note": "Only local DOCX appendices; no Drive online synchronization or reviewer approval"
-    },
     "dockerAndKafkaE2E": {
       "result": "NOT_RUN",
       "reason": "Docker CLI/runtime unavailable; no real broker started"
@@ -249,5 +244,6 @@
     "backend/services/progress-service/target/postgres-test-run.log",
     "backend/services/progress-service/target/runtime-smoke.log",
     "backend/services/progress-service/target/isolated-build.log"
-  ]
+  ],
+  "testedSourceCommit": "2825b85b2dd57e66bbc7aa3ff17d2199ae073455"
 }

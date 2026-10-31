@@ -1,72 +1,48 @@
-# W5-02 — Bàn giao foundation của Huy, 31/10/2026
+# Bàn giao Assessment và Progress — W5-02
 
-Responsible: Huy1188. Nguồn: Trello W5-02, GitHub #4/#20/#25/#16/#17.
-Nhánh: `feature/huy-assessment-foundation`, target `develop`.
-Assessment checkpoint đã push: `2f5288a`. Foundation Assessment/Progress/relay và
-evidence đã push tại `2825b85`. [Draft PR #43](https://github.com/KhoaTryHard/english-learning-platform/pull/43)
-được tạo bằng tài khoản Huy1188, base develop. Không backdate thành công việc W5.
+Owner: Huy1188. Phạm vi #4/#16/#17/#20/#25; [Draft PR #43](https://github.com/KhoaTryHard/english-learning-platform/pull/43)
+vào develop. Mã ứng dụng đã kiểm thử: `2825b85` ngày 31/10/2026.
 
-GitHub kiểm tra `/assignees/Huy1188` trả 204 ngày 31/10: tài khoản hiện có thể
-được gán issue. Đây là xác minh quyền, chưa tự thay đổi Assignee của issue.
+## Thành phần đã triển khai
 
-Kiểm thử: Assessment 31 + Progress 26 = 57 tests, 0 failure/error/skip. Test
-transaction/HTTP/listener dùng PostgreSQL 17.11; Boot/wiring dùng H2 riêng.
-JAR Progress với PostgreSQL thật: health UP, request thiếu identity trả 401.
+- [Assessment](../../backend/services/assessment-service/README.md): Question/readiness,
+  Attempt/snapshot/answers/deadline, Result và Outbox; Result/Outbox commit atomic.
+- [Progress](../../backend/services/progress-service/README.md): History/Completion,
+  Progress/Dashboard API, ProcessedEvent và consumer chống trùng; commit DB trước ACK.
+- [Kafka foundation](../../infra/kafka/README.md): relay chỉ mark SENT sau broker ACK;
+  retry giữ eventId/payload, consumer có retry/DLT/replay. Adapter mặc định tắt.
+- Hai service build độc lập, Java 25/Spring Boot 4.0.8, PostgreSQL 17 riêng từng service;
+  không shared business JAR hoặc SQL xuyên database.
 
-Cập nhật hồ sơ cùng ngày: [W5-04 evidence](w5-04-huy-evidence-update-2026-10-31.md),
-[W5-05 handoff](w5-05-huy-handoff-update-2026-10-31.md),
-[review #20/#42](../reviews/2026-10-31-huy-schema-auth-review.md) và
-[các bước Huy trực tiếp xác nhận](huy-personal-next-actions.md).
-W5-04 có bản Word cập nhật riêng vì Windows từ chối thay file gốc; W5-05/W3-03
-local đã bổ sung. Không có lượt test mới hoặc approval chỉ vì cập nhật hồ sơ.
+## Kiểm chứng
 
-## Checklist có bằng chứng ở phạm vi owner
+[Báo cáo kiểm thử chính](../evidence/w5-02-foundation-2026-10-31.json) ghi lệnh,
+môi trường, source manifest và từng suite: **Assessment 31 + Progress 26 = 57 tests**,
+không failure/error/skip tại checkpoint đã ghi.
 
-| Trello | Kết quả thực hiện | Phần tách riêng |
-|---|---|---|
-| H01 Assessment/Question/readiness | Code/migration/test có ở Assessment | Gateway/Content LIVE và peer review |
-| H02 Attempt/Result/snapshot/deadline | Code/self-test có, chuyển tiếp đã ghi | Exercise thật qua frontend/Gateway |
-| H03 Progress schema/completion/formula | Progress migration, History, Completion unique, formula/API tests | Full repair/Statistics và nghiệm thu #34/#35 |
-| H04 Event/Outbox/consumer/ProcessedEvent | Approved schema, relay, consumer, dedupe/ACK/rollback/contract tests | Broker/Kafka E2E NOT_RUN; không tự nghiệm thu #30/#34 |
-| H05 DB và W3-02/03 | Mapping Markdown, appendix Word local và backup có bằng chứng | Reviewer xác nhận ERD/mapping/version #20/#42 |
-| Gắn evidence/remaining | Report, source manifest, commands, PR refs | Reviewer/merge và kết luận nghiệm thu nhóm |
+Transaction/HTTP/listener tests dùng PostgreSQL 17.11; Boot/wiring tests dùng H2.
+User/Content, publisher và ConsumerRecord/ACK được ghi rõ khi dùng test doubles.
+Kafka broker E2E, Docker runtime và tích hợp Gateway/User/Content thật chưa chạy.
+JAR Progress chạy với PostgreSQL thật trả health UP; request thiếu identity trả 401.
 
-Tick những phần code/tài liệu/test đúng bằng chứng sau khi người phụ trách kiểm
-tra PR. H05 là cập nhật local và mapping của owner, không phải Khoa/Hưng đã duyệt
-hoặc Drive online đã được đồng bộ. Toàn thẻ W5-02 chưa tự chuyển Done.
+Chạy `mvnw.cmd -B verify` từ mỗi service; xem README để chọn test JDBC URL.
+Kiểm schema canonical/standalone bằng `python scripts/check-huy-contracts.py`.
+Chỉnh lý tài liệu không được tính là một lượt chạy test mới.
 
-## Phạm vi đã có
+## Các điểm cần review và tích hợp
 
-- Hai service chạy/build độc lập, PostgreSQL/migration riêng, không shared business JAR.
-- Progress event validation, ProcessedEvent + History + Completion + count atomic.
-- Event/submission trùng không nhân dữ liệu; conflict rollback, không ghi đè.
-- Zero-score Exercise complete, retake không cộng trùng, Quiz/Test chỉ History.
-- First-completion snapshot giữ lần sớm nhất nếu event đến lệch thứ tự.
-- Progress denominator từ Content gồm hidden Lessons, empty/null và source503 phân biệt.
-- History/Dashboard owner scoped, giữ Course/Level cũ khi đổi setup.
-- Relay broker-ACK-before-SENT; crash window giữ eventId/payload để replay.
-- Consumer commit DB trước ACK, retry 1s/5s/30s, DLT/replay giữ payload/key.
-- Kafka enabled/disabled wiring tests; adapter mặc định tắt khi chưa có broker.
+1. #20: đối chiếu [Assessment mapping](../architecture/assessment-data-mapping.md),
+   [Progress mapping](../architecture/progress-data-mapping.md) và
+   [Content ERD](../architecture/diagrams/content-physical-erd.md).
+   Mapping JSON/count projection khác cách phân rã logical và còn chờ quyết định.
+2. #42: review signed Gateway assertion và breaking session request; xem
+   [đối chiếu schema/auth](../reviews/2026-10-31-huy-schema-auth-review.md).
+   Giữ approved v0.1; proposal chưa tự trở thành baseline.
+3. #25/#21/#26: trao public keys, chuẩn bị seed/URL và chạy readiness/Exercise
+   qua Gateway/frontend thật, ghi SHA/image/env/actual.
+4. #30/#34: kiểm Kafka broker, duplicate/retry, DLT/replay và restart thật.
+5. #31/#35/#36/#41: Statistics/source APIs/repair và security/persistence đầy đủ
+   tiếp tục theo AC từng issue. Peer review bởi người khác tác giả trước merge.
 
-## Bằng chứng và cách chạy
-
-Xem `docs/evidence/w5-02-foundation-2026-10-31.json` cho source manifest, commands,
-suite counts và phần NOT_RUN. Mỗi service có `mvnw.cmd -B verify`; test mặc định
-dùng H2, thêm property test JDBC URL theo README để chạy PostgreSQL thật.
-
-Test doubles được ghi rõ: Content/User trong service/API tests, publisher trong
-relay test, ConsumerRecord/ACK trong listener test. Không gọi đó là Kafka E2E.
-Hai schema standalone và canonical được đối chiếu bằng `scripts/check-huy-contracts.py`.
-
-## Bàn giao Khoa/Hưng
-
-1. Review [Assessment mapping](../architecture/assessment-data-mapping.md) và
-   [Progress mapping](../architecture/progress-data-mapping.md), cập nhật #20.
-2. Trao public keys cho caller assessment/progress; không trao private keys.
-3. Review signed Gateway assertion/internal compatibility #42, giữ v0.1 frozen.
-4. Seed tại User/Content/Assessment owner, cấu hình URL và chạy bốn pha readiness.
-5. Chạy frontend/Gateway/owner smoke và Kafka replay/DLT/restart persistence thật.
-6. Ghi reviewer, SHA/image/env/results và remaining. Chưa có approval thay người khác.
-
-Full Statistics/source APIs/repair tiếp tục #31/#34/#35/#36; security/persistence
-deployment tiếp tục #41. Không cộng effort issue cha và task con hai lần.
+Kế hoạch, workload và báo cáo tuần được quản lý trên Trello/Drive. Repository giữ
+mã nguồn, tài liệu kỹ thuật và evidence kiểm thử; self-test chưa thay nghiệm thu nhóm.

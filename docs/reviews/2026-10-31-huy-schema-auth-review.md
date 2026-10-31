@@ -54,16 +54,3 @@ bằng chứng đã được nhóm chấp thuận. W3-03 local có phụ lục h
 handoff được đọc. Proposal session input vẫn là breaking so với approved v0.1.
 Chưa có đủ evidence để đóng #42 hoặc tự phê duyệt rollout. Huy cần đọc bảng này,
 chọn `Đồng ý`/`Yêu cầu sửa`, ghi SHA đã review; Khoa phản hồi, Hưng ghi quyết định.
-
-## Nội dung Huy có thể dùng khi phản hồi
-
-Không đăng nguyên văn như approval nếu bạn chưa đọc và chưa chọn phương án.
-
-> Tôi đã xem review kỹ thuật tại PR #43, source Huy 2825b85 và source Khoa
-> bf183461. Về #20, tôi đề xuất [giữ JSON/count projection và cập nhật logical
-> mapping / normalize bằng migration V2]. Các khác biệt RevokedToken, saved_at,
-> Question/Option/Answer và CourseProgress cần Khoa/Huy chốt rõ.
-> Về #42, tôi [đồng ý hướng proposal / yêu cầu sửa các điểm ...]. Token-only v0.1
-> không tương thích requestMethod bắt buộc; chưa coi proposal đã thành baseline.
-> Đề nghị Khoa xác nhận cặp User/Gateway và public keys để chạy integration,
-> Hưng ghi version/rollout sau quyết định nhóm. LIVE integration/peer review còn mở.
