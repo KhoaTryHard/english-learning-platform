@@ -13,6 +13,13 @@ Kiểm thử: Assessment 31 + Progress 26 = 57 tests, 0 failure/error/skip. Test
 transaction/HTTP/listener dùng PostgreSQL 17.11; Boot/wiring dùng H2 riêng.
 JAR Progress với PostgreSQL thật: health UP, request thiếu identity trả 401.
 
+Cập nhật hồ sơ cùng ngày: [W5-04 evidence](w5-04-huy-evidence-update-2026-10-31.md),
+[W5-05 handoff](w5-05-huy-handoff-update-2026-10-31.md),
+[review #20/#42](../reviews/2026-10-31-huy-schema-auth-review.md) và
+[các bước Huy trực tiếp xác nhận](huy-personal-next-actions.md).
+W5-04 có bản Word cập nhật riêng vì Windows từ chối thay file gốc; W5-05/W3-03
+local đã bổ sung. Không có lượt test mới hoặc approval chỉ vì cập nhật hồ sơ.
+
 ## Checklist có bằng chứng ở phạm vi owner
 
 | Trello | Kết quả thực hiện | Phần tách riêng |
