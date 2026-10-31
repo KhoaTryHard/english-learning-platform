@@ -1,0 +1,17 @@
+{
+  "dateLocal": "2026-10-31",
+  "timezone": "Asia/Saigon",
+  "actor": "Huy1188",
+  "assessmentCheckpoint": "2f5288a",
+  "testedFoundationCommit": "2825b85b2dd57e66bbc7aa3ff17d2199ae073455",
+  "pullRequest": "https://github.com/KhoaTryHard/english-learning-platform/pull/43",
+  "draft": true,
+  "base": "develop",
+  "huyAssignable": true,
+  "tests": {
+    "assessment": 31,
+    "progress": 26,
+    "total": 57
+  },
+  "acceptance": "No peer approval, merge, issue closure or Trello status mutation performed"
+}

@@ -2,8 +2,16 @@
 
 Responsible: Huy1188. Nguồn: Trello W5-02, GitHub #4/#20/#25/#16/#17.
 Nhánh: `feature/huy-assessment-foundation`, target `develop`.
-Assessment checkpoint đã push: `2f5288a`. Commit kế tiếp bổ sung Progress/relay,
-mapping và evidence; PR sẽ liên kết report này. Không backdate thành công việc W5.
+Assessment checkpoint đã push: `2f5288a`. Foundation Assessment/Progress/relay và
+evidence đã push tại `2825b85`. [Draft PR #43](https://github.com/KhoaTryHard/english-learning-platform/pull/43)
+được tạo bằng tài khoản Huy1188, base develop. Không backdate thành công việc W5.
+
+GitHub kiểm tra `/assignees/Huy1188` trả 204 ngày 31/10: tài khoản hiện có thể
+được gán issue. Đây là xác minh quyền, chưa tự thay đổi Assignee của issue.
+
+Kiểm thử: Assessment 31 + Progress 26 = 57 tests, 0 failure/error/skip. Test
+transaction/HTTP/listener dùng PostgreSQL 17.11; Boot/wiring dùng H2 riêng.
+JAR Progress với PostgreSQL thật: health UP, request thiếu identity trả 401.
 
 ## Checklist có bằng chứng ở phạm vi owner
 
