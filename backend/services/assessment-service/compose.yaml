@@ -1,0 +1,48 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: assessment_db
+      POSTGRES_USER: ${DB_USER:-assessment}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:${DB_PORT:-5543}:5432"
+    volumes:
+      - assessment_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d assessment_db"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  assessment:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${PORT:-8090}:8090"
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/assessment_db
+      DB_USER: ${DB_USER:-assessment}
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+      USER_URL: ${USER_URL:-http://host.docker.internal:8081}
+      CONTENT_URL: ${CONTENT_URL:-http://host.docker.internal:8082}
+      KAFKA_ENABLED: ${KAFKA_ENABLED:-false}
+      KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS:-host.docker.internal:9092}
+      PLATFORM_KEYS: /run/public-keys
+      PRIVATE_KEY_FILE: /run/assessment.private.pem
+    volumes:
+      - type: bind
+        source: ${PUBLIC_KEYS_DIR:-./.secrets/public}
+        target: /run/public-keys
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${PRIVATE_KEY_FILE:-./.secrets/assessment.private.pem}
+        target: /run/assessment.private.pem
+        read_only: true
+        bind:
+          create_host_path: false
+volumes:
+  assessment_data:

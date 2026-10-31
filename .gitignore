@@ -11,3 +11,16 @@ target/
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# Credentials, machine-local files and documentation scratch output.
+.secrets/
+.cache/
+.local/
+local-notes/
+*.private.pem
+*.p12
+*.pfx
+*.jks
+id_rsa
+id_ed25519
+*.tmp
