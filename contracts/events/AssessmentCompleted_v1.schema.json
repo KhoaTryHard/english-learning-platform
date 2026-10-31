@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "W3-04 AssessmentCompleted v1 — PROPOSED",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eventId",
+    "eventType",
+    "schemaVersion",
+    "occurredAt",
+    "correlationId",
+    "payload"
+  ],
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "eventType": {
+      "const": "AssessmentCompleted"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "correlationId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "userId",
+        "assessmentId",
+        "assessmentType",
+        "submissionId",
+        "resultId",
+        "lessonId",
+        "courseId",
+        "levelIdAtStart",
+        "earnedPoints",
+        "maxPoints",
+        "completedAt"
+      ],
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "assessmentId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "assessmentType": {
+          "enum": [
+            "EXERCISE",
+            "QUIZ",
+            "TEST"
+          ]
+        },
+        "submissionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "resultId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "lessonId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "courseId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "levelIdAtStart": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "earnedPoints": {
+          "type": "number",
+          "minimum": 0
+        },
+        "maxPoints": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "assessmentType": {
+                "const": "EXERCISE"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "lessonId": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "$comment": "Cross-field earnedPoints<=maxPoints and Course/Level/owner consistency require consumer business validation; not expressible by standard JSON Schema alone."
+}

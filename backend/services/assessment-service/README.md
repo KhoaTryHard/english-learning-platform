@@ -5,7 +5,9 @@ save/resume/submit/Result, deadline Quiz/Test và transactional Outbox.
 Huy đã chọn PostgreSQL 17 trong phiên triển khai. Java 25/Spring Boot 4.0.8
 khớp nhánh backend Khoa tại `bf183461`.
 
-Service build độc lập; Kafka relay/consumer và Progress chưa nằm trong phần này.
+Service build độc lập. Đã bổ sung Outbox relay foundation; Progress consumer nằm
+trong service Progress riêng. Adapter Kafka mặc định tắt; bật `KAFKA_ENABLED=true`
+và cấu hình `KAFKA_BOOTSTRAP_SERVERS` khi broker sẵn sàng.
 
 ## Kiểm thử
 
@@ -137,8 +139,10 @@ quyết định nhóm #42; implementation này không thay approved v0.1.
   có revision để chống stale writes giữa nhiều tab.
 - Submit/finalizer khóa cùng submission; Result unique submission. Result,
   Outbox và trạng thái submission commit trong cùng transaction.
-- Outbox topic `assessment.completed.v1`, key=userId; hiện giữ `PENDING`.
-  Chưa publish Kafka, chưa ghi Progress, chưa chứng minh full E2E của nhóm.
+- Outbox topic `assessment.completed.v1`, key=userId. Relay chỉ mark SENT sau
+  broker ACK; lỗi giữ PENDING/retry count. Crash sau publish/trước mark sẽ phát
+  lại cùng eventId/payload. Khi Kafka tắt, event tiếp tục PENDING.
+- Relay đã có DB/publisher tests; chưa chạy broker/Gateway E2E thật của nhóm.
 - JSON lưu dạng TEXT; xem `docs/architecture/assessment-data-mapping.md` trong
   repository để review mapping với W3-03.
 

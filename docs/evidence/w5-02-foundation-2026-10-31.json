@@ -1,0 +1,253 @@
+{
+  "dateLocal": "2026-10-31",
+  "timezone": "Asia/Saigon",
+  "owner": "Huy1188",
+  "scope": "W5-02 foundation; refs #4/#20/#25/#16/#17",
+  "branch": "feature/huy-assessment-foundation",
+  "publishedAssessmentCheckpoint": "2f5288af67149af13896fbe4159ffdc4d58acc26",
+  "sourceState": "Final foundation source identified by manifest; implementation commit and Draft PR recorded after publication",
+  "sourceManifestSha256": "2026872b99cfd5d57a0e671601564f743422286f8a8ff7b9029797aaf4e23588",
+  "sourceFilesSha256": {
+    "backend/services/assessment-service/.dockerignore": "af34644c544f1ad243e5c7e8ede85c91862a87fd378104fff7e4fb1210925a45",
+    "backend/services/assessment-service/.env.example": "63b01b68a544c6800c196fc2cb44668d50be1c0c632b74d1b861976cdd744d9a",
+    "backend/services/assessment-service/.gitignore": "58f9a5a3dd4f735041d610dee0664f65740869ca58b4d43edc562ce19262b020",
+    "backend/services/assessment-service/.mvn/wrapper/maven-wrapper.properties": "8d09fc561db2229b727bfa989f9f6eeb12b4928126401ec17bc21956baddbf4b",
+    "backend/services/assessment-service/compose.yaml": "3912c27da3469ea4e5ea43103b2d29cfb3d7e343b88d4fd25a0bcceb9bd0b773",
+    "backend/services/assessment-service/Dockerfile": "508179af55465e3a69c56a55b0fe4372ca9fef7b20488e398dc1eb3ddc470300",
+    "backend/services/assessment-service/mvnw": "b1ef6ce14df54e6f8552734080184b18f78b0a0c61ed80c08d7d78b254e44941",
+    "backend/services/assessment-service/mvnw.cmd": "46eedb8419bd14fe70d5bb2916d7b6f51806e51b39d5b76a42610384ca929c1c",
+    "backend/services/assessment-service/pom.xml": "84c1edf402c66ea36b7ea8bb564e7117d0b4bb3872a2024db00578bf8d531164",
+    "backend/services/assessment-service/README.md": "8c48c81ac040e212aa53b6959ec7aa084487cfb69d87cc8df45724a6d4d5c73b",
+    "backend/services/assessment-service/scripts/GenerateKey.java": "4b9111f0fc29a95231b70888fcf908408013feb7deaa7ea65f6a7f14ddbbec30",
+    "backend/services/assessment-service/src/main/java/.gitkeep": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/AssessmentApplication.java": "a7bf6a91717f40ef05a291f38e8f92181be309c22d844341bebede5d1d80ba3c",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/AssessmentController.java": "0b9aa9bf64b1962de070714e398e37209fc8ba2410061cb7814640299fa01b31",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/AssessmentService.java": "9a73612dfdfaf863cf0cc7eb9a82b7db7777f71030aa12892b605d772ea8a168",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/ContentContext.java": "047a8bcd6de17d833548e2c776278009ae2583e3ed8165ee3d9340f2dda0cf79",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/EventPublisher.java": "dfe0f8dab826b0d9ba1a9e87cc1f508778ff28c9209031cad45fc18e49bcd575",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/ExpiryJob.java": "78ee8c21d48d5edbe9c15e17ecf336de2c7b679ea8caa4c7f939790ea06e8fd4",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/OutboxKafkaConfiguration.java": "a9a035dcb19cab633e6f21d9a4634d66e03356305c8d73d94efeb56a38cd53f5",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/OutboxRelay.java": "fafc9eb47f0992eccf676ab238637fa0b09f8c2aab176c92a8ce44202bfb2990",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/Validation.java": "5e78ee2753c1e848e2029a3367f2b6a79bd9e4ac680585078d68da3a27361eb4",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/ApiError.java": "cac92342e7d353eed8c519997e7c01c23001094d634579e0a2a2c032420fc47a",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/Errors.java": "7eb198b9597af3c1124fa86f4e78fdd8d4d14d8559dea8089780b92f84d0e36d",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/Input.java": "983db78fbd6563cf391c7715070eb1f5e9a4dafa3acc39115ef7c866aa2764c5",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/Json.java": "0cdf96bdd3e77774ae79da2b993bd8b61260f10b97fc8cf0898bb31f34a56f7c",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/OwnerClient.java": "c999da43271333978ab799a3d3f6962a151d63c002c9b31450f12180630441a2",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/Principal.java": "979c93d3e2f8ff112ac81c30220c001d1070e7df8358e19163dbac97d0543da5",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/Security.java": "c6f2f9c16c7c52009b866a981abe44643d3c8fce68a2a276176b0990af6f2cae",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/ServiceGuard.java": "734c0d0039b22eec42483fa9c82b08e909a9a5a9160142b18e4b0c2fa85738dc",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/TokenCodec.java": "d0b8933c7882c178198ec2929db21d351233dca6e74eebf57e81c9751f48d8f9",
+    "backend/services/assessment-service/src/main/resources/application.properties": "50e57c9312680c22d561517b4664f3094517fa8d40a915ded17767a5873f3c92",
+    "backend/services/assessment-service/src/main/resources/db/migration/.gitkeep": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "backend/services/assessment-service/src/main/resources/db/migration/V1__assessment_foundation.sql": "e053c353f6a0fcb43dd82736a7cada93ab18cf32f1d17b5f2bd444dc0adf2e20",
+    "backend/services/assessment-service/src/test/java/.gitkeep": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/AssessmentApplicationTest.java": "6c794e3994f672c2aed341ed1119dc583b549fe8a7bd696fa29b5c791112c4a4",
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/AssessmentHttpTest.java": "ccbe9d298570a65b9a00162cea353868b490cf8cc1de04f97b89208f6aae9241",
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/AssessmentServiceTest.java": "954a89d6de5ddfbe4ab172d8929cd18772fed52088112051dae64ab72b372c02",
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/ContentContextTest.java": "ffbcc94b28558f0ed9ababf6842b5171b4e58e773ecddf9f01a7b25ded8b8bfe",
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/OutboxKafkaWiringTest.java": "6f247dbf61fb578864c4d549cd4291e0d5e2eef2cfe0e6fc7e8ec67c68543513",
+    "backend/services/assessment-service/src/test/resources/.gitkeep": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "backend/services/assessment-service/src/test/resources/contracts/AssessmentCompleted_v1.schema.json": "524aa6dae4d98476d0eafeade28c053080db305fc19328f423b2716eb9248636",
+    "backend/services/assessment-service/src/test/resources/contracts/README.txt": "78f252f1cab8cdb5be4c6a4cc9fc54961eadd6e5bd8b317d37c9839e02170318",
+    "backend/services/progress-service/.dockerignore": "af34644c544f1ad243e5c7e8ede85c91862a87fd378104fff7e4fb1210925a45",
+    "backend/services/progress-service/.env.example": "d60b4d25484b923dfd905816c9a13ce8d46a840443b86fcac545061f4dd6d0d5",
+    "backend/services/progress-service/.gitignore": "58f9a5a3dd4f735041d610dee0664f65740869ca58b4d43edc562ce19262b020",
+    "backend/services/progress-service/.mvn/wrapper/maven-wrapper.properties": "8d09fc561db2229b727bfa989f9f6eeb12b4928126401ec17bc21956baddbf4b",
+    "backend/services/progress-service/compose.yaml": "f0eecf6a6111dfb61d15968fcd99d612b1548f52d5b3b8168bfcd8249819f22b",
+    "backend/services/progress-service/Dockerfile": "25231616ee2f58239b84e02674831ff52015935bf49132a06d2907d29f2eb576",
+    "backend/services/progress-service/mvnw": "b1ef6ce14df54e6f8552734080184b18f78b0a0c61ed80c08d7d78b254e44941",
+    "backend/services/progress-service/mvnw.cmd": "46eedb8419bd14fe70d5bb2916d7b6f51806e51b39d5b76a42610384ca929c1c",
+    "backend/services/progress-service/pom.xml": "4579b4183ae7b5b2ce0881fc86608101443dee493224bd3cdecd74a1aad007c1",
+    "backend/services/progress-service/README.md": "c0cdb6ba6e045d9984a9750608d6c479a5eae3235c5ca6cc1c15a4c7dd5f0a4b",
+    "backend/services/progress-service/scripts/GenerateKey.java": "8e381973995d4d248431edca422b838c8fa398b71dc77a269cec07097065a5d0",
+    "backend/services/progress-service/src/main/java/.gitkeep": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "backend/services/progress-service/src/main/java/vn/group7/core/ApiError.java": "cac92342e7d353eed8c519997e7c01c23001094d634579e0a2a2c032420fc47a",
+    "backend/services/progress-service/src/main/java/vn/group7/core/Errors.java": "7eb198b9597af3c1124fa86f4e78fdd8d4d14d8559dea8089780b92f84d0e36d",
+    "backend/services/progress-service/src/main/java/vn/group7/core/Input.java": "983db78fbd6563cf391c7715070eb1f5e9a4dafa3acc39115ef7c866aa2764c5",
+    "backend/services/progress-service/src/main/java/vn/group7/core/Json.java": "0cdf96bdd3e77774ae79da2b993bd8b61260f10b97fc8cf0898bb31f34a56f7c",
+    "backend/services/progress-service/src/main/java/vn/group7/core/OwnerClient.java": "c999da43271333978ab799a3d3f6962a151d63c002c9b31450f12180630441a2",
+    "backend/services/progress-service/src/main/java/vn/group7/core/Principal.java": "979c93d3e2f8ff112ac81c30220c001d1070e7df8358e19163dbac97d0543da5",
+    "backend/services/progress-service/src/main/java/vn/group7/core/Security.java": "c6f2f9c16c7c52009b866a981abe44643d3c8fce68a2a276176b0990af6f2cae",
+    "backend/services/progress-service/src/main/java/vn/group7/core/ServiceGuard.java": "39655db5fdf7140f281e5bfe5bed62f5bd790abcdb49ee039823df672b7059c8",
+    "backend/services/progress-service/src/main/java/vn/group7/core/TokenCodec.java": "d0b8933c7882c178198ec2929db21d351233dca6e74eebf57e81c9751f48d8f9",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/CompletedEvent.java": "d962c0eb4caacd56e297deea645762887250bfc3267b0780aa4cfb1a3ef2f4cd",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/CompletedEventListener.java": "1a404da9b6dcfadc3aeef33362d58488ca81d1ea1de6a372632468eb30f3a6c9",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/KafkaConfiguration.java": "04dcb577ec5bbf2c995de8415c500e8e5b724ec6accb8acb6e75187ccba1aff3",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/ProgressApplication.java": "a573546bc6e462b93b3b05251c2b7b827510f656708ea7f5d5b0ceab86cd420f",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/ProgressController.java": "72e0dfdb6d842276f15f9bb506ab5e2a618f68c9f807be60eee68d100d11a3b2",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/ProgressService.java": "4580f0089cd8b2b17738fa1752731222be425a7682345e31e96287f24ca5ee29",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/ProgressSources.java": "50f1df4b1e2638d7486d8f9a867df2dfd3c21035300a32838d1410687e02805d",
+    "backend/services/progress-service/src/main/resources/application.properties": "c58dbb6d919a0d8163ce4abd7ac74433c7ea70db2e2fcbf773bb9831e6507918",
+    "backend/services/progress-service/src/main/resources/contracts/AssessmentCompleted_v1.schema.json": "524aa6dae4d98476d0eafeade28c053080db305fc19328f423b2716eb9248636",
+    "backend/services/progress-service/src/main/resources/db/migration/.gitkeep": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "backend/services/progress-service/src/main/resources/db/migration/V1__progress_foundation.sql": "f6a4b5c1a28d501d46f0a279d0b6c1811eaf7c0b114a03a81b0ff45905729725",
+    "backend/services/progress-service/src/test/java/.gitkeep": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/CompletedEventListenerTest.java": "f38f86cce00ba09c68737a6d470f40d7882e14971e477d57b1c659524a55b6bf",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/KafkaWiringTest.java": "05bccd8b48c3d7310ca649d556dec5158d0fb5ace3aa53ed6b328938f5f446de",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/ProgressApplicationTest.java": "dc4ec827af55d21b320b70bd68ab6cb487bad060c40bf267ca082b5b2faafa35",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/ProgressHttpTest.java": "be56e46a4386bbf28b87ab74dbb782a9d728661fd530587dbdf4837d77ee52a5",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/ProgressServiceTest.java": "1c658e0678828bf3733baf4a85f403b670d8eb2a121aea24261d71d69a5f68cd",
+    "backend/services/progress-service/src/test/resources/.gitkeep": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "scripts/check-huy-contracts.py": "6bb50a2f71514fc9045596b883d83c73b0ca813f2ab38e29ab525de0e5ddea4e",
+    "contracts/events/AssessmentCompleted_v1.example.json": "7561f17ae036a5c3501cb7fbbf39a2a21689559fc98cd77d20c4825d2f763f64",
+    "contracts/events/AssessmentCompleted_v1.schema.json": "524aa6dae4d98476d0eafeade28c053080db305fc19328f423b2716eb9248636"
+  },
+  "environment": {
+    "java": "25.0.3",
+    "springBoot": "4.0.8",
+    "mavenExecuted": "3.9.11",
+    "mavenWrapperConfigured": "3.9.12",
+    "database": "PostgreSQL 17.11 portable, localhost:15543; assessment_test and progress_test isolated"
+  },
+  "verify": {
+    "assessment": {
+      "result": "PASS",
+      "command": "mvn.cmd -q -f backend/services/assessment-service/pom.xml -Dmaven.repo.local=<workspace>/.cache/maven -Dassessment.test.jdbc-url=jdbc:postgresql://127.0.0.1:15543/assessment_test verify",
+      "suites": [
+        {
+          "name": "vn.group7.assessment.AssessmentApplicationTest",
+          "tests": "1",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "7.719"
+        },
+        {
+          "name": "vn.group7.assessment.AssessmentHttpTest",
+          "tests": "11",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "2.812"
+        },
+        {
+          "name": "vn.group7.assessment.AssessmentServiceTest",
+          "tests": "15",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "0.769"
+        },
+        {
+          "name": "vn.group7.assessment.ContentContextTest",
+          "tests": "3",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "0.818"
+        },
+        {
+          "name": "vn.group7.assessment.OutboxKafkaWiringTest",
+          "tests": "1",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "1.694"
+        }
+      ],
+      "totalTests": 31
+    },
+    "progress": {
+      "result": "PASS",
+      "command": "mvn.cmd -q -f backend/services/progress-service/pom.xml -Dmaven.repo.local=<workspace>/.cache/maven -Dprogress.test.jdbc-url=jdbc:postgresql://127.0.0.1:15543/progress_test verify",
+      "suites": [
+        {
+          "name": "vn.group7.progress.CompletedEventListenerTest",
+          "tests": "3",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "3.287"
+        },
+        {
+          "name": "vn.group7.progress.KafkaWiringTest",
+          "tests": "1",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "6.027"
+        },
+        {
+          "name": "vn.group7.progress.ProgressApplicationTest",
+          "tests": "1",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "1.18"
+        },
+        {
+          "name": "vn.group7.progress.ProgressHttpTest",
+          "tests": "7",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "1.307"
+        },
+        {
+          "name": "vn.group7.progress.ProgressServiceTest",
+          "tests": "14",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "0.481"
+        }
+      ],
+      "totalTests": 26
+    }
+  },
+  "totalTests": 57,
+  "testScope": {
+    "postgresql": "AssessmentServiceTest/AssessmentHttpTest and ProgressServiceTest/ProgressHttpTest/CompletedEventListenerTest use real PostgreSQL; User/Content sources and publisher are labelled test doubles",
+    "h2": "Application and enabled Kafka wiring tests use isolated H2. Kafka listener startup/admin topic creation disabled in wiring tests; no live broker used.",
+    "kafkaRecords": "Listener record/ACK tests call listener directly. Relay publisher double tests broker failure and publish/mark crash replay. Not Kafka E2E."
+  },
+  "additionalValidation": {
+    "contractCopies": {
+      "result": "PASS",
+      "command": "python scripts/check-huy-contracts.py",
+      "sha256": "524aa6dae4d98476d0eafeade28c053080db305fc19328f423b2716eb9248636"
+    },
+    "progressStandaloneBuild": {
+      "result": "PASS",
+      "command": "mvn.cmd -q -f ../../.cache/progress-isolated/pom.xml -Dmaven.repo.local=<workspace>/.cache/maven -DskipTests package"
+    },
+    "progressJarSmoke": {
+      "result": "PASS",
+      "database": "progress_runtime_test, PostgreSQL 17.11",
+      "port": 18091,
+      "healthStatus": "UP",
+      "unsignedHistoryStatus": 401
+    },
+    "progressKeyGenerator": {
+      "result": "PASS",
+      "command": "java scripts/GenerateKey.java target/key-smoke"
+    },
+    "wordLocalUpdate": {
+      "result": "PASS",
+      "evidence": "docs/evidence/w5-02-local-word-update.json",
+      "note": "Only local DOCX appendices; no Drive online synchronization or reviewer approval"
+    },
+    "dockerAndKafkaE2E": {
+      "result": "NOT_RUN",
+      "reason": "Docker CLI/runtime unavailable; no real broker started"
+    },
+    "groupIntegration": {
+      "result": "NOT_RUN",
+      "reason": "Needs exchanged keys and real Khoa/Hung stack, #42 decision and peer acceptance"
+    }
+  },
+  "remaining": [
+    "peer review/merge",
+    "real group Gateway/User/Content integration",
+    "Docker and Kafka broker replay/DLT E2E",
+    "Statistics/source APIs/repair per #31/#34/#35/#36",
+    "No Trello status or issue closure performed"
+  ],
+  "logs": [
+    "backend/services/assessment-service/target/postgres-test-run.log",
+    "backend/services/progress-service/target/postgres-test-run.log",
+    "backend/services/progress-service/target/runtime-smoke.log",
+    "backend/services/progress-service/target/isolated-build.log"
+  ]
+}

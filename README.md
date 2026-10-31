@@ -9,10 +9,15 @@ Web học tiếng Anh MVP của Nhóm 7. Monorepo gồm React responsive và Jav
 - [Kế hoạch chuyển code đang có](docs/architecture/migration-plan.md)
 - [Nguồn yêu cầu/thiết kế](docs/references.md)
 
-**Trạng thái triển khai:** Assessment đã có implementation độc lập, POM/Maven Wrapper,
-migration và Compose tại [backend/services/assessment-service](backend/services/assessment-service/README.md).
-Frontend và các service khác trong nhánh này vẫn là scaffold; code Khoa/Hưng nằm
-trên nhánh/PR riêng. Chạy Maven từ thư mục Assessment; root chưa có Maven aggregator.
+**Trạng thái triển khai:** Assessment và Progress đã có implementation độc lập,
+POM/Maven Wrapper, migration PostgreSQL 17 và Compose. Xem
+[Assessment](backend/services/assessment-service/README.md),
+[Progress](backend/services/progress-service/README.md) và
+[bàn giao W5-02](docs/planning/w5-02-huy-handoff.md).
+Hai service dùng Java 25/Spring Boot 4.0.8 trên nhánh Huy. Frontend và các service
+khác trong nhánh này vẫn là scaffold; code Khoa/Hưng nằm trên nhánh/PR riêng.
+Chạy Maven từ từng service; root chưa có Maven aggregator. Kafka/Gateway E2E và
+peer review chưa được nghiệm thu từ các self-test foundation.
 
 ## Ownership
 | Thành viên | Phần phụ trách |

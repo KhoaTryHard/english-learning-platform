@@ -71,6 +71,16 @@ class AssessmentServiceTest {
     }
 
     @Bean
+    TestPublisher publisher() {
+      return new TestPublisher();
+    }
+
+    @Bean
+    OutboxRelay relay(JdbcTemplate db, TestPublisher publisher) {
+      return new OutboxRelay(db, publisher);
+    }
+
+    @Bean
     AssessmentService service(JdbcTemplate db, FakeContent c, MutableClock clock) {
       return new AssessmentService(db, c, clock);
     }
@@ -530,5 +540,53 @@ class AssessmentServiceTest {
                     a))));
     assertEquals(
         100.0, ((Number) service.submit(attempt, USER, trace()).get("scorePercent")).doubleValue());
+  }
+
+  static class TestPublisher implements EventPublisher {
+    boolean fail;
+    final List<String> payloads = new ArrayList<>();
+
+    public void publish(String topic, String key, String payload) throws Exception {
+      if (fail) throw new java.io.IOException("Test broker unavailable");
+      assertEquals("assessment.completed.v1", topic);
+      assertEquals(USER, key);
+      payloads.add(payload);
+    }
+  }
+
+  @Autowired TestPublisher publisher;
+  @Autowired OutboxRelay relay;
+
+  @Test
+  void relayFailureRetainsEventAndRetryUsesSamePayload() {
+    publisher.payloads.clear();
+    publisher.fail = true;
+    String attempt = start(ready());
+    service.submit(attempt, USER, trace());
+    String original = db.queryForObject("SELECT payload FROM outbox_event", String.class);
+    assertEquals(0, relay.runBatch(20));
+    assertEquals("PENDING", db.queryForObject("SELECT status FROM outbox_event", String.class));
+    assertEquals(1, db.queryForObject("SELECT retry_count FROM outbox_event", Integer.class));
+    publisher.fail = false;
+    assertEquals(1, relay.runBatch(20));
+    assertEquals(List.of(original), publisher.payloads);
+    assertEquals(0, relay.runBatch(20));
+  }
+
+  @Test
+  void crashWindowAfterPublishReplaysStableEventId() {
+    publisher.payloads.clear();
+    publisher.fail = false;
+    service.submit(start(ready()), USER, trace());
+    db.execute("ALTER TABLE outbox_event ADD CONSTRAINT reject_sent CHECK(status='PENDING')");
+    try {
+      assertThrows(Exception.class, () -> relay.runBatch(20));
+      assertEquals("PENDING", db.queryForObject("SELECT status FROM outbox_event", String.class));
+    } finally {
+      db.execute("ALTER TABLE outbox_event DROP CONSTRAINT reject_sent");
+    }
+    assertEquals(1, relay.runBatch(20));
+    assertEquals(2, publisher.payloads.size());
+    assertEquals(publisher.payloads.get(0), publisher.payloads.get(1));
   }
 }

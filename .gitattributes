@@ -1,0 +1,7 @@
+# Preserve approved event bytes across Windows/Linux checkouts.
+contracts/events/AssessmentCompleted_v1.schema.json -text
+contracts/events/AssessmentCompleted_v1.example.json -text
+backend/services/assessment-service/src/test/resources/contracts/AssessmentCompleted_v1.schema.json -text
+backend/services/progress-service/src/main/resources/contracts/AssessmentCompleted_v1.schema.json -text
+backend/services/assessment-service/mvnw text eol=lf
+backend/services/progress-service/mvnw text eol=lf

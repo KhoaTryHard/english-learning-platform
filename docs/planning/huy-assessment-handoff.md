@@ -1,5 +1,9 @@
 # Huy — bàn giao Assessment, 31/10/2026
 
+**Checkpoint lịch sử trước khi bổ sung Progress/relay.** Phần Assessment dưới đây
+đã được xuất bản ở commit `2f5288a`. Trạng thái W5-02 mới nhất xem
+[bàn giao Assessment + Progress + event foundation](w5-02-huy-handoff.md).
+
 Nguồn công việc: W5-02/#4, schema #20, Exercise #25; Trello W5-H01/H02/H04/H05.
 Nhánh local: `feature/huy-assessment-foundation`, base develop `9eff189`.
 Code đang ở working tree, chưa có implementation commit/PR được xuất bản.
