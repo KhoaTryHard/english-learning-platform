@@ -402,6 +402,46 @@ def wait_apps():
     raise AssertionError('Gateway did not recover')
 
 
+def audit(state, path):
+    REPORT['deployment'] = {}
+    for owner in ['user', 'content', 'api', 'assessment-live', 'progress-live']:
+        container = command('docker', 'compose', 'ps', '-q', owner)
+        info = json.loads(command('docker', 'inspect', container))[0]
+        service = owner.replace('-live', '')
+        private = [x for x in info['Mounts'] if x['Destination'].endswith('.private.pem')]
+        check(owner + ' only owns its readonly private key', len(private) == 1
+              and private[0]['Destination'] == '/private/' + service + '.private.pem' and private[0]['RW'] is False)
+        check(owner + ' application is non-root', info['Config']['User'] not in ['', '0', 'root'])
+        ports = [binding for values in info['NetworkSettings']['Ports'].values() for binding in (values or [])]
+        check(owner + ' TEST probes bind loopback only', all(x['HostIp'] == '127.0.0.1' for x in ports))
+        REPORT['deployment'][owner] = {'imageId': info['Image'], 'user': info['Config']['User'],
+            'privateKey': private[0]['Destination'], 'privateKeyReadOnly': True, 'publishedPorts': ports}
+        if owner == 'api':
+            check('Gateway has no database secrets', not any(x['Destination'].startswith('/run/secrets/') for x in info['Mounts']))
+    REPORT['databases'] = {}
+    for owner in ['user', 'content']:
+        permissions = sql(owner, f"SELECT rolsuper,rolcreatedb,rolcreaterole,has_schema_privilege('{owner}_runtime','public','CREATE') FROM pg_roles WHERE rolname='{owner}_runtime'")
+        check(owner + ' runtime has no superuser/database/role/DDL privileges', permissions == 'f|f|f|f')
+        version = sql(owner, 'SHOW server_version')
+        migrations = sql(owner, 'SELECT version,success FROM flyway_schema_history ORDER BY installed_rank')
+        check(owner + ' V1 migration succeeded', migrations == '1|t')
+        REPORT['databases'][owner] = {'version': version, 'migration': migrations, 'runtimeLeastPrivilege': True}
+    for owner in ['user', 'content', 'assessment', 'progress']:
+        container = command('docker', 'compose', 'ps', '-q', owner + '-db')
+        info = json.loads(command('docker', 'inspect', container))[0]
+        check(owner + ' database has no published port', not any(info['NetworkSettings']['Ports'].values()))
+        network = json.loads(command('docker', 'network', 'inspect', os.environ['COMPOSE_PROJECT_NAME'] + '_' + owner + '-data'))[0]
+        check(owner + ' data network is internal', network['Internal'] is True)
+    acl_path = ROOT / '.tools/backlog/windows-acl.json'
+    if not acl_path.exists():
+        raise AssertionError('Record the actual Windows TEST secret ACL audit first')
+    acl = json.loads(acl_path.read_text(encoding='utf-8-sig'))
+    check('Windows private TEST secrets have protected allowlisted ACLs', acl['allProtected'] and acl['onlyCurrentUserSystemAdministrators'])
+    REPORT['windowsAcl'] = acl
+    REPORT['notCovered'] = ['Windows access attempt under a second account', 'production HTTPS/transport',
+        'Assessment/Progress production DB role separation owned by Huy']
+
+
 def faults(state, path):
     accounts = json.loads(path.with_suffix('.credentials.json').read_text())
     learner = learner_client(accounts['learner'])
@@ -474,7 +514,7 @@ def faults(state, path):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--phase', choices=['core', 'owners', 'gateway', 'faults'], required=True)
+    parser.add_argument('--phase', choices=['core', 'owners', 'gateway', 'faults', 'audit'], required=True)
     parser.add_argument('--state', type=Path, required=True)
     parser.add_argument('--report', type=Path, required=True)
     args = parser.parse_args()
