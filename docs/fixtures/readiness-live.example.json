@@ -2,8 +2,8 @@
   "environment": "TEST",
   "backendSha": "REPLACE_WITH_FULL_TESTED_BACKEND_SHA",
   "gatewayUrl": "http://localhost:18080",
-  "assessmentUrl": "http://localhost:18083",
-  "assessmentUrlFromContent": "http://assessment-live:8080",
+  "assessmentUrl": "http://127.0.0.1:8090",
+  "assessmentUrlFromContent": "http://assessment-live:8090",
   "courseId": "10000000-0000-4000-8000-000000000001",
   "levelId": "10000000-0000-4000-8000-000000000002",
   "assessment": {

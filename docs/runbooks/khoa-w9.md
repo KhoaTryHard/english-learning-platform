@@ -62,7 +62,7 @@ Mỗi evidence gồm command, SHA từng service, môi trường, seed/fixture, 
 
 ## Nghiệm thu readiness với Assessment thật — #25/#42
 
-Hiện repo chỉ có scaffold Assessment; chưa có URL, image, migrations/seed hoặc SHA implementation của Huy. **LIVE readiness: NOT_RUN / WAITING_HUY_RUNTIME.** Bộ chạy dưới đây chuẩn bị sẵn cho lần bàn giao; không tự cung cấp Assessment giả. [Phiếu review auth và rollout/rollback](../contracts/internal-auth-review-2026-10-28.md) chờ phản hồi thực của Huy và ghi nhận baseline của Hưng.
+Checkpoint 01/11/2026: [PR #43](https://github.com/KhoaTryHard/english-learning-platform/pull/43) tại `c1a2a074a4cc6c0d3d0bdf04ef77540a530c5930` đã có Assessment/Progress, standalone Compose, migration PostgreSQL và seed qua Gateway. Trạng thái LIVE phải đọc từ report của lần chạy; có source không tự chứng minh runtime PASS. Cấu hình ghép hai checkout và cổng Assessment **8090** nằm trong [runbook W6 LIVE](khoa-w6-live.md). [Phiếu review auth và rollout/rollback](../contracts/internal-auth-review-2026-10-28.md) tiếp tục chờ phản hồi thực của Huy và ghi nhận baseline của Hưng.
 
 ### Huy bàn giao trước khi chạy
 
@@ -70,7 +70,7 @@ Hiện repo chỉ có scaffold Assessment; chưa có URL, image, migrations/seed
 - URL từ máy Khoa để probe và URL từ container Content, cổng và mạng Docker. Mặc định dùng project test riêng; service thật tên `assessment-live`, gắn `<COMPOSE_PROJECT_NAME>_backend`. Tên/cổng thực tế phải theo deployment Huy bàn giao, không dùng service `assessment` WireMock trong root Compose.
 - Assessment giữ private key của chính nó; Khoa nhận public key. Assessment nhận public keys `content`, `api` và các caller thực sự cần. Các key của caller dùng probe phải là cùng key Content/Gateway của stack test, không thay private key của nhau.
 - Endpoint `GET /internal/v1/lessons/{lessonId}/exercise-readiness`: chỉ caller Content; thiếu mapping trả200/ready=false, đúng một Exercise ready và >=1 câu hợp lệ mới ready=true; DB lỗi503; không callback sang Content. Các fixture không hợp lệ do Huy tạo theo schema thật, không thêm đường seed/SQL xuyên service.
-- `ServiceGuard` SDK hiện chỉ có allowlist endpoint nội bộ của User/Content; readiness chưa nằm trong allowlist. Huy có thể reuse `TokenCodec`, nhưng nếu reuse guard phải bổ sung mapping readiness → caller `content` và tests trong Assessment; copy guard hiện tại nguyên trạng sẽ từ chối cả caller Content hợp lệ.
+- `ServiceGuard` của Assessment trong PR #43 đã có mapping readiness → caller `content`; không thay bằng bản guard User/Content. Bằng chứng HTTP thật vẫn cần kiểm Content hợp lệ, caller `api` bị403 và chữ ký sai bị401.
 
 ### Kết nối và tạo fixture Content
 
@@ -82,7 +82,7 @@ $env:IMAGE_TAG = 'khoa-audit-20261028' # hoặc tag đã build từ SHA hiện h
 $env:GATEWAY_PORT = '18080'
 $env:GATEWAY_URL = 'http://localhost:18080'
 $env:FRONTEND_ORIGIN = 'http://127.0.0.1:5173'
-$env:ASSESSMENT_URL = 'http://assessment-live:8080' # sửa theo bàn giao thực
+$env:ASSESSMENT_URL = 'http://assessment-live:8090' # PR #43; sửa theo deployment thực
 ./scripts/init-dev.ps1
 docker compose config --quiet
 docker compose up -d --no-build --wait user content api
