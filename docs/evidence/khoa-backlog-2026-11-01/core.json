@@ -1,0 +1,982 @@
+{
+  "status": "PASS_REVIEW_REQUIRED",
+  "phase": "core",
+  "environment": "TEST",
+  "runtime": "DOCKER_REAL_SERVICES_POSTGRESQL",
+  "startedAt": "2026-11-01T10:34:42.548839+00:00",
+  "backendSha": "2844f7d21128f095f912d108f8c5aa0391ffda13",
+  "ownerSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+  "composeProject": "khoa-backlog-20261101",
+  "checks": [
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "login",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "register",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "login",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "register",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "login",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getMyProfile",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "patchMyProfile",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getLearningSetup",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "PATCH /api/v1/me/profile",
+      "expected": 400,
+      "actual": 400,
+      "errorCode": "VALIDATION_ERROR"
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/auth/register",
+      "expected": 400,
+      "actual": 400,
+      "errorCode": "VALIDATION_ERROR"
+    },
+    {
+      "case": "listUsers",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getUser",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "patchUser",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "createCourse",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "patchCourse",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "patchCourse",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "adminListCourses",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "adminGetCourse",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "createModule",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "adminListModules",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "adminGetModule",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "patchModule",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "createLesson",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "adminListLessons",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "adminGetLesson",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "PATCH /api/v1/admin/lessons/11b2e3ee-1729-4768-b308-059bb9ed88e0",
+      "expected": 409,
+      "actual": 409,
+      "errorCode": "ASSESSMENT_NOT_READY"
+    },
+    {
+      "case": "adminGetLesson",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "readiness failure preserves draft",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "POST /api/v1/admin/assessments",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/admin/assessments/33f1d1c7-a9ca-4eee-b704-7567486750d9/questions",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "PATCH /api/v1/admin/assessments/33f1d1c7-a9ca-4eee-b704-7567486750d9",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "patchLesson",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "importVocabulary",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "valid XLSX creates exactly fixture rows",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "patchVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "patchVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "adminListVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "adminGetVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/admin/imports/vocabulary",
+      "expected": 409,
+      "actual": 409,
+      "errorCode": "IMPORT_DUPLICATE"
+    },
+    {
+      "case": "duplicate import is atomic",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "POST /api/v1/admin/imports/vocabulary",
+      "expected": 422,
+      "actual": 422,
+      "errorCode": "IMPORT_VALIDATION_FAILED"
+    },
+    {
+      "case": "invalid import is atomic",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "POST /api/v1/admin/imports/vocabulary",
+      "expected": 415,
+      "actual": 415,
+      "errorCode": "UNSUPPORTED_FILE_TYPE"
+    },
+    {
+      "case": "corrupt file rejected before writes",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "POST /api/v1/admin/imports/vocabulary",
+      "expected": 415,
+      "actual": 415,
+      "errorCode": "UNSUPPORTED_FILE_TYPE"
+    },
+    {
+      "case": "vocabulary macro disguise creates zero",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "POST /api/v1/admin/imports/lessons",
+      "expected": 415,
+      "actual": 415,
+      "errorCode": "UNSUPPORTED_FILE_TYPE"
+    },
+    {
+      "case": "lessons macro disguise creates zero",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "POST /api/v1/admin/imports/vocabulary",
+      "expected": 413,
+      "actual": 413,
+      "errorCode": "FILE_TOO_LARGE"
+    },
+    {
+      "case": "adminListLessons",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/admin/imports/lessons",
+      "expected": 422,
+      "actual": 422,
+      "errorCode": "IMPORT_VALIDATION_FAILED"
+    },
+    {
+      "case": "importLessons",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/admin/imports/lessons",
+      "expected": 409,
+      "actual": 409,
+      "errorCode": "IMPORT_DUPLICATE"
+    },
+    {
+      "case": "adminListLessons",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "DOCX invalid and duplicate do not partially write",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "createLesson",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/admin/imports/vocabulary",
+      "expected": [
+        201,
+        409
+      ],
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/admin/imports/vocabulary",
+      "expected": [
+        201,
+        409
+      ],
+      "actual": 409,
+      "errorCode": "IMPORT_DUPLICATE"
+    },
+    {
+      "case": "concurrent imports have exactly one atomic winner",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "adminListVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "concurrent import commits exactly two source rows",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "getTemplateVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getTemplateLessons",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "templates available",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "createLearningContent",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "patchLearningContent",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "adminGetLearningContent",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "createLearningContent",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "patchLearningContent",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "adminGetLearningContent",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "createLearningContent",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "patchLearningContent",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "adminListLearningContent",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "putLearningSetup",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "putLearningSetup",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "PUT /api/v1/me/learning-setup",
+      "expected": 409,
+      "actual": 409,
+      "errorCode": "LEARNING_SETUP_MISMATCH"
+    },
+    {
+      "case": "listCourses",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getCourse",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "listLevels",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "listModules",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "listLessons",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getLessonLearning",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "published Lesson uses real Exercise and learning content",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "Listening unavailable is explicit",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "GET /api/v1/lessons/e8891e44-394d-44a8-bb94-58e4fae52139",
+      "expected": 404,
+      "actual": 404,
+      "errorCode": "CONTENT_UNAVAILABLE"
+    },
+    {
+      "case": "saveVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "saveVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "saveVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "listSavedVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "saved vocabulary isolated by learner",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "listSavedVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "listSavedVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "stable non-overlapping saved pagination",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "PUT /api/v1/me/vocabulary/1cbaaca2-18be-4742-9c3c-796d775b4e9d",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "PUT /api/v1/me/vocabulary/1cbaaca2-18be-4742-9c3c-796d775b4e9d",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "PUT /api/v1/me/vocabulary/1cbaaca2-18be-4742-9c3c-796d775b4e9d",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "PUT /api/v1/me/vocabulary/1cbaaca2-18be-4742-9c3c-796d775b4e9d",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "PUT /api/v1/me/vocabulary/1cbaaca2-18be-4742-9c3c-796d775b4e9d",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "PUT /api/v1/me/vocabulary/1cbaaca2-18be-4742-9c3c-796d775b4e9d",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "PUT /api/v1/me/vocabulary/1cbaaca2-18be-4742-9c3c-796d775b4e9d",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "PUT /api/v1/me/vocabulary/1cbaaca2-18be-4742-9c3c-796d775b4e9d",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "listSavedVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "concurrent saves preserve unique collection",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "PATCH /api/v1/admin/courses/10000000-0000-4000-8000-000000000001",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "listSavedVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "hidden courses preserves saved reference",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "PATCH /api/v1/admin/courses/10000000-0000-4000-8000-000000000001",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "PATCH /api/v1/admin/modules/3d428ce7-9c95-4cfd-b400-0aed5dfb3cd8",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "listSavedVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "hidden modules preserves saved reference",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "PATCH /api/v1/admin/modules/3d428ce7-9c95-4cfd-b400-0aed5dfb3cd8",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "PATCH /api/v1/admin/lessons/11b2e3ee-1729-4768-b308-059bb9ed88e0",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "listSavedVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "hidden lessons preserves saved reference",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "PATCH /api/v1/admin/lessons/11b2e3ee-1729-4768-b308-059bb9ed88e0",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "patchVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "listSavedVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "collection reads updated source",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "patchCourse",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "putLearningSetup",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "listSavedVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "Course change preserves saved collection",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "putLearningSetup",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "removeVocabulary",
+      "expected": 204,
+      "actual": 204,
+      "errorCode": null
+    },
+    {
+      "case": "removeVocabulary",
+      "expected": 204,
+      "actual": 204,
+      "errorCode": null
+    },
+    {
+      "case": "adminGetVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "remove never deletes source",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "DELETE /api/v1/admin/courses/10000000-0000-4000-8000-000000000001",
+      "expected": 405,
+      "actual": 405,
+      "errorCode": "METHOD_NOT_ALLOWED"
+    },
+    {
+      "case": "DELETE /api/v1/admin/modules/3d428ce7-9c95-4cfd-b400-0aed5dfb3cd8",
+      "expected": 405,
+      "actual": 405,
+      "errorCode": "METHOD_NOT_ALLOWED"
+    },
+    {
+      "case": "DELETE /api/v1/admin/lessons/11b2e3ee-1729-4768-b308-059bb9ed88e0",
+      "expected": 405,
+      "actual": 405,
+      "errorCode": "METHOD_NOT_ALLOWED"
+    },
+    {
+      "case": "GET /api/v1/admin/users",
+      "expected": 403,
+      "actual": 403,
+      "errorCode": "FORBIDDEN"
+    },
+    {
+      "case": "POST /api/v1/admin/imports/vocabulary",
+      "expected": 403,
+      "actual": 403,
+      "errorCode": "FORBIDDEN"
+    },
+    {
+      "case": "GET /api/v1/me/profile",
+      "expected": 401,
+      "actual": 401,
+      "errorCode": "SESSION_INVALID"
+    },
+    {
+      "case": "PATCH /api/v1/me/profile",
+      "expected": 403,
+      "actual": 403,
+      "errorCode": "CSRF_INVALID"
+    },
+    {
+      "case": "OPTIONS /api/v1/me/vocabulary/1cbaaca2-18be-4742-9c3c-796d775b4e9d",
+      "expected": 204,
+      "actual": 204,
+      "errorCode": null
+    },
+    {
+      "case": "credentialed CORS preflight",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "OPTIONS /api/v1/me/vocabulary/1cbaaca2-18be-4742-9c3c-796d775b4e9d",
+      "expected": 403,
+      "actual": 403,
+      "errorCode": "CSRF_INVALID"
+    },
+    {
+      "case": "logout",
+      "expected": 204,
+      "actual": 204,
+      "errorCode": null
+    },
+    {
+      "case": "GET /api/v1/me/profile",
+      "expected": 401,
+      "actual": 401,
+      "errorCode": "SESSION_INVALID"
+    },
+    {
+      "case": "patchUser",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/auth/login",
+      "expected": 401,
+      "actual": 401,
+      "errorCode": "INVALID_CREDENTIALS"
+    },
+    {
+      "case": "patchUser",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "every User/Content public operation covered",
+      "expected": true,
+      "actual": true
+    }
+  ],
+  "images": {
+    "user": "sha256:27128e2867ba47334471f7920978a6b505f654b1b745848c0d1d155d059c9c00",
+    "content": "sha256:5b457423b065104c21f72d93f4b1077a0f6e2b038958fb62541e5c1d73001383",
+    "api": "sha256:d7eb3d06a659425654d2560945800598c683e68c634c8045564c26515ff6753a",
+    "assessment-live": "sha256:98ea93c4d1fd59a0cbc8ae41991f583d9755ba06b8bf269032474ee93903da66",
+    "progress-live": "sha256:dedad6eaf56e654d240bc7c6fd49b3c75c1540299ccf0af60c2d383799c76adf"
+  },
+  "publicOperations": [
+    "getCsrf",
+    "login",
+    "register",
+    "getMyProfile",
+    "patchMyProfile",
+    "getLearningSetup",
+    "listUsers",
+    "getUser",
+    "patchUser",
+    "createCourse",
+    "patchCourse",
+    "adminListCourses",
+    "adminGetCourse",
+    "createModule",
+    "adminListModules",
+    "adminGetModule",
+    "patchModule",
+    "createLesson",
+    "adminListLessons",
+    "adminGetLesson",
+    "patchLesson",
+    "importVocabulary",
+    "patchVocabulary",
+    "adminListVocabulary",
+    "adminGetVocabulary",
+    "importLessons",
+    "getTemplateVocabulary",
+    "getTemplateLessons",
+    "createLearningContent",
+    "patchLearningContent",
+    "adminGetLearningContent",
+    "adminListLearningContent",
+    "putLearningSetup",
+    "listCourses",
+    "getCourse",
+    "listLevels",
+    "listModules",
+    "listLessons",
+    "getLessonLearning",
+    "saveVocabulary",
+    "listSavedVocabulary",
+    "removeVocabulary",
+    "logout"
+  ],
+  "fixtures": {
+    "userId": "ae18b0d7-2521-4611-8e53-bb0609cbc984",
+    "otherUserId": "9c828ec4-f2a9-491e-8df4-a24d66f13d2e",
+    "courseId": "10000000-0000-4000-8000-000000000001",
+    "levelId": "10000000-0000-4000-8000-000000000002",
+    "emptyCourseId": "11067c36-52db-4a6d-9bfd-2729b0ca5b8d",
+    "moduleId": "3d428ce7-9c95-4cfd-b400-0aed5dfb3cd8",
+    "lessonId": "11b2e3ee-1729-4768-b308-059bb9ed88e0",
+    "assessmentId": "33f1d1c7-a9ca-4eee-b704-7567486750d9",
+    "questionId": "72edee8d-5697-4bec-a56c-17f8400e11a6",
+    "vocabularyIds": [
+      "1cbaaca2-18be-4742-9c3c-796d775b4e9d",
+      "efd81c53-7fd8-4f52-bd28-173ff65e2c7f"
+    ],
+    "draftLessonId": "e8891e44-394d-44a8-bb94-58e4fae52139",
+    "raceLessonId": "d26e8a76-f383-4629-b396-008fd9a32d4b"
+  },
+  "finishedAt": "2026-11-01T10:35:13.623735+00:00"
+}

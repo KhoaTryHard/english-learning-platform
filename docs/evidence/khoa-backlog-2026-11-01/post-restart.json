@@ -1,0 +1,73 @@
+{
+  "checks": [
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "login",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getMyProfile",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getLearningSetup",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "listSavedVocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "Profile survives restart",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "Course/Level survive restart",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "saved relation/source survive restart",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "GET /api/v1/me/dashboard",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    }
+  ],
+  "publicOperations": [
+    "getCsrf",
+    "login",
+    "getMyProfile",
+    "getLearningSetup",
+    "listSavedVocabulary"
+  ],
+  "status": "PASS_REVIEW_REQUIRED",
+  "phase": "post-restart",
+  "environment": "TEST",
+  "timestamp": "2026-11-01T10:46:42.999430+00:00",
+  "backendSha": "24e4552ebead04a980da8879fe753e7b1c1d5114"
+}

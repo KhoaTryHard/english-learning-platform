@@ -1,0 +1,135 @@
+{
+  "status": "KHOA_TECHNICAL_PASS_REVIEW_AND_DEPENDENCIES_PENDING",
+  "recordedAt": "2026-11-01T10:46:45.679287+00:00",
+  "branch": "feature/khoa-backlog-w7-w8",
+  "baseSha": "5fe5f39bd35bc67c1bac2abcff96d798b9febdd0",
+  "applicationChangeSha": "68b5367093edfdb350a9ac1390c6d58ce60f6cf1",
+  "runnerFinalSha": "24e4552ebead04a980da8879fe753e7b1c1d5114",
+  "ownerSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+  "project": "khoa-backlog-20261101",
+  "environment": "TEST",
+  "gateway": "http://127.0.0.1:18080",
+  "database": "PostgreSQL 17.11, four separate clusters",
+  "ownerMigrations": {
+    "assessment": [
+      "17.11 (Debian 17.11-1.pgdg13+2)",
+      "1|t"
+    ],
+    "progress": [
+      "17.11 (Debian 17.11-1.pgdg13+2)",
+      "1|t"
+    ]
+  },
+  "images": {
+    "user": "sha256:27128e2867ba47334471f7920978a6b505f654b1b745848c0d1d155d059c9c00",
+    "content": "sha256:5b457423b065104c21f72d93f4b1077a0f6e2b038958fb62541e5c1d73001383",
+    "api": "sha256:d7eb3d06a659425654d2560945800598c683e68c634c8045564c26515ff6753a",
+    "assessment-live": "sha256:98ea93c4d1fd59a0cbc8ae41991f583d9755ba06b8bf269032474ee93903da66",
+    "progress-live": "sha256:dedad6eaf56e654d240bc7c6fd49b3c75c1540299ccf0af60c2d383799c76adf"
+  },
+  "reports": [
+    {
+      "report": "core.json",
+      "status": "PASS_REVIEW_REQUIRED",
+      "checks": 153,
+      "runnerSha": "2844f7d21128f095f912d108f8c5aa0391ffda13",
+      "sha256": "1006f94c8445470881fd948338cce406c79cd362a8ce56eae38b3c70d6d96df5"
+    },
+    {
+      "report": "owners.json",
+      "status": "PASS_REVIEW_REQUIRED",
+      "checks": 40,
+      "runnerSha": "5a75f8fdfab659afef23fdf0e33ba4d8bb2d75fa",
+      "sha256": "c9dd46829bcd5468c3d3b916b9b5ae0af937e13ef989ed29a0cf4ba3d7ed9b2a"
+    },
+    {
+      "report": "faults.json",
+      "status": "PASS_REVIEW_REQUIRED",
+      "checks": 33,
+      "runnerSha": "5a75f8fdfab659afef23fdf0e33ba4d8bb2d75fa",
+      "sha256": "4afd46e6b129e023b107462e000b02709a26262b5f3d91cca30c57e9430da61b"
+    },
+    {
+      "report": "gateway.json",
+      "status": "PASS_REVIEW_REQUIRED",
+      "checks": 32,
+      "runnerSha": "48878dd616efd7419237c04742d15c5cd5c63122",
+      "sha256": "1600181b19b77465afe695884bd9fdc304e5457a316fbdf7d531c8f872cbea0e"
+    },
+    {
+      "report": "session.json",
+      "status": "PASS",
+      "checks": 0,
+      "runnerSha": null,
+      "sha256": "3f14d415e9f017d897a0a5d700fb92f4cd17e917c37853fc609fdb9d65f045f1"
+    },
+    {
+      "report": "operations.json",
+      "status": "PASS",
+      "checks": 0,
+      "runnerSha": null,
+      "sha256": "b5708f182f237fa2bceca98f90a5aeba3a9dd59a9a126fb79093c26c011dacba"
+    },
+    {
+      "report": "audit.json",
+      "status": "PASS_REVIEW_REQUIRED",
+      "checks": 29,
+      "runnerSha": "99850d303cc47a85866d4ac5db8d2ab74b23de2f",
+      "sha256": "9d156918f904a0de79ad14ae7da4ccfb9784f0a4b24cd1615ff10c3d5713f34f"
+    },
+    {
+      "report": "historical-core-harness-fail.json",
+      "status": "FAIL",
+      "checks": 145,
+      "runnerSha": "68b5367093edfdb350a9ac1390c6d58ce60f6cf1",
+      "sha256": "3cefec0b15cf485950310088896f10dd8020cb5e310f5da4687b80eb09ff200b"
+    }
+  ],
+  "commands": [
+    "mvnw.cmd -B verify",
+    "python scripts/check-contracts.py",
+    "python scripts/check-service-layout.py",
+    "docker compose build user content api assessment-live progress-live",
+    "python scripts/verify-khoa-backlog.py --phase <core|owners|faults|gateway|audit> --state .tools/backlog/state-b.json --report <fresh-report>",
+    "python scripts/verify-session-outage.py",
+    "python scripts/verify-operations.py"
+  ],
+  "contracts": "Frozen public v0.1 unchanged; approved internal 0.1.1 unchanged; all 63 Gateway mappings checked",
+  "historicalFailures": {
+    "historical-core-harness-fail.json": "Runner reused a logged-out CSRF token; backend correctly returned403. Harness refreshed CSRF; fresh fixture core run PASS. No application fix was made for this protocol mistake."
+  },
+  "remaining": [
+    {
+      "owner": "Huy/reviewer",
+      "action": "Review new User/Content Db mapping and backlog PR; PR44 retains separate review gate"
+    },
+    {
+      "owner": "Huy",
+      "action": "Statistics consumer (#36), non-empty event projection/Kafka E2E, semantics acceptance #31"
+    },
+    {
+      "owner": "Hung",
+      "action": "Frontend #28/#29/#32 and full QA #33/#40; accept current artifacts"
+    },
+    {
+      "owner": "team",
+      "action": "Review/merge workflow; production HOLD W10 remains"
+    }
+  ],
+  "limitations": [
+    "My Vocabulary missing-source UNAVAILABLE fallback is unit-only; live FK was not weakened",
+    "Windows ACL validation is static plus current-user/service reads, not second-account impersonation",
+    "Restore uses new databases in same test cluster; not multi-host recovery",
+    "Kafka disabled: empty Progress/history reads are real, not proof of event delivery or completion",
+    "Local TEST images have image IDs; no production registry digest or rollout approval",
+    "W6 prior Huy/Hung approvals apply to their recorded versions, not this new patch"
+  ],
+  "trelloW6Observed": {
+    "list": "Review/Test",
+    "checklist": "6/6",
+    "dueComplete": true,
+    "movedBy": "Khoa",
+    "movedAt": "2026-11-01T10:00:00.646Z",
+    "action": "Preserve existing state and historical evidence; no inferred reopening reason or new acceptance"
+  }
+}
