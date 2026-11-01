@@ -55,7 +55,10 @@ public class Errors {
     return api(new ApiError(409, "RESOURCE_CONFLICT", "Conflicting data"), r);
   }
 
-  @ExceptionHandler(org.springframework.dao.DataAccessException.class)
+  @ExceptionHandler({
+    org.springframework.dao.DataAccessException.class,
+    org.springframework.transaction.CannotCreateTransactionException.class
+  })
   ResponseEntity<?> database(HttpServletRequest r) {
     return api(ApiError.dependency(), r);
   }
