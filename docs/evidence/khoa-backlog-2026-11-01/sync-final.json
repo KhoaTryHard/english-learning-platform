@@ -1,0 +1,200 @@
+{
+  "publishedEvidenceSha": "dc2662f21ea9778f104d14c7d0e956190b234170",
+  "previousReceipt": "sync-receipt.json",
+  "trello": [
+    {
+      "idCard": "6abe0a17714af929cfe0bcf6",
+      "name": "PB-01 — Authentication & Account",
+      "verified": true,
+      "listPreserved": true,
+      "evidenceSha": "dc2662f21ea9778f104d14c7d0e956190b234170"
+    },
+    {
+      "idCard": "6abe0a1ea0baf1a07c447851",
+      "name": "PB-02 — Learner Profile",
+      "verified": true,
+      "listPreserved": true,
+      "evidenceSha": "dc2662f21ea9778f104d14c7d0e956190b234170"
+    },
+    {
+      "idCard": "6abe0a24c49b131ec4ef3a0e",
+      "name": "PB-03 — Learning Setup: Course / Level",
+      "verified": true,
+      "listPreserved": true,
+      "evidenceSha": "dc2662f21ea9778f104d14c7d0e956190b234170"
+    },
+    {
+      "idCard": "6abe0a29ee3619a44bdef4fa",
+      "name": "PB-04 — Course / Module / Lesson & Learning Content",
+      "verified": true,
+      "listPreserved": true,
+      "evidenceSha": "dc2662f21ea9778f104d14c7d0e956190b234170"
+    },
+    {
+      "idCard": "6abe0a3193360cbb026270a3",
+      "name": "PB-05 — My Vocabulary",
+      "verified": true,
+      "listPreserved": true,
+      "evidenceSha": "dc2662f21ea9778f104d14c7d0e956190b234170"
+    },
+    {
+      "idCard": "6abe0a4feb6ca2b615a0643c",
+      "name": "PB-09 — Admin User & Access Management",
+      "verified": true,
+      "listPreserved": true,
+      "evidenceSha": "dc2662f21ea9778f104d14c7d0e956190b234170"
+    },
+    {
+      "idCard": "6abe0a5512f04bbb8435bea1",
+      "name": "PB-10 — Admin Course & Learning Content Management",
+      "verified": true,
+      "listPreserved": true,
+      "evidenceSha": "dc2662f21ea9778f104d14c7d0e956190b234170"
+    },
+    {
+      "idCard": "6abe0a6eb1d7e949b9ac4e2c",
+      "name": "PB-13 — Admin Import Data",
+      "verified": true,
+      "listPreserved": true,
+      "evidenceSha": "dc2662f21ea9778f104d14c7d0e956190b234170"
+    },
+    {
+      "idCard": "6abe0a47035b339b981a74f3",
+      "name": "PB-08 — Progress / Learning History / Learner Dashboard",
+      "verified": true,
+      "listPreserved": true,
+      "evidenceSha": "dc2662f21ea9778f104d14c7d0e956190b234170"
+    },
+    {
+      "idCard": "6abe0a6b8f75178004ff84bc",
+      "name": "PB-12 — Admin Basic Learning Statistics",
+      "verified": true,
+      "listPreserved": true,
+      "evidenceSha": "dc2662f21ea9778f104d14c7d0e956190b234170"
+    },
+    {
+      "idCard": "6ae2474bb395443fc407d9fe",
+      "name": "W6-05 — Kiểm thử tích hợp, review và bàn giao tuần 7",
+      "verified": true,
+      "listPreserved": true,
+      "evidenceSha": "dc2662f21ea9778f104d14c7d0e956190b234170"
+    }
+  ],
+  "googleDocs": {
+    "documentId": "1VyA1AjuFVNxjjF1KK2SEtY-IC4Qkpg_77gxXJOebCc0",
+    "markerCount": 1,
+    "historyPreserved": true,
+    "notePresent": true,
+    "currentEvidenceSha": "dc2662f21ea9778f104d14c7d0e956190b234170"
+  },
+  "status": "KHOA_TECHNICAL_PASS_REVIEW_AND_DEPENDENCIES_PENDING",
+  "checksumScope": "8 reports verified against committed Git LF bytes; original Windows hashes retained",
+  "pullRequest": "https://github.com/KhoaTryHard/english-learning-platform/pull/45",
+  "github": {
+    "at": "2026-11-01T11:03:03.915876+00:00",
+    "receipts": [
+      {
+        "issue": 14,
+        "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/14",
+        "state": "OPEN",
+        "verified": true,
+        "beforeSha256": "02d929b13adc675a446217a66320d6cb9757f4ba489deabc370a0d1ebd441813",
+        "afterSha256": "dbcdf4afdc8258acd07f80c7d22bd3568715547f5c5f5888c106f18cec62ba75",
+        "historyPreserved": true,
+        "checkpointCount": 1
+      },
+      {
+        "issue": 31,
+        "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/31",
+        "state": "OPEN",
+        "verified": true,
+        "beforeSha256": "925376fb4f11d132fa0878c717674a1f018cd9e981442d18b0f34c9d12f10fe5",
+        "afterSha256": "8aa81750b222dcd37a613764580da2c77784158a5eac789a0fd0b9cd18058bdb",
+        "historyPreserved": true,
+        "checkpointCount": 1
+      },
+      {
+        "issue": 41,
+        "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/41",
+        "state": "OPEN",
+        "verified": true,
+        "beforeSha256": "9717d2c96cdc46eb25a3ca78caaf4ec3409f49ee4b5f590311c107f228c0879e",
+        "afterSha256": "4df181377f19a8c9bdf74c719c752b7f34af1a8f8ca54533e5d4722a481036d5",
+        "historyPreserved": true,
+        "checkpointCount": 1
+      },
+      {
+        "issue": 13,
+        "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/13",
+        "state": "OPEN",
+        "verified": true,
+        "beforeSha256": "aab9815c0d4bc819a99c4818fff5e0e5d282336588a14cf5209b3049316df1df",
+        "afterSha256": "592a2f6b82316857440bfc4d6e640aab33e9dc484389f6435dd71d428d26f984",
+        "historyPreserved": true,
+        "checkpointCount": 1
+      },
+      {
+        "issue": 21,
+        "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/21",
+        "state": "OPEN",
+        "verified": true,
+        "beforeSha256": "714396eb6c5db69d73dd61f497f1aeb37dfb8b4fa0cd9e98f9aa87bf0989706f",
+        "afterSha256": "a203d130301f3b9c37d31247378cad7c1f08283aa5f207bbb6da0230d185ebbd",
+        "historyPreserved": true,
+        "checkpointCount": 1
+      },
+      {
+        "issue": 28,
+        "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/28",
+        "state": "OPEN",
+        "verified": true,
+        "beforeSha256": "5f97ab1eb9bbe564cdc299db8ac51236ed188cda730b9752c31212b4cb72bedb",
+        "afterSha256": "af72eed3c1611e22b808cbf36ec555e6bdf1436c65dd5c9376c2dbbab252e79c",
+        "historyPreserved": true,
+        "checkpointCount": 1
+      },
+      {
+        "issue": 29,
+        "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/29",
+        "state": "OPEN",
+        "verified": true,
+        "beforeSha256": "52c17ff5a815a90c04b3ffcd36cf83e9b10476be6ede4245c89fa8ca5ca52976",
+        "afterSha256": "a51eeb97adb9328a641d751eb455840185f2fe9ed764316559ea869cb0410d8b",
+        "historyPreserved": true,
+        "checkpointCount": 1
+      },
+      {
+        "issue": 32,
+        "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/32",
+        "state": "OPEN",
+        "verified": true,
+        "beforeSha256": "ed3af36e1c85f236727fa7c16efa577029b86256f1951a2d27ba9a1ac99f2a53",
+        "afterSha256": "37c0d2022fb5a9bd53a99ebf07b62b117a5a1296e699acf41fce76d62e5c409a",
+        "historyPreserved": true,
+        "checkpointCount": 1
+      },
+      {
+        "issue": 26,
+        "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/26",
+        "state": "OPEN",
+        "verified": true,
+        "beforeSha256": "35c3acb804cd5aaf78fe8b0167998f1629fe3cd919c202222a93ba6036e0bad8",
+        "afterSha256": "12d4d93c3ea88f157266fc28dc22d217193e41e62ba8125fc08b216ba4ca642d",
+        "historyPreserved": true,
+        "checkpointCount": 1
+      },
+      {
+        "issue": 42,
+        "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/42",
+        "state": "OPEN",
+        "verified": true,
+        "beforeSha256": "23b94afd6e20a7e9fbf8592043c686c07074ee0e61e31eed776831608a75f0a7",
+        "afterSha256": "babf654dd97b16f6e480641df983ee14a6521a0cf3ccb8224b5653ca4042e379",
+        "historyPreserved": true,
+        "checkpointCount": 1
+      }
+    ]
+  },
+  "recordedAt": "2026-11-01T11:06:24.941452+00:00",
+  "runtimeStoppedVolumesPreserved": "Verified in sync-receipt.json; no runtime changes after stop"
+}
