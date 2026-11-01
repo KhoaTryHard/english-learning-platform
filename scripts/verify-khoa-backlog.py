@@ -60,7 +60,7 @@ class Client(smoke.Client):
             REPORT['checks'].append({'case': operation or method + ' ' + path.split('?')[0],
                 'expected': expected, 'actual': response.status,
                 'errorCode': value.get('code') if response.status >= 400 and isinstance(value, dict) else None})
-            if response.status != expected:
+            if response.status not in (expected if isinstance(expected, tuple) else (expected,)):
                 raise AssertionError(method + ' ' + path.split('?')[0] + ': HTTP ' + str(response.status))
             if operation:
                 definition = smoke.OPS[operation][2]
@@ -72,9 +72,10 @@ class Client(smoke.Client):
                 if operation not in REPORT['publicOperations']:
                     REPORT['publicOperations'].append(operation)
             self.last_headers = dict(response.headers)
+            self.last_status = response.status
             return value
 
-    def upload_bytes(self, kind, payload, filename, parent, order=None, expected=201):
+    def upload_bytes(self, kind, payload, filename, parent, order=None, expected=201, headers=None):
         boundary = 'khoa-' + uuid.uuid4().hex
         field = 'lessonId' if kind == 'vocabulary' else 'moduleId'
         mime = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' if kind == 'vocabulary' else 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
@@ -84,7 +85,7 @@ class Client(smoke.Client):
         chunks.append(f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="{filename}"\r\nContent-Type: {mime}\r\n\r\n'.encode()
                       + payload + f'\r\n--{boundary}--\r\n'.encode())
         return self.request('POST', '/api/v1/admin/imports/' + kind, b''.join(chunks), expected,
-                            'multipart/form-data; boundary=' + boundary)
+                            'multipart/form-data; boundary=' + boundary, headers=headers)
 
 
 def admin_client():
@@ -195,6 +196,21 @@ def core(state, path):
     admin.upload('importLessons', 'lesson-leading-empty.docx', 'moduleId', mid, 3, 409)
     check('DOCX invalid and duplicate do not partially write',
           admin.op('adminListLessons', query='?moduleId=' + mid)['totalElements'] == before_lessons + 1)
+    race_lesson = admin.op('createLesson', {'moduleId': mid, 'title': 'Import race', 'content': 'TEST', 'orderNo': 4})
+    state['raceLessonId'] = race_lesson['lessonId']
+    admin_cookie = '; '.join(c.name + '=' + c.value for c in admin.jar)
+    def import_race(_):
+        client = Client()
+        value = client.upload_bytes('vocabulary', (fixture / 'vocabulary-valid.xlsx').read_bytes(),
+            'vocabulary-valid.xlsx', state['raceLessonId'], expected=(201, 409),
+            headers={'Cookie': admin_cookie, 'X-CSRF-Token': admin.csrf})
+        return client.last_status, value
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        race_results = list(pool.map(import_race, range(2)))
+    check('concurrent imports have exactly one atomic winner', sorted(x[0] for x in race_results) == [201, 409]
+          and sorted((x[1].get('import', x[1]))['createdCount'] for x in race_results) == [0, 2])
+    check('concurrent import commits exactly two source rows',
+          admin.op('adminListVocabulary', query='?lessonId=' + state['raceLessonId'])['totalElements'] == 2)
     check('templates available', bool(admin.op('getTemplateVocabulary')) and bool(admin.op('getTemplateLessons')))
     for kind in ['GRAMMAR', 'READING']:
         content = admin.op('createLearningContent', {'lessonId': lid, 'type': kind, 'title': kind, 'text': 'Text'})
@@ -264,6 +280,7 @@ def core(state, path):
     anon.request('GET', '/api/v1/me/profile', expected=401, headers={'Cookie': old_cookie})
     admin.op('patchUser', {'status': 'BLOCKED'}, params={'userId': second['userId']})
     try:
+        other.csrf_token()
         other.request('POST', '/api/v1/auth/login', {'email': second['email'], 'password': second['password']}, 401)
     finally:
         admin.op('patchUser', {'status': 'ACTIVE'}, params={'userId': second['userId']})
