@@ -1,0 +1,78 @@
+{
+  "task": "W6-02",
+  "status": "DONE_VERIFIED",
+  "publishedAcceptanceCommit": "fdb7b4f291a758adadaba661c831083e82934267",
+  "assessmentFix": {
+    "pr": "https://github.com/KhoaTryHard/english-learning-platform/pull/44",
+    "sourceSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd"
+  },
+  "verification": {
+    "card": {
+      "url": "https://trello.com/c/RQwfmxTa",
+      "list": "Done",
+      "idList": "6aa26a19992ac2e25bf696af",
+      "due": "2026-10-30T11:00:00.000Z",
+      "dueComplete": true,
+      "lastActivity": "2026-11-01T09:57:07.609Z",
+      "completeCount": 6,
+      "total": 6,
+      "completionCheckpointCount": 1,
+      "originalDescriptionPreserved": true
+    },
+    "documents": [
+      {
+        "id": "1KzjdFCakEtnrJVuuM5gr_N48k7VkrK1AdIP3gwE_bro",
+        "url": "https://docs.google.com/document/d/1KzjdFCakEtnrJVuuM5gr_N48k7VkrK1AdIP3gwE_bro/edit",
+        "completionCheckpointCount": 1,
+        "originalContentPreserved": true
+      },
+      {
+        "id": "1VyA1AjuFVNxjjF1KK2SEtY-IC4Qkpg_77gxXJOebCc0",
+        "url": "https://docs.google.com/document/d/1VyA1AjuFVNxjjF1KK2SEtY-IC4Qkpg_77gxXJOebCc0/edit",
+        "completionCheckpointCount": 1,
+        "originalContentPreserved": true
+      }
+    ]
+  },
+  "approvalSource": "Huy and Hung confirmations relayed explicitly by Khoa in this conversation; see internal-auth-decision-2026-11-01.md. No native GitHub approvals created.",
+  "scope": "Six W6-02 checklist items; HOST integration accepted, production HOLD W10; PR merge workflow separate.",
+  "screenshot": "docs/evidence/w6-final-2026-11-01/trello-complete.png",
+  "screenshotSha256": "a4ef16fb8fe24f0d79c8382d39f93aa4b5c87740e72be08c9dd4b1cb2fe2e84d",
+  "githubSyncAudit": [
+    {
+      "issue": 13,
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/13",
+      "state": "open",
+      "checkpointCount": 1,
+      "bodySha256": "13e59a93abfca496bee1c6cda3deb8c04e5033f8035e03252b1cf35ba5861cee"
+    },
+    {
+      "issue": 21,
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/21",
+      "state": "open",
+      "checkpointCount": 1,
+      "bodySha256": "61e960254771ec44eed2341640000088c34ff2ce5ff6fae43f4bf3063aa6eae0"
+    },
+    {
+      "issue": 25,
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/25",
+      "state": "open",
+      "checkpointCount": 1,
+      "bodySha256": "dc1c2f8fdf1852c382cf57b59b2c67a20be0dcf4b1bb74566f70c9e5a4bfe5eb"
+    },
+    {
+      "issue": 26,
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/26",
+      "state": "open",
+      "checkpointCount": 1,
+      "bodySha256": "00f52f5b32b79852f66f281a0a30e8e8c7c4c637f9df083d3a612b27f327ae61"
+    },
+    {
+      "issue": 42,
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/42",
+      "state": "open",
+      "checkpointCount": 1,
+      "bodySha256": "8c77c86d137f5a218a278bb1d4e307a73fb55022fb3d01da1f0b757ab1363add"
+    }
+  ]
+}
