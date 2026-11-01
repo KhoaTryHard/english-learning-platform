@@ -346,6 +346,50 @@ def owners(state, path):
     REPORT['notCovered'] = ['non-empty event projection/Kafka E2E', 'Statistics consumer not implemented by owner', 'Huy peer acceptance']
 
 
+def gateway(state, path):
+    admin = admin_client()
+    accounts = json.loads(path.with_suffix('.credentials.json').read_text())
+    learner = learner_client(accounts['learner'])
+    start = '/api/v1/assessments/' + state['assessmentId'] + '/attempts'
+    before = learner.request('GET', '/api/v1/me/attempts')['totalElements']
+    learner.request('POST', start, expected=403,
+        headers={'Idempotency-Key': str(uuid.uuid4()), 'X-CSRF-Token': 'invalid'})
+    check('denied start never reaches Assessment business write',
+          learner.request('GET', '/api/v1/me/attempts')['totalElements'] == before)
+    key = str(uuid.uuid4())
+    first = learner.request('POST', start, expected=201, headers={'Idempotency-Key': key})
+    repeated = learner.request('POST', start, expected=201, headers={'Idempotency-Key': key})
+    retake = learner.request('POST', start, expected=201, headers={'Idempotency-Key': str(uuid.uuid4())})
+    check('Gateway preserves Idempotency-Key', first['attemptId'] == repeated['attemptId']
+          and first['startedAt'] == repeated['startedAt'] and first['questions'] == repeated['questions'])
+    check('retake with new key creates a new attempt', first['attemptId'] != retake['attemptId'])
+    attempt = '/api/v1/attempts/' + first['attemptId']
+    learner.request('PUT', attempt + '/answers', {'answers': [{'questionId': state['questionId'],
+        'questionType': 'TRUE_FALSE', 'value': True}]})
+    result = learner.request('POST', attempt + '/submit')
+    check('real Assessment scores saved answer', result['earnedPoints'] == result['maxPoints'] == 1
+          and result['scorePercent'] == 100)
+    final = learner.request('POST', start, expected=201, headers={'Idempotency-Key': key})
+    check('terminal transport retry keeps original attempt', final['attemptId'] == first['attemptId']
+          and final['status'] == 'SUBMITTED')
+    check('transport retries created only two attempts',
+          learner.request('GET', '/api/v1/me/attempts')['totalElements'] == before + 2)
+    learner.request('OPTIONS', start, expected=204, headers={'Access-Control-Request-Method': 'POST',
+        'Access-Control-Request-Headers': 'Idempotency-Key,X-CSRF-Token'})
+    check('preflight allows credentialed Idempotency-Key',
+          'idempotency-key' in learner.last_headers.get('Access-Control-Allow-Headers', '').lower()
+          and learner.last_headers.get('Access-Control-Allow-Credentials') == 'true')
+    other = learner_client(accounts['other'])
+    admin.op('patchUser', {'status': 'BLOCKED'}, params={'userId': state['otherUserId']})
+    try:
+        other.request('GET', '/api/v1/me/profile', expected=401)
+    finally:
+        admin.op('patchUser', {'status': 'ACTIVE'}, params={'userId': state['otherUserId']})
+    check('Kafka disabled does not fabricate Progress completion',
+          learner.request('GET', '/api/v1/me/progress?courseId=' + state['courseId'])['completedLessons'] == 0)
+    REPORT['notCovered'] = ['Kafka delivery/Progress completion E2E']
+
+
 def wait_apps():
     for _ in range(60):
         try:
@@ -430,7 +474,7 @@ def faults(state, path):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--phase', choices=['core', 'owners', 'faults'], required=True)
+    parser.add_argument('--phase', choices=['core', 'owners', 'gateway', 'faults'], required=True)
     parser.add_argument('--state', type=Path, required=True)
     parser.add_argument('--report', type=Path, required=True)
     args = parser.parse_args()
