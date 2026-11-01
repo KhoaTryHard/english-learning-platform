@@ -1,0 +1,196 @@
+{
+  "phase": "database-down",
+  "checkedAt": "2026-11-01T09:47:21.231321Z",
+  "backendSha": "b8bdcfe350989e7c98075fa004890cc76a48b7f2",
+  "assessment": {
+    "kind": "LIVE",
+    "sourceSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+    "image": "NOT_APPLICABLE_HOST_JAR",
+    "jarSha256": "2e3b4f3d81f4808a9b79d690029b99ede587a451baa11fc007664cc67c03ff9f",
+    "dbEngine": "PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit",
+    "migration": "V1__assessment_foundation.sql",
+    "seedCommand": "python scripts/verify-assessment-live.py --phase seed --manifest <prepared> --report <fresh>",
+    "runtimeEvidence": "<workspace>\\.tools\\khoa-w6-host-20261101-c\\runtime.json"
+  },
+  "manifestSha256": "6179e7999608cf30d89c6009486e7add01bd5331520dea84b58d54e7c6ce5fe7",
+  "scope": "External HTTP acceptance; supplied LIVE runtime/DB provenance requires Huy/Khoa review",
+  "notCovered": [
+    "attempt retry/retake",
+    "Progress/Kafka",
+    "team contract approval"
+  ],
+  "checks": [
+    {
+      "path": "/api/v1/auth/csrf",
+      "actual": 200,
+      "method": "GET",
+      "expected": 200,
+      "case": "csrf"
+    },
+    {
+      "path": "/api/v1/auth/login",
+      "actual": 200,
+      "method": "POST",
+      "expected": 200,
+      "case": "login"
+    },
+    {
+      "path": "/api/v1/auth/csrf",
+      "actual": 200,
+      "method": "GET",
+      "expected": 200,
+      "case": "csrf"
+    },
+    {
+      "path": "/internal/v1/lessons/1805288f-6901-4cef-a16a-831226030b33/exercise-readiness",
+      "actual": 503,
+      "method": "GET",
+      "expected": 503,
+      "case": "direct databaseDown"
+    },
+    {
+      "path": "/api/v1/admin/lessons/1805288f-6901-4cef-a16a-831226030b33",
+      "actual": 200,
+      "method": "GET",
+      "expected": 200,
+      "case": "draft databaseDown"
+    },
+    {
+      "path": "/api/v1/admin/lessons/1805288f-6901-4cef-a16a-831226030b33",
+      "actual": 503,
+      "method": "PATCH",
+      "expected": 503,
+      "case": "publish databaseDown"
+    },
+    {
+      "path": "/api/v1/admin/lessons/1805288f-6901-4cef-a16a-831226030b33",
+      "actual": 200,
+      "method": "GET",
+      "expected": 200,
+      "case": "draft databaseDown"
+    }
+  ],
+  "status": "PHASE_PASS_REVIEW_REQUIRED",
+  "fixtureIds": {
+    "missingMapping": {
+      "lessonId": "47d3df8f-bc20-41df-9cf2-ce095eb8bc60",
+      "exerciseId": null,
+      "questionCount": null
+    },
+    "notReady": {
+      "lessonId": "b4790ec9-37b2-4323-8c79-50dc89c91bc6",
+      "exerciseId": "41e61698-c9a9-4901-87b0-85090417eadb",
+      "questionCount": 0
+    },
+    "ready": {
+      "lessonId": "ad5be82a-a556-4ab5-9f2b-5f0ed876d1ad",
+      "exerciseId": "83da005c-17eb-4bec-999d-17d9ee58b99f",
+      "questionCount": 1,
+      "questionId": "6b2083be-46d3-48c7-8e7c-8da033cedd15"
+    },
+    "serviceDown": {
+      "lessonId": "9f19d97b-1d66-4f8b-8f4e-ad2a0321e407",
+      "exerciseId": "7ab0c11b-75d2-4bc6-889a-f80bb5938811",
+      "questionCount": 1,
+      "questionId": "8bf6a5e0-4c8b-427a-bdb5-31a838ace878"
+    },
+    "databaseDown": {
+      "lessonId": "1805288f-6901-4cef-a16a-831226030b33",
+      "exerciseId": "cd2d3ebf-3e96-4b69-9604-1545e72b03ce",
+      "questionCount": 1,
+      "questionId": "853278c9-bd31-4e57-b628-e099f8935aff"
+    },
+    "recovery": {
+      "lessonId": "e201e052-e699-4fa1-9a7e-be7231653c9d",
+      "exerciseId": "c52efa9e-8688-4edb-ad6f-6286f5f959c6",
+      "questionCount": 1,
+      "questionId": "a1d482a6-42b6-40ef-b78a-c4fa35c3be89"
+    }
+  },
+  "runtimeMode": "HOST",
+  "contentAssessmentUrl": "http://127.0.0.1:8090",
+  "hostRuntime": {
+    "namespace": "khoa-w6-host-20261101-c",
+    "runtimeMode": "HOST",
+    "backendSha": "b8bdcfe350989e7c98075fa004890cc76a48b7f2",
+    "assessmentSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+    "startedAt": "2026-11-01T16:44:55.382676+07:00",
+    "contentAssessmentUrl": "http://127.0.0.1:8090",
+    "services": {
+      "user": {
+        "pid": 30364,
+        "processPath": "<workspace>\\.tools\\jdk\\jdk-25.0.5+8\\bin\\java.exe",
+        "processStartedAt": "2026-11-01T09:45:47.9004038Z",
+        "port": 8081,
+        "jarPath": "<workspace>\\backend\\services\\user-service\\target\\user-service-0.1.0-SNAPSHOT.jar",
+        "jarSha256": "5603d08eb16ae1bc55c9e75e12faa94682af76bef730bc2de7652402b7686f04",
+        "sourceSha": "b8bdcfe350989e7c98075fa004890cc76a48b7f2"
+      },
+      "content": {
+        "pid": 3512,
+        "processPath": "<workspace>\\.tools\\jdk\\jdk-25.0.5+8\\bin\\java.exe",
+        "processStartedAt": "2026-11-01T09:45:50.3628628Z",
+        "port": 8082,
+        "jarPath": "<workspace>\\backend\\services\\learning-content-service\\target\\content-service-0.1.0-SNAPSHOT.jar",
+        "jarSha256": "a66b61431611fe5285d27487d60edd6d9e26a7adb22fee3577ba2d38724c4f13",
+        "sourceSha": "b8bdcfe350989e7c98075fa004890cc76a48b7f2"
+      },
+      "api": {
+        "pid": 15268,
+        "processPath": "<workspace>\\.tools\\jdk\\jdk-25.0.5+8\\bin\\java.exe",
+        "processStartedAt": "2026-11-01T09:45:53.0926984Z",
+        "port": 18080,
+        "jarPath": "<workspace>\\backend\\api-gateway\\target\\api-gateway-0.1.0-SNAPSHOT.jar",
+        "jarSha256": "39a550b3d8aad84ea21bcdf5aa5dd783ae5bf63eda42c2c8072b57488d9069b7",
+        "sourceSha": "b8bdcfe350989e7c98075fa004890cc76a48b7f2"
+      },
+      "assessment": {
+        "pid": 29672,
+        "processPath": "<workspace>\\.tools\\jdk\\jdk-25.0.5+8\\bin\\java.exe",
+        "processStartedAt": "2026-11-01T09:47:10.3206587Z",
+        "port": 8090,
+        "jarPath": "<workspace>\\.tools\\huy-w6-source\\backend\\services\\assessment-service\\target\\assessment-service-0.1.0-SNAPSHOT.jar",
+        "jarSha256": "2e3b4f3d81f4808a9b79d690029b99ede587a451baa11fc007664cc67c03ff9f",
+        "sourceSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd"
+      }
+    },
+    "databases": {
+      "user": {
+        "port": 15541,
+        "dataDirectory": "<workspace>\\.tools\\khoa-w6-host-20261101-c\\user-data",
+        "version": "PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit",
+        "flyway": [
+          {
+            "version": "1",
+            "description": "user schema",
+            "success": true
+          }
+        ]
+      },
+      "content": {
+        "port": 15542,
+        "dataDirectory": "<workspace>\\.tools\\khoa-w6-host-20261101-c\\content-data",
+        "version": "PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit",
+        "flyway": [
+          {
+            "version": "1",
+            "description": "content schema",
+            "success": true
+          }
+        ]
+      },
+      "assessment": {
+        "port": 15543,
+        "dataDirectory": "<workspace>\\.tools\\khoa-w6-host-20261101-c\\assessment-data",
+        "version": "PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit",
+        "flyway": [
+          {
+            "version": "1",
+            "description": "assessment foundation",
+            "success": true
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,5 +1,10 @@
 # User/Content/Gateway: runbook kiểm thử và bàn giao W9
 
+Checkpoint01/11: W6-02 đã nghiệm thu HOST theo [hồ sơ hoàn tất](../reviews/2026-11-01-khoa-w6-completion.md).
+Internal0.1.1 đã có [quyết định baseline](../contracts/internal-auth-decision-2026-11-01.md)
+với nguồn xác nhận Huy/Hưng do Khoa chuyển lại. Các gate chờ trong hướng dẫn
+lịch sử dưới đây không thay checkpoint mới; production giữ HOLD W10.
+
 Chuẩn: Java 25, PostgreSQL 17, Maven Wrapper, Docker Engine/Compose. Không CI/CD. Checkout SHA của PR; ghi SHA và ngày thực của mỗi lần chạy. Assessment/Progress thật do Huy cung cấp; demo WireMock phải ghi MOCK.
 
 ## Chuẩn bị và chạy

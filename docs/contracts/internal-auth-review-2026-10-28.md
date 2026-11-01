@@ -1,5 +1,10 @@
 # Internal auth: mapping và bàn giao Khoa — 28/10/2026
 
+**Checkpoint01/11:** baseline internal0.1.1 đã được Huy/Hưng xác nhận qua lời
+chuyển của Khoa; xem [quyết định/nguồn xác nhận](internal-auth-decision-2026-11-01.md)
+và [baseline mới](internal-v0.1.1.yaml). Các trạng thái chờ bên dưới là lịch sử
+ngày28/10. W6 HOST được nghiệm thu; production giữ HOLD W10.
+
 Approved public/internal v0.1 được giữ nguyên bytes/hash. Runtime User/Gateway kế thừa PR #1 sử dụng proposal v0.1.1. Việc kiểm thử nhánh này không phê duyệt proposal hoặc triển khai production.
 
 | Mục | Approved v0.1 | Runtime/proposal hiện tại | Hành động |

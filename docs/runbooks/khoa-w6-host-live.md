@@ -5,6 +5,10 @@ PostgreSQL17 riêng. Không dùng H2/WireMock cho các luồng LIVE. Không thay
 nghiệm thu Docker image/network/deployment; giữ kết quả đó ở NOT_RUN nếu engine
 chưa hoạt động. Source và fixture được ghi riêng cho từng lần chạy.
 
+Checkpoint cuối01/11: [W6-02 đã nghiệm thu](../reviews/2026-11-01-khoa-w6-completion.md)
+với Assessment fix413a929 và baseline internal0.1.1. Lỗi DB được mô tả dưới đây
+là lịch sử trước sửa; phiên fixture mới đã PASS cả direct503 và publish503.
+
 ## Chuẩn bị và chạy
 
 JDK25 có sẵn trong `.tools/jdk/jdk-25.0.5+8`. Đặt PostgreSQL17 portable tại

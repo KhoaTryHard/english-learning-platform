@@ -24,9 +24,17 @@ proposal=yaml.safe_load((root/'docs/contracts/internal-v0.1.1-proposal.yaml').re
 request=proposal['components']['schemas']['SessionCheckRequest']
 assert request['required']==['token','requestMethod']
 assert request['additionalProperties'] is False
+baseline=yaml.safe_load((root/'docs/contracts/internal-v0.1.1.yaml').read_text(encoding='utf-8'))
+assert baseline['info']['version']=='0.1.1'
+def contract_shape(value):
+    if isinstance(value,list):return [contract_shape(x) for x in value]
+    if isinstance(value,dict):return {k:contract_shape(v) for k,v in value.items() if k!='x-contract-status'}
+    return value
+for section in ('servers','paths','components'):
+    assert contract_shape(baseline[section])==contract_shape(proposal[section]),section
 collection=json.loads((root/'docs/postman/Khoa-services.postman_collection.json').read_text(encoding='utf-8'))
 requests=[item for folder in collection['item'] for item in folder['item']]
 assert len(requests)==43
 assert all(item['request']['url'].startswith('{{baseUrl}}/api/v1') for item in requests)
-print('Frozen SHA-256 and 43 public owner operations: PASS; internal 0.1.1 is separate')
+print('Frozen SHA-256 and 43 public owner operations: PASS; approved internal 0.1.1 matches reviewed proposal shape')
 print('Gateway routes: all 63 approved operations have matching owner and roles')
