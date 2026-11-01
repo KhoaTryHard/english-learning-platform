@@ -99,4 +99,3 @@ class DbTransactionFailureTest {
     assertFalse(response.getContentAsString().contains("private-key"));
   }
 }
-

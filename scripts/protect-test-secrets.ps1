@@ -26,3 +26,18 @@ foreach ($backlogFile in $backlogFiles) {
  [IO.FileSystemAclExtensions]::SetAccessControl($backlogFile,$backlogAcl)
 }
 Write-Host "Protected TEST secret directories and $($backlogFiles.Count) secret files; current user, SYSTEM and Administrators only."
+$backlogAllowed = @($backlogSid.Value,'S-1-5-18','S-1-5-32-544')
+$backlogAuditItems = @((Get-Item -LiteralPath $backlogSecretRoot)) + @(Get-ChildItem -LiteralPath $backlogSecretRoot -Recurse | Where-Object { $_.PSIsContainer -or $_.Name -notlike '*.public.pem' })
+$backlogAuditRows = foreach ($backlogItem in $backlogAuditItems) {
+ $backlogItemAcl = Get-Acl -LiteralPath $backlogItem.FullName
+ $backlogItemRules = $backlogItemAcl.GetAccessRules($true,$true,[Security.Principal.SecurityIdentifier])
+ [pscustomobject]@{protected=$backlogItemAcl.AreAccessRulesProtected;allowed=(@($backlogItemRules | Where-Object { $_.IdentityReference.Value -notin $backlogAllowed -or $_.AccessControlType -ne 'Allow' }).Count -eq 0)}
+}
+$backlogAuditRoot = Join-Path $PSScriptRoot '../.tools/backlog'
+New-Item -ItemType Directory -Force -Path $backlogAuditRoot | Out-Null
+[pscustomobject]@{
+ filesAndDirectories=$backlogAuditItems.Count
+ allProtected=(@($backlogAuditRows | Where-Object { -not $_.protected }).Count -eq 0)
+ onlyCurrentUserSystemAdministrators=(@($backlogAuditRows | Where-Object { -not $_.allowed }).Count -eq 0)
+ scope='Static Windows directory/file ACL inspection; no second-account impersonation'
+} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $backlogAuditRoot 'windows-acl.json') -Encoding utf8
