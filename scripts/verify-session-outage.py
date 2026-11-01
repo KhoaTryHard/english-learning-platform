@@ -12,14 +12,29 @@ from smoke import Client, ROOT
 
 
 def sql(service, statement):
+    if os.environ.get('HOST_RUNTIME_EVIDENCE'):
+        evidence = Path(os.environ['HOST_RUNTIME_EVIDENCE']).resolve()
+        namespace = os.environ.get('LIVE_TEST_NAMESPACE')
+        if not namespace or evidence.parent != (ROOT / '.tools' / namespace).resolve():
+            raise AssertionError('Select this namespace\'s local HOST runtime evidence')
+        runtime = json.loads(evidence.read_text())
+        if runtime.get('runtimeMode') != 'HOST' or runtime.get('namespace') != namespace:
+            raise AssertionError('HOST runtime namespace mismatch')
+        env = os.environ.copy()
+        env['PGPASSWORD'] = (evidence.parent / 'postgres-password').read_text().strip()
+        return subprocess.check_output([str(Path(os.environ['HOST_PG_BIN']) / 'psql.exe'),
+            '-h', '127.0.0.1', '-p', str(runtime['databases'][service]['port']), '-U', 'postgres',
+            '-d', service + '_db', '-At', '-v', 'ON_ERROR_STOP=1', '-c', statement],
+            cwd=ROOT, text=True, env=env, stderr=subprocess.STDOUT).strip()
     return subprocess.check_output(['docker', 'compose', 'exec', '-T', service + '-db',
         'psql', '-U', 'postgres', '-d', service + '_db', '-At', '-v', 'ON_ERROR_STOP=1', '-c', statement],
         cwd=ROOT, text=True, stderr=subprocess.STDOUT).strip()
 
 
 def main():
-    if os.environ.get('ALLOW_TEST_FAULT_INJECTION') != '1' or not os.environ.get('COMPOSE_PROJECT_NAME'):
-        raise SystemExit('Select a disposable COMPOSE_PROJECT_NAME and set ALLOW_TEST_FAULT_INJECTION=1.')
+    namespace = os.environ.get('LIVE_TEST_NAMESPACE') if os.environ.get('HOST_RUNTIME_EVIDENCE') else os.environ.get('COMPOSE_PROJECT_NAME')
+    if os.environ.get('ALLOW_TEST_FAULT_INJECTION') != '1' or not namespace:
+        raise SystemExit('Select a disposable TEST namespace and set ALLOW_TEST_FAULT_INJECTION=1.')
     admin = Client()
     admin.login(os.environ.get('ADMIN_EMAIL', 'admin@example.com'), (ROOT / '.secrets/admin_password').read_text().strip())
     body = {'name': 'Session regression ' + uuid.uuid4().hex}
@@ -47,6 +62,7 @@ def main():
     admin.op('createCourse', body)
     assert int(sql('content', 'SELECT count(*) FROM course')) == int(before) + 1
     report = {'status': 'PASS', 'scope': 'REAL Gateway/User/Content/PostgreSQL; session-table privilege fault only',
+        'runtimeMode': 'HOST' if os.environ.get('HOST_RUNTIME_EVIDENCE') else 'DOCKER', 'testNamespace': namespace,
         'invalidCsrf': 403, 'missingSession': 403, 'sessionStoreFailure': 503,
         'failureCode': 'DEPENDENCY_UNAVAILABLE', 'contentRowsUnchangedOnFailure': True,
         'permissionRestored': True, 'recoveryCreatesCourse': True,

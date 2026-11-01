@@ -208,9 +208,11 @@ def main():
     if args.report.exists():
         parser.error('Use a fresh report path; previous evidence is preserved.')
     manifest = json.loads(args.manifest.read_text(encoding='utf-8-sig'))
-    if (os.environ.get('RUN_LIVE_ASSESSMENT') != '1' or not os.environ.get('COMPOSE_PROJECT_NAME')
+    runtime_mode = manifest.get('runtimeMode', 'DOCKER')
+    namespace = os.environ.get('LIVE_TEST_NAMESPACE') if runtime_mode == 'HOST' else os.environ.get('COMPOSE_PROJECT_NAME')
+    if (os.environ.get('RUN_LIVE_ASSESSMENT') != '1' or not namespace
             or manifest.get('environment') != 'TEST'):
-        parser.error('Set RUN_LIVE_ASSESSMENT=1 and COMPOSE_PROJECT_NAME for the isolated TEST stack.')
+        parser.error('Set RUN_LIVE_ASSESSMENT=1 and the runtime test namespace for the isolated TEST stack.')
     url = urllib.parse.urlsplit(manifest['gatewayUrl'])
     if url.scheme != 'http' or url.hostname not in ('localhost', '127.0.0.1') or url.username or url.password:
         parser.error('This local acceptance helper requires a loopback Gateway URL.')
@@ -222,7 +224,7 @@ def main():
     origin = os.environ.get('FRONTEND_ORIGIN', 'http://127.0.0.1:5173')
     report = {'phase': args.phase, 'checkedAt': datetime.now(timezone.utc).isoformat(),
               'backendSha': sha, 'assessment': manifest['assessment'],
-              'composeProject': os.environ['COMPOSE_PROJECT_NAME'],
+              'runtimeMode': runtime_mode, 'testNamespace': namespace,
               'manifestSha256': hashlib.sha256(args.manifest.read_bytes()).hexdigest(),
               'scriptSha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
               'status': 'FAIL', 'checks': [], 'notCovered': ['Kafka/Progress E2E', 'team approval']}
