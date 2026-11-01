@@ -288,13 +288,13 @@ def core(state, path):
     save_state(path, state)
 
 
-def probe(caller, owner, path, expected=200, tamper=False):
+def probe(caller, owner, path, expected=200, tamper=False, user_id=None):
     cp = os.pathsep.join([str(ROOT / '.tools/backlog/probe-classes'),
         str(ROOT / 'backend/services/user-service/target/classes'),
         (ROOT / '.tools/backlog/user-classpath.txt').read_text().strip()])
     java = str(Path(os.environ['JAVA_HOME']) / 'bin/java.exe')
     result = subprocess.run([java, '-cp', cp, 'OwnerSourceProbe', str(ROOT)],
-        input=json.dumps({'caller': caller, 'owner': owner, 'path': path, 'tamper': tamper}),
+        input=json.dumps({'caller': caller, 'owner': owner, 'path': path, 'tamper': tamper, 'userId': user_id}),
         text=True, capture_output=True, cwd=ROOT, timeout=40)
     if result.returncode:
         raise AssertionError('Owner probe failed for ' + caller + '/' + owner)
@@ -377,6 +377,8 @@ def faults(state, path):
                 admin.request('POST', '/api/v1/admin/courses', {'name': 'Must not persist ' + uuid.uuid4().hex}, 503)
             else:
                 learner.request('GET', '/api/v1/me/dashboard', expected=503)
+                direct = probe('api', 'progress', '/api/v1/me/dashboard', 503, user_id=state['userId'])
+                check('direct Progress User-source failure with signed TEST assertion', direct['code'] == 'DEPENDENCY_UNAVAILABLE')
         finally:
             command('docker', 'network', 'connect', '--alias', owner + '-db', network, container)
         for attempt in range(25):
