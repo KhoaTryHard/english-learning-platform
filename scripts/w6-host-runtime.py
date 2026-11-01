@@ -92,6 +92,8 @@ def main():
             run([pg_bin / 'pg_ctl.exe', '-D', data, '-l', area / (service + '-postgres.log'),
                  '-o', f'-h 127.0.0.1 -p {db_ports[service]}', '-w', 'start'], env=pg_env)
         else:
+            if not (data / 'postmaster.pid').exists():
+                return
             run([pg_bin / 'pg_ctl.exe', '-D', data, '-m', 'fast', '-w', 'stop'], env=pg_env)
 
     def service_env(service):
@@ -133,7 +135,7 @@ def main():
     def stop_service(service, state):
         identity = state['services'][service]
         # Match PID, start time, executable and listening port before stopping only our process.
-        command = (f"$p=Get-Process -Id {identity['pid']} -ErrorAction Stop; "
+        command = (f"$p=Get-Process -Id {identity['pid']} -ErrorAction SilentlyContinue; if(-not $p){{exit 0}}; "
                    f"if($p.StartTime.ToUniversalTime().ToString('o') -ne '{identity['processStartedAt']}'){{throw 'PID reused'}}; "
                    f"if($p.Path -ne '{identity['processPath']}'){{throw 'Executable mismatch'}}; "
                    f"$p | Stop-Process -Force")
@@ -160,8 +162,9 @@ def main():
             health('api')
         else:
             for service in ['api', 'assessment', 'content', 'user']:
-                stop_service(service, state)
-            for service in db_ports:
+                if service in state['services']:
+                    stop_service(service, state)
+            for service in state['databases']:
                 database(service, 'stop')
             state['stoppedAt'] = datetime.now(timezone.utc).isoformat()
             save(state_path, state)
@@ -174,6 +177,7 @@ def main():
              'assessmentSha': run(['git', '-C', args.huy_root, 'rev-parse', 'HEAD']),
              'startedAt': datetime.now(timezone.utc).isoformat(),
              'contentAssessmentUrl': common['ASSESSMENT_URL'], 'services': {}, 'databases': {}}
+    save(state_path, state)
     for service, port in db_ports.items():
         data = area / (service + '-data')
         if data.exists():
@@ -181,6 +185,8 @@ def main():
         run([pg_bin / 'initdb.exe', '-D', data, '-U', 'postgres', '--pwfile', secret_file,
              '--auth-host=scram-sha-256', '--auth-local=scram-sha-256', '--encoding=UTF8', '--locale=C'], env=pg_env)
         database(service, 'start')
+        state['databases'][service] = {'port': port, 'dataDirectory': str(data)}
+        save(state_path, state)
         roles = [service] if service == 'assessment' else [service + '_migration', service + '_runtime']
         for role in roles:
             password = secret_file.read_text().strip() if service == 'assessment' else (ROOT / '.secrets' / role).read_text().strip()

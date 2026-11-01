@@ -5,6 +5,10 @@ Huy PR #43 `c1a2a074a4cc6c0d3d0bdf04ef77540a530c5930`. Hai checkout riêng,
 không merge để chạy. Application source chưa đổi; các helper/report mới ghi hash
 riêng. Dùng JDK25, Docker Desktop Linux engine và PostgreSQL17.
 
+Khi Docker engine chưa sẵn sàng, [phương án HOST](khoa-w6-host-live.md) chạy JAR
+và PostgreSQL17 thật với provenance riêng. Kết quả HOST không chứng minh Docker
+deployment; xem checkpoint kết quả mới để biết source Gateway đã sửa preflight.
+
 ## Cấu hình và khởi động
 
 Chạy tại root checkout Khoa trong PowerShell. Ví dụ dưới dùng checkout Huy đã
