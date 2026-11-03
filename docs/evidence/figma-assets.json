@@ -1,0 +1,185 @@
+{
+  "source": "Figma Learning Studio v2, file uBp0WuSq9ti9gcDrFZagIc, read-only 27/10/2026",
+  "assets": [
+    {
+      "file": "course-imgChevronRight.svg",
+      "sha256": "6b90cf25d2cc9f124ed8e83fc4b38a4becb4875af7f1acc568e3876c0573bc5a",
+      "bytes": 300,
+      "intrinsicDimensions": {
+        "width": "17",
+        "height": "17"
+      }
+    },
+    {
+      "file": "course-imgCircle.svg",
+      "sha256": "ffcf7b564bf0fc2c02afd9d52b2056a70b66f0080805475a47c3a1488bb97be0",
+      "bytes": 432,
+      "intrinsicDimensions": {
+        "width": "18",
+        "height": "18"
+      }
+    },
+    {
+      "file": "course-imgCircleCheck.svg",
+      "sha256": "57dd6930ce378c65922338e89d575825f9930188f4476a9699bda8714d15817f",
+      "bytes": 480,
+      "intrinsicDimensions": {
+        "width": "18",
+        "height": "18"
+      }
+    },
+    {
+      "file": "course-imgPlay.svg",
+      "sha256": "3cd73681c2b488122b0621417aada23ca8d82b085c7ca08db04510d9d4716568",
+      "bytes": 872,
+      "intrinsicDimensions": {
+        "width": "16",
+        "height": "16"
+      }
+    },
+    {
+      "file": "course-imgPlay1.svg",
+      "sha256": "e90cce281fe3a556df6cc1a503c322159931d0d30fd57770fe3d72eb6c1e1815",
+      "bytes": 882,
+      "intrinsicDimensions": {
+        "width": "18",
+        "height": "18"
+      }
+    },
+    {
+      "file": "courses-imgArrowRight.svg",
+      "sha256": "6cb408f597db703366ed6aae0d8f670e261493065bcdb8f3db05a38f95f3b473",
+      "bytes": 310,
+      "intrinsicDimensions": {
+        "width": "16",
+        "height": "16"
+      }
+    },
+    {
+      "file": "courses-imgBookOpen.svg",
+      "sha256": "d12c89bc737617c1d149890b84fc2df303f90304790e2949f0c3874b7b82b5be",
+      "bytes": 1040,
+      "intrinsicDimensions": {
+        "width": "22",
+        "height": "22"
+      }
+    },
+    {
+      "file": "courses-imgBookOpen1.svg",
+      "sha256": "e70f0fe0f4a5bbeea8d4b1e085c9a41c731d08704e1021d7cf2c13b671c8f26c",
+      "bytes": 1040,
+      "intrinsicDimensions": {
+        "width": "22",
+        "height": "22"
+      }
+    },
+    {
+      "file": "courses-imgInfo.svg",
+      "sha256": "b407a6428a3855114b869ee21fe0cba946a5b508bcdf2fb268aa330240272287",
+      "bytes": 459,
+      "intrinsicDimensions": {
+        "width": "18",
+        "height": "18"
+      }
+    },
+    {
+      "file": "exercise-imgArrowLeft.svg",
+      "sha256": "2da3abf03b5f3e7724617551bc3e744715f7105ddb19956833049b2d31d03d41",
+      "bytes": 308,
+      "intrinsicDimensions": {
+        "width": "16",
+        "height": "16"
+      }
+    },
+    {
+      "file": "exercise-imgArrowRight.svg",
+      "sha256": "6cb408f597db703366ed6aae0d8f670e261493065bcdb8f3db05a38f95f3b473",
+      "bytes": 310,
+      "intrinsicDimensions": {
+        "width": "16",
+        "height": "16"
+      }
+    },
+    {
+      "file": "exercise-imgSelector.svg",
+      "sha256": "ba00e194b06d2170ca2ee7b732dabc17029bf01f4f791dc81437284e551c6b91",
+      "bytes": 360,
+      "intrinsicDimensions": {
+        "width": "22",
+        "height": "22"
+      }
+    },
+    {
+      "file": "exercise-imgSelector1.svg",
+      "sha256": "d21cd8a3472fa3f048d6f95360f49296117a28e25991f28292d05c6e821823cb",
+      "bytes": 362,
+      "intrinsicDimensions": {
+        "width": "22",
+        "height": "22"
+      }
+    },
+    {
+      "file": "profile-imgAvatar.svg",
+      "sha256": "979efeed9334f712a11de5492797c7334dab3aded941ed99bf83233966e37ec6",
+      "bytes": 233,
+      "intrinsicDimensions": {
+        "width": "88",
+        "height": "88"
+      }
+    },
+    {
+      "file": "result-imgArrowRight.svg",
+      "sha256": "1a71419af4726b4d6b353e083b6ab2e4f339182da1542a1588b8c51bd9655c7a",
+      "bytes": 308,
+      "intrinsicDimensions": {
+        "width": "16",
+        "height": "16"
+      }
+    },
+    {
+      "file": "result-imgCircleCheck.svg",
+      "sha256": "6c832fe29a4a658243a9ab1b15ffce50d0006bd9494e2306e669d018e1436739",
+      "bytes": 619,
+      "intrinsicDimensions": {
+        "width": "17",
+        "height": "17"
+      }
+    },
+    {
+      "file": "result-imgCircleX.svg",
+      "sha256": "553e00f1123f0185ea9070d97b774c79e211d82d06882821d5d2e8eb33b587fd",
+      "bytes": 667,
+      "intrinsicDimensions": {
+        "width": "17",
+        "height": "17"
+      }
+    },
+    {
+      "file": "result-imgClock.svg",
+      "sha256": "fe07fa42507ce800e6b8de47cdc2fe8687a4765054ba06c31c5cd8f5f99d1e4b",
+      "bytes": 600,
+      "intrinsicDimensions": {
+        "width": "17",
+        "height": "17"
+      }
+    },
+    {
+      "file": "result-imgEye.svg",
+      "sha256": "ddbd6ecd3a29b704d4ce208ca076aca04c14c53b4eceece9b7b557bd31944ceb",
+      "bytes": 949,
+      "intrinsicDimensions": {
+        "width": "16",
+        "height": "16"
+      }
+    },
+    {
+      "file": "result-imgRotateCcw.svg",
+      "sha256": "dfc9100d26084142157839686f4a98626a3569af5735cc87cf53b88150a60ec5",
+      "bytes": 703,
+      "intrinsicDimensions": {
+        "width": "16",
+        "height": "16"
+      }
+    }
+  ]
+}

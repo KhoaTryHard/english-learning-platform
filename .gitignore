@@ -3,6 +3,10 @@ dist/
 build/
 coverage/
 target/
+playwright-report/
+test-results/
+live-test-results/
+*.tsbuildinfo
 .env
 .env.*
 !.env.example

@@ -1,0 +1,2831 @@
+{
+  "schemaVersion": 1,
+  "plannedAtVN": "2026-10-27",
+  "timezone": "Asia/Saigon",
+  "authority": "Kế hoạch PM theo yêu cầu Lê Tiến Hưng; targets/estimates là đề xuất, không là actual/capacity đã xác nhận.",
+  "ciCd": false,
+  "trelloReadOnly": true,
+  "baseline": {
+    "SRS": "0.4",
+    "UCAC": "0.4",
+    "DD": "0.2",
+    "API": "0.1",
+    "UI": "0.6"
+  },
+  "milestones": [
+    {
+      "week": 5,
+      "due_on": "2026-10-25T00:00:00Z",
+      "html_url": "https://github.com/KhoaTryHard/english-learning-platform/milestone/2",
+      "number": 2,
+      "title": "W5 — 19.10–25.10.2026"
+    },
+    {
+      "week": 6,
+      "due_on": "2026-11-01T00:00:00Z",
+      "html_url": "https://github.com/KhoaTryHard/english-learning-platform/milestone/1",
+      "number": 1,
+      "title": "W6 — 26.10–01.11.2026"
+    },
+    {
+      "week": 7,
+      "due_on": "2026-11-08T00:00:00Z",
+      "html_url": "https://github.com/KhoaTryHard/english-learning-platform/milestone/3",
+      "number": 3,
+      "title": "W7 — 02.11–08.11.2026"
+    },
+    {
+      "week": 8,
+      "due_on": "2026-11-15T00:00:00Z",
+      "html_url": "https://github.com/KhoaTryHard/english-learning-platform/milestone/4",
+      "number": 4,
+      "title": "W8 — 09.11–15.11.2026"
+    }
+  ],
+  "weeks": [
+    {
+      "week": 5,
+      "start": "2026-10-19",
+      "end": "2026-10-25"
+    },
+    {
+      "week": 6,
+      "start": "2026-10-26",
+      "end": "2026-11-01"
+    },
+    {
+      "week": 7,
+      "start": "2026-11-02",
+      "end": "2026-11-08"
+    },
+    {
+      "week": 8,
+      "start": "2026-11-09",
+      "end": "2026-11-15"
+    }
+  ],
+  "carryoverPolicy": "W5 giữ milestone lịch sử; #5 remaining review 2h ở W6, #3/#4/#6/#7 chuyển phần tồn sang execution task liên kết và không cộng thêm estimate. Tracking parents có 0h effort riêng.",
+  "workloadMostLikely": [
+    {
+      "week": 6,
+      "Hưng": 8,
+      "Khoa": 13,
+      "Huy": 23,
+      "total": 44
+    },
+    {
+      "week": 7,
+      "Hưng": 20,
+      "Khoa": 9,
+      "Huy": 20,
+      "total": 49
+    },
+    {
+      "week": 8,
+      "Hưng": 19,
+      "Khoa": 5,
+      "Huy": 20,
+      "total": 44
+    }
+  ],
+  "productBacklogCoverage": {
+    "PB-01": [
+      5,
+      13,
+      26,
+      41,
+      42
+    ],
+    "PB-02": [
+      5,
+      13,
+      26
+    ],
+    "PB-03": [
+      5,
+      13,
+      31
+    ],
+    "PB-04": [
+      13,
+      24
+    ],
+    "PB-05": [
+      14,
+      32
+    ],
+    "PB-06": [
+      25,
+      9
+    ],
+    "PB-07": [
+      27,
+      9
+    ],
+    "PB-08": [
+      34,
+      35,
+      39
+    ],
+    "PB-09": [
+      13,
+      28
+    ],
+    "PB-10": [
+      13,
+      28
+    ],
+    "PB-11": [
+      25,
+      27,
+      37
+    ],
+    "PB-12": [
+      31,
+      36,
+      38
+    ],
+    "PB-13": [
+      14,
+      29
+    ]
+  },
+  "issues": [
+    {
+      "number": 2,
+      "title": "W5-00 — Khởi động triển khai và kiểm tra điều kiện sẵn sàng",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/2",
+      "milestoneWeek": 5,
+      "kind": "historical",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "closed",
+      "targetVN": "Baseline W5 19–25/10; hạn gốc 21/10 17:00 VN, báo cáo hoàn tất ngày thực 27/10. Giữ CLOSED, không sửa lùi ngày.",
+      "remainingOwnerMostLikely": 0,
+      "allocations": [],
+      "dependsOn": [],
+      "related": [],
+      "children": [],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Đối chiếu baseline, owner và readiness/blocked riêng cho FE/User/Content/Assessment/Progress/Kafka."
+        },
+        {
+          "done": true,
+          "text": "Ghi nhánh/SHA/PR, môi trường và DB per service: User/Content PostgreSQL 17; Assessment/Progress còn chờ quyết định owner."
+        },
+        {
+          "done": true,
+          "text": "Ghi test evidence và remaining; các dependency chưa sẵn có owner/issue #15–#17/#20/#21."
+        },
+        {
+          "done": true,
+          "text": "Cập nhật và đọc lại W5-00 trên Drive; phân biệt báo cáo readiness hoàn tất với backend/integration chưa ready."
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "W5-01 — Khoa triển khai User, Learning Content và API Gateway",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/3",
+      "milestoneWeek": 5,
+      "kind": "historical",
+      "responsible": "Khoa",
+      "assignee": "KhoaTryHard",
+      "stateAtPlanning": "open",
+      "targetVN": "Baseline W5; hạn gốc 23/10 21:00 VN. Remaining W6 ở #13 và W7 ở #14; không cộng thêm effort tại issue tổng hợp W5.",
+      "remainingOwnerMostLikely": 0,
+      "allocations": [],
+      "dependsOn": [],
+      "related": [
+        13,
+        14,
+        26,
+        33,
+        42
+      ],
+      "children": [],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Code: Auth/Profile/Setup, Content/My Vocabulary/Import, Gateway bốn owner đã có trong backend/."
+        },
+        {
+          "done": true,
+          "text": "Test độc lập: 47 JUnit executions, 3 isolated builds, 4 Compose configs và 63 route mappings PASS; SDK tests có lặp theo app."
+        },
+        {
+          "done": true,
+          "text": "Tích hợp thật: 43 User/Content operations/62 requests qua Gateway và frontend desktop/mobile PASS; readiness Assessment vẫn MOCK."
+        },
+        {
+          "done": false,
+          "text": "Tích hợp thật: Huy cung cấp readiness/Assessment/Progress thật; retry/retake và QA #25/#26."
+        },
+        {
+          "done": false,
+          "text": "Review/merge: Huy/Khoa quyết định compatibility internal v0.1.1; Hưng/Huy peer review và merge PR #1."
+        }
+      ],
+      "checklistAtPlanning": [
+        {
+          "done": true,
+          "text": "Có code Auth/Register/Login/Logout/Profile/Course+Level, cookie/CSRF/revoked-token/RBAC và tests trong PR #1."
+        },
+        {
+          "done": true,
+          "text": "Có code Course/Module/Lesson, Vocabulary/Grammar/Listening/Reading và published/readiness checks; phía Assessment readiness đang dùng WireMock."
+        },
+        {
+          "done": true,
+          "text": "Có code My Vocabulary + import Vocabulary XLSX/Lesson DOCX atomic; remaining chi tiết theo #14, không triển khai lại phần có sẵn."
+        },
+        {
+          "done": true,
+          "text": "Có Gateway User/Content, migrations PostgreSQL 17/Compose và bằng chứng isolated build theo SHA PR #1."
+        },
+        {
+          "done": true,
+          "text": "LIVE first-slice FE→Gateway→User/Content/PostgreSQL trên desktop/mobile: Auth/Profile/Setup/Lesson/save/remove/logout đã PASS ngày 27/10."
+        },
+        {
+          "done": false,
+          "text": "Khoa/Huy review security/internal v0.1.1 proposal và chạy kiểm thử bị ảnh hưởng sau các thay đổi tiếp theo."
+        },
+        {
+          "done": false,
+          "text": "Kiểm thử readiness với Assessment thật; phối hợp Gateway Assessment/Progress #21."
+        },
+        {
+          "done": false,
+          "text": "Peer review/acceptance PR #1; chuyển cây/merge theo #13 và quy trình nhóm."
+        }
+      ],
+      "currentCheckpoint": {
+        "checkedAtVN": "2026-10-28",
+        "sourceCommit": "a9f4664263cfe159ea6c8e14ace9d805e9b311ad",
+        "publishedHead": "28f22cb44052e5f271a91a771ef15007ed881b73",
+        "status": "OPEN_ACCEPTANCE_PENDING",
+        "summary": "User/Content/Gateway đã có implementation, Java 25 và regression PostgreSQL/HTTP/frontend first slice PASS; gói W5 chưa nghiệm thu toàn bộ.",
+        "evidenceUrl": "https://github.com/KhoaTryHard/english-learning-platform/blob/28f22cb44052e5f271a91a771ef15007ed881b73/docs/evidence/khoa-java25-2026-10-28.json",
+        "checklistStages": [
+          {
+            "done": true,
+            "stage": "Code",
+            "text": "Auth/Profile/Setup, Content/My Vocabulary/Import, Gateway bốn owner đã có trong backend/."
+          },
+          {
+            "done": true,
+            "stage": "Test độc lập",
+            "text": "47 JUnit executions, 3 isolated builds, 4 Compose configs và 63 route mappings PASS; SDK tests có lặp theo app."
+          },
+          {
+            "done": true,
+            "stage": "Tích hợp thật",
+            "text": "43 User/Content operations/62 requests qua Gateway và frontend desktop/mobile PASS; readiness Assessment vẫn MOCK."
+          },
+          {
+            "done": false,
+            "stage": "Tích hợp thật",
+            "text": "Huy cung cấp readiness/Assessment/Progress thật; retry/retake và QA #25/#26."
+          },
+          {
+            "done": false,
+            "stage": "Review/merge",
+            "text": "Huy/Khoa quyết định compatibility internal v0.1.1; Hưng/Huy peer review và merge PR #1."
+          }
+        ],
+        "reportedBy": "Khoa, assisted by Codex; not Huy/Hung approval"
+      }
+    },
+    {
+      "number": 4,
+      "title": "W5-02 — Huy tạo nền tảng Assessment, Progress và Kafka",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/4",
+      "milestoneWeek": 5,
+      "kind": "historical",
+      "responsible": "Huy",
+      "assignee": null,
+      "stateAtPlanning": "open",
+      "targetVN": "Baseline W5; hạn gốc 24/10 18:00 VN. Foundation chưa có runtime được xác minh; chuyển các lát thực thi sang W6–W8 bên dưới, không backdate.",
+      "remainingOwnerMostLikely": 0,
+      "allocations": [],
+      "dependsOn": [],
+      "related": [
+        25,
+        30,
+        34,
+        35,
+        20
+      ],
+      "children": [],
+      "checklist": [
+        {
+          "done": false,
+          "text": "Cung cấp branch/PR có Assessment/Progress skeleton và source code thực."
+        },
+        {
+          "done": false,
+          "text": "Chốt engine DB Assessment/Progress, có migrations/Question/options/answer-key/snapshot/deadline theo DD/API."
+        },
+        {
+          "done": false,
+          "text": "Build/migration/unit tests foundation có log đúng SHA; ghi phạm vi đạt và phần chưa chạy."
+        },
+        {
+          "done": false,
+          "text": "Có Outbox/processed-event/producer/consumer foundation và contract tests, tách khỏi Kafka E2E."
+        },
+        {
+          "done": false,
+          "text": "Đối chiếu tài liệu/schema #20, bàn giao endpoints/readiness cho Khoa/Hưng; phần đầy đủ tiếp tục #15–#17."
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "W5-03 — Hưng xây dựng Frontend React và luồng học cơ bản",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/5",
+      "milestoneWeek": 5,
+      "kind": "carryover",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "Baseline W5 hạn 24/10 21:00 VN; code đã bàn giao 27/10. Bù review/acceptance W6 mục tiêu 29/10 21:00 VN, remaining đề xuất 2h Hưng, không code lại app.",
+      "remainingOwnerMostLikely": 2,
+      "allocations": [
+        {
+          "week": 6,
+          "owner": "Hưng",
+          "hours": 2
+        }
+      ],
+      "dependsOn": [],
+      "related": [
+        24,
+        26
+      ],
+      "children": [],
+      "checklist": [
+        {
+          "done": true,
+          "text": "React/TypeScript app, routing/layout/protected routes và API client cookie/CSRF có code."
+        },
+        {
+          "done": true,
+          "text": "Register/Login/Logout/Profile (chỉ fullName)/Course+Level (không Goal), validation và loading/error states có code."
+        },
+        {
+          "done": true,
+          "text": "Course/Module/Lesson browse và responsive learner first slice có code."
+        },
+        {
+          "done": true,
+          "text": "Kiểm thử thủ công lint + 14 unit/UI + production/typecheck/build/contract guard PASS; browser MOCK desktop/mobile 6 tests PASS."
+        },
+        {
+          "done": true,
+          "text": "Hai browser LIVE first-slice Auth/Profile/Setup/Lesson/save/remove/logout PASS; readiness Assessment là WireMock."
+        },
+        {
+          "done": true,
+          "text": "PR #22, SHA/evidence/ảnh app và remaining được bàn giao, phân biệt MOCK/LIVE."
+        },
+        {
+          "done": false,
+          "text": "Hưng tự review/đọc hiểu và thành viên khác review; sửa feedback nếu có, merge nền #18 rồi #22 theo quy trình."
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "W5-04 — Kiểm thử tích hợp lát MVP đầu tiên",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/6",
+      "milestoneWeek": 5,
+      "kind": "historical",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "Baseline W5 hạn 25/10 16:00 VN; giữ kết quả ngày thực 27/10. Review phần W5 còn lại cùng #26; test mới W6/W7/W8 có issue riêng, không tính lại effort W5.",
+      "remainingOwnerMostLikely": 0,
+      "allocations": [],
+      "dependsOn": [],
+      "related": [
+        26,
+        33,
+        40
+      ],
+      "children": [],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Evidence Log Drive có ngày thực, SHA/env, expected/actual, owner và link bằng chứng; không backdate thành 25/10."
+        },
+        {
+          "done": true,
+          "text": "Ghi 14 unit/UI và 6 browser MOCK PASS đúng phạm vi frontend; không dùng làm PASS backend E2E."
+        },
+        {
+          "done": true,
+          "text": "Ghi 2 browser LIVE desktop/mobile PASS first slice; backend 56450fc, PostgreSQL 17, readiness Assessment WireMock."
+        },
+        {
+          "done": true,
+          "text": "Ma trận: T-01/02/07/10 PARTIAL; T-08 PASS lát đầu; T-03/09 NOT_RUN trong phiên W6; T-04/05/06 BLOCKED."
+        },
+        {
+          "done": true,
+          "text": "Tách evidence backend lịch sử của PR #1 khỏi lần chạy W6; có code/test import nhưng không ghi đã rerun T-09."
+        },
+        {
+          "done": true,
+          "text": "Remaining/bug/blocker có owner #15–#17/#20/#21."
+        },
+        {
+          "done": false,
+          "text": "Chạy các security/negative/import W6 cases còn thiếu, ghi log đúng môi trường/SHA."
+        },
+        {
+          "done": false,
+          "text": "Chạy Assessment→Kafka→Progress thật và Gateway W6 sau khi dependency sẵn; không đổi cả ma trận sang PASS."
+        },
+        {
+          "done": false,
+          "text": "Nhóm review/acceptance evidence theo phạm vi integration."
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "W5-05 — Review kết quả tuần 5 và bàn giao W6",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/7",
+      "milestoneWeek": 5,
+      "kind": "historical",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "Baseline W5 hạn 25/10 21:00 VN; actual bổ sung 27/10. Khép review/handoff cùng #26; kế hoạch/review W7/W8 theo issue tuần riêng, không cộng thêm effort ở đây.",
+      "remainingOwnerMostLikely": 0,
+      "allocations": [],
+      "dependsOn": [],
+      "related": [
+        26,
+        33,
+        40
+      ],
+      "children": [],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Drive W5-05 có actual/remaining và source evidence ngày 27/10, thay mẫu chỉ có TBD; không ký thay nhóm."
+        },
+        {
+          "done": true,
+          "text": "Handoff W6 bù #5, chọn #8/#9, quản lý #19, schema #20 và Gateway #21 có owner/dependency/AC/mốc đề xuất."
+        },
+        {
+          "done": true,
+          "text": "Ghi scenario remaining FE/PM 15h sau code; không cộng trùng estimate W5/roadmap hoặc biến thời gian công cụ thành giờ actual."
+        },
+        {
+          "done": true,
+          "text": "Ghi đúng phần chưa xong: Draft/unmerged, DB Assessment/Progress, schema review, Gateway và Kafka/Progress thật."
+        },
+        {
+          "done": false,
+          "text": "Khoa/Huy xác nhận remaining estimate, capacity và lịch phần mình; không điền 0 hoặc tự cam kết thay owner."
+        },
+        {
+          "done": false,
+          "text": "Nhóm review/kết luận bàn giao và ưu tiên W7."
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "[Theo dõi FE-03][W6–W8] Lesson focus mode và Learner Dashboard",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/8",
+      "milestoneWeek": 8,
+      "kind": "tracking",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "W6 khép Lesson ở #24 (30/10 21:00); W8 aggregate thật ở #39 (13/11 21:00). Milestone W8 là đích khép toàn gói, không đòi Dashboard thật xong W6.",
+      "remainingOwnerMostLikely": 0,
+      "allocations": [],
+      "dependsOn": [],
+      "related": [
+        24,
+        39
+      ],
+      "children": [
+        24
+      ],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Course/Module/Lesson và Vocabulary/Grammar/Listening/Reading có code trong #22."
+        },
+        {
+          "done": true,
+          "text": "Loading/empty/error/missing-resource có xử lý; xem Lesson không tự gọi completion."
+        },
+        {
+          "done": true,
+          "text": "Desktop/mobile dùng chung API/state; UI theo Learning Studio v2 v0.6, assets local và responsive cơ bản."
+        },
+        {
+          "done": true,
+          "text": "Có Dashboard UI/API client; lỗi Progress hiện lỗi, không tự điền progress 0."
+        },
+        {
+          "done": true,
+          "text": "LIVE first-slice Content và browser MOCK/screenshot desktop/mobile có evidence."
+        },
+        {
+          "done": false,
+          "text": "Test âm/missing-resource đầy đủ cho FE-03 theo AC; không coi happy-path suite là mọi trạng thái đều đã test."
+        },
+        {
+          "done": false,
+          "text": "Dashboard/Progress aggregate với backend Huy thật qua Gateway (#17/#21)."
+        },
+        {
+          "done": false,
+          "text": "Peer review/acceptance và merge #22; không đóng toàn PB-04/08 từ lát này."
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "W7-08 [FE-04] Tích hợp Exercise/Quiz/Test/Attempt/Result — code từ W6",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/9",
+      "milestoneWeek": 7,
+      "kind": "execution",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "W6 code/MOCK đã có; checkpoint peer review frontend 01/11 16:00 VN. Backend thật Exercise #25, Quiz/Test #27 và Gateway #21; mục tiêu tích hợp đầy đủ 06/11/2026 21:00 VN. Điều chỉnh mốc 01/11 cũ vì backend chưa sẵn, không ghi đã tích hợp.",
+      "remainingOwnerMostLikely": 4,
+      "allocations": [
+        {
+          "week": 6,
+          "owner": "Hưng",
+          "hours": 1
+        },
+        {
+          "week": 7,
+          "owner": "Hưng",
+          "hours": 3
+        }
+      ],
+      "dependsOn": [
+        27,
+        21
+      ],
+      "related": [
+        25,
+        27,
+        21,
+        26,
+        33
+      ],
+      "children": [],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Metadata/start/resume, SINGLE_CHOICE/TRUE_FALSE, Result mỗi lượt và retake đã code."
+        },
+        {
+          "done": true,
+          "text": "Start có Idempotency-Key bền khi retry, retake key mới; resume attempt theo server."
+        },
+        {
+          "done": true,
+          "text": "Serialize PUT full answer-set, giữ boolean false, chờ ACK trước submit; save lỗi không POST submit."
+        },
+        {
+          "done": true,
+          "text": "Exercise không timer; Quiz/Test dùng server deadline; save 200 terminal/TIMEOUT chuyển Result."
+        },
+        {
+          "done": true,
+          "text": "Refresh/logout-login/resume giữ attempt/đáp án/deadline trong MOCK tests; Result không tự chấm frontend hoặc thêm answer-key/explanation ngoài API."
+        },
+        {
+          "done": true,
+          "text": "Unit/UI và 6 browser MOCK tests cùng evidence/ảnh app trong #22."
+        },
+        {
+          "done": false,
+          "text": "Chạy start/retry/resume/save/submit/timeout với Assessment thật qua Gateway #15/#21."
+        },
+        {
+          "done": false,
+          "text": "Xác minh Exercise điểm 0 vẫn complete và retake không cộng trùng qua Assessment→Kafka→Progress thật #16/#17."
+        },
+        {
+          "done": false,
+          "text": "Peer review/acceptance và merge."
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "[Theo dõi FE-05][W7–W8] My Vocabulary, Progress và History",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/10",
+      "milestoneWeek": 8,
+      "kind": "tracking",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "W7 My Vocabulary #32 (06/11 21:00); W8 Progress/History thật #39 (13/11 21:00). Chốt parent khi đủ toàn AC/review, không cộng effort trùng child.",
+      "remainingOwnerMostLikely": 0,
+      "allocations": [],
+      "dependsOn": [],
+      "related": [
+        32,
+        39
+      ],
+      "children": [
+        32,
+        39
+      ],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Có Progress UI/API client đọc completedLessons/totalLessons/progressPercent từ server."
+        },
+        {
+          "done": true,
+          "text": "Có History UI/API client đọc toàn bộ trang, lọc Course/tìm kiếm; giữ hiển thị record thuộc Course cũ bằng snapshot/ID."
+        },
+        {
+          "done": true,
+          "text": "Có My Vocabulary collection/tìm kiếm, save/remove gọi Content qua Gateway; đã LIVE save/remove từ Lesson."
+        },
+        {
+          "done": true,
+          "text": "Có UI UNAVAILABLE/content=null vẫn cho Remove; không thêm mastery hoặc nhập Vocabulary thủ công."
+        },
+        {
+          "done": false,
+          "text": "Test đầy đủ History xuyên Course/Level và các filters/error states với backend Progress thật (#17/#21)."
+        },
+        {
+          "done": false,
+          "text": "Test collection/source update/UNAVAILABLE/remove/unique trong UI với backend thật; không suy từ code hoặc unit test backend sang frontend PASS."
+        },
+        {
+          "done": false,
+          "text": "Peer review và nghiệm thu toàn FE-05."
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "[Theo dõi FE-06][W7–W8] Admin A-01→A-07",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/11",
+      "milestoneWeek": 8,
+      "kind": "tracking",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "W7 User/Content #28 và Import #29; W8 Assessment #37 và Statistics #38. Milestone W8 khép toàn FE-06, không tự mở scope ngoài MVP.",
+      "remainingOwnerMostLikely": 0,
+      "allocations": [],
+      "dependsOn": [],
+      "related": [
+        28,
+        29,
+        37,
+        38
+      ],
+      "children": [
+        28,
+        29,
+        37,
+        38
+      ],
+      "checklist": [
+        {
+          "done": false,
+          "text": "Admin User/Access và Course/Module/Lesson/Content screens; không Delete/soft-delete Course/Module/Lesson."
+        },
+        {
+          "done": false,
+          "text": "Admin Assessment Exercise/Question/Quiz/Test theo API."
+        },
+        {
+          "done": false,
+          "text": "Import UI Vocabulary XLSX/Lesson DOCX atomic; không thêm import Question CSV."
+        },
+        {
+          "done": false,
+          "text": "Admin Statistics 6 nhóm metric filter Course/Level, owner APIs; lỗi nguồn không hiển thị 0 giả."
+        },
+        {
+          "done": false,
+          "text": "Responsive/validation/RBAC/loading/error; PR và test evidence đúng môi trường."
+        },
+        {
+          "done": false,
+          "text": "Peer review/acceptance và merge."
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "W8-08 [FE-07] Responsive, accessibility và UI regression toàn MVP",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/12",
+      "milestoneWeek": 8,
+      "kind": "execution",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "Làm xuyên các task UI; khép remaining toàn Learner/Admin 14/11/2026 21:00 VN trước smoke W8. Remaining owner Hưng đề xuất O/M/P 2/4/7h, không test lại phần đã có nếu không bị ảnh hưởng.",
+      "remainingOwnerMostLikely": 4,
+      "allocations": [
+        {
+          "week": 8,
+          "owner": "Hưng",
+          "hours": 4
+        }
+      ],
+      "dependsOn": [
+        28,
+        29,
+        37,
+        38
+      ],
+      "related": [
+        40
+      ],
+      "children": [],
+      "checklist": [
+        {
+          "done": true,
+          "text": "CSS responsive và desktop/mobile dùng chung hooks/state/API cho màn learner đã triển khai."
+        },
+        {
+          "done": true,
+          "text": "Có labels, menu/form/radio/focus cơ bản và loading/empty/error/401/403/503 handling trong code/client."
+        },
+        {
+          "done": true,
+          "text": "Browser MOCK kiểm tra Dashboard/Courses/Profile/Lesson ở 1440px/390px: không overflow, assets local tải đủ; có ảnh app."
+        },
+        {
+          "done": true,
+          "text": "14 unit/UI, 6 browser MOCK và 2 browser LIVE first-slice có evidence; phạm vi từng suite ghi riêng."
+        },
+        {
+          "done": false,
+          "text": "Kiểm thử keyboard/focus/accessibility toàn bộ màn và mọi error states, gồm các màn chưa triển khai."
+        },
+        {
+          "done": false,
+          "text": "Coverage responsive toàn Learner/Admin và đa trình duyệt; hai Figma mobile mẫu không đại diện toàn bộ."
+        },
+        {
+          "done": false,
+          "text": "Peer review/acceptance toàn FE-07."
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "W6-09 [BE-U/C/G] Chuyển cây PR #1 và khép User/Content/Gateway",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/13",
+      "milestoneWeek": 6,
+      "kind": "execution",
+      "responsible": "Khoa",
+      "assignee": "KhoaTryHard",
+      "stateAtPlanning": "open",
+      "targetVN": "W6; mục tiêu migration/isolated builds/review 29/10/2026 21:00 VN; remaining Khoa đề xuất O/M/P 3/4/7h. Reuse code hiện có, giữ DB/data; publish Assessment thật xác minh cùng #25/#26.",
+      "remainingOwnerMostLikely": 4,
+      "allocations": [
+        {
+          "week": 6,
+          "owner": "Khoa",
+          "hours": 4
+        }
+      ],
+      "dependsOn": [],
+      "related": [
+        26,
+        21,
+        25
+      ],
+      "children": [],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Code: Ba app trong backend/, Maven/Compose/scripts/README theo đường dẫn mới; build standalone, không phụ thuộc sibling JAR."
+        },
+        {
+          "done": true,
+          "text": "Java 25: 5 POM và 3 Dockerfile dùng Java 25; local JDK 25.0.5, Docker runtime Temurin 25.0.4.1; README/runbook cập nhật."
+        },
+        {
+          "done": true,
+          "text": "Bảo toàn: Local patch/stash và .vscode được giữ; approved v0.1/V1 SQL, volume names và credential paths không đổi."
+        },
+        {
+          "done": true,
+          "text": "Test độc lập: 47 JUnit, 3 isolated builds, 4 Compose configs, 3 Docker images PASS sau chuyển cây."
+        },
+        {
+          "done": true,
+          "text": "Tích hợp thật: Gateway smoke, frontend desktop/mobile, restart DB/app và all-table restore trong project test riêng PASS; Assessment MOCK."
+        },
+        {
+          "done": true,
+          "text": "Review nền: PR #18 đã được Khoa review với Codex và merge 9eff189; PR #1 đã đổi base develop."
+        },
+        {
+          "done": false,
+          "text": "Tích hợp thật: Publish/readiness với Assessment thật #25/#26."
+        },
+        {
+          "done": false,
+          "text": "Review/merge: Peer review backend/internal auth và merge PR #1 sau nghiệm thu."
+        }
+      ],
+      "checklistAtPlanning": [
+        {
+          "done": true,
+          "text": "Kiểm kê đúng code PR #1 SHA 56450fc; không lập lại phần đã triển khai."
+        },
+        {
+          "done": true,
+          "text": "Có ba deployable roots độc lập hiện tại (user-service, learning-content-service, api-gateway), migrations/Compose/isolated-build evidence cũ theo SHA; đây chưa phải cây sau migration."
+        },
+        {
+          "done": true,
+          "text": "User/Profile chỉ fullName, Course+Level không Goal và basic Gateway/Content đã có code/test; readiness Assessment vẫn là mock."
+        },
+        {
+          "done": false,
+          "text": "Chuyển các roots vào backend/api-gateway và backend/services/*; cập nhật Maven/Compose/scripts/paths."
+        },
+        {
+          "done": false,
+          "text": "Gỡ verify.yml cũ khỏi nhánh backend khi chuyển cây; workflow repository đã tắt, không thêm CI/CD mới."
+        },
+        {
+          "done": false,
+          "text": "Chạy lại isolated builds/Compose/Gateway smoke/restart persistence sau migration, giữ volumes/credentials/data."
+        },
+        {
+          "done": false,
+          "text": "Test publish với Assessment readiness thật; phối hợp routes/header #21."
+        },
+        {
+          "done": false,
+          "text": "Peer review/migration acceptance và merge theo thứ tự PR."
+        }
+      ],
+      "currentCheckpoint": {
+        "checkedAtVN": "2026-10-28",
+        "sourceCommit": "a9f4664263cfe159ea6c8e14ace9d805e9b311ad",
+        "publishedHead": "28f22cb44052e5f271a91a771ef15007ed881b73",
+        "status": "OPEN_ACCEPTANCE_PENDING",
+        "summary": "Đã đồng bộ local từ 575b739, giữ Java 25 và .vscode, hoàn tất chuyển cây backend. PR nền #18 đã merge; PR #1 base develop, còn Draft.",
+        "evidenceUrl": "https://github.com/KhoaTryHard/english-learning-platform/blob/28f22cb44052e5f271a91a771ef15007ed881b73/docs/evidence/khoa-java25-2026-10-28.json",
+        "checklistStages": [
+          {
+            "done": true,
+            "stage": "Code",
+            "text": "Ba app trong backend/, Maven/Compose/scripts/README theo đường dẫn mới; build standalone, không phụ thuộc sibling JAR."
+          },
+          {
+            "done": true,
+            "stage": "Java 25",
+            "text": "5 POM và 3 Dockerfile dùng Java 25; local JDK 25.0.5, Docker runtime Temurin 25.0.4.1; README/runbook cập nhật."
+          },
+          {
+            "done": true,
+            "stage": "Bảo toàn",
+            "text": "Local patch/stash và .vscode được giữ; approved v0.1/V1 SQL, volume names và credential paths không đổi."
+          },
+          {
+            "done": true,
+            "stage": "Test độc lập",
+            "text": "47 JUnit, 3 isolated builds, 4 Compose configs, 3 Docker images PASS sau chuyển cây."
+          },
+          {
+            "done": true,
+            "stage": "Tích hợp thật",
+            "text": "Gateway smoke, frontend desktop/mobile, restart DB/app và all-table restore trong project test riêng PASS; Assessment MOCK."
+          },
+          {
+            "done": true,
+            "stage": "Review nền",
+            "text": "PR #18 đã được Khoa review với Codex và merge 9eff189; PR #1 đã đổi base develop."
+          },
+          {
+            "done": false,
+            "stage": "Tích hợp thật",
+            "text": "Publish/readiness với Assessment thật #25/#26."
+          },
+          {
+            "done": false,
+            "stage": "Review/merge",
+            "text": "Peer review backend/internal auth và merge PR #1 sau nghiệm thu."
+          }
+        ],
+        "reportedBy": "Khoa, assisted by Codex; not Huy/Hung approval"
+      }
+    },
+    {
+      "number": 14,
+      "title": "W7-09 [BE-C3/C4] Review/retest My Vocabulary và Import atomic",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/14",
+      "milestoneWeek": 7,
+      "kind": "execution",
+      "responsible": "Khoa",
+      "assignee": "KhoaTryHard",
+      "stateAtPlanning": "open",
+      "targetVN": "W7; mục tiêu backend review/rerun 04/11/2026 21:00 VN để FE import/collection tích hợp. Remaining Khoa đề xuất O/M/P 2/4/7h; code/tests lịch sử đã có, không estimate lại từ đầu.",
+      "remainingOwnerMostLikely": 4,
+      "allocations": [
+        {
+          "week": 7,
+          "owner": "Khoa",
+          "hours": 4
+        }
+      ],
+      "dependsOn": [],
+      "related": [
+        29,
+        32,
+        33
+      ],
+      "children": [],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Code: Đọc ContentType thực trong [Content_Types].xml, từ chối macroEnabled/vbaProject bằng 415 UNSUPPORTED_FILE_TYPE trước transaction."
+        },
+        {
+          "done": true,
+          "text": "Test độc lập: XLSX/DOCX hợp lệ vẫn import; cả hai macro containers bị từ chối với createdCount=0 và không gọi DB."
+        },
+        {
+          "done": true,
+          "text": "Tích hợp thật: PostgreSQL: macro không đổi business rows; duplicate/rollback/race, saved reference/source update/hidden-parent và runtime privileges PASS."
+        },
+        {
+          "done": true,
+          "text": "Tích hợp thật: Smoke Gateway import và frontend save/remove trên desktop/mobile PASS; readiness dùng mock."
+        },
+        {
+          "done": false,
+          "text": "Review/merge: Peer review T-09 và nghiệm thu/merge trong PR #1; không đóng chỉ vì tests PASS."
+        }
+      ],
+      "checklistAtPlanning": [
+        {
+          "done": true,
+          "text": "Có saved relation UNIQUE(user_id,vocabulary_id), source update, đọc saved-only khi cha ẩn, UNAVAILABLE fallback và Remove idempotent trong code Content."
+        },
+        {
+          "done": true,
+          "text": "Có import XLSX+lessonId và DOCX+moduleId/orderNo, validate file/duplicate trước ghi, transaction rollback và createdCount=0 khi reject; không skip/update duplicate."
+        },
+        {
+          "done": true,
+          "text": "Có backend tests atomicExcelAndWordRules, savedReferenceSurvivesHiddenParentAndSourceUpdates, concurrentSaveAndImportRollback, unavailableFallback và file-boundary tests; liên kết evidence lịch sử đúng SHA."
+        },
+        {
+          "done": true,
+          "text": "LIVE first-slice ngày 27/10 đã save/remove qua Content/Gateway thành công; đây không phải rerun import W6."
+        },
+        {
+          "done": false,
+          "text": "Chạy lại T-09 import/rollback/duplicate và các case saved-source bị ảnh hưởng sau sửa hoặc migration; ghi kết quả W6 riêng."
+        },
+        {
+          "done": false,
+          "text": "Khoa/nhóm review code, schema/internal contract liên quan và acceptance/merge PR #1; không nghiệm thu frontend Admin import từ test backend."
+        }
+      ],
+      "currentCheckpoint": {
+        "checkedAtVN": "2026-10-28",
+        "sourceCommit": "a9f4664263cfe159ea6c8e14ace9d805e9b311ad",
+        "publishedHead": "28f22cb44052e5f271a91a771ef15007ed881b73",
+        "status": "OPEN_ACCEPTANCE_PENDING",
+        "summary": "Đã sửa nhận nhầm OOXML macro-enabled đổi đuôi XLSX/DOCX; regression import/My Vocabulary trên PostgreSQL PASS. Chờ peer acceptance.",
+        "evidenceUrl": "https://github.com/KhoaTryHard/english-learning-platform/blob/28f22cb44052e5f271a91a771ef15007ed881b73/docs/evidence/khoa-java25-2026-10-28.json",
+        "checklistStages": [
+          {
+            "done": true,
+            "stage": "Code",
+            "text": "Đọc ContentType thực trong [Content_Types].xml, từ chối macroEnabled/vbaProject bằng 415 UNSUPPORTED_FILE_TYPE trước transaction."
+          },
+          {
+            "done": true,
+            "stage": "Test độc lập",
+            "text": "XLSX/DOCX hợp lệ vẫn import; cả hai macro containers bị từ chối với createdCount=0 và không gọi DB."
+          },
+          {
+            "done": true,
+            "stage": "Tích hợp thật",
+            "text": "PostgreSQL: macro không đổi business rows; duplicate/rollback/race, saved reference/source update/hidden-parent và runtime privileges PASS."
+          },
+          {
+            "done": true,
+            "stage": "Tích hợp thật",
+            "text": "Smoke Gateway import và frontend save/remove trên desktop/mobile PASS; readiness dùng mock."
+          },
+          {
+            "done": false,
+            "stage": "Review/merge",
+            "text": "Peer review T-09 và nghiệm thu/merge trong PR #1; không đóng chỉ vì tests PASS."
+          }
+        ],
+        "reportedBy": "Khoa, assisted by Codex; not Huy/Hung approval"
+      }
+    },
+    {
+      "number": 15,
+      "title": "[Theo dõi BE-A1→A4][W6–W7] Assessment, Attempt/Result và deadline",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/15",
+      "milestoneWeek": 7,
+      "kind": "tracking",
+      "responsible": "Huy",
+      "assignee": null,
+      "stateAtPlanning": "open",
+      "targetVN": "W6 Exercise/Question/readiness/Result+Outbox #25 (31/10 18:00); W7 Quiz/Test/deadline #27 (05/11 21:00). Khép toàn scope W7, không cộng parent estimate với child.",
+      "remainingOwnerMostLikely": 0,
+      "allocations": [],
+      "dependsOn": [],
+      "related": [
+        25,
+        27
+      ],
+      "children": [
+        25,
+        27
+      ],
+      "checklist": [
+        {
+          "done": false,
+          "text": "Assessment/Question schema, SINGLE_CHOICE/TRUE_FALSE, options/answer key và Exercise readiness có source/branch/PR."
+        },
+        {
+          "done": false,
+          "text": "Admin Exercise/Quiz/Test scope, migrations và nullable/unique/type checks khớp approved API/DD và #20."
+        },
+        {
+          "done": false,
+          "text": "Attempt/answers/snapshots/Result riêng mỗi lượt; unlimited retake, không pass threshold."
+        },
+        {
+          "done": false,
+          "text": "Quiz/Test startedAt/deadlineAt/timeout phía server; refresh/relogin không reset; Exercise không timer."
+        },
+        {
+          "done": false,
+          "text": "Build/unit/API/contract/integration tests có SHA/env/log, gồm start retry/Idempotency-Key qua Gateway #21."
+        },
+        {
+          "done": false,
+          "text": "Owner handoff, peer review và acceptance."
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "[Theo dõi BE-K1/K2/P1][W7–W8] Outbox → Kafka → Progress idempotent",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/16",
+      "milestoneWeek": 8,
+      "kind": "tracking",
+      "responsible": "Huy",
+      "assignee": null,
+      "stateAtPlanning": "open",
+      "targetVN": "Result+Outbox atomic dựng trong #25 W6; W7 broker/relay #30; W8 consumer/completion #34. Scope runtime đầy đủ khép W8, không suy từ producer hoặc mock.",
+      "remainingOwnerMostLikely": 0,
+      "allocations": [],
+      "dependsOn": [],
+      "related": [
+        25,
+        30,
+        34
+      ],
+      "children": [
+        30,
+        34
+      ],
+      "checklist": [
+        {
+          "done": false,
+          "text": "Result + Outbox atomic; eventId ổn định; event schema AssessmentCompleted khớp approved contract."
+        },
+        {
+          "done": false,
+          "text": "Producer/consumer thật, processed-event/submission dedupe và UNIQUE(userId,lessonId)."
+        },
+        {
+          "done": false,
+          "text": "Commit offset sau DB transaction; retry/backoff/DLT/replay và crash recovery."
+        },
+        {
+          "done": false,
+          "text": "Runtime tests 0→50→100%, điểm 0, duplicate/redelivery/replay và retake không tăng completion."
+        },
+        {
+          "done": false,
+          "text": "Branch/PR/SHA/env/log cho event path thật; không lấy MOCK/CI cũ thay Kafka E2E."
+        },
+        {
+          "done": false,
+          "text": "Peer review/acceptance."
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "[Theo dõi BE-P2/Architecture][W6–W8] Progress/History/Statistics và dữ liệu",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/17",
+      "milestoneWeek": 8,
+      "kind": "tracking",
+      "responsible": "Huy",
+      "assignee": null,
+      "stateAtPlanning": "open",
+      "targetVN": "W6 mapping/engine #20; W7 owner source APIs #31; W8 Progress/History/Dashboard #35 và Statistics #36. Milestone W8 khép tổng gói; từng child có effort riêng.",
+      "remainingOwnerMostLikely": 0,
+      "allocations": [],
+      "dependsOn": [],
+      "related": [
+        20,
+        31,
+        35,
+        36
+      ],
+      "children": [
+        31,
+        35,
+        36
+      ],
+      "checklist": [
+        {
+          "done": true,
+          "text": "W3-02/03 đã cập nhật tài liệu/mapping và đọc lại ngày 27/10; technical review/diagram/code còn theo #20."
+        },
+        {
+          "done": false,
+          "text": "Chốt DB Assessment/Progress và mapping physical migrations; User/Content PostgreSQL 17 không tự quyết engine toàn hệ thống."
+        },
+        {
+          "done": false,
+          "text": "Progress đúng completed/total, History giữ Course/Level cũ và Dashboard APIs thật có branch/PR."
+        },
+        {
+          "done": false,
+          "text": "6 metrics DD-11 filter Course/Level qua owner APIs; source lỗi/freshness không điền 0 giả, không query DB chéo."
+        },
+        {
+          "done": false,
+          "text": "Tests source/consumer/API/integration đúng SHA/env và phối hợp Gateway #21."
+        },
+        {
+          "done": false,
+          "text": "Review Architecture/Data đầy đủ và nghiệm thu runtime."
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "W6-00 — Rà soát baseline Drive/GitHub và ghi actual W5, kế hoạch W6",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/19",
+      "milestoneWeek": 6,
+      "kind": "completed",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "closed",
+      "targetVN": "Audit/đồng bộ hoàn tất 27/10/2026; giữ CLOSED. Bổ sung phân công W5–W8 theo yêu cầu PM hiện tại trong kế hoạch chung; technical tasks tiếp tục ở issue riêng.",
+      "remainingOwnerMostLikely": 0,
+      "allocations": [],
+      "dependsOn": [],
+      "related": [
+        20,
+        21,
+        26
+      ],
+      "children": [],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Audit 36 file Drive, Trello t5d chỉ đọc và GitHub branches/PR/issues; có source inventory."
+        },
+        {
+          "done": true,
+          "text": "Ghi drift UI 0.5→0.6, link board cũ, lịch W4 và schema/contract mismatch có owner."
+        },
+        {
+          "done": true,
+          "text": "Bổ sung actual/remaining W5 và W6 plan owner/dependency/estimate đề xuất; không cam kết capacity thay Khoa/Huy."
+        },
+        {
+          "done": true,
+          "text": "Sửa trực tiếp 18 Google Docs + 5 Word; giữ ID/link/bảng/hình, có đọc lại và kiểm tra PDF."
+        },
+        {
+          "done": true,
+          "text": "Bỏ CI/CD, hai workflow đã tắt; hướng dẫn kiểm thử thủ công và peer review đã cập nhật."
+        },
+        {
+          "done": true,
+          "text": "Có PR #22 và báo cáo audit/cleanup/evidence, commit 7034666; 14 unit/UI + 6 MOCK rerun PASS."
+        },
+        {
+          "done": true,
+          "text": "Rà issue, tách phần done/remaining và technical actions #20/#21/#15–#17; không đóng toàn MVP hoặc merge thay nhóm."
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": "W6-03 [BE-APT] Đối chiếu W3-03 data dictionary với approved API/DD",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/20",
+      "milestoneWeek": 6,
+      "kind": "execution",
+      "responsible": "Huy",
+      "assignee": null,
+      "stateAtPlanning": "open",
+      "targetVN": "W6; mục tiêu mapping/ERD/DB decision và owner review 28/10/2026 21:00 VN. Remaining Huy O/M/P 2/3/6h, Khoa hỗ trợ review 1h; không sửa lại phần tài liệu đã đạt.",
+      "remainingOwnerMostLikely": 3,
+      "allocations": [
+        {
+          "week": 6,
+          "owner": "Huy",
+          "hours": 3
+        },
+        {
+          "week": 6,
+          "owner": "Khoa",
+          "hours": 1
+        }
+      ],
+      "dependsOn": [],
+      "related": [
+        25,
+        23
+      ],
+      "children": [],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Sửa mapping fullName nullable/max100; normalized Vocabulary unique tuple gồm meaning; lessonId/snapshots nullable cho Quiz/Test."
+        },
+        {
+          "done": true,
+          "text": "Bổ sung MODULE.published, Vocabulary fields/limits và logical LearningContent GRAMMAR/LISTENING/READING; không đổi approved API."
+        },
+        {
+          "done": true,
+          "text": "Upload Word vào cùng ID và fetch đọc lại xác minh thay đổi ngày 27/10."
+        },
+        {
+          "done": false,
+          "text": "Khoa/Huy review dictionary↔physical schema/DTO/constraints; physical tên cột normalized phải map rõ với logical tên cột."
+        },
+        {
+          "done": false,
+          "text": "Cập nhật hình ERD Content/LearningContent và cardinality 0..*; hình hiện tại là tổng quan, chưa coi đã vẽ lại."
+        },
+        {
+          "done": false,
+          "text": "Chốt engine/schema Assessment/Progress và migrations/contract tests đúng owner khi có source; không suy từ tài liệu thành runtime PASS."
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "title": "W6-04 [BE-G1] Route Assessment/Progress và Idempotency-Key qua Gateway",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/21",
+      "milestoneWeek": 6,
+      "kind": "execution",
+      "responsible": "Khoa",
+      "assignee": "KhoaTryHard",
+      "stateAtPlanning": "open",
+      "targetVN": "W6; mục tiêu code route/header/CORS 30/10/2026 18:00 VN, LIVE Exercise cùng #25 trước review #26 ngày 01/11. Remaining Khoa O/M/P 2/3/5h; owner APIs chưa ready thì ghi BLOCKED cho LIVE, unit/proxy tests làm trước.",
+      "remainingOwnerMostLikely": 3,
+      "allocations": [
+        {
+          "week": 6,
+          "owner": "Khoa",
+          "hours": 3
+        }
+      ],
+      "dependsOn": [
+        25
+      ],
+      "related": [
+        25,
+        26
+      ],
+      "children": [],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Code: Bốn owner URL/routes, forward Idempotency-Key nguyên vẹn, credentialed CORS/preflight."
+        },
+        {
+          "done": true,
+          "text": "Test độc lập: 63 mapping PASS; proxy HTTP stubs kiểm retry/retake/key, owner routing, 401/403/503 và request bị từ chối không forward."
+        },
+        {
+          "done": true,
+          "text": "Tích hợp thật: User/Content Gateway smoke và frontend first slice desktop/mobile PASS."
+        },
+        {
+          "done": false,
+          "text": "Tích hợp thật: Assessment/Progress thật: cùng key giữ attemptId; key mới tạo retake theo contract, publish readiness thật #25/#26."
+        },
+        {
+          "done": false,
+          "text": "Review/merge: Huy/Hưng review compatibility và backend PR #1 merge."
+        }
+      ],
+      "checklistAtPlanning": [
+        {
+          "done": true,
+          "text": "Đọc Gateway.java tại 56450fc: hiện cấu hình owner User/Content, thiếu Assessment/Progress URLs và Idempotency-Key forwarding/CORS."
+        },
+        {
+          "done": false,
+          "text": "Thêm routes/owner URLs Assessment và Progress, không route nhầm Content; giữ auth/cookie/CSRF fail closed."
+        },
+        {
+          "done": false,
+          "text": "Forward Idempotency-Key và cho phép preflight header."
+        },
+        {
+          "done": false,
+          "text": "Test qua Gateway: retry cùng key giữ attemptId, retake key mới và CORS preflight khi Assessment thật ready."
+        },
+        {
+          "done": false,
+          "text": "Ghi PR/SHA/env/log cho các thay đổi W6 và peer review/acceptance."
+        }
+      ],
+      "currentCheckpoint": {
+        "checkedAtVN": "2026-10-28",
+        "sourceCommit": "a9f4664263cfe159ea6c8e14ace9d805e9b311ad",
+        "publishedHead": "28f22cb44052e5f271a91a771ef15007ed881b73",
+        "status": "OPEN_ACCEPTANCE_PENDING",
+        "summary": "63/63 routes khớp method/path/owner/role; Idempotency-Key/CORS và fail-closed proxy PASS. Attempt retry/retake thật vẫn chờ Huy.",
+        "evidenceUrl": "https://github.com/KhoaTryHard/english-learning-platform/blob/28f22cb44052e5f271a91a771ef15007ed881b73/docs/evidence/khoa-java25-2026-10-28.json",
+        "checklistStages": [
+          {
+            "done": true,
+            "stage": "Code",
+            "text": "Bốn owner URL/routes, forward Idempotency-Key nguyên vẹn, credentialed CORS/preflight."
+          },
+          {
+            "done": true,
+            "stage": "Test độc lập",
+            "text": "63 mapping PASS; proxy HTTP stubs kiểm retry/retake/key, owner routing, 401/403/503 và request bị từ chối không forward."
+          },
+          {
+            "done": true,
+            "stage": "Tích hợp thật",
+            "text": "User/Content Gateway smoke và frontend first slice desktop/mobile PASS."
+          },
+          {
+            "done": false,
+            "stage": "Tích hợp thật",
+            "text": "Assessment/Progress thật: cùng key giữ attemptId; key mới tạo retake theo contract, publish readiness thật #25/#26."
+          },
+          {
+            "done": false,
+            "stage": "Review/merge",
+            "text": "Huy/Hưng review compatibility và backend PR #1 merge."
+          }
+        ],
+        "reportedBy": "Khoa, assisted by Codex; not Huy/Hung approval"
+      }
+    },
+    {
+      "number": 23,
+      "code": "W6-05",
+      "title": "W6-05 [Quyền repo] Khắc phục Assignee Huy1188 và xác nhận quy trình PR",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/23",
+      "milestoneWeek": 6,
+      "kind": "execution",
+      "responsible": "Khoa",
+      "assignee": "KhoaTryHard",
+      "stateAtPlanning": "open",
+      "targetVN": "27/10/2026 21:00 VN",
+      "parent": null,
+      "trace": "WBS 1.8; phối hợp toàn backend; refs #4/#15–#17/#20",
+      "remainingOwnerOMP": {
+        "O": 0.5,
+        "M": 1,
+        "P": 2
+      },
+      "allocations": [
+        {
+          "week": 6,
+          "owner": "Khoa",
+          "hours": 1
+        }
+      ],
+      "dependsOn": [],
+      "related": [
+        4,
+        15,
+        16,
+        17,
+        20
+      ],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Đã xác minh repo chỉ có collaborator KhoaTryHard/LeTHung; assignees/Huy1188 trả 404 ngày 27/10."
+        },
+        {
+          "done": false,
+          "text": "Owner Khoa kiểm tra đúng tài khoản Huy1188, quyền cộng tác/lời mời và Huy chấp nhận lời mời nếu cần."
+        },
+        {
+          "done": false,
+          "text": "Kiểm tra assignability thành công, rồi gán Huy cho issue đang Responsible Huy; không đổi owner sang người khác."
+        },
+        {
+          "done": false,
+          "text": "Ghi evidence quyền/reviewer workflow; không đăng token hoặc thông tin đăng nhập."
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "code": "W6-06",
+      "title": "W6-06 [FE-03] Khép Lesson focus mode và kiểm thử nội dung học",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/24",
+      "milestoneWeek": 6,
+      "kind": "execution",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "30/10/2026 21:00 VN",
+      "parent": 8,
+      "trace": "FE-03; PB-04; FR-08/09; UC-03; AC-07/08; L-05→L-11",
+      "remainingOwnerOMP": {
+        "O": 1,
+        "M": 2,
+        "P": 4
+      },
+      "allocations": [
+        {
+          "week": 6,
+          "owner": "Hưng",
+          "hours": 2
+        }
+      ],
+      "dependsOn": [],
+      "related": [
+        5,
+        13,
+        21
+      ],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Course/Module/Lesson và 4 khối Vocabulary/Grammar/Listening/Reading đã có code trong PR #22."
+        },
+        {
+          "done": true,
+          "text": "Có loading/empty/error/missing-resource, audio error và UI không tự complete Lesson khi chỉ xem."
+        },
+        {
+          "done": true,
+          "text": "Có evidence LIVE Content first slice và MOCK desktop/mobile 1440/390px."
+        },
+        {
+          "done": false,
+          "text": "Bổ sung/đối chiếu các case missing-resource, error, parent visibility và save/remove cần thiết theo phạm vi Lesson; ghi case nào chưa chạy."
+        },
+        {
+          "done": false,
+          "text": "Peer review phần Lesson và bàn giao cùng API Content thật; Dashboard Progress thật theo task W8 riêng."
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "code": "W6-07",
+      "title": "W6-07 [BE-A1/A2/A3] Assessment thật: Question, readiness và Exercise → Result",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/25",
+      "milestoneWeek": 6,
+      "kind": "execution",
+      "responsible": "Huy",
+      "assignee": null,
+      "stateAtPlanning": "open",
+      "targetVN": "31/10/2026 18:00 VN",
+      "parent": 15,
+      "trace": "BE-A1/A2/A3; PB-06/11; FR-12/14/15/19; UC-04/09; AC-11/12/17; DD-08/09/10",
+      "remainingOwnerOMP": {
+        "O": 12,
+        "M": 18,
+        "P": 30
+      },
+      "allocations": [
+        {
+          "week": 6,
+          "owner": "Huy",
+          "hours": 18
+        }
+      ],
+      "dependsOn": [
+        20,
+        42
+      ],
+      "related": [
+        4,
+        20,
+        21
+      ],
+      "checklist": [
+        {
+          "done": false,
+          "text": "Tạo deployable Assessment ở backend/services/assessment-service, engine/migrations/Compose/env theo quyết định owner; không chỉ README/scaffold."
+        },
+        {
+          "done": false,
+          "text": "Question SINGLE_CHOICE 2–6 options và TRUE_FALSE, answer-key/points, Admin question/config tối thiểu và readiness Exercise đúng API."
+        },
+        {
+          "done": false,
+          "text": "Exercise không timer: start/resume/save full answer-set/submit, snapshots, Result mỗi attempt; Idempotency-Key theo approved contract."
+        },
+        {
+          "done": false,
+          "text": "Finalize Result + Outbox record atomic, stable eventId và unique submission; chưa gọi broker thay transaction. Relay Kafka tiếp tục ở W7."
+        },
+        {
+          "done": false,
+          "text": "Readiness chỉ đọc Assessment state; start kiểm tra Content context riêng, không tạo vòng Content→Assessment→Content khi publish."
+        },
+        {
+          "done": false,
+          "text": "Unit/API/DB/security/ownership tests Exercise và negative cases; bàn giao seed, URL/env/SHA và owner API Assessment thật. FE→Gateway E2E nghiệm thu ở task QA W6 sau khi #21 có route."
+        },
+        {
+          "done": false,
+          "text": "Peer review Khoa/Hưng theo phần; ghi remaining Quiz/Test/deadline W7, không tuyên bố Progress/Kafka E2E PASS."
+        }
+      ]
+    },
+    {
+      "number": 26,
+      "code": "W6-08",
+      "title": "W6-08 [QA/PM] Smoke W6, peer review và bàn giao W7",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/26",
+      "milestoneWeek": 6,
+      "kind": "execution",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "01/11/2026 21:00 VN",
+      "parent": null,
+      "trace": "WBS 1.6/1.7/1.8; W6-T; SYS-T-01/02/04/10; refs #3–#9/#13/#20/#21",
+      "remainingOwnerOMP": {
+        "O": 2,
+        "M": 3,
+        "P": 5
+      },
+      "allocations": [
+        {
+          "week": 6,
+          "owner": "Hưng",
+          "hours": 3
+        },
+        {
+          "week": 6,
+          "owner": "Khoa",
+          "hours": 1
+        },
+        {
+          "week": 6,
+          "owner": "Huy",
+          "hours": 1
+        }
+      ],
+      "dependsOn": [
+        24,
+        25,
+        13,
+        20,
+        21
+      ],
+      "related": [
+        5,
+        6,
+        7,
+        13,
+        20,
+        21
+      ],
+      "checklist": [
+        {
+          "done": false,
+          "text": "Review thứ tự PR #18 → #22 và backend #1/#13; merge/retarget chỉ sau reviewer acceptance, không auto merge Draft."
+        },
+        {
+          "done": false,
+          "text": "Chạy W6 smoke Auth→Setup→Lesson→Exercise→Result qua service thật khi ready; T-07/T-08 cũ được liên kết, không backdate thành W5."
+        },
+        {
+          "done": false,
+          "text": "Ghi command/SHA/env/seed/expected/actual, MOCK/LIVE và PASS/PARTIAL/BLOCKED/NOT_RUN riêng; lỗi có issue/owner."
+        },
+        {
+          "done": false,
+          "text": "Rà code/review/security cơ bản, cookie/CSRF/401/403/503 và không commit secrets; test thủ công, không CI/CD."
+        },
+        {
+          "done": false,
+          "text": "Chốt actual/remaining/capacity W7, đọc lại checklist và cập nhật W5 carryover #3–#7 theo evidence."
+        },
+        {
+          "done": false,
+          "text": "Nếu Assessment/Gateway chưa sẵn, giữ integration BLOCKED và replan có owner/ngày; không đổi full MVP thành PASS."
+        }
+      ]
+    },
+    {
+      "number": 27,
+      "code": "W7-01",
+      "title": "W7-01 [BE-A3/A4] Quiz/Test, server deadline, resume và chấm điểm an toàn",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/27",
+      "milestoneWeek": 7,
+      "kind": "execution",
+      "responsible": "Huy",
+      "assignee": null,
+      "stateAtPlanning": "open",
+      "targetVN": "05/11/2026 21:00 VN",
+      "parent": 15,
+      "trace": "BE-A3/A4; PB-06/07/11; FR-13/14/15/19; UC-04/09; AC-12/13/14/17; DD-08/09",
+      "remainingOwnerOMP": {
+        "O": 8,
+        "M": 12,
+        "P": 20
+      },
+      "allocations": [
+        {
+          "week": 7,
+          "owner": "Huy",
+          "hours": 12
+        }
+      ],
+      "dependsOn": [
+        25,
+        21
+      ],
+      "related": [
+        9,
+        20,
+        21
+      ],
+      "checklist": [
+        {
+          "done": false,
+          "text": "Mở rộng code Exercise sẵn có cho Quiz/Test scope Course/lessonId nullable, ready/config/question Admin đầy đủ theo API; không code lại core Attempt."
+        },
+        {
+          "done": false,
+          "text": "startedAt/deadlineAt/serverNow bất biến khi refresh/relogin; Quiz/Test timeLimitSeconds dương, Exercise null; timeout chấm answers đã lưu."
+        },
+        {
+          "done": false,
+          "text": "Idempotency-Key retry giữ attempt, key mới retake; saved answers snapshot; race save/submit/timeout tạo đúng một Result/Outbox."
+        },
+        {
+          "done": false,
+          "text": "Không thêm pass threshold, answer-key/explanation field ngoài approved API; Result không chấm phía frontend."
+        },
+        {
+          "done": false,
+          "text": "Tests happy/error/ownership/deadline/race và FE #9 qua Gateway thật, mọi SHA/env/log được ghi."
+        },
+        {
+          "done": false,
+          "text": "Peer review và bàn giao API Admin Assessment cho FE W8."
+        }
+      ]
+    },
+    {
+      "number": 28,
+      "code": "W7-02",
+      "title": "W7-02 [FE-06] Admin User và quản lý Course/Module/Lesson/Content",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/28",
+      "milestoneWeek": 7,
+      "kind": "execution",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "05/11/2026 21:00 VN",
+      "parent": 11,
+      "trace": "FE-06; PB-09/10; FR-05/17/18; UC-07/08; AC-04/16; A-01→A-04 phần User/Content",
+      "remainingOwnerOMP": {
+        "O": 6,
+        "M": 8,
+        "P": 14
+      },
+      "allocations": [
+        {
+          "week": 7,
+          "owner": "Hưng",
+          "hours": 8
+        }
+      ],
+      "dependsOn": [],
+      "related": [
+        13
+      ],
+      "checklist": [
+        {
+          "done": false,
+          "text": "Admin layout/RBAC; xem/tìm User và cập nhật field whitelist theo API; không thêm UI tạo Learner khi ngoài scope."
+        },
+        {
+          "done": false,
+          "text": "Course/Module/Lesson create/view/update/published; Level mapping đúng owner, không Delete hoặc soft-delete."
+        },
+        {
+          "done": false,
+          "text": "Vocabulary chỉ xem/update bản nhập; Grammar/Listening/Reading theo LearningContent contract; trạng thái resource và published rõ."
+        },
+        {
+          "done": false,
+          "text": "Hiển thị readiness/publish 409/503 có xử lý; không giả server đã publish."
+        },
+        {
+          "done": false,
+          "text": "Forms/loading/empty/error/401/403, responsive và keyboard labels; gọi API thật qua Gateway khi sẵn."
+        },
+        {
+          "done": false,
+          "text": "Unit/browser và LIVE Admin User/Content evidence; review Khoa, sửa feedback và PR."
+        }
+      ]
+    },
+    {
+      "number": 29,
+      "code": "W7-03",
+      "title": "W7-03 [FE-06] Admin import Vocabulary XLSX và Lesson DOCX",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/29",
+      "milestoneWeek": 7,
+      "kind": "execution",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "07/11/2026 18:00 VN",
+      "parent": 11,
+      "trace": "FE-06; PB-13; FR-21; UC-11; AC-23; A-06; DD-05/06/07",
+      "remainingOwnerOMP": {
+        "O": 3,
+        "M": 4,
+        "P": 7
+      },
+      "allocations": [
+        {
+          "week": 7,
+          "owner": "Hưng",
+          "hours": 4
+        }
+      ],
+      "dependsOn": [
+        14
+      ],
+      "related": [
+        14
+      ],
+      "checklist": [
+        {
+          "done": false,
+          "text": "Tải template; Vocabulary file XLSX+lessonId, Lesson DOCX+moduleId/orderNo; upload theo contract."
+        },
+        {
+          "done": false,
+          "text": "Hiển thị success/createdCount hoặc lỗi theo row/paragraph/field; reject phải createdCount=0, không báo partial success."
+        },
+        {
+          "done": false,
+          "text": "Duplicate không skip/update; UI không thêm import Question CSV hay định dạng ngoài MVP."
+        },
+        {
+          "done": false,
+          "text": "Test valid/invalid/missing Title/duplicate/backend failure/rollback với fixture gốc; không sửa fixture cố ý sai."
+        },
+        {
+          "done": false,
+          "text": "LIVE qua Gateway/Content, responsive/accessibility cơ bản, ảnh/log/SHA và peer review."
+        }
+      ]
+    },
+    {
+      "number": 30,
+      "code": "W7-04",
+      "title": "W7-04 [BE-K1] Kafka broker/topic và Outbox relay AssessmentCompleted",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/30",
+      "milestoneWeek": 7,
+      "kind": "execution",
+      "responsible": "Huy",
+      "assignee": null,
+      "stateAtPlanning": "open",
+      "targetVN": "07/11/2026 18:00 VN",
+      "parent": 16,
+      "trace": "BE-K1; PB-06/07/08; DD-10; contracts/events/AssessmentCompleted v1",
+      "remainingOwnerOMP": {
+        "O": 4,
+        "M": 7,
+        "P": 12
+      },
+      "allocations": [
+        {
+          "week": 7,
+          "owner": "Huy",
+          "hours": 7
+        }
+      ],
+      "dependsOn": [
+        25
+      ],
+      "related": [
+        15
+      ],
+      "checklist": [
+        {
+          "done": false,
+          "text": "Cấu hình broker/topic/env ở infra/kafka và Compose; ghi cách start/stop test, không shared DB."
+        },
+        {
+          "done": false,
+          "text": "Dùng Result+Outbox atomic đã có ở task Exercise; triển khai relay/publish và retry trạng thái outbox, không mở transaction DB quanh network call."
+        },
+        {
+          "done": false,
+          "text": "Event payload/schema/snapshots/eventId/submissionId đúng contract; duplicate publish không đổi eventId."
+        },
+        {
+          "done": false,
+          "text": "Test broker down/restart, retry/recovery và Result vẫn bền; không mất event khi crash sau DB commit."
+        },
+        {
+          "done": false,
+          "text": "Có log event thật và hướng dẫn bàn giao consumer W8; producer PASS không là full Progress E2E."
+        },
+        {
+          "done": false,
+          "text": "Peer review/migration/runtime evidence."
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "code": "W7-05",
+      "title": "W7-05 [BE-U/C] Kiểm chứng owner APIs cho Progress và Statistics",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/31",
+      "milestoneWeek": 7,
+      "kind": "execution",
+      "responsible": "Khoa",
+      "assignee": "KhoaTryHard",
+      "stateAtPlanning": "open",
+      "targetVN": "04/11/2026 18:00 VN",
+      "parent": 17,
+      "trace": "BE-U2/C1/G1; PB-08/12; DD-11; User cohort + Content context APIs theo approved contracts",
+      "remainingOwnerOMP": {
+        "O": 2,
+        "M": 4,
+        "P": 7
+      },
+      "allocations": [
+        {
+          "week": 7,
+          "owner": "Khoa",
+          "hours": 4
+        }
+      ],
+      "dependsOn": [],
+      "related": [
+        13,
+        20,
+        21
+      ],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Code: Audit User setup/cohort/count và Content course/level/lesson context, giữ owner boundaries và approved source contracts."
+        },
+        {
+          "done": true,
+          "text": "Code: Cohort gồm BLOCKED, global count độc lập filter; denominator gồm hidden lessons; paging không phải snapshot xuyên service."
+        },
+        {
+          "done": true,
+          "text": "Test độc lập: Caller identity/allowlist và private API protections trong security/owner tests PASS."
+        },
+        {
+          "done": true,
+          "text": "Tích hợp thật: PostgreSQL cohort paging/filter/invalid UUID/global count và Content paging/hidden denominator PASS."
+        },
+        {
+          "done": false,
+          "text": "Tích hợp thật: Huy xác nhận nguồn 503/partial-source behavior với Progress/Statistics thật; không biến lỗi nguồn thành 0."
+        },
+        {
+          "done": true,
+          "text": "Bàn giao tài liệu: URL/caller/config/fixture/tests/SHA đã công bố trong mapping, runbook và evidence PR #1."
+        },
+        {
+          "done": false,
+          "text": "Review/merge: Huy nhận bàn giao, cross-review semantics/aggregator và backend peer acceptance."
+        }
+      ],
+      "checklistAtPlanning": [
+        {
+          "done": false,
+          "text": "Audit/reuse User current setup/cohort/count và Content Course/Level/Lesson contexts đã có trong PR #1; chỉ bổ sung phần thực sự thiếu."
+        },
+        {
+          "done": false,
+          "text": "Đối chiếu semantics tổng Learner/cohort Course-Level/denominator và published với approved public/internal v0.1; proposal security cần review riêng."
+        },
+        {
+          "done": false,
+          "text": "Caller identity/auth và scope cho Progress/Assessment đúng owner; không query DB chéo."
+        },
+        {
+          "done": false,
+          "text": "Test paging/filter/invalid Course-Level/source 503 và Gateway/owner route liên quan; không coi source lỗi là 0."
+        },
+        {
+          "done": false,
+          "text": "Bàn giao fixture/URL/SHA/log cho Huy và peer review."
+        }
+      ],
+      "currentCheckpoint": {
+        "checkedAtVN": "2026-10-28",
+        "sourceCommit": "a9f4664263cfe159ea6c8e14ace9d805e9b311ad",
+        "publishedHead": "28f22cb44052e5f271a91a771ef15007ed881b73",
+        "status": "OPEN_ACCEPTANCE_PENDING",
+        "summary": "Đã audit/reuse source APIs, ghi semantics và chạy PostgreSQL paging/cohort tests. Huy chưa xác nhận nhận bàn giao/aggregator LIVE.",
+        "evidenceUrl": "https://github.com/KhoaTryHard/english-learning-platform/blob/28f22cb44052e5f271a91a771ef15007ed881b73/docs/evidence/khoa-java25-2026-10-28.json",
+        "checklistStages": [
+          {
+            "done": true,
+            "stage": "Code",
+            "text": "Audit User setup/cohort/count và Content course/level/lesson context, giữ owner boundaries và approved source contracts."
+          },
+          {
+            "done": true,
+            "stage": "Code",
+            "text": "Cohort gồm BLOCKED, global count độc lập filter; denominator gồm hidden lessons; paging không phải snapshot xuyên service."
+          },
+          {
+            "done": true,
+            "stage": "Test độc lập",
+            "text": "Caller identity/allowlist và private API protections trong security/owner tests PASS."
+          },
+          {
+            "done": true,
+            "stage": "Tích hợp thật",
+            "text": "PostgreSQL cohort paging/filter/invalid UUID/global count và Content paging/hidden denominator PASS."
+          },
+          {
+            "done": false,
+            "stage": "Tích hợp thật",
+            "text": "Huy xác nhận nguồn 503/partial-source behavior với Progress/Statistics thật; không biến lỗi nguồn thành 0."
+          },
+          {
+            "done": true,
+            "stage": "Bàn giao tài liệu",
+            "text": "URL/caller/config/fixture/tests/SHA đã công bố trong mapping, runbook và evidence PR #1."
+          },
+          {
+            "done": false,
+            "stage": "Review/merge",
+            "text": "Huy nhận bàn giao, cross-review semantics/aggregator và backend peer acceptance."
+          }
+        ],
+        "reportedBy": "Khoa, assisted by Codex; not Huy/Hung approval"
+      }
+    },
+    {
+      "number": 32,
+      "code": "W7-06",
+      "title": "W7-06 [FE-05] Khép My Vocabulary: collection, unavailable và đổi Course",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/32",
+      "milestoneWeek": 7,
+      "kind": "execution",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "06/11/2026 21:00 VN",
+      "parent": 10,
+      "trace": "FE-05; PB-05; FR-10/11; UC-06; AC theo public v0.1; DD-12; L-16",
+      "remainingOwnerOMP": {
+        "O": 1,
+        "M": 2,
+        "P": 4
+      },
+      "allocations": [
+        {
+          "week": 7,
+          "owner": "Hưng",
+          "hours": 2
+        }
+      ],
+      "dependsOn": [
+        14
+      ],
+      "related": [
+        14
+      ],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Collection/tìm kiếm/save/remove/UNAVAILABLE UI và API client đã có trong #22; LIVE save/remove cơ bản từ Lesson có evidence ngày 27/10."
+        },
+        {
+          "done": false,
+          "text": "Test UI saved source update, parent unpublish/saved-only và content=null vẫn Remove với Content thật."
+        },
+        {
+          "done": false,
+          "text": "Đổi Course/Level không mất collection; save lặp/concurrent không nhân đôi; test paging hơn 100 nếu dữ liệu đủ."
+        },
+        {
+          "done": false,
+          "text": "Phân biệt loading/empty/no-search-match/error/503; lưu report/ảnh desktop-mobile."
+        },
+        {
+          "done": false,
+          "text": "Peer review và khép phần My Vocabulary của #10; Progress/History thật để W8 riêng."
+        }
+      ]
+    },
+    {
+      "number": 33,
+      "code": "W7-07",
+      "title": "W7-07 [QA/PM] Tích hợp W7 Quiz/Test/Admin và review kế hoạch W8",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/33",
+      "milestoneWeek": 7,
+      "kind": "execution",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "08/11/2026 21:00 VN",
+      "parent": null,
+      "trace": "WBS 1.6/1.7/1.8; W7-T; SYS-T-01/03/04/05/07/08/10",
+      "remainingOwnerOMP": {
+        "O": 2,
+        "M": 3,
+        "P": 5
+      },
+      "allocations": [
+        {
+          "week": 7,
+          "owner": "Hưng",
+          "hours": 3
+        },
+        {
+          "week": 7,
+          "owner": "Khoa",
+          "hours": 1
+        },
+        {
+          "week": 7,
+          "owner": "Huy",
+          "hours": 1
+        }
+      ],
+      "dependsOn": [
+        27,
+        28,
+        29,
+        30,
+        32,
+        31,
+        9,
+        14
+      ],
+      "related": [
+        9,
+        14
+      ],
+      "checklist": [
+        {
+          "done": false,
+          "text": "Chạy Quiz/Test start/save/resume/deadline/timeout/retake thật và Admin User/Content/Import/My Vocabulary theo lát đã sẵn."
+        },
+        {
+          "done": false,
+          "text": "Kiểm tra producer Outbox→Kafka thật riêng; chưa có consumer không đánh Progress PASS."
+        },
+        {
+          "done": false,
+          "text": "Ghi source SHA/env/time/input/actual và bug/owner; MOCK không thay LIVE; test thủ công và regression phần bị ảnh hưởng."
+        },
+        {
+          "done": false,
+          "text": "Peer review/retarget/merge theo dependency, cập nhật parent tracking và các W5 carryover có bằng chứng."
+        },
+        {
+          "done": false,
+          "text": "Rà remaining/actual/capacity W8, chốt blocker/điều kiện gỡ; không lùi ngày hoặc tự ghi xác nhận thay owner."
+        }
+      ]
+    },
+    {
+      "number": 34,
+      "code": "W8-01",
+      "title": "W8-01 [BE-K2/P1] Consumer idempotent và LessonCompletion/Progress thật",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/34",
+      "milestoneWeek": 8,
+      "kind": "execution",
+      "responsible": "Huy",
+      "assignee": null,
+      "stateAtPlanning": "open",
+      "targetVN": "11/11/2026 21:00 VN",
+      "parent": 16,
+      "trace": "BE-K2/P1; PB-08; FR-16; UC-05; AC-15; DD-10",
+      "remainingOwnerOMP": {
+        "O": 5,
+        "M": 8,
+        "P": 14
+      },
+      "allocations": [
+        {
+          "week": 8,
+          "owner": "Huy",
+          "hours": 8
+        }
+      ],
+      "dependsOn": [
+        30,
+        31
+      ],
+      "related": [
+        15,
+        20
+      ],
+      "checklist": [
+        {
+          "done": false,
+          "text": "Progress deployable/migration/engine/env; consumer AssessmentCompleted với DB riêng, ProcessedEvent/submission dedupe."
+        },
+        {
+          "done": false,
+          "text": "Exercise có lessonId mới tạo LessonCompletion UNIQUE(userId,lessonId); điểm 0 vẫn complete, retake không cộng trùng; Quiz/Test không gắn Lesson không tăng completion."
+        },
+        {
+          "done": false,
+          "text": "History/Completion/processed marker atomic; commit Kafka offset sau DB transaction; crash/redelivery không mất hoặc ghi trùng."
+        },
+        {
+          "done": false,
+          "text": "Retry/backoff/DLT/replay có hướng dẫn và test; không nhận event/mock demo làm runtime thật."
+        },
+        {
+          "done": false,
+          "text": "Test 2 Lesson 0→50→100%, duplicate/event replay/restart/retake và Course snapshot với logs/SHA/env."
+        },
+        {
+          "done": false,
+          "text": "Peer review và bàn giao data/API cho Progress/Statistics/UI."
+        }
+      ]
+    },
+    {
+      "number": 35,
+      "code": "W8-02",
+      "title": "W8-02 [BE-P2] Progress, History và Learner Dashboard APIs",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/35",
+      "milestoneWeek": 8,
+      "kind": "execution",
+      "responsible": "Huy",
+      "assignee": null,
+      "stateAtPlanning": "open",
+      "targetVN": "12/11/2026 18:00 VN",
+      "parent": 17,
+      "trace": "BE-P2; PB-08; FR-15/16; UC-05; AC-12/15; L-05/15",
+      "remainingOwnerOMP": {
+        "O": 4,
+        "M": 6,
+        "P": 10
+      },
+      "allocations": [
+        {
+          "week": 8,
+          "owner": "Huy",
+          "hours": 6
+        }
+      ],
+      "dependsOn": [
+        34,
+        31
+      ],
+      "related": [
+        21
+      ],
+      "checklist": [
+        {
+          "done": false,
+          "text": "GET /me/progress, /me/history, /me/dashboard theo approved v0.1; owner-scoped paging và schemas đúng."
+        },
+        {
+          "done": false,
+          "text": "Progress completed/total theo Course, no-Lesson/no-setup/null đúng contract; giữ History Course/Level snapshot khi đổi setup."
+        },
+        {
+          "done": false,
+          "text": "Dashboard aggregate qua User/Content/Progress owner APIs; không cross-service SQL, không giả 0 khi source down."
+        },
+        {
+          "done": false,
+          "text": "Test ownership/RBAC/paging/invalid Course-Level/503/eventual consistency và kết quả sau consumer thật."
+        },
+        {
+          "done": false,
+          "text": "Bàn giao API thật/seed/env/SHA/log cho Hưng; peer review."
+        }
+      ]
+    },
+    {
+      "number": 36,
+      "code": "W8-03",
+      "title": "W8-03 [BE-P2] Sáu nhóm Statistics qua owner APIs và filter Course/Level",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/36",
+      "milestoneWeek": 8,
+      "kind": "execution",
+      "responsible": "Huy",
+      "assignee": null,
+      "stateAtPlanning": "open",
+      "targetVN": "13/11/2026 18:00 VN",
+      "parent": 17,
+      "trace": "BE-P2; PB-12; FR-20; UC-10; AC-18; DD-11; A-07",
+      "remainingOwnerOMP": {
+        "O": 3,
+        "M": 5,
+        "P": 9
+      },
+      "allocations": [
+        {
+          "week": 8,
+          "owner": "Huy",
+          "hours": 5
+        }
+      ],
+      "dependsOn": [
+        35,
+        27,
+        31
+      ],
+      "related": [
+        21
+      ],
+      "checklist": [
+        {
+          "done": false,
+          "text": "Progress sở hữu GET /admin/statistics và tổng hợp owner APIs; ADMIN-only, không thêm Statistics Service/DB query chéo."
+        },
+        {
+          "done": false,
+          "text": "Đúng 6 nhóm: totalLearners, currentLearnerCount, averageProgressPercent, completedLessonCount, attemptCounts theo type, averageQuizTestScorePercent."
+        },
+        {
+          "done": false,
+          "text": "Filter Course/Level hợp lệ; totalLearners global và cohort/snapshot/retake/TIMEOUT theo DD-11; không thêm time filter hoặc lấy best/latest thay toàn Results."
+        },
+        {
+          "done": false,
+          "text": "Không denominator/no Results thì average null; source bắt buộc lỗi trả503, không điền 0; generatedAt/syncState đúng contract."
+        },
+        {
+          "done": false,
+          "text": "Fixtures có kết quả tính tay đối chiếu, tests filter/null/source failure và LIVE API evidence; peer review."
+        }
+      ]
+    },
+    {
+      "number": 37,
+      "code": "W8-04",
+      "title": "W8-04 [FE-06] Admin Exercise/Quiz/Test và Question management",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/37",
+      "milestoneWeek": 8,
+      "kind": "execution",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "12/11/2026 21:00 VN",
+      "parent": 11,
+      "trace": "FE-06; PB-11; FR-19; UC-09; AC-17; A-05",
+      "remainingOwnerOMP": {
+        "O": 3,
+        "M": 5,
+        "P": 9
+      },
+      "allocations": [
+        {
+          "week": 8,
+          "owner": "Hưng",
+          "hours": 5
+        }
+      ],
+      "dependsOn": [
+        27,
+        21
+      ],
+      "related": [
+        21
+      ],
+      "checklist": [
+        {
+          "done": false,
+          "text": "Admin Assessment list/create/view/update và Question CRUD theo endpoint whitelist, Course/lesson scope/type không đổi tùy tiện."
+        },
+        {
+          "done": false,
+          "text": "SINGLE_CHOICE 2–6 options/TRUE_FALSE, answer key/points và readiness validation theo server; không thêm Question CSV."
+        },
+        {
+          "done": false,
+          "text": "Exercise không timer; Quiz/Test timeLimitSeconds dương; không hard-code giá trị demo thành quy tắc."
+        },
+        {
+          "done": false,
+          "text": "RBAC/validation/loading/empty/409/503; responsive/keyboard labels."
+        },
+        {
+          "done": false,
+          "text": "LIVE Assessment qua Gateway, browser/test evidence và peer review."
+        }
+      ]
+    },
+    {
+      "number": 38,
+      "code": "W8-05",
+      "title": "W8-05 [FE-06] Admin Statistics sáu nhóm metric và trạng thái dữ liệu",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/38",
+      "milestoneWeek": 8,
+      "kind": "execution",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "14/11/2026 18:00 VN",
+      "parent": 11,
+      "trace": "FE-06; PB-12; FR-20; UC-10; AC-18; DD-11; A-07",
+      "remainingOwnerOMP": {
+        "O": 2,
+        "M": 4,
+        "P": 7
+      },
+      "allocations": [
+        {
+          "week": 8,
+          "owner": "Hưng",
+          "hours": 4
+        }
+      ],
+      "dependsOn": [
+        36
+      ],
+      "related": [],
+      "checklist": [
+        {
+          "done": false,
+          "text": "Admin Statistics gọi approved API và hiển thị đủ 6 nhóm metric, Course/Level filters đúng scope."
+        },
+        {
+          "done": false,
+          "text": "Hiển thị average null/no-denominator khác số0; source lỗi hiển thị error/retry, không copy số mẫu Figma."
+        },
+        {
+          "done": false,
+          "text": "generatedAt/syncState eventual và loading/empty/401/403/503 rõ; không thêm time filter/metric ngoài MVP."
+        },
+        {
+          "done": false,
+          "text": "Test dữ liệu tính tay, filter/null/source-error và LIVE aggregator thật; ảnh desktop/mobile."
+        },
+        {
+          "done": false,
+          "text": "Peer review và cập nhật parent FE-06."
+        }
+      ]
+    },
+    {
+      "number": 39,
+      "code": "W8-06",
+      "title": "W8-06 [FE-03/05] Nối Dashboard, Progress và History với backend thật",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/39",
+      "milestoneWeek": 8,
+      "kind": "execution",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "13/11/2026 21:00 VN",
+      "parent": 10,
+      "trace": "FE-03/05; PB-08; FR-15/16; UC-05; AC-12/15; L-05/15; liên quan #8",
+      "remainingOwnerOMP": {
+        "O": 2,
+        "M": 3,
+        "P": 6
+      },
+      "allocations": [
+        {
+          "week": 8,
+          "owner": "Hưng",
+          "hours": 3
+        }
+      ],
+      "dependsOn": [
+        35,
+        21
+      ],
+      "related": [
+        8,
+        21
+      ],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Dashboard/Progress/History UI/API client và filters nền đã có trong #22; remaining không viết lại phần này."
+        },
+        {
+          "done": false,
+          "text": "Nối owner APIs thật qua Gateway, completed/total/percent và history snapshots đúng khi đổi Course/Level."
+        },
+        {
+          "done": false,
+          "text": "Test Exercise điểm0/retake/completion/History sau Kafka thật; refresh/paging/filter và eventual sync không fake success/0."
+        },
+        {
+          "done": false,
+          "text": "Test no-setup/no-Lessons/null/empty/source 503 và retry trên desktop/mobile."
+        },
+        {
+          "done": false,
+          "text": "LIVE evidence/SHA/env/screenshots và peer review; khép phần Progress/History #10 và aggregate #8."
+        }
+      ]
+    },
+    {
+      "number": 40,
+      "code": "W8-07",
+      "title": "W8-07 [QA/PM] Smoke toàn MVP và bàn giao Development cho W9",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/40",
+      "milestoneWeek": 8,
+      "kind": "execution",
+      "responsible": "Hưng",
+      "assignee": "LeTHung",
+      "stateAtPlanning": "open",
+      "targetVN": "15/11/2026 21:00 VN",
+      "parent": null,
+      "trace": "WBS 1.6/1.7/1.8; W8-T; SYS-T-01→10; PB-01→13",
+      "remainingOwnerOMP": {
+        "O": 2,
+        "M": 3,
+        "P": 6
+      },
+      "allocations": [
+        {
+          "week": 8,
+          "owner": "Hưng",
+          "hours": 3
+        },
+        {
+          "week": 8,
+          "owner": "Khoa",
+          "hours": 1
+        },
+        {
+          "week": 8,
+          "owner": "Huy",
+          "hours": 1
+        }
+      ],
+      "dependsOn": [
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        33,
+        41,
+        12
+      ],
+      "related": [
+        12,
+        14
+      ],
+      "checklist": [
+        {
+          "done": false,
+          "text": "Smoke Learner Auth→Setup→Lesson→Exercise/Quiz/Test→Result→Kafka→Progress/History và My Vocabulary bằng backend thật."
+        },
+        {
+          "done": false,
+          "text": "Smoke Admin User/Content/Assessment/Import/Statistics và quyền Learner/Admin; DB restart/persistence/rollback/security paths theo lát đã thay đổi."
+        },
+        {
+          "done": false,
+          "text": "Kiểm tra responsive/accessibility remaining #12, không còn dùng dữ liệu demo làm bằng chứng LIVE."
+        },
+        {
+          "done": false,
+          "text": "Trace PB-01→13/UC-01→11/AC-01→23 ↔ issue/PR/case; defects/blockers có owner/severity/điều kiện gỡ."
+        },
+        {
+          "done": false,
+          "text": "Nhóm review actual/remaining và tiêu chí bàn giao W9; bàn giao env/seed/API/tests/runbook dùng thủ công."
+        },
+        {
+          "done": false,
+          "text": "Giữ W9 16–22/11 cho integration/regression/security/bug fixing đầy đủ; W10 23–29/11 deployment/demo/report. Không tuyên bố W9/W10 đã làm."
+        }
+      ]
+    },
+    {
+      "number": 41,
+      "code": "W8-09",
+      "title": "W8-09 [BE-U/C/G] Regression bảo mật, persistence và runbook môi trường W9",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/41",
+      "milestoneWeek": 8,
+      "kind": "execution",
+      "responsible": "Khoa",
+      "assignee": "KhoaTryHard",
+      "stateAtPlanning": "open",
+      "targetVN": "14/11/2026 18:00 VN",
+      "parent": null,
+      "trace": "BE-UT/G1; PB-01→13 theo ranh giới User/Content/Gateway; NFR-01/02; SYS-T-01/02/03/08/10",
+      "remainingOwnerOMP": {
+        "O": 2,
+        "M": 4,
+        "P": 7
+      },
+      "allocations": [
+        {
+          "week": 8,
+          "owner": "Khoa",
+          "hours": 4
+        }
+      ],
+      "dependsOn": [
+        27,
+        35,
+        13,
+        21
+      ],
+      "related": [],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Test độc lập: 47 JUnit: token/caller/CSRF/revocation/BLOCKED/RBAC/import/saved-source/route tests theo phạm vi suite; không tính SDK lặp thành nghiệp vụ mới."
+        },
+        {
+          "done": true,
+          "text": "Tích hợp thật: Session-table fault trên PostgreSQL trả 503, wrong CSRF/missing session 403, không tạo Course, phục hồi PASS."
+        },
+        {
+          "done": true,
+          "text": "Tích hợp thật: 43 User/Content operations, frontend desktop/mobile, restart DB/app, restore mọi bảng public/constraints/owners/ACL/Flyway trong cluster test PASS."
+        },
+        {
+          "done": true,
+          "text": "Code/tài liệu: 3 standalone builds + Docker images, 4 Compose configs; README/runbook seed/start/stop/restore/report paths và môi trường test riêng."
+        },
+        {
+          "done": false,
+          "text": "Tích hợp thật: Assessment/Progress/Kafka LIVE, readiness/retry/retake và security matrix tích hợp đầy đủ; transport/Windows ACL, network/pool outages chưa nghiệm thu."
+        },
+        {
+          "done": false,
+          "text": "Review/merge: Peer review, QA #40 và bàn giao W9 có xác nhận; không coi test cùng cluster là disaster recovery đa host."
+        }
+      ],
+      "checklistAtPlanning": [
+        {
+          "done": false,
+          "text": "Chạy regression User/Gateway cookie/CSRF/Origin/revoked jti/blocked account/RBAC/ownership/401/403/503; chỉ môi trường test, không thay approved contract."
+        },
+        {
+          "done": false,
+          "text": "Kiểm chứng routes User/Content/Assessment/Progress, header Idempotency-Key/CORS và bảo vệ internal API; nguồn down không giả thành success/0."
+        },
+        {
+          "done": false,
+          "text": "Sau chuyển cây backend, kiểm tra Compose isolated build/config, DB credentials/least privilege, restart persistence và backup/restore trên dữ liệu test; giữ dữ liệu/volumes thật."
+        },
+        {
+          "done": false,
+          "text": "Regression Content saved-only/source-update/import rollback/duplicate và readiness với Assessment thật, reuse tests có sẵn và ghi phần bị ảnh hưởng."
+        },
+        {
+          "done": false,
+          "text": "Bàn giao runbook env/seed/start/stop/restore/test commands/log đã bỏ secrets cho W9; deployment public vẫn ở W10."
+        },
+        {
+          "done": false,
+          "text": "Peer review và link defects/remaining cho QA W8; không ghi full W9 security/performance acceptance đã xong."
+        }
+      ],
+      "currentCheckpoint": {
+        "checkedAtVN": "2026-10-28",
+        "sourceCommit": "a9f4664263cfe159ea6c8e14ace9d805e9b311ad",
+        "publishedHead": "28f22cb44052e5f271a91a771ef15007ed881b73",
+        "status": "OPEN_ACCEPTANCE_PENDING",
+        "summary": "Regression Java 25, smoke, session fault, frontend first slice và persistence/restore test PASS; full LIVE/security/peer acceptance còn mở.",
+        "evidenceUrl": "https://github.com/KhoaTryHard/english-learning-platform/blob/28f22cb44052e5f271a91a771ef15007ed881b73/docs/evidence/khoa-java25-2026-10-28.json",
+        "checklistStages": [
+          {
+            "done": true,
+            "stage": "Test độc lập",
+            "text": "47 JUnit: token/caller/CSRF/revocation/BLOCKED/RBAC/import/saved-source/route tests theo phạm vi suite; không tính SDK lặp thành nghiệp vụ mới."
+          },
+          {
+            "done": true,
+            "stage": "Tích hợp thật",
+            "text": "Session-table fault trên PostgreSQL trả 503, wrong CSRF/missing session 403, không tạo Course, phục hồi PASS."
+          },
+          {
+            "done": true,
+            "stage": "Tích hợp thật",
+            "text": "43 User/Content operations, frontend desktop/mobile, restart DB/app, restore mọi bảng public/constraints/owners/ACL/Flyway trong cluster test PASS."
+          },
+          {
+            "done": true,
+            "stage": "Code/tài liệu",
+            "text": "3 standalone builds + Docker images, 4 Compose configs; README/runbook seed/start/stop/restore/report paths và môi trường test riêng."
+          },
+          {
+            "done": false,
+            "stage": "Tích hợp thật",
+            "text": "Assessment/Progress/Kafka LIVE, readiness/retry/retake và security matrix tích hợp đầy đủ; transport/Windows ACL, network/pool outages chưa nghiệm thu."
+          },
+          {
+            "done": false,
+            "stage": "Review/merge",
+            "text": "Peer review, QA #40 và bàn giao W9 có xác nhận; không coi test cùng cluster là disaster recovery đa host."
+          }
+        ],
+        "reportedBy": "Khoa, assisted by Codex; not Huy/Hung approval"
+      }
+    },
+    {
+      "number": 42,
+      "code": "W6-10",
+      "title": "W6-10 [Contract/Security] Khép internal auth User/Gateway để Assessment/Progress tích hợp",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/issues/42",
+      "milestoneWeek": 6,
+      "kind": "execution",
+      "responsible": "Khoa",
+      "assignee": "KhoaTryHard",
+      "stateAtPlanning": "open",
+      "targetVN": "29/10/2026 18:00 VN",
+      "parent": null,
+      "trace": "BE-U1/G1/BE-APT; PB-01 và integration PB-06/07/08/12; DD-03; approved internal v0.1",
+      "remainingOwnerOMP": {
+        "O": 2,
+        "M": 3,
+        "P": 6
+      },
+      "allocations": [
+        {
+          "week": 6,
+          "owner": "Khoa",
+          "hours": 3
+        },
+        {
+          "week": 6,
+          "owner": "Huy",
+          "hours": 1
+        }
+      ],
+      "dependsOn": [],
+      "related": [
+        3,
+        13,
+        20,
+        21
+      ],
+      "checklist": [
+        {
+          "done": true,
+          "text": "Code: Mapping approved v0.1 vs runtime v0.1.1, caller/auth/fields/error; public/internal frozen baseline không đổi."
+        },
+        {
+          "done": true,
+          "text": "Code: Catch DataAccessException của session repository → 503 DEPENDENCY_UNAVAILABLE; không lộ chi tiết DB/token."
+        },
+        {
+          "done": true,
+          "text": "Test độc lập: MockMvc outage/missing/wrong/valid session và proxy POST từ chối không tới owner PASS."
+        },
+        {
+          "done": true,
+          "text": "Tích hợp thật: Lỗi SELECT bảng session PostgreSQL: 503, CSRF/session sai 403, business rows không đổi và recovery PASS."
+        },
+        {
+          "done": false,
+          "text": "Review contract: Huy/Khoa quyết định version/compatibility/rollout; requestMethod bắt buộc nên token-only v0.1 chưa tương thích, không default GET để bỏ CSRF."
+        },
+        {
+          "done": true,
+          "text": "Bàn giao tài liệu: Cấu hình caller/URL/public keys/test commands/SHA công bố trong PR #1, không chứa secret."
+        },
+        {
+          "done": false,
+          "text": "Review/merge: Huy nhận bàn giao, owner integration và peer review trước nghiệm thu #25/#26/PR #1."
+        }
+      ],
+      "checklistAtPlanning": [
+        {
+          "done": false,
+          "text": "Đối chiếu approved internal v0.1 với User/Gateway runtime và proposal v0.1.1 trong PR #1; lập mapping caller/auth/fields/error để Huy có đầu vào rõ."
+        },
+        {
+          "done": false,
+          "text": "Khoa/Huy review fail-closed JWT/session/CSRF/revoked/account status và service caller identity/audience/allowlist theo ranh giới owner."
+        },
+        {
+          "done": false,
+          "text": "Hoàn thiện runtime/compatibility phần User/Gateway nếu cần; không tự đổi DD/approved API hoặc coi proposal v0.1.1 đã được duyệt. Nếu cần đổi contract, ghi proposal/version/decision nhóm và blocker riêng."
+        },
+        {
+          "done": false,
+          "text": "Contract/security tests owner APIs cho caller hợp lệ/sai, 401/403/503, không leak token; có SHA/env/config và hướng dẫn dùng cho Assessment/Progress."
+        },
+        {
+          "done": false,
+          "text": "Bàn giao cấu hình test không chứa secret cho Huy; peer review, ghi remaining rõ trước khi nghiệm thu Exercise/Gateway LIVE."
+        }
+      ],
+      "currentCheckpoint": {
+        "checkedAtVN": "2026-10-28",
+        "sourceCommit": "a9f4664263cfe159ea6c8e14ace9d805e9b311ad",
+        "publishedHead": "28f22cb44052e5f271a91a771ef15007ed881b73",
+        "status": "OPEN_ACCEPTANCE_PENDING",
+        "summary": "Đã sửa lỗi session repository 500 thành 503, giữ CSRF/session sai 403 và fail-closed. Internal v0.1.1 vẫn proposal, chưa backward compatible với token-only v0.1.",
+        "evidenceUrl": "https://github.com/KhoaTryHard/english-learning-platform/blob/28f22cb44052e5f271a91a771ef15007ed881b73/docs/evidence/khoa-java25-2026-10-28.json",
+        "checklistStages": [
+          {
+            "done": true,
+            "stage": "Code",
+            "text": "Mapping approved v0.1 vs runtime v0.1.1, caller/auth/fields/error; public/internal frozen baseline không đổi."
+          },
+          {
+            "done": true,
+            "stage": "Code",
+            "text": "Catch DataAccessException của session repository → 503 DEPENDENCY_UNAVAILABLE; không lộ chi tiết DB/token."
+          },
+          {
+            "done": true,
+            "stage": "Test độc lập",
+            "text": "MockMvc outage/missing/wrong/valid session và proxy POST từ chối không tới owner PASS."
+          },
+          {
+            "done": true,
+            "stage": "Tích hợp thật",
+            "text": "Lỗi SELECT bảng session PostgreSQL: 503, CSRF/session sai 403, business rows không đổi và recovery PASS."
+          },
+          {
+            "done": false,
+            "stage": "Review contract",
+            "text": "Huy/Khoa quyết định version/compatibility/rollout; requestMethod bắt buộc nên token-only v0.1 chưa tương thích, không default GET để bỏ CSRF."
+          },
+          {
+            "done": true,
+            "stage": "Bàn giao tài liệu",
+            "text": "Cấu hình caller/URL/public keys/test commands/SHA công bố trong PR #1, không chứa secret."
+          },
+          {
+            "done": false,
+            "stage": "Review/merge",
+            "text": "Huy nhận bàn giao, owner integration và peer review trước nghiệm thu #25/#26/PR #1."
+          }
+        ],
+        "reportedBy": "Khoa, assisted by Codex; not Huy/Hung approval"
+      }
+    }
+  ],
+  "checkpointUpdatedAtVN": "2026-10-28",
+  "checkpointPolicy": "Khoa checkpoint updates #3/#13/#14/#21/#31/#41/#42. checklist is current for those issues; checklistAtPlanning retains 27/10 snapshot. Estimates, targets and allocations remain planning, not new actual/remaining commitments. Other owners unchanged.",
+  "khoaCheckpoint": {
+    "testedSourceCommit": "a9f4664263cfe159ea6c8e14ace9d805e9b311ad",
+    "publishedBackendHead": "28f22cb44052e5f271a91a771ef15007ed881b73",
+    "evidenceUrl": "https://github.com/KhoaTryHard/english-learning-platform/blob/28f22cb44052e5f271a91a771ef15007ed881b73/docs/evidence/khoa-java25-2026-10-28.json",
+    "scaffoldPr18Merge": "9eff18971470679b25375a4c813f75ade2a23ecf",
+    "backendPr1Base": "develop",
+    "backendPr1Draft": true,
+    "huyAccessIssue23": "WAITING_ACCEPTANCE; no permission mutation"
+  }
+}
