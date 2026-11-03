@@ -49,6 +49,7 @@ export function FormError({ error }: { error: unknown }) {
   return (
     <div className="form-error" role="alert">
       <p>{error instanceof Error ? error.message : 'Vui lòng thử lại.'}</p>
+      {error instanceof ApiFailure && error.traceId && <small>Mã tra cứu: {error.traceId}</small>}
       {error instanceof ApiFailure && error.fields.length > 0 && (
         <ul>
           {error.fields.map((f, i) => (

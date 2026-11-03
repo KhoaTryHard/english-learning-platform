@@ -20,7 +20,13 @@ export function AuthPage({ register = false }: { register?: boolean }) {
     !/^\/(login|register)/.test(from)
       ? from
       : '/';
-  if (user) return <Navigate to={returnTo} replace />;
+  if (user)
+    return (
+      <Navigate
+        to={user.role === 'ADMIN' && !returnTo.startsWith('/admin') ? '/admin' : returnTo}
+        replace
+      />
+    );
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (busy) return;
@@ -44,7 +50,10 @@ export function AuthPage({ register = false }: { register?: boolean }) {
       } else {
         const result = await api.login({ email, password });
         setUser(result.user);
-        navigate(returnTo, { replace: true });
+        navigate(
+          result.user.role === 'ADMIN' && !returnTo.startsWith('/admin') ? '/admin' : returnTo,
+          { replace: true },
+        );
       }
     } catch (e) {
       setError(e);

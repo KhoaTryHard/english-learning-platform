@@ -1,0 +1,51 @@
+# Optional overlay for Khoa's isolated TEST compose; no host broker port.
+# Provision owner sources/secrets first. See docs/evidence/w7-frontend.md.
+services:
+  kafka-data-init:
+    image: apache/kafka:4.0.0
+    user: '0:0'
+    network_mode: none
+    entrypoint: [/bin/sh, -c]
+    command: ['chown 1000:1000 /kafka-data']
+    volumes: [w7-kafka-data:/kafka-data]
+    restart: 'no'
+  kafka:
+    image: apache/kafka:4.0.0
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
+      KAFKA_HEAP_OPTS: -Xms128m -Xmx256m
+      CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+    networks: [backend]
+    volumes: [w7-kafka-data:/tmp/kraft-combined-logs]
+    depends_on:
+      kafka-data-init: { condition: service_completed_successfully }
+    healthcheck:
+      test: [CMD, /opt/kafka/bin/kafka-topics.sh, --bootstrap-server, kafka:29092, --list]
+      interval: 5s
+      timeout: 10s
+      retries: 20
+  assessment-live:
+    environment:
+      KAFKA_ENABLED: 'true'
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+    depends_on:
+      kafka: { condition: service_healthy }
+  progress-live:
+    environment:
+      KAFKA_ENABLED: 'true'
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+    depends_on:
+      kafka: { condition: service_healthy }
+volumes:
+  w7-kafka-data:

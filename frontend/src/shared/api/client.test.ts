@@ -4,6 +4,39 @@ import { DEMO_EMAIL, DEMO_PASSWORD } from '../../mocks/data';
 import { api } from './platform';
 import { allPages, ApiFailure, getCsrf, request } from './client';
 
+it('preserves the import rejection summary and trace ID from an HTTP error', async () => {
+  const summary = {
+    status: 'REJECTED',
+    totalItems: 2,
+    validCount: 1,
+    invalidCount: 1,
+    createdCount: 0,
+    createdIds: [],
+    errors: [{ row: 3, paragraph: null, field: 'meaning', code: 'REQUIRED', message: 'Required' }],
+  };
+  server.use(
+    http.post('*/api/v1/admin/imports/lessons', () =>
+      HttpResponse.json(
+        {
+          code: 'IMPORT_REJECTED',
+          message: 'Rejected',
+          traceId: 'import-test',
+          errors: [],
+          import: summary,
+        },
+        { status: 422 },
+      ),
+    ),
+  );
+  await expect(
+    request('/admin/imports/lessons', { method: 'POST', data: {} }),
+  ).rejects.toMatchObject({
+    status: 422,
+    traceId: 'import-test',
+    importOutcome: summary,
+  });
+});
+
 it('rotates CSRF after login and logout and never exposes an access token', async () => {
   demoStore.currentUserId = null;
   const pre = await getCsrf();

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   BrowserRouter,
   Link,
@@ -22,25 +22,28 @@ import { AttemptPage } from '../features/assessment/AttemptPage';
 import { ResultPage } from '../features/assessment/ResultPage';
 import { VocabularyPage } from '../features/vocabulary/VocabularyPage';
 import { HistoryPage, ProgressPage } from '../features/progress/ProgressPages';
-import { Empty, FormError } from '../shared/ui/States';
+import { Empty } from '../shared/ui/States';
+import { AdminHome, AdminLayout } from '../features/admin/AdminLayout';
+import { AdminPage } from '../features/admin/AdminPage';
+import { ImportPage } from '../features/admin/ImportPage';
 
-function Protected() {
-  const { user, logout } = useAuth();
+export function Protected({ role = 'LEARNER' }: { role?: 'LEARNER' | 'ADMIN' }) {
+  const { user } = useAuth();
   const location = useLocation();
-  const [logoutError, setLogoutError] = useState<unknown>();
   if (!user)
     return <Navigate to="/login" replace state={{ from: location.pathname + location.search }} />;
   if (user.status !== 'ACTIVE') return <Empty title="Tài khoản hiện không khả dụng." />;
-  if (user.role !== 'LEARNER')
-    return (
-      <Empty title="Bạn đang đăng nhập tài khoản quản trị.">
-        <p>Hãy dùng tài khoản Learner để mở không gian học.</p>
-        <FormError error={logoutError} />
-        <button className="button" onClick={() => void logout().catch(setLogoutError)}>
-          Đăng xuất
-        </button>
+  if (user.role !== role)
+    return role === 'LEARNER' ? (
+      <Navigate to="/admin" replace />
+    ) : (
+      <Empty title="Bạn chưa có quyền quản trị.">
+        <Link className="button" to="/">
+          Về không gian học
+        </Link>
       </Empty>
     );
+  if (role === 'ADMIN') return <Outlet />;
   return (
     <LearningProvider>
       <Outlet />
@@ -69,6 +72,13 @@ export function App() {
         <Routes>
           <Route path="/login" element={<AuthPage />} />
           <Route path="/register" element={<AuthPage register />} />
+          <Route element={<Protected role="ADMIN" />}>
+            <Route path="admin" element={<AdminLayout />}>
+              <Route index element={<AdminHome />} />
+              <Route path="import" element={<ImportPage />} />
+              <Route path=":kind" element={<AdminPage />} />
+            </Route>
+          </Route>
           <Route element={<Protected />}>
             <Route element={<AppLayout />}>
               <Route index element={<DashboardPage />} />
