@@ -67,7 +67,7 @@ test('Quiz deadline and saved FALSE survive refresh and logout/login', async ({ 
   await page.getByRole('radio', { name: 'Sai', exact: true }).check();
   await expect(page.getByText('Đã tải/lưu đáp án từ máy chủ.')).toBeVisible();
   const before = await page.evaluate(() => {
-    const store = JSON.parse(sessionStorage.getItem('lt:demo:v1')!);
+    const store = JSON.parse(sessionStorage.getItem('lt:demo:v2')!);
     return Object.values(store.attempts).map(
       (a) => (a as { data: { deadlineAt: string } }).data.deadlineAt,
     );
@@ -89,7 +89,7 @@ test('Quiz deadline and saved FALSE survive refresh and logout/login', async ({ 
   await page.getByRole('button', { name: /Đăng nhập/ }).click();
   await expect(page).toHaveURL(attemptUrl);
   const after = await page.evaluate(() => {
-    const store = JSON.parse(sessionStorage.getItem('lt:demo:v1')!);
+    const store = JSON.parse(sessionStorage.getItem('lt:demo:v2')!);
     return Object.values(store.attempts).map(
       (a) => (a as { data: { deadlineAt: string } }).data.deadlineAt,
     );

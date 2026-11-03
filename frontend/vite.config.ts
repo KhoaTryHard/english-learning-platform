@@ -5,6 +5,9 @@ export default defineConfig({
   plugins: [react()],
   build: { copyPublicDir: false },
   server: {
+    watch: {
+      ignored: ['**/test-results/**', '**/live-test-results/**', '**/playwright-report/**'],
+    },
     port: 5173,
     strictPort: true,
     proxy: {

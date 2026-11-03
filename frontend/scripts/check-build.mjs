@@ -14,6 +14,8 @@ for (const file of await readdir(dir)) {
   const source = await readFile(new URL(file, dir), 'utf8');
   for (const marker of [
     'lt:demo:v1',
+    'lt:demo:v2',
+    'admin.demo@example.com',
     'hung.demo@example.com',
     'LearningDemo2026!',
     'MOCK / DEMO',

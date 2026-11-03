@@ -1,4 +1,5 @@
 import type { Schema } from '../shared/api/client';
+import type { AdminKind, AdminRecord } from '../features/admin/api';
 
 export const demoId = (n: number) => `00000000-0000-4000-8000-${n.toString().padStart(12, '0')}`;
 export const DEMO_EMAIL = 'hung.demo@example.com';
@@ -175,6 +176,7 @@ export const assessments: Schema<'Assessment'>[] = [
 ];
 
 export interface DemoStore {
+  adminData: Record<AdminKind, AdminRecord[]>;
   users: Record<string, { profile: Schema<'Profile'>; passwordHash: string }>;
   currentUserId: string | null;
   csrfToken: string;
@@ -194,7 +196,25 @@ export async function hashPassword(value: string) {
 
 export async function createDemoStore(): Promise<DemoStore> {
   return {
+    adminData: structuredClone({
+      users: [],
+      courses,
+      modules,
+      lessons,
+      vocabulary,
+      'learning-contents': contents,
+    }),
     users: {
+      [demoId(901)]: {
+        profile: {
+          userId: demoId(901),
+          fullName: 'Quản trị viên',
+          email: 'admin.demo@example.com',
+          role: 'ADMIN',
+          status: 'ACTIVE',
+        },
+        passwordHash: await hashPassword(DEMO_PASSWORD),
+      },
       [demoId(900)]: {
         profile: {
           userId: demoId(900),

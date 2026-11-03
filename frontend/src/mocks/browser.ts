@@ -3,7 +3,7 @@ import { createDemoStore } from './data';
 import type { DemoStore } from './data';
 import { createHandlers } from './handlers';
 
-export const DEMO_STORAGE_KEY = 'lt:demo:v1';
+export const DEMO_STORAGE_KEY = 'lt:demo:v2';
 export async function startDemo() {
   let store: DemoStore;
   try {

@@ -615,6 +615,48 @@
         },
         {
           "done": true,
+          "text": "Code FE-04/unit/MOCK evidence đã bàn giao; checkpoint W6 có 22 unit/UI và 6 browser MOCK. Checkpoint W7 mới: 46 unit/UI, 8 browser MOCK, 6 browser LIVE; phạm vi/SHA ở evidence W7."
+        },
+        {
+          "done": true,
+          "text": "Checkpoint W6: Hưng đã tự rà start transport key/serialized answers/false/ACK/deadline; đây không phải peer review hay backend thật."
+        },
+        {
+          "done": true,
+          "text": "Chạy start/retry/resume/save/submit/timeout với Assessment thật qua Gateway #15/#21; QUIZ và TEST, mất start response sau commit retry cùng key/attempt, retake key mới."
+        },
+        {
+          "done": true,
+          "text": "Xác minh Exercise điểm 0 vẫn complete và retake không cộng trùng qua Assessment→Kafka→Progress thật #16/#17; history 2 kết quả, completedLessons vẫn 1. Không thay reliability/replay/DLQ acceptance của backend."
+        },
+        {
+          "done": false,
+          "text": "Peer review/acceptance và merge."
+        }
+      ],
+      "checklistAtPlanning": [
+        {
+          "done": true,
+          "text": "Metadata/start/resume, SINGLE_CHOICE/TRUE_FALSE, Result mỗi lượt và retake đã code."
+        },
+        {
+          "done": true,
+          "text": "Start có Idempotency-Key bền khi retry, retake key mới; resume attempt theo server."
+        },
+        {
+          "done": true,
+          "text": "Serialize PUT full answer-set, giữ boolean false, chờ ACK trước submit; save lỗi không POST submit."
+        },
+        {
+          "done": true,
+          "text": "Exercise không timer; Quiz/Test dùng server deadline; save 200 terminal/TIMEOUT chuyển Result."
+        },
+        {
+          "done": true,
+          "text": "Refresh/logout-login/resume giữ attempt/đáp án/deadline trong MOCK tests; Result không tự chấm frontend hoặc thêm answer-key/explanation ngoài API."
+        },
+        {
+          "done": true,
           "text": "Unit/UI và 6 browser MOCK tests cùng evidence/ảnh app trong #22."
         },
         {
@@ -629,7 +671,8 @@
           "done": false,
           "text": "Peer review/acceptance và merge."
         }
-      ]
+      ],
+      "hungCheckpointAtVN": "2026-11-03"
     },
     {
       "number": 10,
@@ -674,6 +717,36 @@
           "text": "Test đầy đủ History xuyên Course/Level và các filters/error states với backend Progress thật (#17/#21)."
         },
         {
+          "done": true,
+          "text": "W7 #32: collection/source update/hidden parent/setup retention/remove/unique đã chạy browser LIVE với Content thật; UNAVAILABLE/content=null và paging 101 là UI unit, không khai LIVE missing-source."
+        },
+        {
+          "done": false,
+          "text": "Peer review và nghiệm thu toàn FE-05."
+        }
+      ],
+      "checklistAtPlanning": [
+        {
+          "done": true,
+          "text": "Có Progress UI/API client đọc completedLessons/totalLessons/progressPercent từ server."
+        },
+        {
+          "done": true,
+          "text": "Có History UI/API client đọc toàn bộ trang, lọc Course/tìm kiếm; giữ hiển thị record thuộc Course cũ bằng snapshot/ID."
+        },
+        {
+          "done": true,
+          "text": "Có My Vocabulary collection/tìm kiếm, save/remove gọi Content qua Gateway; đã LIVE save/remove từ Lesson."
+        },
+        {
+          "done": true,
+          "text": "Có UI UNAVAILABLE/content=null vẫn cho Remove; không thêm mastery hoặc nhập Vocabulary thủ công."
+        },
+        {
+          "done": false,
+          "text": "Test đầy đủ History xuyên Course/Level và các filters/error states với backend Progress thật (#17/#21)."
+        },
+        {
           "done": false,
           "text": "Test collection/source update/UNAVAILABLE/remove/unique trong UI với backend thật; không suy từ code hoặc unit test backend sang frontend PASS."
         },
@@ -681,7 +754,8 @@
           "done": false,
           "text": "Peer review và nghiệm thu toàn FE-05."
         }
-      ]
+      ],
+      "hungCheckpointAtVN": "2026-11-03"
     },
     {
       "number": 11,
@@ -710,6 +784,36 @@
       ],
       "checklist": [
         {
+          "done": true,
+          "text": "Admin User/Access và Course/Module/Lesson/Content screens; không Delete/soft-delete Course/Module/Lesson."
+        },
+        {
+          "done": false,
+          "text": "Admin Assessment Exercise/Question/Quiz/Test theo API."
+        },
+        {
+          "done": true,
+          "text": "Import UI Vocabulary XLSX/Lesson DOCX atomic; không thêm import Question CSV."
+        },
+        {
+          "done": false,
+          "text": "Admin Statistics 6 nhóm metric filter Course/Level, owner APIs; lỗi nguồn không hiển thị 0 giả."
+        },
+        {
+          "done": true,
+          "text": "W7 User/Content/Import: responsive/validation/RBAC/loading/error, code và test evidence đúng môi trường."
+        },
+        {
+          "done": false,
+          "text": "W8 Assessment/Statistics: hoàn tất UI và responsive/validation/RBAC/error regression (#37/#38/#12)."
+        },
+        {
+          "done": false,
+          "text": "Peer review/acceptance và merge."
+        }
+      ],
+      "checklistAtPlanning": [
+        {
           "done": false,
           "text": "Admin User/Access và Course/Module/Lesson/Content screens; không Delete/soft-delete Course/Module/Lesson."
         },
@@ -733,7 +837,8 @@
           "done": false,
           "text": "Peer review/acceptance và merge."
         }
-      ]
+      ],
+      "hungCheckpointAtVN": "2026-11-03"
     },
     {
       "number": 12,
@@ -1750,6 +1855,36 @@
       ],
       "checklist": [
         {
+          "done": true,
+          "text": "Admin layout/RBAC; xem/tìm User và cập nhật field whitelist theo API; không thêm UI tạo Learner khi ngoài scope."
+        },
+        {
+          "done": true,
+          "text": "Course/Module/Lesson create/view/update/published; Level mapping đúng owner, không Delete hoặc soft-delete."
+        },
+        {
+          "done": true,
+          "text": "Vocabulary chỉ xem/update bản nhập; Grammar/Listening/Reading theo LearningContent contract; trạng thái resource và published rõ."
+        },
+        {
+          "done": true,
+          "text": "Hiển thị readiness/publish 409/503 có xử lý; không giả server đã publish."
+        },
+        {
+          "done": true,
+          "text": "Forms/loading/empty/error/401/403, responsive và keyboard labels; gọi API thật qua Gateway khi sẵn."
+        },
+        {
+          "done": true,
+          "text": "Unit/browser và LIVE Admin User/Content evidence; code và PR tuần 7."
+        },
+        {
+          "done": false,
+          "text": "Khoa peer review, xử lý feedback và merge theo dependency."
+        }
+      ],
+      "checklistAtPlanning": [
+        {
           "done": false,
           "text": "Admin layout/RBAC; xem/tìm User và cập nhật field whitelist theo API; không thêm UI tạo Learner khi ngoài scope."
         },
@@ -1773,7 +1908,8 @@
           "done": false,
           "text": "Unit/browser và LIVE Admin User/Content evidence; review Khoa, sửa feedback và PR."
         }
-      ]
+      ],
+      "hungCheckpointAtVN": "2026-11-03"
     },
     {
       "number": 29,
@@ -1808,6 +1944,40 @@
       ],
       "checklist": [
         {
+          "done": true,
+          "text": "Tải template; Vocabulary file XLSX+lessonId, Lesson DOCX+moduleId/orderNo; upload theo contract."
+        },
+        {
+          "done": true,
+          "text": "Hiển thị success/createdCount hoặc lỗi theo row/paragraph/field; reject phải createdCount=0, không báo partial success."
+        },
+        {
+          "done": true,
+          "text": "Duplicate không skip/update; UI không thêm import Question CSV hay định dạng ngoài MVP."
+        },
+        {
+          "done": true,
+          "text": "Test valid/invalid/missing Title/duplicate với fixture gốc qua browser/API thật; reject không tăng dữ liệu đích. Không sửa fixture cố ý sai."
+        },
+        {
+          "done": true,
+          "text": "UI/client test lỗi kết nối, 409/413/415/422 và summary atomic; không tự retry hoặc khẳng định rollback khi mất response."
+        },
+        {
+          "done": false,
+          "text": "Khoa peer acceptance phần backend failure/transaction rollback với fixture gốc; evidence backend 01/11 giữ riêng, chưa rerun thành browser LIVE fault mới."
+        },
+        {
+          "done": true,
+          "text": "LIVE qua Gateway/Content, responsive/accessibility cơ bản và ảnh/log/SHA."
+        },
+        {
+          "done": false,
+          "text": "Khoa peer review, xử lý feedback và merge."
+        }
+      ],
+      "checklistAtPlanning": [
+        {
           "done": false,
           "text": "Tải template; Vocabulary file XLSX+lessonId, Lesson DOCX+moduleId/orderNo; upload theo contract."
         },
@@ -1827,7 +1997,8 @@
           "done": false,
           "text": "LIVE qua Gateway/Content, responsive/accessibility cơ bản, ảnh/log/SHA và peer review."
         }
-      ]
+      ],
+      "hungCheckpointAtVN": "2026-11-03"
     },
     {
       "number": 30,
@@ -2054,6 +2225,32 @@
           "text": "Collection/tìm kiếm/save/remove/UNAVAILABLE UI và API client đã có trong #22; LIVE save/remove cơ bản từ Lesson có evidence ngày 27/10."
         },
         {
+          "done": true,
+          "text": "Test UI saved source update, parent/source unpublish và saved-only với Content thật qua Gateway."
+        },
+        {
+          "done": true,
+          "text": "UI unit: content=null/UNAVAILABLE vẫn Remove; 503 giữ quan hệ, retry 204 xóa khỏi collection. LIVE missing-source không có public API hợp lệ để dựng vì FK/no DELETE; không tháo FK."
+        },
+        {
+          "done": true,
+          "text": "Đổi Course/Level giữ collection và save lặp/concurrent không nhân đôi — LIVE; paging 101 bản ghi — UI unit. LIVE seed có 2 từ, không khai paging 101 là LIVE."
+        },
+        {
+          "done": true,
+          "text": "Phân biệt loading/empty/no-search-match/error/503; lưu report/ảnh desktop-mobile."
+        },
+        {
+          "done": false,
+          "text": "Peer review và khép phần My Vocabulary của #10; Progress/History thật để W8 riêng."
+        }
+      ],
+      "checklistAtPlanning": [
+        {
+          "done": true,
+          "text": "Collection/tìm kiếm/save/remove/UNAVAILABLE UI và API client đã có trong #22; LIVE save/remove cơ bản từ Lesson có evidence ngày 27/10."
+        },
+        {
           "done": false,
           "text": "Test UI saved source update, parent unpublish/saved-only và content=null vẫn Remove với Content thật."
         },
@@ -2069,7 +2266,8 @@
           "done": false,
           "text": "Peer review và khép phần My Vocabulary của #10; Progress/History thật để W8 riêng."
         }
-      ]
+      ],
+      "hungCheckpointAtVN": "2026-11-03"
     },
     {
       "number": 33,
@@ -2122,6 +2320,36 @@
       ],
       "checklist": [
         {
+          "done": true,
+          "text": "Chạy Quiz/Test start/save/resume/deadline/timeout/retake thật và Admin User/Content/Import/My Vocabulary theo lát đã sẵn."
+        },
+        {
+          "done": true,
+          "text": "Kiểm tra producer Outbox→Kafka thật; bật consumer thật và xác minh Exercise 0 điểm/retake → History/Progress. Snapshot SENT/broker offset/count riêng, không lấy số row làm số test."
+        },
+        {
+          "done": true,
+          "text": "Ghi source SHA/env/time/input/actual và bug/owner; MOCK không thay LIVE; test thủ công và regression phần bị ảnh hưởng."
+        },
+        {
+          "done": true,
+          "text": "Rà dependency; #18 đã merge, retarget #22 về develop; mở nhánh/PR W7 nối W6 và cập nhật parent #10/#11 theo evidence."
+        },
+        {
+          "done": false,
+          "text": "Peer review/merge W6/W7 theo dependency; retarget W7 về develop sau nền merge và chạy lại regression bị ảnh hưởng."
+        },
+        {
+          "done": true,
+          "text": "Rà remaining W8 #37/#38/#39/#12/#40, ghi feedback/merge/capacity gates; giữ dates/estimates lịch sử, không biến elapsed test thành actual."
+        },
+        {
+          "done": false,
+          "text": "Khoa/Huy xác nhận actual/capacity và review re-estimate để chốt W8; không tự ký thay owner."
+        }
+      ],
+      "checklistAtPlanning": [
+        {
           "done": false,
           "text": "Chạy Quiz/Test start/save/resume/deadline/timeout/retake thật và Admin User/Content/Import/My Vocabulary theo lát đã sẵn."
         },
@@ -2141,7 +2369,8 @@
           "done": false,
           "text": "Rà remaining/actual/capacity W8, chốt blocker/điều kiện gỡ; không lùi ngày hoặc tự ghi xác nhận thay owner."
         }
-      ]
+      ],
+      "hungCheckpointAtVN": "2026-11-03"
     },
     {
       "number": 34,
@@ -2827,5 +3056,260 @@
     "backendPr1Base": "develop",
     "backendPr1Draft": true,
     "huyAccessIssue23": "WAITING_ACCEPTANCE; no permission mutation"
+  },
+  "hungW7Checkpoint": {
+    "updatedAtVN": "2026-11-03",
+    "frontendCode": "52f799107eb90c1951610fde587f71183f4d7f93",
+    "unitFollowup": "b97517a",
+    "evidence": "docs/evidence/w7-frontend.md",
+    "selfReview": "docs/reviews/2026-11-03-hung-w7.md",
+    "peerReview": "PENDING",
+    "merge": "PENDING",
+    "actualCapacity": "Not confirmed by Khoa/Huy; elapsed test time is not person-hours.",
+    "issues": {
+      "9": {
+        "state": "open",
+        "checklist": [
+          {
+            "done": true,
+            "text": "Metadata/start/resume, SINGLE_CHOICE/TRUE_FALSE, Result mỗi lượt và retake đã code."
+          },
+          {
+            "done": true,
+            "text": "Start có Idempotency-Key bền khi retry, retake key mới; resume attempt theo server."
+          },
+          {
+            "done": true,
+            "text": "Serialize PUT full answer-set, giữ boolean false, chờ ACK trước submit; save lỗi không POST submit."
+          },
+          {
+            "done": true,
+            "text": "Exercise không timer; Quiz/Test dùng server deadline; save 200 terminal/TIMEOUT chuyển Result."
+          },
+          {
+            "done": true,
+            "text": "Refresh/logout-login/resume giữ attempt/đáp án/deadline trong MOCK tests; Result không tự chấm frontend hoặc thêm answer-key/explanation ngoài API."
+          },
+          {
+            "done": true,
+            "text": "Code FE-04/unit/MOCK evidence đã bàn giao; checkpoint W6 có 22 unit/UI và 6 browser MOCK. Checkpoint W7 mới: 46 unit/UI, 8 browser MOCK, 6 browser LIVE; phạm vi/SHA ở evidence W7."
+          },
+          {
+            "done": true,
+            "text": "Checkpoint W6: Hưng đã tự rà start transport key/serialized answers/false/ACK/deadline; đây không phải peer review hay backend thật."
+          },
+          {
+            "done": true,
+            "text": "Chạy start/retry/resume/save/submit/timeout với Assessment thật qua Gateway #15/#21; QUIZ và TEST, mất start response sau commit retry cùng key/attempt, retake key mới."
+          },
+          {
+            "done": true,
+            "text": "Xác minh Exercise điểm 0 vẫn complete và retake không cộng trùng qua Assessment→Kafka→Progress thật #16/#17; history 2 kết quả, completedLessons vẫn 1. Không thay reliability/replay/DLQ acceptance của backend."
+          },
+          {
+            "done": false,
+            "text": "Peer review/acceptance và merge."
+          }
+        ]
+      },
+      "10": {
+        "state": "open",
+        "checklist": [
+          {
+            "done": true,
+            "text": "Có Progress UI/API client đọc completedLessons/totalLessons/progressPercent từ server."
+          },
+          {
+            "done": true,
+            "text": "Có History UI/API client đọc toàn bộ trang, lọc Course/tìm kiếm; giữ hiển thị record thuộc Course cũ bằng snapshot/ID."
+          },
+          {
+            "done": true,
+            "text": "Có My Vocabulary collection/tìm kiếm, save/remove gọi Content qua Gateway; đã LIVE save/remove từ Lesson."
+          },
+          {
+            "done": true,
+            "text": "Có UI UNAVAILABLE/content=null vẫn cho Remove; không thêm mastery hoặc nhập Vocabulary thủ công."
+          },
+          {
+            "done": false,
+            "text": "Test đầy đủ History xuyên Course/Level và các filters/error states với backend Progress thật (#17/#21)."
+          },
+          {
+            "done": true,
+            "text": "W7 #32: collection/source update/hidden parent/setup retention/remove/unique đã chạy browser LIVE với Content thật; UNAVAILABLE/content=null và paging 101 là UI unit, không khai LIVE missing-source."
+          },
+          {
+            "done": false,
+            "text": "Peer review và nghiệm thu toàn FE-05."
+          }
+        ]
+      },
+      "11": {
+        "state": "open",
+        "checklist": [
+          {
+            "done": true,
+            "text": "Admin User/Access và Course/Module/Lesson/Content screens; không Delete/soft-delete Course/Module/Lesson."
+          },
+          {
+            "done": false,
+            "text": "Admin Assessment Exercise/Question/Quiz/Test theo API."
+          },
+          {
+            "done": true,
+            "text": "Import UI Vocabulary XLSX/Lesson DOCX atomic; không thêm import Question CSV."
+          },
+          {
+            "done": false,
+            "text": "Admin Statistics 6 nhóm metric filter Course/Level, owner APIs; lỗi nguồn không hiển thị 0 giả."
+          },
+          {
+            "done": true,
+            "text": "W7 User/Content/Import: responsive/validation/RBAC/loading/error, code và test evidence đúng môi trường."
+          },
+          {
+            "done": false,
+            "text": "W8 Assessment/Statistics: hoàn tất UI và responsive/validation/RBAC/error regression (#37/#38/#12)."
+          },
+          {
+            "done": false,
+            "text": "Peer review/acceptance và merge."
+          }
+        ]
+      },
+      "28": {
+        "state": "open",
+        "checklist": [
+          {
+            "done": true,
+            "text": "Admin layout/RBAC; xem/tìm User và cập nhật field whitelist theo API; không thêm UI tạo Learner khi ngoài scope."
+          },
+          {
+            "done": true,
+            "text": "Course/Module/Lesson create/view/update/published; Level mapping đúng owner, không Delete hoặc soft-delete."
+          },
+          {
+            "done": true,
+            "text": "Vocabulary chỉ xem/update bản nhập; Grammar/Listening/Reading theo LearningContent contract; trạng thái resource và published rõ."
+          },
+          {
+            "done": true,
+            "text": "Hiển thị readiness/publish 409/503 có xử lý; không giả server đã publish."
+          },
+          {
+            "done": true,
+            "text": "Forms/loading/empty/error/401/403, responsive và keyboard labels; gọi API thật qua Gateway khi sẵn."
+          },
+          {
+            "done": true,
+            "text": "Unit/browser và LIVE Admin User/Content evidence; code và PR tuần 7."
+          },
+          {
+            "done": false,
+            "text": "Khoa peer review, xử lý feedback và merge theo dependency."
+          }
+        ]
+      },
+      "29": {
+        "state": "open",
+        "checklist": [
+          {
+            "done": true,
+            "text": "Tải template; Vocabulary file XLSX+lessonId, Lesson DOCX+moduleId/orderNo; upload theo contract."
+          },
+          {
+            "done": true,
+            "text": "Hiển thị success/createdCount hoặc lỗi theo row/paragraph/field; reject phải createdCount=0, không báo partial success."
+          },
+          {
+            "done": true,
+            "text": "Duplicate không skip/update; UI không thêm import Question CSV hay định dạng ngoài MVP."
+          },
+          {
+            "done": true,
+            "text": "Test valid/invalid/missing Title/duplicate với fixture gốc qua browser/API thật; reject không tăng dữ liệu đích. Không sửa fixture cố ý sai."
+          },
+          {
+            "done": true,
+            "text": "UI/client test lỗi kết nối, 409/413/415/422 và summary atomic; không tự retry hoặc khẳng định rollback khi mất response."
+          },
+          {
+            "done": false,
+            "text": "Khoa peer acceptance phần backend failure/transaction rollback với fixture gốc; evidence backend 01/11 giữ riêng, chưa rerun thành browser LIVE fault mới."
+          },
+          {
+            "done": true,
+            "text": "LIVE qua Gateway/Content, responsive/accessibility cơ bản và ảnh/log/SHA."
+          },
+          {
+            "done": false,
+            "text": "Khoa peer review, xử lý feedback và merge."
+          }
+        ]
+      },
+      "32": {
+        "state": "open",
+        "checklist": [
+          {
+            "done": true,
+            "text": "Collection/tìm kiếm/save/remove/UNAVAILABLE UI và API client đã có trong #22; LIVE save/remove cơ bản từ Lesson có evidence ngày 27/10."
+          },
+          {
+            "done": true,
+            "text": "Test UI saved source update, parent/source unpublish và saved-only với Content thật qua Gateway."
+          },
+          {
+            "done": true,
+            "text": "UI unit: content=null/UNAVAILABLE vẫn Remove; 503 giữ quan hệ, retry 204 xóa khỏi collection. LIVE missing-source không có public API hợp lệ để dựng vì FK/no DELETE; không tháo FK."
+          },
+          {
+            "done": true,
+            "text": "Đổi Course/Level giữ collection và save lặp/concurrent không nhân đôi — LIVE; paging 101 bản ghi — UI unit. LIVE seed có 2 từ, không khai paging 101 là LIVE."
+          },
+          {
+            "done": true,
+            "text": "Phân biệt loading/empty/no-search-match/error/503; lưu report/ảnh desktop-mobile."
+          },
+          {
+            "done": false,
+            "text": "Peer review và khép phần My Vocabulary của #10; Progress/History thật để W8 riêng."
+          }
+        ]
+      },
+      "33": {
+        "state": "open",
+        "checklist": [
+          {
+            "done": true,
+            "text": "Chạy Quiz/Test start/save/resume/deadline/timeout/retake thật và Admin User/Content/Import/My Vocabulary theo lát đã sẵn."
+          },
+          {
+            "done": true,
+            "text": "Kiểm tra producer Outbox→Kafka thật; bật consumer thật và xác minh Exercise 0 điểm/retake → History/Progress. Snapshot SENT/broker offset/count riêng, không lấy số row làm số test."
+          },
+          {
+            "done": true,
+            "text": "Ghi source SHA/env/time/input/actual và bug/owner; MOCK không thay LIVE; test thủ công và regression phần bị ảnh hưởng."
+          },
+          {
+            "done": true,
+            "text": "Rà dependency; #18 đã merge, retarget #22 về develop; mở nhánh/PR W7 nối W6 và cập nhật parent #10/#11 theo evidence."
+          },
+          {
+            "done": false,
+            "text": "Peer review/merge W6/W7 theo dependency; retarget W7 về develop sau nền merge và chạy lại regression bị ảnh hưởng."
+          },
+          {
+            "done": true,
+            "text": "Rà remaining W8 #37/#38/#39/#12/#40, ghi feedback/merge/capacity gates; giữ dates/estimates lịch sử, không biến elapsed test thành actual."
+          },
+          {
+            "done": false,
+            "text": "Khoa/Huy xác nhận actual/capacity và review re-estimate để chốt W8; không tự ký thay owner."
+          }
+        ]
+      }
+    }
   }
 }

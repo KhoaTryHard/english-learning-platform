@@ -13,6 +13,7 @@ import {
   vocabulary,
 } from './data';
 import type { DemoStore } from './data';
+import { adminHandlers } from './admin';
 
 // Development/test simulator only. It does not implement backend security, database or Kafka acceptance.
 export function createHandlers(store: DemoStore, persist: () => void = () => undefined) {
@@ -112,6 +113,7 @@ export function createHandlers(store: DemoStore, persist: () => void = () => und
   };
 
   return [
+    ...adminHandlers(store, persist),
     http.all('*/api/v1/*', async ({ request }) => {
       await delay(80);
       const url = new URL(request.url);

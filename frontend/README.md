@@ -12,6 +12,8 @@ npm run demo
 
 Mở URL Vite in ra (mặc định `http://127.0.0.1:5173`). Tài khoản mẫu: `hung.demo@example.com` / `LearningDemo2026!`; có thể tự đăng ký trong demo. Banner **MOCK / DEMO** luôn hiện. MSW giữ dữ liệu mẫu trong sessionStorage của tab để thử reload/resume. Đây không phải bằng chứng backend/DB/Kafka chạy.
 
+Admin demo: `admin.demo@example.com`, cùng mật khẩu demo. Demo hỗ trợ xem/sửa bản nháp; import thật và publish Lesson cần backend thật. Dữ liệu demo v2 tách khỏi phiên v1 cũ để bổ sung role Admin.
+
 ## Gateway thật
 
 ```powershell
@@ -30,7 +32,9 @@ Live mode không tự rơi về mock. JWT chỉ ở HttpOnly cookie; frontend kh
 - FE-04: Exercise/Quiz/Test, start/resume Attempt, SINGLE_CHOICE/TRUE_FALSE, serialized full answer-set saves, ACK trước submit, server timer/timeout, Result/retake.
 - Trang đọc Progress/History/My Vocabulary và responsive cơ bản để điều hướng; không đóng toàn #10/#12 hoặc nghiệm thu backend từ giao diện.
 
-Admin A-01→A-07 (#11) giữ backlog W7+. API v0.1 chưa trả correct-answer/explanation/số câu đúng-sai/thời gian làm bài hoặc tỷ lệ theo Module: không bịa các dữ liệu minh họa đó trên Figma. Frontend không tự chấm điểm live hoặc tăng progress khi GET Lesson.
+W7: Admin User/Access, Course/Module/Lesson, Vocabulary và Grammar/Listening/Reading; import Vocabulary XLSX/Lesson DOCX và template, báo lỗi theo dòng/đoạn/trường, không tự retry upload hoặc báo thành công khi bị từ chối. Không tạo Learner, không Delete nội dung, không sửa Level ngoài owner API. Admin Assessment/Question (#37) và Statistics (#38) để W8. API v0.1 chưa trả correct-answer/explanation/số câu đúng-sai/thời gian làm bài hoặc tỷ lệ theo Module: không bịa các dữ liệu minh họa đó trên Figma. Frontend không tự chấm điểm live hoặc tăng progress khi GET Lesson.
+
+GET `/me/profile` trong contract chỉ cho Learner. Admin reload dùng ID gợi nhớ trong sessionStorage và xác minh cookie tại GET `/admin/users/{id}` trước khi mở UI; dữ liệu local không cấp quyền. Không lưu JWT/password. Nếu mở tab mới không có gợi nhớ, đăng nhập lại. Lỗi dịch vụ giữ nút thử lại; logout/phiên hết hạn xóa gợi nhớ.
 
 ## Kiểm tra
 
@@ -41,7 +45,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-`check`: lint, 22 unit/UI tests (gồm 8 negative Lesson UI cases bổ sung ngày 27/10), typecheck/build, kiểm tra hash approved contract và loại demo khỏi production. Browser suite mặc định là **MOCK**, desktop/mobile. Từ 27/10/2026 không dùng CI/CD: chạy các lệnh trên thủ công, giữ screenshot/report/trace trong `playwright-report/` và `test-results/`, ghi kết quả cùng SHA/môi trường trong PR. Report chứa dữ liệu tài khoản thử cần được kiểm tra trước khi chia sẻ.
+`check`: lint, unit/UI tests, typecheck/build, kiểm tra hash approved contract và loại demo khỏi production. Số lượng/kết quả W7 ở [evidence](../docs/evidence/w7-frontend.md). Browser suite mặc định là **MOCK**, desktop/mobile. Từ 27/10/2026 không dùng CI/CD: chạy các lệnh trên thủ công, giữ screenshot/report/trace trong `playwright-report/` và `test-results/`, ghi kết quả cùng SHA/môi trường trong PR. Report chứa dữ liệu tài khoản thử cần được kiểm tra trước khi chia sẻ.
 
 Suite thật yêu cầu provision User/Content/Gateway, DB và nội dung công bố trước:
 
@@ -53,6 +57,8 @@ npx playwright test --config playwright.live.config.ts
 ```
 
 Suite tạo Learner thử, sửa Profile, chọn Course/Level, học Lesson, save/remove từ và logout. Nếu Assessment readiness là mock, ghi riêng; suite này không kiểm thử Assessment/Kafka/Progress. Chỉ chạy vào môi trường test.
+
+Suite W7 riêng: `RUN_W7_LIVE=1`, `W7_STACK_ROOT` trỏ checkout/nguồn Khoa đã provision TEST stack và secret Admin; chạy `npx playwright test -c playwright.live.config.ts w7.spec.ts`. `RUN_W7_KAFKA=1` bật thêm assertion Exercise 0 điểm → Progress/History và retake không tăng completion. Cần bật broker/producer/consumer thật bằng overlay `tests/live/compose.w7-kafka.yaml`; không bật cờ trên stack Kafka-disabled. Xem [cách tái hiện và SHA](../docs/evidence/w7-frontend.md).
 
 ## Hợp đồng và giới hạn
 

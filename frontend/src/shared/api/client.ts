@@ -11,6 +11,7 @@ export class ApiFailure extends Error {
     message: string,
     public fields: Schema<'FieldError'>[] = [],
     public traceId?: string,
+    public importOutcome?: Schema<'ImportOutcome'>,
   ) {
     super(message);
   }
@@ -45,7 +46,7 @@ export async function request<T>(path: string, config: AxiosRequestConfig = {}):
     return (await http.request<T>({ url: path, ...config })).data;
   } catch (cause) {
     if (axios.isCancel(cause)) throw cause;
-    if (axios.isAxiosError<Schema<'Error'>>(cause)) {
+    if (axios.isAxiosError<Schema<'Error'> & { import?: Schema<'ImportOutcome'> }>(cause)) {
       const status = cause.response?.status || 0;
       const body = cause.response?.data;
       if (status === 401 && !path.startsWith('/auth/')) {
@@ -61,6 +62,7 @@ export async function request<T>(path: string, config: AxiosRequestConfig = {}):
             : 'Không kết nối được máy chủ. Hãy kiểm tra kết nối và thử lại.'),
         body?.errors || [],
         body?.traceId,
+        body?.import,
       );
     }
     throw cause;

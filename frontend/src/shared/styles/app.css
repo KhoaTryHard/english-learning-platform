@@ -20,6 +20,18 @@ input,
 select {
   font: inherit;
 }
+textarea {
+  font: inherit;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+  background: var(--paper);
+  color: var(--ink);
+}
+textarea:focus-visible {
+  outline: 3px solid var(--purple);
+  outline-offset: 3px;
+}
 button,
 a,
 input,
@@ -1338,5 +1350,216 @@ td {
 @media (prefers-reduced-motion: reduce) {
   .spinner {
     animation: none;
+  }
+}
+
+/* Admin shares the learner typography, shell and responsive navigation. */
+.admin-home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.admin-home-card {
+  padding: 26px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.admin-home-card:hover {
+  border-color: var(--purple);
+}
+.admin-home-card h2 {
+  margin: 18px 0 24px;
+  font-size: 22px;
+}
+.admin-toolbar,
+.admin-actions,
+.admin-import-tabs {
+  display: flex;
+  align-items: end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.admin-toolbar {
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.admin-filter {
+  display: flex;
+  align-items: end;
+  gap: 12px;
+  flex: 1;
+}
+.admin-filter label {
+  flex: 1;
+  max-width: 440px;
+}
+.admin-table-wrap {
+  overflow-x: auto;
+  margin: 24px 0;
+}
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+}
+.admin-table caption {
+  text-align: left;
+  padding: 22px;
+  font-weight: 600;
+}
+.admin-table th,
+.admin-table td {
+  padding: 18px 22px;
+  border-top: 1px solid var(--line);
+  vertical-align: top;
+  min-width: 115px;
+}
+.admin-table thead {
+  background: var(--paper);
+  color: var(--muted);
+}
+.admin-table tbody th {
+  font-weight: 400;
+  min-width: 220px;
+  max-width: 360px;
+  overflow-wrap: anywhere;
+}
+.admin-id {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+  margin-top: 6px;
+}
+.admin-status {
+  display: inline-block;
+  border-radius: 6px;
+  background: var(--paper);
+  padding: 5px 9px;
+  white-space: nowrap;
+  font-size: 12px;
+}
+.admin-status.published {
+  background: var(--mint);
+  color: var(--green);
+}
+.admin-editor {
+  margin: 24px 0;
+  padding: 28px;
+}
+.admin-editor h2 {
+  margin: 0 0 12px;
+}
+.admin-form-grid {
+  border: 0;
+  padding: 0;
+  margin: 24px 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  min-width: 0;
+}
+.admin-form-grid label:has(textarea),
+.admin-checkbox {
+  grid-column: 1 / -1;
+}
+.admin-form-grid textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 140px;
+}
+.admin-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.admin-checkbox input {
+  width: 18px;
+  height: 18px;
+}
+.admin-import-tabs {
+  margin-bottom: 24px;
+}
+.admin-import-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.admin-import-grid .admin-editor {
+  margin: 0;
+}
+.admin-editor fieldset.stack {
+  border: 0;
+  padding: 0;
+  margin: 24px 0 0;
+  min-width: 0;
+}
+.import-guide,
+.import-outcome {
+  padding: 28px;
+}
+.import-guide {
+  background: var(--sand);
+}
+.import-guide p {
+  line-height: 1.7;
+}
+.import-outcome {
+  grid-column: 1 / -1;
+}
+.import-counts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.import-counts dt {
+  font-size: 12px;
+  color: var(--muted);
+}
+.import-counts dd {
+  font-size: 24px;
+  margin: 8px 0;
+  font-weight: 600;
+}
+.admin-shell .sidebar {
+  overflow-y: auto;
+}
+@media (max-width: 1100px) {
+  .admin-home-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .admin-import-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .admin-home-grid,
+  .admin-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .admin-toolbar,
+  .admin-filter {
+    align-items: stretch;
+  }
+  .admin-filter {
+    flex-basis: 100%;
+  }
+  .admin-filter label {
+    min-width: 0;
+  }
+  .admin-editor,
+  .import-guide,
+  .import-outcome {
+    padding: 20px;
+  }
+  .import-counts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .admin-table th,
+  .admin-table td {
+    padding: 14px;
   }
 }

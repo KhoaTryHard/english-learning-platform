@@ -4,13 +4,23 @@ Lê Tiến Hưng yêu cầu phân đủ bốn tuần development theo [Timeline 
 
 Dữ liệu kiểm tra được ở [w5-w8-issues.json](w5-w8-issues.json). Snapshot kế hoạch gốc là 27/10; ngày 28/10 đã đồng bộ riêng checkpoint Khoa cho #3/#13/#14/#21/#31/#41/#42. `checklist` của bảy issue là hiện hành; `checklistAtPlanning` giữ lịch sử. Các issue owner khác, estimates/targets/allocations không đổi; không tự tạo actual hay capacity.
 
+Ngày 03/11 bổ sung riêng checkpoint Hưng cho #9/#10/#11/#28/#29/#32/#33 và `hungW7Checkpoint`; không thay bằng chứng/hours của Khoa/Huy. Snapshot Khoa 28/10 giữ đúng ngày lịch sử, không coi đó là trạng thái LIVE mới nhất của toàn bộ repo.
+
 ## Checkpoint Khoa — 28/10/2026
 
 [Evidence Java 25](https://github.com/KhoaTryHard/english-learning-platform/blob/28f22cb44052e5f271a91a771ef15007ed881b73/docs/evidence/khoa-java25-2026-10-28.json), source `a9f4664263cfe159ea6c8e14ace9d805e9b311ad`, published backend `28f22cb44052e5f271a91a771ef15007ed881b73`: 47 JUnit, 3 isolated builds/Docker images, 4 Compose configs, 63 route mappings PASS. Hai lỗi macro-enabled import và session DB 500 đã sửa. Smoke 43 owner operations/62 requests, frontend PR #22 desktop/mobile, session fault 503/403, all-table same-cluster restore/restart PASS trên PostgreSQL thật. Readiness Assessment vẫn MOCK; Huy nhận bàn giao, contract decision, full LIVE và peer acceptance còn mở. Khoa cập nhật với Codex, chưa phải Hưng/Huy approval.
 
 PR #18 đã merge `9eff189`; PR #1 base `develop`, còn Draft. #23 giữ WAITING_ACCEPTANCE. Các giá trị remaining ở bảng lịch sử dưới đây là kế hoạch 27/10, chưa được re-estimate sau kết quả này. JSON và GitHub tách code/test độc lập/tích hợp/review; không đóng issue vì một phần đã PASS.
 
-## Phạm vi, baseline và phân công
+## Checkpoint Hưng — 03/11/2026
+
+W7 đang diễn ra (02–08/11). `feature/hung-w7` tại code `52f7991` đã có Admin User/Content #28, Import #29, kiểm tra My Vocabulary #32 và tích hợp FE-04 #9 bằng backend/Kafka thật. [Evidence W7](../evidence/w7-frontend.md) và [self-review](../reviews/2026-11-03-hung-w7.md) ghi command/source/env, phạm vi unit/MOCK/LIVE và các giới hạn; không suy code/test PASS thành peer approval hoặc đóng toàn tuần. PR #22 đã đổi base về develop sau #18 merge; W7 vẫn nối trên W6 cho đến khi PR nền merge.
+
+Input runtime đã thay đổi so với checkpoint 28/10: Khoa PR #45 tại `c3e5e2f`, Assessment/Progress PR #44 tại `413a929` có implementation và được dựng riêng cho LIVE. Không tiếp tục gọi mọi Assessment/Kafka runtime là “chưa có”; vẫn cần owner review/khép các issue backend và regression reliability theo W8/W9. Missing-source content=null chỉ có UI unit; không thay FK/public contract để làm đẹp LIVE.
+
+Remaining W8 của Hưng giữ #37 Admin Assessment/Question, #38 Statistics, #39 UI Dashboard/Progress/History, #12 responsive/accessibility toàn MVP và #40 handoff; cộng feedback/merge W6/W7 chưa nhận được. Mốc 19h W8 trong bảng là estimate 27/10, không phải cam kết mới hoặc giờ actual. Chưa có xác nhận capacity/actual mới của Khoa/Huy; Hưng cần họ cập nhật để re-estimate trước chốt W8. Không tự chuyển ngày, bỏ AC hoặc đánh dấu thay owner. JSON giữ snapshot lịch sử và bổ sung checkpoint Hưng riêng.
+
+## Phạm vi, baseline và phân công (baseline)
 
 SRS/UC-AC 0.4; DD 0.2; public/internal API approved 0.1; UI 0.6. PB-01→13, UC-01→11 và AC-01→23 giữ nguyên. Không thêm Goal, Question CSV, mastery hoặc Delete/soft-delete Course/Module/Lesson; My Vocabulary thuộc Content. Source/nullable/unique/timer/event/statistics theo contract, không lấy ví dụ Figma làm rule.
 
