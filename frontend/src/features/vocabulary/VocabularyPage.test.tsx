@@ -21,13 +21,17 @@ const show = () =>
   );
 it('keeps an unavailable relation removable and does not drop it when Remove fails', async () => {
   demoStore.saved[demoId(900)] = [saved];
+  let removes = 0;
   server.use(
-    http.delete('*/api/v1/me/vocabulary/:id', () =>
-      HttpResponse.json(
-        { code: 'UNAVAILABLE', message: 'Thử lại sau', errors: [] },
-        { status: 503 },
-      ),
-    ),
+    http.delete('*/api/v1/me/vocabulary/:id', () => {
+      if (++removes === 1)
+        return HttpResponse.json(
+          { code: 'UNAVAILABLE', message: 'Thử lại sau', errors: [] },
+          { status: 503 },
+        );
+      demoStore.saved[demoId(900)] = [];
+      return new HttpResponse(null, { status: 204 });
+    }),
   );
   const user = userEvent.setup();
   show();
@@ -36,6 +40,9 @@ it('keeps an unavailable relation removable and does not drop it when Remove fai
   await screen.findByText('Thử lại sau');
   expect(screen.getByRole('button', { name: 'Bỏ lưu' })).toBeEnabled();
   expect(demoStore.saved[demoId(900)]).toHaveLength(1);
+  await user.click(screen.getByRole('button', { name: 'Bỏ lưu' }));
+  await screen.findByText('Bạn chưa lưu từ nào.');
+  expect(removes).toBe(2);
 });
 it('uses the current source, fetches every page and distinguishes no search match', async () => {
   const pages: number[] = [];
