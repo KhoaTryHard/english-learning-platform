@@ -1,0 +1,273 @@
+{
+  "status": "HUNG_W7_SELF_QA_PASS_PEER_REVIEW_PENDING",
+  "recordedAtVN": "2026-11-03T23:07:52.656905+07:00",
+  "frontendCommit": "b97517a41b97583279679ba2485f586e9ab09ce6",
+  "liveCodeCommit": "52f799107eb90c1951610fde587f71183f4d7f93",
+  "unitFollowupCommit": "b97517a",
+  "verificationNote": "Only an unavailable-vocabulary unit assertion changed after the LIVE run; application and LIVE suite source are unchanged. Full check and MOCK browser rerun on the unit followup.",
+  "branch": "feature/hung-w7",
+  "baseW6": "f386170de0a788d2e21f1ece9b782aaa0cc52f47",
+  "developScaffold": "9eff18971470679b25375a4c813f75ade2a23ecf",
+  "khoaSource": "c3e5e2f97cf771a7e3d1f6e0d2ab1ec0b957ff98",
+  "assessmentProgressSource": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+  "environment": {
+    "kind": "isolated local TEST",
+    "project": "khoa-backlog-hung-w7-20261103",
+    "node": "v24.18.0",
+    "gateway": "http://127.0.0.1:18080",
+    "frontend": "http://127.0.0.1:5173",
+    "database": "PostgreSQL 17, four separate clusters",
+    "kafkaBroker": "apache/kafka:4.0.0",
+    "kafkaFlags": {
+      "assessment-live": "KAFKA_ENABLED=true",
+      "progress-live": "KAFKA_ENABLED=true"
+    },
+    "imageIds": {
+      "user": "sha256:c34c3fe8ed44e07b14ef8535cff691e6e75eed3f03071f6173a1b89c66c0fb8c",
+      "content": "sha256:8b017ec001d736c637dfdea46982020b3bbe707b1d4736f8f2e361f78c03ce59",
+      "api": "sha256:31b3967a8ebc1aeb8cc8cb7bb54372f77733d819bde83b7989eb48f35cf05e89",
+      "assessment-live": "sha256:48c4f5808e6d474034d29805da40f42ca43edba05676737877aadc347b157627",
+      "progress-live": "sha256:16951b8666a3fa7c36c3fc4d170e3d1fa52049b801907e1cab42b4043c580e81",
+      "kafka": "sha256:3f7b939115cd4872e9cee9369d80bd69712fde55f9902f46d793f64848dedc75"
+    }
+  },
+  "commands": {
+    "check": {
+      "command": "npm run check",
+      "unitTests": 46,
+      "files": 11,
+      "lint": "PASS",
+      "productionBuild": "PASS",
+      "contractAndProductionGuard": "PASS",
+      "scope": "unit/UI/MSW; upload adapter mocked only in Import UI unit tests"
+    },
+    "mock": {
+      "command": "npm run test:e2e",
+      "stats": {
+        "startTime": "2026-11-03T16:07:03.063Z",
+        "duration": 29342.235,
+        "expected": 8,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "Admin routes, draft CRUD and Learner boundary on desktop/mobile (MOCK)",
+          "project": "desktop",
+          "status": "passed",
+          "durationMs": 5637
+        },
+        {
+          "title": "Admin routes, draft CRUD and Learner boundary on desktop/mobile (MOCK)",
+          "project": "mobile",
+          "status": "passed",
+          "durationMs": 4785
+        },
+        {
+          "title": "register → login → setup → lesson → Exercise/Result, save vocabulary and retake",
+          "project": "desktop",
+          "status": "passed",
+          "durationMs": 8259
+        },
+        {
+          "title": "Quiz deadline and saved FALSE survive refresh and logout/login",
+          "project": "desktop",
+          "status": "passed",
+          "durationMs": 5100
+        },
+        {
+          "title": "responsive screens and assets have no horizontal overflow",
+          "project": "desktop",
+          "status": "passed",
+          "durationMs": 4281
+        },
+        {
+          "title": "register → login → setup → lesson → Exercise/Result, save vocabulary and retake",
+          "project": "mobile",
+          "status": "passed",
+          "durationMs": 7723
+        },
+        {
+          "title": "Quiz deadline and saved FALSE survive refresh and logout/login",
+          "project": "mobile",
+          "status": "passed",
+          "durationMs": 4759
+        },
+        {
+          "title": "responsive screens and assets have no horizontal overflow",
+          "project": "mobile",
+          "status": "passed",
+          "durationMs": 4868
+        }
+      ],
+      "scope": "MOCK Chromium desktop/mobile"
+    },
+    "live": {
+      "command": "RUN_W7_LIVE=1 RUN_W7_KAFKA=1 W7_STACK_ROOT=<Khoa TEST checkout> GATEWAY_URL=http://127.0.0.1:18080 npx playwright test -c playwright.live.config.ts w7.spec.ts",
+      "stats": {
+        "startTime": "2026-11-03T16:00:23.553Z",
+        "duration": 183088.671,
+        "expected": 6,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "LIVE W7: Admin User, hierarchy, resources and atomic XLSX/DOCX import",
+          "project": "live-desktop",
+          "status": "passed",
+          "durationMs": 19576
+        },
+        {
+          "title": "LIVE W7: source-backed vocabulary, setup retention, Exercise and timed QUIZ resume/retake",
+          "project": "live-desktop",
+          "status": "passed",
+          "durationMs": 33225
+        },
+        {
+          "title": "LIVE W7: source-backed vocabulary, setup retention, Exercise and timed TEST resume/retake",
+          "project": "live-desktop",
+          "status": "passed",
+          "durationMs": 35377
+        },
+        {
+          "title": "LIVE W7: Admin User, hierarchy, resources and atomic XLSX/DOCX import",
+          "project": "live-mobile",
+          "status": "passed",
+          "durationMs": 21659
+        },
+        {
+          "title": "LIVE W7: source-backed vocabulary, setup retention, Exercise and timed QUIZ resume/retake",
+          "project": "live-mobile",
+          "status": "passed",
+          "durationMs": 35549
+        },
+        {
+          "title": "LIVE W7: source-backed vocabulary, setup retention, Exercise and timed TEST resume/retake",
+          "project": "live-mobile",
+          "status": "passed",
+          "durationMs": 33438
+        }
+      ],
+      "scope": "real Gateway + five services + four PostgreSQL clusters + Kafka; lost start response injected after actual backend commit"
+    }
+  },
+  "eventRuntimeSnapshot": {
+    "outboxStatusCounts": "SENT|35",
+    "historyThenCompletionCounts": "35\n9",
+    "brokerEndOffsets": "assessment.completed.v1:0:35",
+    "note": "Cumulative local TEST snapshot includes earlier diagnostic runs; these counts are not test-case totals. No DB writes or injected completion events used by the suite."
+  },
+  "fixtureSha256": {
+    "vocabulary-valid.xlsx": "842196ef4b7cb2ae1cc115d99121e1ecc4bfc0adcae19062714ff1f79b5851b6",
+    "vocabulary-invalid.xlsx": "94068640a21199d123ac924a8dfd532d6b9c809c1346ed4758b92fd9a6b5e205",
+    "lesson-missing-title.docx": "64be1547727b47769c655389979be150e5d85c248c6091eada5ef8d209e24dea",
+    "lesson-leading-empty.docx": "0452ef8d00b83bfe8a2ad1896b7b87d7917c7d889e6be9e5073326dd8a303e32"
+  },
+  "sourceSha256": {
+    "frontend/scripts/check-build.mjs": "18f597789de0d638e5af1a890ff275dd2976d63310508822966aad58d68a9864",
+    "frontend/src/app/App.tsx": "4afedf00ea4f58c0a8f969b05e9de9b6d2cc69240f2ccba3d96b983ba96a2edd",
+    "frontend/src/app/layouts/desktop/AppLayout.tsx": "5d51343bb9328242973323e027b260f14ea3297bc009f06a1906bf6c295edc58",
+    "frontend/src/app/layouts/desktop/README.md": "8db26f3a594c32d027d17133cc4b02deee8605eefa40d224631f797b29b2b05e",
+    "frontend/src/app/layouts/mobile/README.md": "9ea1652157227432376e5d7baf7157b40c5fc97293c578319a780004ae743d76",
+    "frontend/src/features/admin/AdminLayout.tsx": "b44272846c68962be607f357f54681553bbd2ede2f4bcc38b622656a01f71967",
+    "frontend/src/features/admin/AdminPage.test.tsx": "32aa273319290f4b5a4aac028b9325f24870a357caf206d8f35fe1e3c88a37ce",
+    "frontend/src/features/admin/AdminPage.tsx": "c8fbee4f6ff2de84c42ed04004f9d6127c059b996037268b3940a74a215841cc",
+    "frontend/src/features/admin/api.ts": "ea73e15da0eb58a2d1b763d5aca977f3003ff3a18ae975248233da9f80efe9f3",
+    "frontend/src/features/admin/ImportPage.test.tsx": "27b4c9c36069d36dddc2782371632df234285fc6c6acc0f697ceebdb48a67dff",
+    "frontend/src/features/admin/ImportPage.tsx": "f9a23b04021d9cf467e018255ece3c9d617c3dfc94ef0089db4d0389de249e87",
+    "frontend/src/features/admin/README.md": "7aafe3569faab7ec49574eb0be636447e7cb478f47c56be805f39836870a3ba7",
+    "frontend/src/features/assessment/answerQueue.test.ts": "87ee959cf669054daf9b5c0fcec5966186f7f48bc8bf457e82ad3ec75fc4e95b",
+    "frontend/src/features/assessment/answerQueue.ts": "0d92514b8488c3e6f4e78b032f90f25f21fecf54a93b5008d68addd0ff0fe6d2",
+    "frontend/src/features/assessment/AssessmentPage.tsx": "860b55135dd1bf0adcb865717111449850cf906f42a32ccf80eec2677dc773ce",
+    "frontend/src/features/assessment/AttemptPage.test.tsx": "dd24f4e7fe1b6dc8a0d06e6b729a8e2cd99586afa7c2c7f50e759660555764f1",
+    "frontend/src/features/assessment/AttemptPage.tsx": "f796d374677492a6d18a1a29938149ce683b30b8f8b18b95d31054aaaf835881",
+    "frontend/src/features/assessment/README.md": "ae55612276c226680f57d3570b20eafb28da9a83dff80c3e3c4961169341846b",
+    "frontend/src/features/assessment/ResultPage.tsx": "05bac7c41bff85f60c17fc67ef9be817d71dda4f69bcaa8e06457cd110ba0d05",
+    "frontend/src/features/auth/AuthPage.test.tsx": "cef98ddf94a9c6d938d6c6ffd9316f2ec411062d5cbc4cdc18bb5420effc0edd",
+    "frontend/src/features/auth/AuthPage.tsx": "7d1c33b3f5e67dd8db5f4f8ed3cfc7956b49e2f173fd20749f51ceac74e108c4",
+    "frontend/src/features/auth/AuthProvider.test.tsx": "abcd20546defa7f02bc174bcda0f29ceba1c57926f13420127f95eceea2f71dc",
+    "frontend/src/features/auth/AuthProvider.tsx": "20bc89764d4ed45f490110b28d3a240e0b938248f8cf721181b178bc8990efcd",
+    "frontend/src/features/auth/README.md": "f48ba708d259cc88f502dac6768f18df07ca77d75aee3bd82435e5ff9ae5ba75",
+    "frontend/src/features/auth/session.test.ts": "345849b133e67542d6df6ef8a7b13443da4c4b6ae4a63d10fe9bbd30cfae0409",
+    "frontend/src/features/auth/session.ts": "b53013fea4e0a969bb5c4cecfaa9f3ac4257840443d381d34382bd7a00d670b9",
+    "frontend/src/features/auth/validation.test.ts": "990b8b592c9903a01f28f7f76f1f5c9ba25ae3af1cb783ef169e9b84122ee311",
+    "frontend/src/features/auth/validation.ts": "e49dbdb3e6f6fdcc18f7c9866b9ac6da360796eda769cda17dfec8e77f438a8f",
+    "frontend/src/features/learning/CoursesPage.tsx": "c1ed4d5432e82c06f53f38d3e33fccef5538d08b28ffb492ea7fa0732e49a239",
+    "frontend/src/features/learning/courseTree.ts": "d453d542df0879413aa8037d16af40295bc14d62e21989f39501daa01fd23eb8",
+    "frontend/src/features/learning/DashboardPage.tsx": "45d47e4f49ef6a5fdce98ae0190e61c8df7bc6779fc74a59e88883ad11ff58ad",
+    "frontend/src/features/learning/LessonPage.test.tsx": "70216601d0e4b1c6853e505b3ecded0650bf2d8acb268ce014a9d136f16f8731",
+    "frontend/src/features/learning/LessonPage.tsx": "0d185c1f01274efc1ec090a23746236fac9fd3dc2995bb379833b5c71b776fcd",
+    "frontend/src/features/learning/README.md": "807fc69fca76a3bb2509cfd419d552e5602c525899e44d6e929d38f0863b810a",
+    "frontend/src/features/learning-setup/LearningProvider.tsx": "6c1530782a3ce0ccf09bb9c0cb70e12fbbd2477a5cdc7adc5a92bb9e95f28501",
+    "frontend/src/features/learning-setup/README.md": "9ffe64af33756df1014701a56decbe9fe038dee8efeb0fad6252145a873eabc4",
+    "frontend/src/features/learning-setup/SetupPage.tsx": "0b5b530943101eca3be2380cea10f52d5283fb1c0e2f10f0071e837076b141f5",
+    "frontend/src/features/profile/ProfilePage.tsx": "7f364ea8370f12e1939d7624d0c8f63b5bd415c8588f4aa2ef068e98cda337ed",
+    "frontend/src/features/profile/README.md": "03df9af133b9680c9681d56b17142fa4be4d3082e955e4ffa4a0fc5144d48f37",
+    "frontend/src/features/progress/ProgressPages.tsx": "3b1923a5d984651b6cdcb1bc0f9b2300a8681743f3cae356d891cd0fd20ceb00",
+    "frontend/src/features/progress/README.md": "80085cf5aebae434548d4ba67e6b420d3ada8557d0c005dc9c90de47e3ba9c81",
+    "frontend/src/features/vocabulary/README.md": "40a79db919219308f2db910defb7e649d0ef173f84c3399675ac2e4215f341b2",
+    "frontend/src/features/vocabulary/VocabularyPage.test.tsx": "a378d0dbe4ac57e448de5c5d272cc80e807982f8cbd1f730439d4378d7b7e720",
+    "frontend/src/features/vocabulary/VocabularyPage.tsx": "d3b300d0a163b683cc668c37cc4b9128e3bf09157980fb5048a4ef7b713395bb",
+    "frontend/src/main.tsx": "ff08f77c5154795ae5b607978e6f5e6154b35bb99e71fe7386d24441d6e1c87f",
+    "frontend/src/mocks/admin.ts": "8f872e9ccc0d4871056f53318a5a790f32a868334a10c0b2826dcb41394495c1",
+    "frontend/src/mocks/browser.ts": "75a7f8bcb73c123852c941f53fab1ff7b474c985b0fc97d76fa6b6825d6b4fc0",
+    "frontend/src/mocks/data.ts": "1ca6f4cdb565ef625e8072c43e365bec6af2f750737f49e4d2efbc4e166b90f2",
+    "frontend/src/mocks/handlers.ts": "de98c85c73698513411008fd03a6761c74a59017959bf2d5855b518bda49f659",
+    "frontend/src/shared/api/.gitkeep": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "frontend/src/shared/api/client.test.ts": "36e6660c70996c483f7300ff0496103ab3b72251585a20ce34b9c1405aab5439",
+    "frontend/src/shared/api/client.ts": "fed06251f860552ca55b8443d8dd63252b23746c231f509c81f2e136c492003a",
+    "frontend/src/shared/api/platform.ts": "df2b0c425754ce56ac1d3b66f202adadac930ff16e5a38e219a1423243a18af8",
+    "frontend/src/shared/api/schema.d.ts": "3aa770194658b669a32642d974a0e0f071be8bc9f73227a80a7990fd21fdc0ef",
+    "frontend/src/shared/assets/.gitkeep": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "frontend/src/shared/assets/figma/course-imgChevronRight.svg": "6b90cf25d2cc9f124ed8e83fc4b38a4becb4875af7f1acc568e3876c0573bc5a",
+    "frontend/src/shared/assets/figma/course-imgCircle.svg": "ffcf7b564bf0fc2c02afd9d52b2056a70b66f0080805475a47c3a1488bb97be0",
+    "frontend/src/shared/assets/figma/course-imgCircleCheck.svg": "57dd6930ce378c65922338e89d575825f9930188f4476a9699bda8714d15817f",
+    "frontend/src/shared/assets/figma/course-imgPlay.svg": "3cd73681c2b488122b0621417aada23ca8d82b085c7ca08db04510d9d4716568",
+    "frontend/src/shared/assets/figma/course-imgPlay1.svg": "e90cce281fe3a556df6cc1a503c322159931d0d30fd57770fe3d72eb6c1e1815",
+    "frontend/src/shared/assets/figma/courses-imgArrowRight.svg": "6cb408f597db703366ed6aae0d8f670e261493065bcdb8f3db05a38f95f3b473",
+    "frontend/src/shared/assets/figma/courses-imgBookOpen.svg": "d12c89bc737617c1d149890b84fc2df303f90304790e2949f0c3874b7b82b5be",
+    "frontend/src/shared/assets/figma/courses-imgBookOpen1.svg": "e70f0fe0f4a5bbeea8d4b1e085c9a41c731d08704e1021d7cf2c13b671c8f26c",
+    "frontend/src/shared/assets/figma/courses-imgInfo.svg": "b407a6428a3855114b869ee21fe0cba946a5b508bcdf2fb268aa330240272287",
+    "frontend/src/shared/assets/figma/exercise-imgArrowLeft.svg": "2da3abf03b5f3e7724617551bc3e744715f7105ddb19956833049b2d31d03d41",
+    "frontend/src/shared/assets/figma/exercise-imgArrowRight.svg": "6cb408f597db703366ed6aae0d8f670e261493065bcdb8f3db05a38f95f3b473",
+    "frontend/src/shared/assets/figma/exercise-imgSelector.svg": "ba00e194b06d2170ca2ee7b732dabc17029bf01f4f791dc81437284e551c6b91",
+    "frontend/src/shared/assets/figma/exercise-imgSelector1.svg": "d21cd8a3472fa3f048d6f95360f49296117a28e25991f28292d05c6e821823cb",
+    "frontend/src/shared/assets/figma/profile-imgAvatar.svg": "979efeed9334f712a11de5492797c7334dab3aded941ed99bf83233966e37ec6",
+    "frontend/src/shared/assets/figma/result-imgArrowRight.svg": "1a71419af4726b4d6b353e083b6ab2e4f339182da1542a1588b8c51bd9655c7a",
+    "frontend/src/shared/assets/figma/result-imgCircleCheck.svg": "6c832fe29a4a658243a9ab1b15ffce50d0006bd9494e2306e669d018e1436739",
+    "frontend/src/shared/assets/figma/result-imgCircleX.svg": "553e00f1123f0185ea9070d97b774c79e211d82d06882821d5d2e8eb33b587fd",
+    "frontend/src/shared/assets/figma/result-imgClock.svg": "fe07fa42507ce800e6b8de47cdc2fe8687a4765054ba06c31c5cd8f5f99d1e4b",
+    "frontend/src/shared/assets/figma/result-imgEye.svg": "ddbd6ecd3a29b704d4ce208ca076aca04c14c53b4eceece9b7b557bd31944ceb",
+    "frontend/src/shared/assets/figma/result-imgRotateCcw.svg": "dfc9100d26084142157839686f4a98626a3569af5735cc87cf53b88150a60ec5",
+    "frontend/src/shared/hooks/.gitkeep": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "frontend/src/shared/hooks/useResource.ts": "9bf4109a65c432a2adff45119951e63f6afefb2c10d3a94e5d53fc35ea3e105f",
+    "frontend/src/shared/styles/.gitkeep": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "frontend/src/shared/styles/app.css": "bab798cc8dbcc673edfd6d6d262e8250c192b64570090865ad77fb99bdcbca00",
+    "frontend/src/shared/styles/tokens.css": "d4bf4e4f1e85a342b48f2079b5918d8a658f3fc2e62e6f03df48229e90de60cc",
+    "frontend/src/shared/ui/.gitkeep": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "frontend/src/shared/ui/States.tsx": "3624fc394293fb1b28f6933b1c00a76334dab6d79445b5f42b41c6dc4d300bd7",
+    "frontend/tests/e2e/admin.spec.ts": "5fdf929b415504eb524f72c56f56e9d2740a2b499c2f1928223e521bd60cb590",
+    "frontend/tests/e2e/learner.spec.ts": "7aab1cb5121605b3c9ced6af22ce68ecfa0a0480a03585cc9fc7ddfa1fcd5b6a",
+    "frontend/tests/live/compose.w7-kafka.yaml": "f70b32e2de9e36767d9fd034941f9528bd7bfe04eac43b7c3b5a3ff63545d929",
+    "frontend/tests/live/w7.spec.ts": "12fc458c29b9fdf1b2b2df765c54c0fabd8e04be649f4c0b1f3a236656faeddb",
+    "frontend/vite.config.ts": "005fd636075e3154e93232564fa56794b43254cad54a570a3c3f0af5072ca4e8"
+  },
+  "screenshots": {
+    "admin-desktop.png": "7103cb9f51e89427a0e31cb1860403b88a4116a37df0a9e18db103ee33f95e60",
+    "admin-mobile.png": "39ce38ca8aa275f322fe8c0a68469346047797a27e05a05bf219f2267d0f730b",
+    "import-desktop.png": "2257e0b0648f597713acadf2ec05a802a7ca9ae238df9eb027ed6bfd926fb4bc",
+    "import-mobile.png": "d632845a9906dab1548f0c7a508d471b09a37bb8bd23d4cb926f98d3567247ad",
+    "test-result-desktop.png": "c0c1804c7b336d5b8a3bdf0b7fed8c5a6a5eaf3ee07422308d2291d37247bf01",
+    "test-result-mobile.png": "a0f19af95bd81461a98d98b9236c0e9768a76864267203ea8a0789d94d657bdd"
+  },
+  "limits": [
+    "Self-review only; no peer approval or merge.",
+    "Missing source content=null and 101-row paging are UI unit coverage, not LIVE.",
+    "Import 413/415/network failure and readiness 503 are UI/client coverage, not new LIVE DB outage/rollback tests.",
+    "No broker outage, duplicate event replay/DLQ, restart/restore or full W8/W9 acceptance claimed.",
+    "Elapsed test durations are not actual person-hours."
+  ]
+}
