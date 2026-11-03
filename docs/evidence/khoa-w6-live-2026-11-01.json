@@ -1,0 +1,190 @@
+{
+  "checkedAt": "2026-11-01T08:46:46.643535+00:00",
+  "status": "PARTIAL_WAITING_DOCKER_AND_TEAM_REVIEW",
+  "task": "W6-02",
+  "trello": "https://trello.com/c/RQwfmxTa",
+  "sources": {
+    "khoa": "bf183461e5647ad83c7ec16dc6c7d1953379b10e",
+    "huy": "c1a2a074a4cc6c0d3d0bdf04ef77540a530c5930",
+    "applicationSourceChanged": false,
+    "huyCheckout": ".tools/huy-w6-source"
+  },
+  "checks": [
+    {
+      "name": "Gateway verify",
+      "command": "mvnw.cmd -B -f backend/api-gateway/pom.xml verify",
+      "sourceSha": "bf183461e5647ad83c7ec16dc6c7d1953379b10e",
+      "status": "PASS",
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "JDK25; Gateway owner HTTP stubs and boundary tests; not live Assessment",
+      "suites": [
+        {
+          "name": "vn.group7.api.GatewayRoutingTest",
+          "tests": "7",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "vn.group7.core.InputTest",
+          "tests": "2",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "vn.group7.core.SecurityBoundaryTest",
+          "tests": "4",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        }
+      ],
+      "logSha256": "b7453fe76d1b03ff564c6016c6e6475dc3298d82c9e1925b1dcdc6d32ec20f42"
+    },
+    {
+      "name": "Assessment verify",
+      "command": "mvnw.cmd -B verify (Assessment service root)",
+      "sourceSha": "c1a2a074a4cc6c0d3d0bdf04ef77540a530c5930",
+      "status": "PASS",
+      "tests": 31,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "JDK25; H2 and User/Content/publisher test doubles; no live broker or owner integration",
+      "suites": [
+        {
+          "name": "vn.group7.assessment.AssessmentApplicationTest",
+          "tests": "1",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "vn.group7.assessment.AssessmentHttpTest",
+          "tests": "11",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "vn.group7.assessment.AssessmentServiceTest",
+          "tests": "15",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "vn.group7.assessment.ContentContextTest",
+          "tests": "3",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "vn.group7.assessment.OutboxKafkaWiringTest",
+          "tests": "1",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        }
+      ],
+      "logSha256": "963c89d37262a804dba5609e135a87962984173638c594fefba9aaee478e6987"
+    },
+    {
+      "name": "Owner-only standalone builds",
+      "command": "python scripts/check-service-layout.py --build",
+      "status": "PASS",
+      "serviceCount": 3,
+      "tests": "SKIPPED_FOR_PACKAGING",
+      "logSha256": "bde2a791198ac9f3813a8c6fac103ee2451132b19f1ec15bc284d345df12eded"
+    },
+    {
+      "name": "Frozen contract hashes and route inventory",
+      "command": "python scripts/check-contracts.py",
+      "status": "PASS",
+      "publicRoutes": 63,
+      "newTestExecutions": false
+    },
+    {
+      "name": "Compose root and Assessment overlay",
+      "command": "docker compose config --quiet; docker compose -p khoa-assessment-w6-20261101 -f <Huy service>/compose.yaml -f infra/compose/assessment-live.override.yaml config --quiet",
+      "status": "PASS",
+      "runtimeStarted": false
+    },
+    {
+      "name": "Acceptance helper preparation",
+      "status": "PASS",
+      "checks": [
+        "Python compile",
+        "CLI help",
+        "missing opt-in exits2 without report",
+        "existing report exits2 without replacement"
+      ],
+      "liveAcceptance": false
+    }
+  ],
+  "newArtifactSha256": {
+    "scripts/verify-assessment-live.py": "a899d7f902d219633a0a433533886f1d0f1daf7b8e75a8e8fda8a220e9699158",
+    "infra/compose/assessment-live.override.yaml": "299595ca33ebd49380e2d90848448e0d604582af386201163ebcca16db6c20d7",
+    "docs/runbooks/khoa-w6-live.md": "606b0fc5eb36584cc28910ecfa824386dd8c165f8fb13a690a74b7dfd0cae3c2",
+    "docs/fixtures/readiness-live.example.json": "3577f9f7b7b6390f79b98da777c1aae26a6740fbde479c1285f8a5d0029f7104"
+  },
+  "publicKeyFingerprintsForLocalTestOnly": {
+    "api.public.pem": "065a19774d9e6c558eb86e503a5debf5b32d36a42c56d8aee398a2b24e83fb8a",
+    "assessment.public.pem": "e5411f33c5e167419e9831a8acc9844e9b0553d0fbda332ac331a754ccc1c1ac",
+    "content.public.pem": "43c4e1f46023a77fbe7dc8258be9f1e17d3c95ea71f0ff18adbab7661bdec2ce",
+    "progress.public.pem": "447870674c853fd05d76a8687693f412b5e86065ad1090cdacb9943dba1fb62d",
+    "user.public.pem": "00d703929be23e7f7be23d947989116508b7795aca3828a18cbed072a5ca3764"
+  },
+  "live": {
+    "status": "NOT_RUN_DOCKER_ENGINE_UNAVAILABLE",
+    "reason": "Docker Desktop cannot access its engine.sock; Linux engine pipe unavailable. User is restarting Docker.",
+    "socketCleanup": "NOT_EXECUTED_AUTOMATIC_REVIEW_BLOCKED_BY_POLICY",
+    "phases": {
+      "prepare": "NOT_RUN",
+      "seed": "NOT_RUN",
+      "online": "NOT_RUN",
+      "service-down": "NOT_RUN",
+      "database-down": "NOT_RUN",
+      "recovery": "NOT_RUN",
+      "retry/retake": "NOT_RUN"
+    },
+    "plannedGatewayUrl": "http://127.0.0.1:18080",
+    "plannedAssessmentUrl": "http://127.0.0.1:8090",
+    "plannedAssessmentFromContent": "http://assessment-live:8090",
+    "actualImageIds": null,
+    "actualPostgresVersion": null
+  },
+  "checklist": {
+    "1": "REVIEW_COMPLETE_WITH_CURRENT_BUILDS_AND_HISTORICAL_RUNTIME",
+    "2": "REVIEW_COMPLETE_LIVE_GATE_SEPARATE",
+    "3": "PENDING_HUY_KHOA_PM_DECISION",
+    "4": "HANDOFF_PREPARED_RECEIPT_NOT_CONFIRMED",
+    "5": "NOT_RUN_DOCKER_ENGINE_UNAVAILABLE",
+    "6": "PENDING_PEER_REVIEW"
+  },
+  "teamDecision": {
+    "status": "PROPOSED_NOT_APPROVED",
+    "proposalSha256": "54280e3b1c0f864aea4a1e49f027ca1ffc49bd754823ee27c5d39343b7de1ae1",
+    "peerReviewsObserved": 0,
+    "pr1": "DRAFT_OPEN",
+    "mergePerformed": false
+  },
+  "historicalEvidence": "docs/evidence/khoa-w6-2026-10-29.json",
+  "effort": {
+    "oldEstimateKhoaHours": 10,
+    "actualKhoaHours": null,
+    "remainingHours": null,
+    "note": "Machine session elapsed time is not confirmed human effort/capacity."
+  },
+  "notCovered": [
+    "PostgreSQL live integration in this session",
+    "Kafka/Progress E2E",
+    "Production rollout",
+    "Team acceptance"
+  ]
+}

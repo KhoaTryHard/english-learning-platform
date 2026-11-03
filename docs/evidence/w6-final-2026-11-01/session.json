@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "scope": "REAL Gateway/User/Content/PostgreSQL; session-table privilege fault only",
+  "runtimeMode": "HOST",
+  "testNamespace": "khoa-w6-host-20261101-c",
+  "invalidCsrf": 403,
+  "missingSession": 403,
+  "sessionStoreFailure": 503,
+  "failureCode": "DEPENDENCY_UNAVAILABLE",
+  "contentRowsUnchangedOnFailure": true,
+  "permissionRestored": true,
+  "recoveryCreatesCourse": true,
+  "notCovered": [
+    "network partition",
+    "pool exhaustion",
+    "full Assessment/Progress integration"
+  ]
+}

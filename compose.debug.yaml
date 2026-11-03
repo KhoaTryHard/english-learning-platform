@@ -1,0 +1,7 @@
+services:
+  user-db:
+    ports:
+    - 127.0.0.1:5541:5432
+  content-db:
+    ports:
+    - 127.0.0.1:5542:5432

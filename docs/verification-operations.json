@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "restartPersistence": "PASS",
+  "gatewayNoDatabaseCredentials": "PASS",
+  "databases": [
+    {
+      "database": "user_db",
+      "backupRestore": "PASS",
+      "rows": 2,
+      "constraints": 11
+    },
+    {
+      "database": "content_db",
+      "backupRestore": "PASS",
+      "rows": 2,
+      "constraints": 34
+    }
+  ]
+}
