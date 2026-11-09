@@ -30,6 +30,9 @@ export function ProgressPage() {
       <PageHeading title="Tiến độ học tập">
         Theo dõi mức độ hoàn thành của khóa {course?.name || 'hiện tại'}.
       </PageHeading>
+      <button className="button secondary" onClick={resource.retry}>
+        Làm mới tiến độ
+      </button>
       {!resource.data ? (
         <Empty title="Chưa có khóa học hiện tại.">
           <Link to="/setup">Chọn khóa học và trình độ →</Link>
@@ -63,6 +66,9 @@ export function ProgressPage() {
             Chỉ hoàn thành bài tập cuối bài mới tính hoàn thành Lesson; làm lại không cộng trùng. Dữ
             liệu có thể đang đồng bộ.
           </small>
+          <small className="muted">
+            Cập nhật: {new Date(resource.data.generatedAt).toLocaleString('vi-VN')} · Đồng bộ dần
+          </small>
           <Link to="/history">Xem lịch sử học tập →</Link>
         </section>
       )}
@@ -89,6 +95,9 @@ export function HistoryPage() {
       <PageHeading title="Lịch sử học tập">
         Toàn bộ hoạt động được giữ lại, kể cả sau khi đổi Course hoặc Level.
       </PageHeading>
+      <button className="button secondary" onClick={history.retry}>
+        Làm mới lịch sử
+      </button>
       <div className="history-filters">
         <label>
           <span className="sr-only">Tìm lịch sử</span>
@@ -115,10 +124,12 @@ export function HistoryPage() {
       ) : (
         <div className="table-scroll">
           <table>
+            <caption>Các lượt làm đã hoàn thành, bao gồm lượt làm lại</caption>
             <thead>
               <tr>
                 <th>KHÓA HỌC</th>
                 <th>HOẠT ĐỘNG</th>
+                <th>TRÌNH ĐỘ THỜI ĐIỂM LÀM</th>
                 <th>NGÀY</th>
                 <th>KẾT QUẢ</th>
               </tr>
@@ -130,6 +141,7 @@ export function HistoryPage() {
                     {courses?.find((c) => c.courseId === item.courseId)?.name || item.courseId}
                   </td>
                   <td>{item.assessmentType}</td>
+                  <td>{item.levelIdAtStart}</td>
                   <td>{new Date(item.completedAt).toLocaleString('vi-VN')}</td>
                   <td>
                     <Link to={`/results/${item.resultId}`}>

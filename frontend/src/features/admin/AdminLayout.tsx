@@ -11,6 +11,8 @@ export const adminLinks = [
   ['/admin/vocabulary', 'Từ vựng'],
   ['/admin/learning-contents', 'Học liệu'],
   ['/admin/import', 'Import dữ liệu'],
+  ['/admin/assessments', 'Bài luyện tập và kiểm tra'],
+  ['/admin/statistics', 'Thống kê'],
 ];
 
 export function AdminLayout() {
