@@ -1,5 +1,13 @@
 # Tooling
 
+`verify-khoa-w9.ps1` chạy regression #41 trên Docker TEST riêng: Maven/contracts,
+User/Content/import, owner APIs, Gateway, network/pool/session faults, readiness
+bốn pha, retry/retake, ACL, backup/restore và HTTP sau restart. Tạo report directory
+mới dưới `.tools`, seed qua API, dừng đúng stack trong finally và giữ volumes.
+`test_runtime.py` kiểm opt-in, project/container labels, Gateway loopback/port và DB
+không public trước session fault/restore/restart. Hướng dẫn hiện hành tại
+[runbook W9](../docs/runbooks/khoa-w9.md).
+
 Repository helpers có hướng dẫn chạy và owner; migration PR #1 kiểm tra toàn bộ relative paths. Không đưa business logic/shared entities vào scripts.
 
 `verify-readiness-live.ps1` (Khoa) gọi acceptance driver Java/JUnit bằng `TokenCodec` hiện có. Chỉ opt-in theo pha với manifest TEST và report path mới; hướng dẫn fixture/handoff, các pha online/service-down/database-down/recovery ở [runbook](../docs/runbooks/khoa-w9.md). JUnit mặc định skip `AssessmentReadinessLiveTest`; `ReadinessAcceptanceTest` chỉ kiểm tra driver với HTTP stubs, không phải Assessment LIVE.

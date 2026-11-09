@@ -1,0 +1,92 @@
+{
+  "status": "PASS",
+  "environment": "TEST",
+  "composeProject": "khoa-backlog-w9-20261109",
+  "backendSha": "cb9c805200bf539596c29210b93fe5eeefe1f8b5",
+  "startedAt": "2026-11-09T13:49:28.193734+00:00",
+  "restartPersistence": "PASS",
+  "restartScope": "databases and applications",
+  "gatewayNoDatabaseCredentials": "PASS",
+  "restoreScope": "new databases in same test cluster; not recovery to a new host",
+  "databases": [
+    {
+      "database": "user_db",
+      "backupRestore": "PASS",
+      "tables": {
+        "app_user": {
+          "rows": 6,
+          "digest": "ca40cf10c700e7b283bd8bb6da178f930bafc9c29f28e50bd782e39b528709a2"
+        },
+        "flyway_schema_history": {
+          "rows": 1,
+          "digest": "b46ed67c6b78e2af5481b2e0db6356dac19c7f689384aefaee7fa6e20851d0e9"
+        },
+        "learner_profile": {
+          "rows": 5,
+          "digest": "9e18c3e856825a5e315ae1b1100a5abb5970da7f80ec757b6e1ee76ec4b8a6ec"
+        },
+        "learning_setup": {
+          "rows": 5,
+          "digest": "a364c7e597fcf40a398138e035573f9268cfa017a93774364f3ada1ce19836e8"
+        },
+        "revoked_token": {
+          "rows": 4,
+          "digest": "f8245b21ffbb9027107e592d3e9971814eb6d6f4c1a73b9cb81548616473c312"
+        },
+        "spring_session": {
+          "rows": 19,
+          "digest": "7bb0d94a6e80259f587bf35dc724272f3eb8e4abf8f87bd937d0bed5420a0f3b"
+        },
+        "spring_session_attributes": {
+          "rows": 53,
+          "digest": "c4e19d42538212724275fdb62dec9ac6688d9cb45b3687af09552bc9f12be577"
+        }
+      },
+      "constraints": "PASS",
+      "ownersAndGrants": "PASS",
+      "flywayHistory": "PASS"
+    },
+    {
+      "database": "content_db",
+      "backupRestore": "PASS",
+      "tables": {
+        "course": {
+          "rows": 5,
+          "digest": "07e3f5da2b49af8a756d589d04353957db332be3d93c46011ae747039e4e5ce4"
+        },
+        "course_module": {
+          "rows": 2,
+          "digest": "dca741b322028c4f4e676161778afe35fd474457da7ef74f8ef831c2b83ae8ba"
+        },
+        "flyway_schema_history": {
+          "rows": 1,
+          "digest": "dc5dceddcb17dbce5411934725ecb1447254dfa84fcdc72383f7c807587f2b74"
+        },
+        "learning_content": {
+          "rows": 3,
+          "digest": "61b9de90d8ee358cc108776688e8c932e5a84c087a6ba71d18705b468fe03851"
+        },
+        "lesson": {
+          "rows": 9,
+          "digest": "71cdadf661339db81432398153bb2c91c666e863711ae1bd41cf4c737e8fa33b"
+        },
+        "level": {
+          "rows": 2,
+          "digest": "bcd082bddca535e8ec227ba5f83b6eb535ef4d08d866fae323cb331b8ba5856f"
+        },
+        "user_vocabulary": {
+          "rows": 1,
+          "digest": "13bc20a9b4652ec7ef1de6026cc9e3d53aa77fd66e9acb8e56a98070a316ba31"
+        },
+        "vocabulary": {
+          "rows": 4,
+          "digest": "ddee95d06d6e7c24332fa6b145044a8d50fae10489fa3ab9687aebb55a1c8fc0"
+        }
+      },
+      "constraints": "PASS",
+      "ownersAndGrants": "PASS",
+      "flywayHistory": "PASS"
+    }
+  ],
+  "finishedAt": "2026-11-09T13:50:21.791732+00:00"
+}

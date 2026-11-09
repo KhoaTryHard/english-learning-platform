@@ -1,0 +1,331 @@
+{
+  "phase": "retry",
+  "checkedAt": "2026-11-09T13:49:15.413268+00:00",
+  "backendSha": "cb9c805200bf539596c29210b93fe5eeefe1f8b5",
+  "assessment": {
+    "migration": "1|t",
+    "runtimeEvidence": "audit.json + manifest.json",
+    "kind": "LIVE",
+    "image": "sha256:98ea93c4d1fd59a0cbc8ae41991f583d9755ba06b8bf269032474ee93903da66",
+    "sourceSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+    "seedCommand": "verify-assessment-live.py --phase seed (Admin API)",
+    "dbEngine": "PostgreSQL 17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "runtimeMode": "DOCKER",
+  "testNamespace": "khoa-backlog-w9-20261109",
+  "manifestSha256": "b3eb798ee39887a1843fc87841d4b5a6ba89b885e5485c28727d454a2e3c74ec",
+  "scriptSha256": "86b4eb00b947f1b1a90f17618336207ecbcfbd7114059bca30f92f4255ebfa34",
+  "status": "PASS_REVIEW_REQUIRED",
+  "checks": [
+    {
+      "case": "csrf before login",
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "login",
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "csrf after login",
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "missing session",
+      "method": "GET",
+      "path": "/api/v1/assessments/98e0f46a-b7d6-4747-ab26-eb4fdc64be5c",
+      "expected": 401,
+      "actual": 401
+    },
+    {
+      "case": "credentialed preflight",
+      "method": "OPTIONS",
+      "path": "/api/v1/assessments/98e0f46a-b7d6-4747-ab26-eb4fdc64be5c/attempts",
+      "expected": 204,
+      "actual": 204
+    },
+    {
+      "case": "CORS allowed origin and credentials",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "foreign origin",
+      "method": "OPTIONS",
+      "path": "/api/v1/assessments/98e0f46a-b7d6-4747-ab26-eb4fdc64be5c/attempts",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "register csrf",
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "register learner",
+      "method": "POST",
+      "path": "/api/v1/auth/register",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "csrf before login",
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "login",
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "csrf after login",
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "learner setup",
+      "method": "PUT",
+      "path": "/api/v1/me/learning-setup",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "learner denied Admin API",
+      "method": "GET",
+      "path": "/api/v1/admin/assessments",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "Admin denied Learner API",
+      "method": "GET",
+      "path": "/api/v1/assessments/98e0f46a-b7d6-4747-ab26-eb4fdc64be5c",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "attempt count before rejected start",
+      "method": "GET",
+      "path": "/api/v1/me/attempts",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "invalid CSRF",
+      "method": "POST",
+      "path": "/api/v1/assessments/98e0f46a-b7d6-4747-ab26-eb4fdc64be5c/attempts",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "attempt count after rejected start",
+      "method": "GET",
+      "path": "/api/v1/me/attempts",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "rejected start creates no attempt",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "start",
+      "method": "POST",
+      "path": "/api/v1/assessments/98e0f46a-b7d6-4747-ab26-eb4fdc64be5c/attempts",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "transport retry",
+      "method": "POST",
+      "path": "/api/v1/assessments/98e0f46a-b7d6-4747-ab26-eb4fdc64be5c/attempts",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "same key same attempt and snapshot",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "retake",
+      "method": "POST",
+      "path": "/api/v1/assessments/98e0f46a-b7d6-4747-ab26-eb4fdc64be5c/attempts",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "new key new attempt",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "public question has no answer key",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "save false answer",
+      "method": "PUT",
+      "path": "/api/v1/attempts/f18c0015-43ab-45a6-a8f0-91b356653087/answers",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "submit after save ACK",
+      "method": "POST",
+      "path": "/api/v1/attempts/f18c0015-43ab-45a6-a8f0-91b356653087/submit",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "saved false answer scores correctly",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "retry after submit",
+      "method": "POST",
+      "path": "/api/v1/assessments/98e0f46a-b7d6-4747-ab26-eb4fdc64be5c/attempts",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "terminal retry retains attempt",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "count attempts after retries",
+      "method": "GET",
+      "path": "/api/v1/me/attempts",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "retries created exactly two attempts",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "block test learner",
+      "method": "PATCH",
+      "path": "/api/v1/admin/users/81e451a3-91be-438b-9317-d2de77457465",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "BLOCKED session",
+      "method": "GET",
+      "path": "/api/v1/me/profile",
+      "expected": 401,
+      "actual": 401
+    },
+    {
+      "case": "restore test learner",
+      "method": "PATCH",
+      "path": "/api/v1/admin/users/81e451a3-91be-438b-9317-d2de77457465",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "csrf before login",
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "login",
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "csrf after login",
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "logout",
+      "method": "POST",
+      "path": "/api/v1/auth/logout",
+      "expected": 204,
+      "actual": 204
+    },
+    {
+      "case": "replay revoked session",
+      "method": "GET",
+      "path": "/api/v1/me/profile",
+      "expected": 401,
+      "actual": 401
+    }
+  ],
+  "notCovered": [
+    "Kafka/Progress E2E",
+    "team approval"
+  ],
+  "attempts": {
+    "first": "f18c0015-43ab-45a6-a8f0-91b356653087",
+    "sameKey": "f18c0015-43ab-45a6-a8f0-91b356653087",
+    "newKey": "e8e43935-95fa-4a6f-a68c-d51e2297347a"
+  },
+  "resultId": "6b1438b6-bac9-4846-bd54-c00caf2581e3",
+  "fixtures": {
+    "missingMapping": {
+      "lessonId": "28f5aa27-1f87-4ed6-a9e6-cc6e726b0eff",
+      "exerciseId": null,
+      "questionCount": null
+    },
+    "notReady": {
+      "lessonId": "65bce529-1a8c-4122-ae7f-571b3168745a",
+      "exerciseId": "06081d44-de73-4f25-aa98-14d2e9450cae",
+      "questionCount": 0
+    },
+    "ready": {
+      "lessonId": "6f4bdcc8-0173-4061-87b1-a73d48cddb65",
+      "exerciseId": "98e0f46a-b7d6-4747-ab26-eb4fdc64be5c",
+      "questionCount": 1,
+      "questionId": "3d9a89df-a4c3-4a64-a547-bfd6968fb7cb"
+    },
+    "serviceDown": {
+      "lessonId": "a4b31730-1a14-45e7-b72f-bcbc1dd9a052",
+      "exerciseId": "c36f941e-2945-4732-a76d-0600350ce96f",
+      "questionCount": 1,
+      "questionId": "3cd3935b-a094-40b7-9502-1db9a0db7b4f"
+    },
+    "databaseDown": {
+      "lessonId": "641e8952-49ae-40b7-88b8-9827e37c50b4",
+      "exerciseId": "e43c639a-9aa9-47dd-a7dd-1ade045a57a2",
+      "questionCount": 1,
+      "questionId": "6827412c-515b-4f0f-ace2-9fd0e8ba1ad1"
+    },
+    "recovery": {
+      "lessonId": "0205768a-3c14-4861-9fca-a2ce17f2805c",
+      "exerciseId": "1fc570c9-0aa3-4ea1-99be-3371a314f037",
+      "questionCount": 1,
+      "questionId": "5901f25d-3f80-46b3-93ca-3ccf649a5dbb"
+    }
+  }
+}

@@ -1,5 +1,9 @@
 # Khoa backlog — môi trường TEST và bàn giao
 
+Regression/bàn giao W9 (#41): dùng [runbook hiện hành](khoa-w9.md) và
+`scripts/verify-khoa-w9.ps1` để chạy các pha tuần tự với project/fixture/report mới.
+Các lệnh pha riêng bên dưới vẫn dùng cho việc tái hiện có chọn lọc.
+
 Handoff hiện hành cho Huy/Hưng: [W7-05 ngày09/11](../reviews/2026-11-09-khoa-w7-05.md)
 với API/caller/semantics, fixture, response mẫu, phiên bản và remaining.
 

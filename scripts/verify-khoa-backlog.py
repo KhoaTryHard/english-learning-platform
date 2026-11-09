@@ -402,6 +402,24 @@ def wait_apps():
     raise AssertionError('Gateway did not recover')
 
 
+def post_restart(state, path):
+    accounts = json.loads(path.with_suffix('.credentials.json').read_text())
+    learner = learner_client(accounts['learner'])
+    profile = learner.op('getMyProfile')
+    check('Profile persists across DB/application restart',
+          profile['userId'] == state['userId'] and profile['fullName'] == 'Khoa verified')
+    setup = learner.op('getLearningSetup')
+    check('Course/Level setup persists across restart',
+          setup['courseId'] == state['courseId'] and setup['levelId'] == state['levelId'])
+    saved = learner.op('listSavedVocabulary')
+    check('saved source relation and latest content persist across restart',
+          saved['totalElements'] == 1 and saved['items'][0]['vocabularyId'] == state['vocabularyIds'][0]
+          and saved['items'][0]['content']['meaning'] == 'Updated source LIVE')
+    lesson = learner.op('getLessonLearning', params={'lessonId': state['lessonId']})
+    check('published Lesson and real Exercise mapping persist across restart',
+          lesson['exerciseId'] == state['assessmentId'])
+
+
 def audit(state, path):
     REPORT['deployment'] = {}
     for owner in ['user', 'content', 'api', 'assessment-live', 'progress-live']:
@@ -514,7 +532,7 @@ def faults(state, path):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--phase', choices=['core', 'owners', 'gateway', 'faults', 'audit'], required=True)
+    parser.add_argument('--phase', choices=['core', 'owners', 'gateway', 'faults', 'audit', 'post-restart'], required=True)
     parser.add_argument('--state', type=Path, required=True)
     parser.add_argument('--report', type=Path, required=True)
     args = parser.parse_args()
@@ -531,7 +549,7 @@ def main():
         for owner in ['user', 'content', 'api', 'assessment-live', 'progress-live']:
             container = command('docker', 'compose', 'ps', '-q', owner)
             REPORT['images'][owner] = command('docker', 'inspect', '--format', '{{.Image}}', container)
-        globals()[args.phase](state, args.state)
+        globals()[args.phase.replace('-', '_')](state, args.state)
         REPORT['status'] = 'PASS_REVIEW_REQUIRED'
     except Exception as error:
         REPORT['status'] = 'FAIL'
