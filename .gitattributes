@@ -1,0 +1,5 @@
+*.sh text eol=lf
+mvnw text eol=lf
+*.cmd text eol=crlf
+docs/contracts/public-v0.1.yaml -text
+docs/contracts/internal-v0.1.yaml -text

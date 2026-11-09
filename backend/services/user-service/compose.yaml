@@ -1,0 +1,141 @@
+name: group7-user-service
+services:
+  user-db:
+    environment:
+      POSTGRES_DB: user_db
+      POSTGRES_PASSWORD_FILE: /run/secrets/user_bootstrap
+      POSTGRES_USER: postgres
+    healthcheck:
+      interval: 5s
+      retries: 20
+      test:
+      - CMD-SHELL
+      - pg_isready -U postgres -d user_db
+      timeout: 3s
+    image: postgres:17
+    networks:
+    - user-data
+    secrets:
+    - user_bootstrap
+    - user_migration
+    - user_runtime
+    volumes:
+    - user-data:/var/lib/postgresql/data
+    - ./deploy/init-db.sh:/docker-entrypoint-initdb.d/01-init.sh:ro
+  user-migrate:
+    build:
+      context: .
+    depends_on:
+      user-db:
+        condition: service_healthy
+    environment:
+      ASSESSMENT_URL: ${ASSESSMENT_URL:-http://assessment.internal:8080}
+      CONTENT_URL: ${CONTENT_URL:-http://content.internal:8082}
+      DB_PASSWORD_FILE: /run/secrets/user_migration
+      DB_URL: jdbc:postgresql://user-db:5432/user_db
+      DB_USER: user_migration
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
+      JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
+      MIGRATE: 'true'
+      PLATFORM_KEYS: /keys
+      PLATFORM_MODE: migrate
+      PRIVATE_KEY_FILE: /private/user.private.pem
+      SECURE_COOKIES: ${SECURE_COOKIES:-false}
+      SERVICE: user
+      USER_URL: ${USER_URL:-http://user.internal:8081}
+    image: group7-user-service:${IMAGE_TAG:-local}
+    networks:
+    - backend
+    - user-data
+    secrets:
+    - user_migration
+    volumes:
+    - ./.secrets/keys/public:/keys:ro
+    - ./.secrets/keys/user.private.pem:/private/user.private.pem:ro
+  user:
+    build:
+      context: .
+    depends_on:
+      user-migrate:
+        condition: service_completed_successfully
+    environment:
+      ASSESSMENT_URL: ${ASSESSMENT_URL:-http://assessment.internal:8080}
+      CONTENT_URL: ${CONTENT_URL:-http://content.internal:8082}
+      DB_PASSWORD_FILE: /run/secrets/user_runtime
+      DB_URL: jdbc:postgresql://user-db:5432/user_db
+      DB_USER: user_runtime
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
+      JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
+      PLATFORM_KEYS: /keys
+      PRIVATE_KEY_FILE: /private/user.private.pem
+      SECURE_COOKIES: ${SECURE_COOKIES:-false}
+      SERVICE: user
+      USER_URL: ${USER_URL:-http://user.internal:8081}
+    healthcheck:
+      interval: 10s
+      retries: 20
+      start_period: 20s
+      test:
+      - CMD-SHELL
+      - curl -fsS http://localhost:8081/actuator/health || exit 1
+      timeout: 5s
+    image: group7-user-service:${IMAGE_TAG:-local}
+    networks:
+    - backend
+    - user-data
+    secrets:
+    - user_runtime
+    volumes:
+    - ./.secrets/keys/public:/keys:ro
+    - ./.secrets/keys/user.private.pem:/private/user.private.pem:ro
+    ports:
+    - ${SERVICE_BIND_ADDRESS:-127.0.0.1}:${SERVICE_PORT:-8081}:8081
+  admin-bootstrap:
+    build:
+      context: .
+    depends_on:
+      user-migrate:
+        condition: service_completed_successfully
+    environment:
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@example.com}
+      ADMIN_PASSWORD_FILE: /run/secrets/admin_password
+      ASSESSMENT_URL: ${ASSESSMENT_URL:-http://assessment.internal:8080}
+      CONTENT_URL: ${CONTENT_URL:-http://content.internal:8082}
+      DB_PASSWORD_FILE: /run/secrets/user_runtime
+      DB_URL: jdbc:postgresql://user-db:5432/user_db
+      DB_USER: user_runtime
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
+      JAVA_TOOL_OPTIONS: -Xmx384m -Duser.timezone=UTC
+      PLATFORM_KEYS: /keys
+      PLATFORM_MODE: bootstrap-admin
+      PRIVATE_KEY_FILE: /private/user.private.pem
+      SECURE_COOKIES: ${SECURE_COOKIES:-false}
+      SERVICE: user
+      USER_URL: ${USER_URL:-http://user.internal:8081}
+    image: group7-user-service:${IMAGE_TAG:-local}
+    networks:
+    - backend
+    - user-data
+    profiles:
+    - tools
+    secrets:
+    - user_runtime
+    - admin_password
+    volumes:
+    - ./.secrets/keys/public:/keys:ro
+    - ./.secrets/keys/user.private.pem:/private/user.private.pem:ro
+volumes:
+  user-data: {}
+networks:
+  backend: {}
+  user-data:
+    internal: true
+secrets:
+  admin_password:
+    file: ./.secrets/admin_password
+  user_bootstrap:
+    file: ./.secrets/user_bootstrap
+  user_migration:
+    file: ./.secrets/user_migration
+  user_runtime:
+    file: ./.secrets/user_runtime

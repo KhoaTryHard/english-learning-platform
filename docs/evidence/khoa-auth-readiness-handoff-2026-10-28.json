@@ -1,0 +1,420 @@
+{
+  "checkedAt": "2026-10-28T23:29:12.507145+07:00",
+  "status": "HANDOFF_PREPARED_REVIEW_AND_LIVE_WAITING",
+  "sourceCommit": "27da99d003ed84c958c058e8982e590a5f013198",
+  "authDecision": {
+    "status": "PROPOSED_AWAITING_HUY_REVIEW_AND_PM_RECORD",
+    "version": "0.1.1-implementation-proposal",
+    "reviewedApplicationSource": "28f22cb44052e5f271a91a771ef15007ed881b73",
+    "proposalSha256": "54280e3b1c0f864aea4a1e49f027ca1ffc49bd754823ee27c5d39343b7de1ae1",
+    "huyReview": null,
+    "hungBaselineDecision": null,
+    "khoaSubmission": "Proposed by Khoa via Codex at user request; no other approval inferred",
+    "rolloutAndRollback": "docs/contracts/internal-auth-review-2026-10-28.md"
+  },
+  "frozenBaselines": {
+    "status": "PASS",
+    "sha256": {
+      "docs/contracts/internal-v0.1.1-proposal.yaml": "54280e3b1c0f864aea4a1e49f027ca1ffc49bd754823ee27c5d39343b7de1ae1",
+      "docs/contracts/public-v0.1.yaml": "800a25b92e7272a2e02ea1d08b29612ad58d28d0db85dea9743c25257537e22c",
+      "docs/contracts/internal-v0.1.yaml": "f6b304ea50c616fd4f642b2606de0e1ab9610b09bf4a39e551379112b53af9da"
+    },
+    "commands": [
+      "python scripts/check-contracts.py",
+      "python scripts/sync-sdk.py --check"
+    ]
+  },
+  "environment": {
+    "host": "Windows PowerShell / Docker Desktop Linux containers",
+    "java": "25.0.5+8",
+    "postgres": "17.11",
+    "composeProject": "khoa-readiness-live",
+    "wiremockInProject": false,
+    "stackStopped": true,
+    "volumesPreserved": true
+  },
+  "verification": {
+    "fullReactor": {
+      "status": "PASS",
+      "sourceSnapshot": "970ad5e5dbaf94d9dec717e832deb0a3698f738a",
+      "command": "./mvnw.cmd -B verify",
+      "summary": {
+        "tests": 52,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1
+      },
+      "suites": [
+        {
+          "service": "backend/api-gateway",
+          "suite": "vn.group7.api.GatewayRoutingTest",
+          "tests": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "service": "backend/api-gateway",
+          "suite": "vn.group7.core.InputTest",
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "service": "backend/api-gateway",
+          "suite": "vn.group7.core.SecurityBoundaryTest",
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "service": "backend/services/learning-content-service",
+          "suite": "vn.group7.content.AssessmentReadinessLiveTest",
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 1
+        },
+        {
+          "service": "backend/services/learning-content-service",
+          "suite": "vn.group7.content.ContentIntegrationTest",
+          "tests": 8,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "service": "backend/services/learning-content-service",
+          "suite": "vn.group7.content.ImportBoundaryTest",
+          "tests": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "service": "backend/services/learning-content-service",
+          "suite": "vn.group7.content.ImportContainerTest",
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "service": "backend/services/learning-content-service",
+          "suite": "vn.group7.content.ReadinessAcceptanceTest",
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "service": "backend/services/learning-content-service",
+          "suite": "vn.group7.core.InputTest",
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "service": "backend/services/learning-content-service",
+          "suite": "vn.group7.core.SecurityBoundaryTest",
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "service": "backend/services/user-service",
+          "suite": "vn.group7.core.InputTest",
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "service": "backend/services/user-service",
+          "suite": "vn.group7.core.SecurityBoundaryTest",
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "service": "backend/services/user-service",
+          "suite": "vn.group7.user.SessionValidationTest",
+          "tests": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "service": "backend/services/user-service",
+          "suite": "vn.group7.user.UserIntegrationTest",
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      ]
+    },
+    "finalDriverRegression": {
+      "status": "PASS",
+      "sourceSnapshot": "27da99d003ed84c958c058e8982e590a5f013198",
+      "command": "./mvnw.cmd -pl backend/services/learning-content-service -Dtest=ReadinessAcceptanceTest,AssessmentReadinessLiveTest test",
+      "passed": 4,
+      "skipped": 1,
+      "scope": "Explicit HTTP stubs only; not live Assessment"
+    },
+    "powershellWrapper": {
+      "syntax": "PASS",
+      "prepareAgainstRealOwners": "PASS",
+      "environmentRestored": "PASS",
+      "existingReportRejected": "PASS",
+      "staleShaRejected": "PASS",
+      "contentAssessmentUrlChecked": true,
+      "runtimeImagesRecorded": true
+    },
+    "applicationCodeAndImages": {
+      "mainSourcesUnchangedFrom": "28f22cb44052e5f271a91a771ef15007ed881b73",
+      "reusedTestImagesTag": "khoa-audit-20261028",
+      "ids": {
+        "content": "sha256:b8f32b56e728a677b75876c9e3f0b665999312c02c1792f64f640747dd3ed1dc",
+        "api": "sha256:771602d71556b97bf6e926217c3e4827ee0dde978bd949d6f4f665bc73592aa8",
+        "user": "sha256:9d84788a106821efd7128dff0063e942b6e201211aa5dc95ecda5df497a9a0d6"
+      }
+    },
+    "fixturePreparation": {
+      "phase": "prepare",
+      "checkedAt": "2026-10-28T16:27:25.649647900Z",
+      "backendSha": "27da99d003ed84c958c058e8982e590a5f013198",
+      "assessment": {
+        "status": "NOT_PROVIDED_OR_NOT_EXERCISED"
+      },
+      "manifestSha256": "86287cd1f7d9dac855780f13fb96f893f48141dc7f4ea029299d0d045a738b16",
+      "scope": "Real User/Content/Gateway fixture preparation only; no Assessment requests",
+      "notCovered": [
+        "attempt retry/retake",
+        "Progress/Kafka",
+        "team contract approval"
+      ],
+      "checks": [
+        {
+          "case": "csrf",
+          "expected": 200,
+          "method": "GET",
+          "actual": 200,
+          "path": "/api/v1/auth/csrf"
+        },
+        {
+          "case": "login",
+          "expected": 200,
+          "method": "POST",
+          "actual": 200,
+          "path": "/api/v1/auth/login"
+        },
+        {
+          "case": "csrf",
+          "expected": 200,
+          "method": "GET",
+          "actual": 200,
+          "path": "/api/v1/auth/csrf"
+        },
+        {
+          "case": "publish course",
+          "expected": 200,
+          "method": "PATCH",
+          "actual": 200,
+          "path": "/api/v1/admin/courses/10000000-0000-4000-8000-000000000001"
+        },
+        {
+          "case": "create module",
+          "expected": 201,
+          "method": "POST",
+          "actual": 201,
+          "path": "/api/v1/admin/modules"
+        },
+        {
+          "case": "publish module",
+          "expected": 200,
+          "method": "PATCH",
+          "actual": 200,
+          "path": "/api/v1/admin/modules/9cbafbad-ac9f-4f1c-a564-2e771fc68b12"
+        },
+        {
+          "case": "create missingMapping",
+          "expected": 201,
+          "method": "POST",
+          "actual": 201,
+          "path": "/api/v1/admin/lessons"
+        },
+        {
+          "case": "create notReady",
+          "expected": 201,
+          "method": "POST",
+          "actual": 201,
+          "path": "/api/v1/admin/lessons"
+        },
+        {
+          "case": "create ready",
+          "expected": 201,
+          "method": "POST",
+          "actual": 201,
+          "path": "/api/v1/admin/lessons"
+        },
+        {
+          "case": "create serviceDown",
+          "expected": 201,
+          "method": "POST",
+          "actual": 201,
+          "path": "/api/v1/admin/lessons"
+        },
+        {
+          "case": "create databaseDown",
+          "expected": 201,
+          "method": "POST",
+          "actual": 201,
+          "path": "/api/v1/admin/lessons"
+        },
+        {
+          "case": "create recovery",
+          "expected": 201,
+          "method": "POST",
+          "actual": 201,
+          "path": "/api/v1/admin/lessons"
+        }
+      ],
+      "preparedManifest": "D:\\University\\nam4_ki1\\QLDA\\english-learning-platform\\.tools\\readiness-handoff-20261028\\manifest-final.json.prepared.json",
+      "status": "FIXTURES_CREATED_LIVE_NOT_RUN",
+      "fixtureIds": {
+        "missingMapping": {
+          "lessonId": "4573e07f-0eba-4927-be1f-121c2df7d94c",
+          "exerciseId": null,
+          "questionCount": null
+        },
+        "notReady": {
+          "lessonId": "5d6fee9c-3e9b-4c97-a2bb-4372449e7763",
+          "exerciseId": null,
+          "questionCount": null
+        },
+        "ready": {
+          "lessonId": "dc04fa72-7a15-4c55-8df2-8abfe150bb0b",
+          "exerciseId": null,
+          "questionCount": null
+        },
+        "serviceDown": {
+          "lessonId": "e1a03c3f-115d-4a5d-bd6c-2517d499eca9",
+          "exerciseId": null,
+          "questionCount": null
+        },
+        "databaseDown": {
+          "lessonId": "6011eaab-81e9-4adb-b959-bcb4ab69b2da",
+          "exerciseId": null,
+          "questionCount": null
+        },
+        "recovery": {
+          "lessonId": "74bd9603-fd30-4201-ba27-76be4f156440",
+          "exerciseId": null,
+          "questionCount": null
+        }
+      },
+      "composeProject": "khoa-readiness-live",
+      "contentAssessmentUrl": "http://assessment-live:8080",
+      "backendImageIds": {
+        "content": "sha256:b8f32b56e728a677b75876c9e3f0b665999312c02c1792f64f640747dd3ed1dc",
+        "api": "sha256:771602d71556b97bf6e926217c3e4827ee0dde978bd949d6f4f665bc73592aa8",
+        "user": "sha256:9d84788a106821efd7128dff0063e942b6e201211aa5dc95ecda5df497a9a0d6"
+      }
+    }
+  },
+  "handoffFixtures": {
+    "courseId": "10000000-0000-4000-8000-000000000001",
+    "levelId": "10000000-0000-4000-8000-000000000002",
+    "moduleId": "9cbafbad-ac9f-4f1c-a564-2e771fc68b12",
+    "fixtures": {
+      "missingMapping": {
+        "lessonId": "4573e07f-0eba-4927-be1f-121c2df7d94c",
+        "exerciseId": null,
+        "questionCount": null
+      },
+      "notReady": {
+        "lessonId": "5d6fee9c-3e9b-4c97-a2bb-4372449e7763",
+        "exerciseId": null,
+        "questionCount": null
+      },
+      "ready": {
+        "lessonId": "dc04fa72-7a15-4c55-8df2-8abfe150bb0b",
+        "exerciseId": null,
+        "questionCount": null
+      },
+      "serviceDown": {
+        "lessonId": "e1a03c3f-115d-4a5d-bd6c-2517d499eca9",
+        "exerciseId": null,
+        "questionCount": null
+      },
+      "databaseDown": {
+        "lessonId": "6011eaab-81e9-4adb-b959-bcb4ab69b2da",
+        "exerciseId": null,
+        "questionCount": null
+      },
+      "recovery": {
+        "lessonId": "74bd9603-fd30-4201-ba27-76be4f156440",
+        "exerciseId": null,
+        "questionCount": null
+      }
+    },
+    "databaseScope": "Persisted only in isolated test volumes on Khoa machine; Huy must seed own Assessment with these external Lesson IDs",
+    "regeneration": "scripts/verify-readiness-live.ps1 -Phase prepare using a fresh manifest/report; see runbook"
+  },
+  "liveReadiness": {
+    "status": "NOT_RUN_WAITING_HUY_RUNTIME",
+    "assessmentImplementationSha": null,
+    "assessmentUrlFromContentConfigured": "http://assessment-live:8080",
+    "assessmentProcessOrDatabaseProvided": false,
+    "phases": {
+      "online": "NOT_RUN",
+      "service-down": "NOT_RUN",
+      "database-down": "NOT_RUN",
+      "recovery": "NOT_RUN"
+    },
+    "noCallbackEvidence": "Requires Huy source/runtime review; HTTP driver alone does not prove absence of Content callback"
+  },
+  "requiredHuyDelivery": [
+    "branch/PR/full SHA",
+    "build/run command or image digest",
+    "DB engine/version/migration/seed",
+    "reachable host URL and Content-container URL/port/network",
+    "trusted public keys and auth/caller implementation",
+    "exerciseId/questionCount for prepared Lesson IDs",
+    "source/runtime evidence that readiness uses real Assessment DB without callback Content"
+  ],
+  "remaining": [
+    "Huy auth review; Khoa response and Hung baseline/version record",
+    "Assessment implementation/DB/seed; live readiness four phases reviewed by Huy/Khoa",
+    "Retry/retake, Progress/Kafka and full QA stay in existing issues",
+    "PR1 peer acceptance/merge; issue3 remains open"
+  ],
+  "references": {
+    "auth": 42,
+    "assessment": 25,
+    "migration": 13,
+    "w5": 3,
+    "gateway": 21,
+    "qa": 26,
+    "pr": 1
+  },
+  "commandsAndFixtureInstructions": "docs/runbooks/khoa-w9.md",
+  "localLogSha256": {
+    "auth-readiness-final-verify.log": "4fa1d459b9669df97b205e29bdc80ac9a9137136f66c82f1edd6d6ddaa9437c6",
+    "readiness-bootstrap.log": "91030d7cff25c91757428c66611127bd339e3593d5158a41e85a3bc75a664380",
+    "readiness-compose-start.log": "3e5ec9b201cd4d98090b379527fdabf98355a055684a3ec35527f40997a2eaad",
+    "readiness-compose-stop.log": "14570dc50026c915f5b6f8173a7eaeb83cb60b276fbadc348d09df452a4b16c5",
+    "readiness-driver-tests.log": "8bebb4c41a77eed8219986080fa4b750516cf47dd9d68e7941cbe94987798a52",
+    "readiness-final-driver-tests.log": "2ee5bdc1be43f05ed6156acc7e76cea605856b4ee3993dc3c836d7f6be7a265c",
+    "readiness-opt-in.log": "88a6b63adca015c7572e402def6a1b9887d8417377070201ae166a80f58d3113",
+    "readiness-prepare-final.log": "c25ac73a8616fd482cd65624a68434eb1e2e84147e1c0936ee672d08ee4c36ce",
+    "readiness-prepare.log": "917e40928d17b100a49661b3a382e44eed4a6503505f6abb38355176f3df517d",
+    "readiness-seed.log": "e64381f84138a73321e73391b3dc59170935747f0b8b35c0867b605dd1ccbf5b"
+  }
+}

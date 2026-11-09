@@ -1,0 +1,85 @@
+{
+  "namespace": "khoa-w6-host-20261101-b",
+  "runtimeMode": "HOST",
+  "backendSha": "85462cf57945de58a9f79d5d22f7d2a542bcd05a",
+  "assessmentSha": "c1a2a074a4cc6c0d3d0bdf04ef77540a530c5930",
+  "startedAt": "2026-11-01T09:02:41.247840+00:00",
+  "contentAssessmentUrl": "http://127.0.0.1:8090",
+  "services": {
+    "user": {
+      "pid": 28304,
+      "processPath": "<workspace>\\.tools\\jdk\\jdk-25.0.5+8\\bin\\java.exe",
+      "processStartedAt": "2026-11-01T09:03:43.4422943Z",
+      "port": 8081,
+      "jarPath": "<workspace>\\backend\\services\\user-service\\target\\user-service-0.1.0-SNAPSHOT.jar",
+      "jarSha256": "5603d08eb16ae1bc55c9e75e12faa94682af76bef730bc2de7652402b7686f04",
+      "sourceSha": "626b3d4853293504f1af6ad3483a238d01af9bf7"
+    },
+    "content": {
+      "pid": 7636,
+      "processPath": "<workspace>\\.tools\\jdk\\jdk-25.0.5+8\\bin\\java.exe",
+      "processStartedAt": "2026-11-01T09:03:45.8951115Z",
+      "port": 8082,
+      "jarPath": "<workspace>\\backend\\services\\learning-content-service\\target\\content-service-0.1.0-SNAPSHOT.jar",
+      "jarSha256": "a66b61431611fe5285d27487d60edd6d9e26a7adb22fee3577ba2d38724c4f13",
+      "sourceSha": "626b3d4853293504f1af6ad3483a238d01af9bf7"
+    },
+    "api": {
+      "pid": 30136,
+      "processPath": "<workspace>\\.tools\\jdk\\jdk-25.0.5+8\\bin\\java.exe",
+      "processStartedAt": "2026-11-01T09:11:56.9035879Z",
+      "port": 18080,
+      "jarPath": "<workspace>\\backend\\api-gateway\\target\\api-gateway-0.1.0-SNAPSHOT.jar",
+      "jarSha256": "39a550b3d8aad84ea21bcdf5aa5dd783ae5bf63eda42c2c8072b57488d9069b7",
+      "sourceSha": "85462cf57945de58a9f79d5d22f7d2a542bcd05a"
+    },
+    "assessment": {
+      "pid": 37804,
+      "processPath": "<workspace>\\.tools\\jdk\\jdk-25.0.5+8\\bin\\java.exe",
+      "processStartedAt": "2026-11-01T09:05:52.8142935Z",
+      "port": 8090,
+      "jarPath": "<workspace>\\.tools\\huy-w6-source\\backend\\services\\assessment-service\\target\\assessment-service-0.1.0-SNAPSHOT.jar",
+      "jarSha256": "f9e37dbb119544d1c78c2d223c2c4efb6efa1ccaafa49e95aa747a1a5daea9bf",
+      "sourceSha": "c1a2a074a4cc6c0d3d0bdf04ef77540a530c5930"
+    }
+  },
+  "databases": {
+    "user": {
+      "port": 15541,
+      "dataDirectory": "<workspace>\\.tools\\khoa-w6-host-20261101-b\\user-data",
+      "version": "PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit",
+      "flyway": [
+        {
+          "version": "1",
+          "description": "user schema",
+          "success": true
+        }
+      ]
+    },
+    "content": {
+      "port": 15542,
+      "dataDirectory": "<workspace>\\.tools\\khoa-w6-host-20261101-b\\content-data",
+      "version": "PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit",
+      "flyway": [
+        {
+          "version": "1",
+          "description": "content schema",
+          "success": true
+        }
+      ]
+    },
+    "assessment": {
+      "port": 15543,
+      "dataDirectory": "<workspace>\\.tools\\khoa-w6-host-20261101-b\\assessment-data",
+      "version": "PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit",
+      "flyway": [
+        {
+          "version": "1",
+          "description": "assessment foundation",
+          "success": true
+        }
+      ]
+    }
+  },
+  "stoppedAt": "2026-11-01T09:17:51.480375+00:00"
+}

@@ -1,0 +1,67 @@
+{
+  "checkedAt": "2026-11-01T09:13:01.710235+00:00",
+  "runtimeMode": "HOST",
+  "backendSha": "85462cf57945de58a9f79d5d22f7d2a542bcd05a",
+  "assessmentSha": "c1a2a074a4cc6c0d3d0bdf04ef77540a530c5930",
+  "scope": "Gateway503 and draft preservation while Assessment PostgreSQL is down; direct owner500 remains FAIL",
+  "checks": [
+    {
+      "case": "csrf before login",
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "login",
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "csrf after login",
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "draft before outage",
+      "method": "GET",
+      "path": "/api/v1/admin/lessons/0dfd643c-20e0-4931-bb91-5fa69a4d9539",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "draft before outage",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "Gateway publish with Assessment DB down",
+      "method": "PATCH",
+      "path": "/api/v1/admin/lessons/0dfd643c-20e0-4931-bb91-5fa69a4d9539",
+      "expected": 503,
+      "actual": 503
+    },
+    {
+      "case": "dependency error code",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "draft after outage",
+      "method": "GET",
+      "path": "/api/v1/admin/lessons/0dfd643c-20e0-4931-bb91-5fa69a4d9539",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "draft preserved",
+      "expected": true,
+      "actual": true
+    }
+  ],
+  "status": "PASS_GATEWAY_ONLY_OWNER_DATABASE_PHASE_STILL_FAIL"
+}

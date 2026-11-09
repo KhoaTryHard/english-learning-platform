@@ -1,0 +1,748 @@
+{
+  "checkedAt": "2026-10-28T22:42:22.310096+07:00",
+  "status": "OWNER_REGRESSION_PASS_ACCEPTANCE_OPEN",
+  "sourceCommit": "a9f4664263cfe159ea6c8e14ace9d805e9b311ad",
+  "applicationCommit": "5a964361990669ac145103dece139a29ec498288",
+  "snapshotNote": "Tests ran against the working source subsequently committed at these SHAs; final documentation-only commits do not change tested source. Gateway assertions were rerun after the full reactor run.",
+  "sourceDigestSha256": "02b70bec025429d94a6b115c08649ff2f5cf4803de8adaa513fcc3ac09ddc4a9",
+  "digestRule": "sorted git ls-tree paths backend/shared/scripts/pom.xml/compose.yaml; path + NUL + git blob bytes + NUL",
+  "environment": {
+    "host": "Windows, PowerShell, Docker Desktop Linux containers",
+    "mavenJava": "25.0.5+8",
+    "dockerRuntimeJava": "Temurin 25.0.4.1+1",
+    "postgresql": "17.11",
+    "dockerServer": "29.8.2",
+    "composeProject": "khoa-alignment-20261028",
+    "gatewayPort": 18080,
+    "frontendOrigin": "http://127.0.0.1:5173",
+    "frontendNode": "24.22.1",
+    "testVolumesPreserved": true
+  },
+  "junit": {
+    "status": "PASS",
+    "executions": 47,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suites": [
+      {
+        "service": "backend/api-gateway",
+        "suite": "vn.group7.api.GatewayRoutingTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/api-gateway",
+        "suite": "vn.group7.core.InputTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/api-gateway",
+        "suite": "vn.group7.core.SecurityBoundaryTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/services/learning-content-service",
+        "suite": "vn.group7.content.ContentIntegrationTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/services/learning-content-service",
+        "suite": "vn.group7.content.ImportBoundaryTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/services/learning-content-service",
+        "suite": "vn.group7.content.ImportContainerTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/services/learning-content-service",
+        "suite": "vn.group7.core.InputTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/services/learning-content-service",
+        "suite": "vn.group7.core.SecurityBoundaryTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/services/user-service",
+        "suite": "vn.group7.core.InputTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/services/user-service",
+        "suite": "vn.group7.core.SecurityBoundaryTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/services/user-service",
+        "suite": "vn.group7.user.SessionValidationTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "service": "backend/services/user-service",
+        "suite": "vn.group7.user.UserIntegrationTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ],
+    "executedGoal": "Maven Wrapper verify; final GatewayRoutingTest test rerun",
+    "reproduceCommand": "./mvnw.cmd -B verify",
+    "scope": "Real PostgreSQL Testcontainers for owner integration; mocked upstream readiness/session dependencies where documented; SDK suites repeated per application"
+  },
+  "redBeforeFix": {
+    "macroCases": 2,
+    "session500Case": 1,
+    "result": "Expected regression failures reproduced before fix"
+  },
+  "isolatedBuilds": {
+    "status": "PASS",
+    "isolatedBuildRequested": true,
+    "services": [
+      {
+        "service": "backend/services/user-service",
+        "parent": "Spring Boot",
+        "siblingMavenDependency": false,
+        "dockerContext": "backend/services/user-service",
+        "isolatedBuild": "PASS",
+        "ownerOnlyExecutableJar": "PASS"
+      },
+      {
+        "service": "backend/services/learning-content-service",
+        "parent": "Spring Boot",
+        "siblingMavenDependency": false,
+        "dockerContext": "backend/services/learning-content-service",
+        "isolatedBuild": "PASS",
+        "ownerOnlyExecutableJar": "PASS"
+      },
+      {
+        "service": "backend/api-gateway",
+        "parent": "Spring Boot",
+        "siblingMavenDependency": false,
+        "dockerContext": "backend/api-gateway",
+        "isolatedBuild": "PASS",
+        "ownerOnlyExecutableJar": "PASS"
+      }
+    ],
+    "command": "python scripts/check-service-layout.py --build"
+  },
+  "composeConfig": {
+    "status": "PASS",
+    "files": [
+      "compose.yaml",
+      "backend/api-gateway/compose.yaml",
+      "backend/services/user-service/compose.yaml",
+      "backend/services/learning-content-service/compose.yaml"
+    ],
+    "command": "docker compose [-f <file>] config --quiet"
+  },
+  "dockerBuild": {
+    "status": "PASS",
+    "command": "docker compose build user content api",
+    "note": "First attempt failed Maven Central HTTP502; retry built all three images successfully"
+  },
+  "frozenContractsAndV1Migrations": {
+    "status": "PASS",
+    "comparedTo": "575b739a5ff71d7e85585decd05367fa9228e939",
+    "sha256": {
+      "docs/contracts/public-v0.1.yaml": "800a25b92e7272a2e02ea1d08b29612ad58d28d0db85dea9743c25257537e22c",
+      "docs/contracts/internal-v0.1.yaml": "f6b304ea50c616fd4f642b2606de0e1ab9610b09bf4a39e551379112b53af9da",
+      "backend/services/learning-content-service/src/main/resources/db/migration/V1__content_schema.sql": "75fb281c33a1da1c473053a22c56f7e88f018c0c0bc97bcbbe9cbc16c6cd2b99",
+      "backend/services/user-service/src/main/resources/db/migration/V1__user_schema.sql": "f26f1b477963ec7cfa1cb045e582f9adb65c92406f775de5ad10d6660c95b792"
+    }
+  },
+  "contractAndSdk": {
+    "status": "PASS",
+    "commands": [
+      "python scripts/check-contracts.py",
+      "python scripts/sync-sdk.py --check"
+    ],
+    "gatewayRoutes": 63,
+    "ownerOperations": 43
+  },
+  "smoke": {
+    "status": "PASS",
+    "publicOperations": 43,
+    "requests": 62,
+    "assessment": "MOCK_ONLY",
+    "checks": [
+      {
+        "method": "GET",
+        "path": "/api/v1/auth/csrf",
+        "status": 200,
+        "operation": "getCsrf"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/auth/register",
+        "status": 201,
+        "operation": "register"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/auth/csrf",
+        "status": 200,
+        "operation": "getCsrf"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/auth/login",
+        "status": 200,
+        "operation": "login"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/auth/csrf",
+        "status": 200,
+        "operation": "getCsrf"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/me/profile",
+        "status": 200,
+        "operation": "getMyProfile"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/me/profile",
+        "status": 200,
+        "operation": "patchMyProfile"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/me/learning-setup",
+        "status": 200,
+        "operation": "getLearningSetup"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/auth/csrf",
+        "status": 200,
+        "operation": "getCsrf"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/auth/login",
+        "status": 200,
+        "operation": "login"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/auth/csrf",
+        "status": 200,
+        "operation": "getCsrf"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/users",
+        "status": 200,
+        "operation": "listUsers"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/users/d179e38e-6c2a-4951-a410-5b6b64a564d4",
+        "status": 200,
+        "operation": "getUser"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/users/d179e38e-6c2a-4951-a410-5b6b64a564d4",
+        "status": 200,
+        "operation": "patchUser"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/admin/courses",
+        "status": 201,
+        "operation": "createCourse"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/courses",
+        "status": 200,
+        "operation": "adminListCourses"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/courses/812d0da0-a1d4-4b05-8d69-645e917cb7f3",
+        "status": 200,
+        "operation": "adminGetCourse"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/courses/812d0da0-a1d4-4b05-8d69-645e917cb7f3",
+        "status": 200,
+        "operation": "patchCourse"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/courses/10000000-0000-4000-8000-000000000001",
+        "status": 200,
+        "operation": "patchCourse"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/admin/modules",
+        "status": 201,
+        "operation": "createModule"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/modules",
+        "status": 200,
+        "operation": "adminListModules"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/modules/34e0aa2d-02a2-4930-9782-bbe77b9aec6b",
+        "status": 200,
+        "operation": "adminGetModule"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/modules/34e0aa2d-02a2-4930-9782-bbe77b9aec6b",
+        "status": 200,
+        "operation": "patchModule"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/admin/lessons",
+        "status": 201,
+        "operation": "createLesson"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/lessons",
+        "status": 200,
+        "operation": "adminListLessons"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/lessons/a14af977-1a92-489d-89ee-c16fed5305ae",
+        "status": 200,
+        "operation": "adminGetLesson"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/lessons/a14af977-1a92-489d-89ee-c16fed5305ae",
+        "status": 200,
+        "operation": "patchLesson"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/admin/imports/vocabulary",
+        "status": 201,
+        "operation": "importVocabulary"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/vocabulary",
+        "status": 200,
+        "operation": "adminListVocabulary"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/vocabulary/04c1ed6a-dfea-4596-a0b1-cc8078bccd79",
+        "status": 200,
+        "operation": "adminGetVocabulary"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/vocabulary/04c1ed6a-dfea-4596-a0b1-cc8078bccd79",
+        "status": 200,
+        "operation": "patchVocabulary"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/admin/learning-contents",
+        "status": 201,
+        "operation": "createLearningContent"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/learning-contents",
+        "status": 200,
+        "operation": "adminListLearningContent"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/learning-contents/c2fb3330-76ff-4f50-9a63-36fdcda30e14",
+        "status": 200,
+        "operation": "adminGetLearningContent"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/learning-contents/c2fb3330-76ff-4f50-9a63-36fdcda30e14",
+        "status": 200,
+        "operation": "patchLearningContent"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/admin/imports/lessons",
+        "status": 201,
+        "operation": "importLessons"
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/admin/imports/lessons",
+        "status": 422,
+        "operation": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/import-templates/vocabulary",
+        "status": 200,
+        "operation": "getTemplateVocabulary"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/import-templates/lessons",
+        "status": 200,
+        "operation": "getTemplateLessons"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/v1/me/learning-setup",
+        "status": 200,
+        "operation": "putLearningSetup"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/courses",
+        "status": 200,
+        "operation": "listCourses"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/courses/10000000-0000-4000-8000-000000000001",
+        "status": 200,
+        "operation": "getCourse"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/courses/10000000-0000-4000-8000-000000000001/levels",
+        "status": 200,
+        "operation": "listLevels"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/courses/10000000-0000-4000-8000-000000000001/modules",
+        "status": 200,
+        "operation": "listModules"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/modules/34e0aa2d-02a2-4930-9782-bbe77b9aec6b/lessons",
+        "status": 200,
+        "operation": "listLessons"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/lessons/a14af977-1a92-489d-89ee-c16fed5305ae",
+        "status": 200,
+        "operation": "getLessonLearning"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/v1/me/vocabulary/04c1ed6a-dfea-4596-a0b1-cc8078bccd79",
+        "status": 200,
+        "operation": "saveVocabulary"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/v1/me/vocabulary/04c1ed6a-dfea-4596-a0b1-cc8078bccd79",
+        "status": 200,
+        "operation": "saveVocabulary"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/me/vocabulary",
+        "status": 200,
+        "operation": "listSavedVocabulary"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/courses/10000000-0000-4000-8000-000000000001",
+        "status": 200,
+        "operation": "patchCourse"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/v1/me/vocabulary/04c1ed6a-dfea-4596-a0b1-cc8078bccd79",
+        "status": 200,
+        "operation": "saveVocabulary"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/me/vocabulary",
+        "status": 200,
+        "operation": "listSavedVocabulary"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/admin/vocabulary/04c1ed6a-dfea-4596-a0b1-cc8078bccd79",
+        "status": 200,
+        "operation": "patchVocabulary"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/me/vocabulary",
+        "status": 200,
+        "operation": "listSavedVocabulary"
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/v1/me/vocabulary/04c1ed6a-dfea-4596-a0b1-cc8078bccd79",
+        "status": 204,
+        "operation": "removeVocabulary"
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/v1/me/vocabulary/04c1ed6a-dfea-4596-a0b1-cc8078bccd79",
+        "status": 204,
+        "operation": "removeVocabulary"
+      },
+      {
+        "method": "GET",
+        "path": "/internal/v1/courses/contexts",
+        "status": 404,
+        "operation": null
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/v1/admin/courses/10000000-0000-4000-8000-000000000001",
+        "status": 405,
+        "operation": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/users",
+        "status": 403,
+        "operation": null
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/v1/me/profile",
+        "status": 403,
+        "operation": null
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/auth/logout",
+        "status": 204,
+        "operation": "logout"
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/me/profile",
+        "status": 401,
+        "operation": null
+      }
+    ],
+    "command": "python scripts/smoke.py",
+    "scope": "LIVE Gateway/User/Content/PostgreSQL; Assessment readiness MOCK"
+  },
+  "sessionFault": {
+    "status": "PASS",
+    "scope": "REAL Gateway/User/Content/PostgreSQL; session-table privilege fault only",
+    "invalidCsrf": 403,
+    "missingSession": 403,
+    "sessionStoreFailure": 503,
+    "failureCode": "DEPENDENCY_UNAVAILABLE",
+    "contentRowsUnchangedOnFailure": true,
+    "permissionRestored": true,
+    "recoveryCreatesCourse": true,
+    "notCovered": [
+      "network partition",
+      "pool exhaustion",
+      "full Assessment/Progress integration"
+    ],
+    "command": "python scripts/verify-session-outage.py",
+    "setup": "Test project only; ALLOW_TEST_FAULT_INJECTION=1; runtime SELECT revoked/restored in finally"
+  },
+  "operations": {
+    "status": "PASS",
+    "restartPersistence": "PASS",
+    "restartScope": "databases and applications",
+    "gatewayNoDatabaseCredentials": "PASS",
+    "restoreScope": "new databases in same test cluster; not recovery to a new host",
+    "databases": [
+      {
+        "database": "user_db",
+        "backupRestore": "PASS",
+        "tables": {
+          "app_user": {
+            "rows": 4,
+            "digest": "7d9237620d2ba8fad880c94ee8d4deaeccadd960068265303961f6c3eac65cde"
+          },
+          "flyway_schema_history": {
+            "rows": 1,
+            "digest": "5032a1de8df04046da40bd2e9055eb4bb778bde5f2dc05af4bf50902ea94c807"
+          },
+          "learner_profile": {
+            "rows": 3,
+            "digest": "6f6b876b96bf578db4094ee5a0c565219a27e01552a477ba73abba5f8cc1a6b6"
+          },
+          "learning_setup": {
+            "rows": 3,
+            "digest": "1c309034ca199d278a6645cb32200f25a305f3fdb1b62cc0d487c18b578df0b4"
+          },
+          "revoked_token": {
+            "rows": 3,
+            "digest": "f92fc28b017748f537fead0a758f899070505bb2137cddceeac6e738f038fa27"
+          },
+          "spring_session": {
+            "rows": 3,
+            "digest": "b508a262a682e058e22e7611f3bc486378cc35c5faf922b7548d1f0040f7c688"
+          },
+          "spring_session_attributes": {
+            "rows": 9,
+            "digest": "c60e1291d5b5cc68d7a74dee401748fa8fdad91b9db3655f2696bf8d61a0ce0c"
+          }
+        },
+        "constraints": "PASS",
+        "ownersAndGrants": "PASS",
+        "flywayHistory": "PASS"
+      },
+      {
+        "database": "content_db",
+        "backupRestore": "PASS",
+        "tables": {
+          "course": {
+            "rows": 3,
+            "digest": "5cac202a4e1bd93f991945d4341bb6be51bfe6a9a428c1ed5c3fac5e97462227"
+          },
+          "course_module": {
+            "rows": 2,
+            "digest": "2bb17306c295aa3b67cbab487c7584fee9a259d6d23f22293e416bf58d87c5c8"
+          },
+          "flyway_schema_history": {
+            "rows": 1,
+            "digest": "56b86ab8b55a380c035ec79aebdc7cc593743ad42cbfc439514d39acf5d317d2"
+          },
+          "learning_content": {
+            "rows": 1,
+            "digest": "4792da7877a55fae80e2f6d3f28aafd33c9926991ddead00ef6b83ef91eda9e1"
+          },
+          "lesson": {
+            "rows": 3,
+            "digest": "642bd30da0647ae9a7cada55239e2895a0eacc33fd81c579947c3f4362f23da6"
+          },
+          "level": {
+            "rows": 1,
+            "digest": "5935cc919868f8a350c4b6f60a0b1b650caeec8b830617895bc9caeca9214cf1"
+          },
+          "user_vocabulary": {
+            "rows": 0,
+            "digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "vocabulary": {
+            "rows": 4,
+            "digest": "2a29de41416eb6af8a9577540fc54eef3d0b92f4b87ce942e1fadc4b79866231"
+          }
+        },
+        "constraints": "PASS",
+        "ownersAndGrants": "PASS",
+        "flywayHistory": "PASS"
+      }
+    ],
+    "command": "python scripts/verify-operations.py",
+    "constraintComparison": "Normalize equivalent varchar literal-array to element text casts after pg_restore; other constraint definitions compared"
+  },
+  "frontend": {
+    "status": "PASS",
+    "sourceCommit": "45234b8fd08c7020d661995092afabed38647c55",
+    "command": "npx playwright test --config playwright.live.config.ts",
+    "environment": {
+      "RUN_LIVE_INTEGRATION": "1",
+      "GATEWAY_URL": "http://127.0.0.1:18080",
+      "LIVE_COURSE_NAME": "Demo English",
+      "LIVE_LESSON_TITLE": "Java 25 Greetings"
+    },
+    "stats": {
+      "startTime": "2026-10-28T15:31:12.981Z",
+      "duration": 26871.755,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "projects": [
+      "live-desktop",
+      "live-mobile"
+    ],
+    "scope": "Register/Login/Profile/Setup/Lesson/save/remove/logout through actual backend. Readiness MOCK; no Assessment/Progress/Kafka E2E"
+  },
+  "review": {
+    "scaffoldPr18": "MERGED 9eff18971470679b25375a4c813f75ade2a23ecf; Khoa review assisted by Codex",
+    "backendPr1": "DRAFT, base develop, peer acceptance pending"
+  },
+  "externalGates": [
+    "Huy decision on internal v0.1.1 compatibility/rollout; approved v0.1 remains frozen",
+    "LIVE Assessment readiness, same-key retry/new-key retake, Progress/Kafka integration",
+    "Huy receipt/review of source API handoff and aggregator partial-source behavior",
+    "Peer review/acceptance and backend PR1 merge",
+    "Full security/network/pool/transport/Windows ACL matrix and new-host disaster recovery not certified",
+    "Issue23 WAITING_ACCEPTANCE; no permission changes or fabricated owner capacity/actual hours"
+  ],
+  "commandsAndSetup": "docs/runbooks/khoa-w9.md",
+  "localLogs": {
+    "directory": ".tools/khoa-alignment-20261028 (ignored; not public)",
+    "sha256": {
+      "bootstrap.log": "870d760d57a0cccc4bc05d59fead62d4a0b0c1fbdb0b1524b7adebe30bb1973b",
+      "compose-final.log": "b0a8a8c5ec907f2d0ff34814119d72a1818aa5430705dd8af34203709da00198",
+      "compose-start.log": "016c634111349216b06298b6437a9681a5de15e0d95712e81d9926e0c9c82584",
+      "compose-stop.log": "87742e94ba6b9ac522070fee5b3cd1e4914699d13f3711aa031f173d1f0345d2",
+      "docker-build-retry.log": "f6032aba1352735f94de164c5d13fb9d7dfe02452b08382ae29dd1a2e2a5ae79",
+      "docker-build.log": "6f57229e4c032726e5ced59836443dbcd80c44931c24e92689739a98ad3fbabe",
+      "frontend-install.log": "d40a9210c1d533d6783b9591fd9651ca05831187b860196cfe49292dcbb1b9f9",
+      "frontend-live.log": "060a5671ffcd13283f400579bcddfc770a8bed13982c5ceb85a5b49908106ef5",
+      "gateway-final.log": "026d655252c0696fb67f2ee3a00c449ebf19a68281a33ec022fb3b2d84f908b5",
+      "isolated-builds.log": "d6e128855aa48447deccae192e7f63b14ef2052f934e474b50df740c3d4e7912",
+      "operations-final.log": "088a3254ebfe15e9f11798a2964bd876cec4fc425bb75f9db2c0c266c009a4a1",
+      "operations.log": "42f5ff5d3f9bf73c84e8a1044dfbae397946fc40083ffd9526881ecf853d6309",
+      "regression-red.log": "7796048a69e08f662871e4c16c4d2746aa6081226babea89934165aeb175cc6f",
+      "seed.log": "fc8fab372c0e7ceff4d1abce4512d44aa346db4b3cbfb160f04aad55b0be7ef3",
+      "session-runtime.log": "9e94b900ba787f59dee23a6645c95718e0c6fe3567310194d78480c58af5cba9",
+      "smoke.log": "d91843da37ac8bf08dd7c743a7c71339da44fcad34c67b4502f992ca4262d8c4",
+      "verify-java25-final.log": "fa4538fa98cc9cec49a8163c10d472884dfd9d07c60fe09e14c16de9d934eada",
+      "verify-java25.log": "b743f3d9c18d39e16324922ead0dcc3c6a26911a92e83a114f9f0b3eedd794cd"
+    }
+  }
+}
