@@ -1,5 +1,8 @@
 # Khoa — bàn giao backlog User/Content/Gateway, 01/11/2026
 
+Checkpoint tiếp theo: [W7-05 review/retest và quyết định nghiệm thu Khoa ngày09/11](2026-11-09-khoa-w7-05.md).
+Nội dung dưới đây giữ đúng trạng thái lịch sử ngày01/11.
+
 **Kết luận:** phần kỹ thuật của Khoa đạt trong môi trường TEST. Cần review bản
 sửa mới, quy trình merge và nghiệm thu frontend/consumer theo owner trước khi
 đóng các issue tương ứng. Không xác nhận toàn MVP hoặc thay reviewer ký duyệt.

@@ -1,5 +1,8 @@
 # Khoa backlog — môi trường TEST và bàn giao
 
+Handoff hiện hành cho Huy/Hưng: [W7-05 ngày09/11](../reviews/2026-11-09-khoa-w7-05.md)
+với API/caller/semantics, fixture, response mẫu, phiên bản và remaining.
+
 User/Content/Gateway ở nhánh `feature/khoa-backlog-w7-w8`; Assessment/Progress
 checkout riêng có PR44 fix413a929. Java25, Docker Compose hỗ trợ `!override`,
 OpenSSL và Python3.12 với PyYAML/jsonschema. Không dùng profile demo.
