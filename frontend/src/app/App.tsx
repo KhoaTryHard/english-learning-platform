@@ -26,6 +26,8 @@ import { Empty } from '../shared/ui/States';
 import { AdminHome, AdminLayout } from '../features/admin/AdminLayout';
 import { AdminPage } from '../features/admin/AdminPage';
 import { ImportPage } from '../features/admin/ImportPage';
+import { StatisticsPage } from '../features/admin/StatisticsPage';
+import { AdminAssessmentsPage } from '../features/admin/AssessmentsPage';
 
 export function Protected({ role = 'LEARNER' }: { role?: 'LEARNER' | 'ADMIN' }) {
   const { user } = useAuth();
@@ -76,6 +78,8 @@ export function App() {
             <Route path="admin" element={<AdminLayout />}>
               <Route index element={<AdminHome />} />
               <Route path="import" element={<ImportPage />} />
+              <Route path="statistics" element={<StatisticsPage />} />
+              <Route path="assessments" element={<AdminAssessmentsPage />} />
               <Route path=":kind" element={<AdminPage />} />
             </Route>
           </Route>

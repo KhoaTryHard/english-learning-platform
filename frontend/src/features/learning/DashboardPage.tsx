@@ -44,6 +44,16 @@ export function DashboardPage() {
       >
         Một bài học rõ ràng, một bước tiến trong tiếng Anh.
       </PageHeading>
+      <button
+        className="button secondary"
+        onClick={() => {
+          dashboard.retry();
+          content.retry();
+        }}
+        disabled={dashboard.loading || content.loading}
+      >
+        Làm mới tổng quan
+      </button>
       <div className="learning-focus">
         <section className="continue-card stack">
           <span className="badge">BÀI HỌC TRONG KHÓA</span>
@@ -127,7 +137,11 @@ export function DashboardPage() {
             ))
           ) : (
             <p className="muted">
-              {dashboard.error ? 'Lịch sử chưa tải được.' : 'Chưa có hoạt động học được ghi nhận.'}
+              {dashboard.loading
+                ? 'Đang tải lịch sử…'
+                : dashboard.error
+                  ? 'Lịch sử chưa tải được.'
+                  : 'Chưa có hoạt động học được ghi nhận.'}
             </p>
           )}
           <Link to="/history">Xem lịch sử học tập →</Link>

@@ -1383,6 +1383,13 @@ td {
   justify-content: space-between;
   margin-bottom: 24px;
 }
+.assessment-toolbar {
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.assessment-toolbar > label {
+  flex: 1 1 200px;
+}
 .admin-filter {
   display: flex;
   align-items: end;
