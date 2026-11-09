@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "node": "v24.22.1",
+  "results": [
+    {
+      "pr": 22,
+      "sha": "f386170de0a788d2e21f1ece9b782aaa0cc52f47",
+      "command": "npm ci --ignore-scripts --no-audit --no-fund; npm run check",
+      "unitUiTests": 22,
+      "status": "PASS",
+      "scope": "Existing suite, lint, TypeScript/Vite build and contract/production guard",
+      "localLogSha256": "ee1cf08f2e463e1ed302c6cbd9d21f477720f964e99e6d5d3c38571a5b8b8116"
+    },
+    {
+      "pr": 46,
+      "sha": "1e11c6d700a5f5e118f086ca23f9c5c66a3be031",
+      "command": "npm ci --ignore-scripts --no-audit --no-fund; npm run check",
+      "unitUiTests": 46,
+      "status": "PASS",
+      "scope": "Existing suite, lint, TypeScript/Vite build and contract/production guard",
+      "localLogSha256": "908f07cd1a385cf86587a8ab3fe8d8b07f2a602d7f74a7a5a6c744f50a64d482"
+    }
+  ],
+  "note": "Suites overlap; 22+46 is not 68 unique scenarios."
+}
