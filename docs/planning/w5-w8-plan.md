@@ -1,5 +1,7 @@
 # Kế hoạch issue W5–W8 — 27/10/2026
 
+**Checkpoint Hưng 09/11/2026:** [W8 frontend/evidence](../evidence/w8-frontend.md), source `33b16ef`: Admin Assessment/Question #37, Statistics #38, refresh/History snapshots #39 và responsive tests #12 đã có code, 55 unit/UI và 10 browser MOCK PASS. LIVE mới bị chặn do Docker engine không khởi động; full #40/owner #41 và peer review chưa khép. Một nhánh `feature/hung-w8`, PR nối W7 #46 khi nền chưa merge. Không thay actual/capacity hoặc nghiệm thu Khoa/Huy; lịch/estimate gốc bên dưới giữ là lịch sử.
+
 Lê Tiến Hưng yêu cầu phân đủ bốn tuần development theo [Timeline Trello](https://trello.com/c/YR8sC8P2). Có **39 issue**, gồm **19 issue cũ được tái sử dụng và 20 issue mới #23–#42**; đủ bốn milestone. Trello chỉ đọc; bỏ CI/CD, kiểm thử thủ công và peer review trong từng tuần. Đây là kế hoạch PM có mục tiêu/remaining, chưa phải xác nhận capacity hoặc nghiệm thu thay thành viên.
 
 Dữ liệu kiểm tra được ở [w5-w8-issues.json](w5-w8-issues.json). Snapshot kế hoạch gốc là 27/10; ngày 28/10 đã đồng bộ riêng checkpoint Khoa cho #3/#13/#14/#21/#31/#41/#42. `checklist` của bảy issue là hiện hành; `checklistAtPlanning` giữ lịch sử. Các issue owner khác, estimates/targets/allocations không đổi; không tự tạo actual hay capacity.
