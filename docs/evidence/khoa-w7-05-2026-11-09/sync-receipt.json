@@ -1,0 +1,64 @@
+{
+  "dateVietnam": "2026-11-09",
+  "evidenceCommit": "75c46cc8aef3936059e3a5340374ce4a8421fecc",
+  "trello": {
+    "id": "6ae787fabff7da92aeb72ef5",
+    "url": "https://trello.com/c/mgDcHFC8",
+    "list": "Done",
+    "due": "2026-11-04T14:00:00.000Z",
+    "dueComplete": true,
+    "checksDone": 4,
+    "checksTotal": 4,
+    "originalDescriptionPreserved": true,
+    "originalAndFinalChecklist": [
+      {
+        "id": "6ae7886aace0b3d884e89ad1",
+        "originalName": "Peer review patch PR #45 và retest phần thay đổi.",
+        "name": "Review patch PR #45 và retest; Khoa chấp nhận thay gate phản hồi Huy (09/11).",
+        "state": "complete"
+      },
+      {
+        "id": "6ae7886ca89d843604f43d49",
+        "originalName": "Bàn giao fixture/URL/SHA cho UI Admin/Import/My Vocabulary.",
+        "name": "Bàn giao fixture/URL/SHA cho UI Admin/Import/My Vocabulary.",
+        "state": "complete"
+      },
+      {
+        "id": "6ae7886fa638f4fcfd9b4733",
+        "originalName": "Huy/Khoa xác nhận semantics API nguồn cho Progress/Statistics.",
+        "name": "Khoa xác nhận semantics API nguồn theo quyết định owner (09/11).",
+        "state": "complete"
+      },
+      {
+        "id": "6ae7887192b4cc1e01324850",
+        "originalName": "Ghi kết luận review/merge và remaining, không tính effort phần đã làm lại.",
+        "name": "Ghi kết luận review/merge và remaining, không tính effort phần đã làm lại.",
+        "state": "complete"
+      }
+    ]
+  },
+  "drive": {
+    "url": "https://docs.google.com/document/d/1jZkPfrPddA3K_w_WIII1-nLA6sOneQHv-qHipf6bDhg/edit",
+    "documentId": "1jZkPfrPddA3K_w_WIII1-nLA6sOneQHv-qHipf6bDhg",
+    "markerCount": 1,
+    "oldTextPrefixPreserved": true,
+    "checkpoint": "KHOA-W7-05-20261109"
+  },
+  "acceptance": {
+    "decisionBy": "Khoa",
+    "verbatim": "xem như Huy chấp nhận nha em",
+    "type": "Owner acceptance/waiver for W7-05 task closure",
+    "actualHuyResponse": false,
+    "nativeGithubApproval": false
+  },
+  "github": {
+    "pullRequest": "https://github.com/KhoaTryHard/english-learning-platform/pull/45",
+    "base": "develop",
+    "state": "OPEN_READY_FOR_REVIEW_UNMERGED",
+    "issues": [
+      14,
+      31
+    ],
+    "issuesRemainOpen": true
+  }
+}

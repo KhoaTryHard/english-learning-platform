@@ -1,0 +1,100 @@
+# TEST integration overlay. Owner source stays in its separate checkout.
+services:
+  user:
+    environment:
+      ASSESSMENT_URL: http://assessment-live:8090
+    ports: ["127.0.0.1:18081:8081"]
+  content:
+    environment:
+      ASSESSMENT_URL: http://assessment-live:8090
+      MEDIA_HOSTS: example.com
+    ports: ["127.0.0.1:18082:8082"]
+  api:
+    environment:
+      ASSESSMENT_URL: http://assessment-live:8090
+      PROGRESS_URL: http://progress-live:8091
+    ports: !override
+      - "127.0.0.1:${GATEWAY_PORT:-18080}:8080"
+  content-seed:
+    volumes:
+      - ./docs/fixtures/khoa-backlog-course-levels.json:/seed/course-levels.json:ro
+  assessment-db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: assessment_db
+      POSTGRES_USER: assessment
+      POSTGRES_PASSWORD: ${ASSESSMENT_TEST_DB_PASSWORD:?Load scripts/khoa-backlog-env.ps1}
+    volumes:
+      - assessment-test-data:/var/lib/postgresql/data
+    networks: [assessment-data]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U assessment -d assessment_db"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  assessment-live:
+    image: group7-assessment-service:${IMAGE_TAG:-khoa-backlog}
+    build:
+      context: ${HUY_SOURCE_ROOT:?Select owner checkout}/backend/services/assessment-service
+    environment:
+      DB_URL: jdbc:postgresql://assessment-db:5432/assessment_db
+      DB_USER: assessment
+      DB_PASSWORD: ${ASSESSMENT_TEST_DB_PASSWORD:?Load scripts/khoa-backlog-env.ps1}
+      USER_URL: http://user:8081
+      CONTENT_URL: http://content:8082
+      KAFKA_ENABLED: 'false'
+      PLATFORM_KEYS: /keys
+      PRIVATE_KEY_FILE: /private/assessment.private.pem
+      JAVA_TOOL_OPTIONS: -Xmx256m -Duser.timezone=UTC
+    volumes:
+      - ./.secrets/keys/public:/keys:ro
+      - ./.secrets/keys/assessment.private.pem:/private/assessment.private.pem:ro
+    networks: [backend, assessment-data]
+    ports: ["127.0.0.1:8090:8090"]
+    depends_on:
+      assessment-db:
+        condition: service_healthy
+  progress-db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: progress_db
+      POSTGRES_USER: progress
+      POSTGRES_PASSWORD: ${PROGRESS_TEST_DB_PASSWORD:?Load scripts/khoa-backlog-env.ps1}
+    volumes:
+      - progress-test-data:/var/lib/postgresql/data
+    networks: [progress-data]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U progress -d progress_db"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  progress-live:
+    image: group7-progress-service:${IMAGE_TAG:-khoa-backlog}
+    build:
+      context: ${HUY_SOURCE_ROOT:?Select owner checkout}/backend/services/progress-service
+    environment:
+      DB_URL: jdbc:postgresql://progress-db:5432/progress_db
+      DB_USER: progress
+      DB_PASSWORD: ${PROGRESS_TEST_DB_PASSWORD:?Load scripts/khoa-backlog-env.ps1}
+      USER_URL: http://user:8081
+      CONTENT_URL: http://content:8082
+      KAFKA_ENABLED: 'false'
+      PLATFORM_KEYS: /keys
+      PRIVATE_KEY_FILE: /private/progress.private.pem
+      JAVA_TOOL_OPTIONS: -Xmx256m -Duser.timezone=UTC
+    volumes:
+      - ./.secrets/keys/public:/keys:ro
+      - ./.secrets/keys/progress.private.pem:/private/progress.private.pem:ro
+    networks: [backend, progress-data]
+    ports: ["127.0.0.1:8091:8091"]
+    depends_on:
+      progress-db:
+        condition: service_healthy
+networks:
+  assessment-data:
+    internal: true
+  progress-data:
+    internal: true
+volumes:
+  assessment-test-data:
+  progress-test-data:

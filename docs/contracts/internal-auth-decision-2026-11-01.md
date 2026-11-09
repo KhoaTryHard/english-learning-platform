@@ -1,6 +1,13 @@
 # Quyết định internal auth W6-02 — 01/11/2026
 
 Trạng thái: **BASELINED_0.1.1_VIA_KHOA_RELAY / W6_ACCEPTED / PRODUCTION_HOLD_W10**.
+
+Checkpoint TEST sau W6: Docker Engine đã hoạt động và có local TEST images cho
+User/Content/Gateway/Assessment/Progress trong đợt backlog01/11; xem
+[evidence mới](../evidence/khoa-backlog-2026-11-01/manifest.json).
+Đây là diễn biến môi trường sau quyết định HOST bên dưới, không sửa nguồn xác nhận
+lịch sử. Baseline0.1.1 và production HOLD W10 giữ nguyên; local image IDs không
+thay registry digest, review hoặc rollout/rollback production được chấp thuận.
 Đây là bản ghi phản hồi thực của Huy/Hưng do Khoa chuyển lại và kết quả nghiệm
 thu W6. Approved v0.1 được giữ nguyên; baseline mới nằm ở `internal-v0.1.1.yaml`.
 

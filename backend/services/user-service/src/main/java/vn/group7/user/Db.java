@@ -22,6 +22,8 @@ public class Db {
   public <T> T tx(Supplier<T> f) {
     try {
       return tx.execute(s -> f.get());
+    } catch (org.springframework.transaction.CannotCreateTransactionException e) {
+      throw ApiError.dependency();
     } catch (DataAccessException e) {
       throw map(e);
     }

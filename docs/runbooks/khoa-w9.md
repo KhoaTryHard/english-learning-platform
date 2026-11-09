@@ -1,5 +1,12 @@
 # User/Content/Gateway: runbook kiểm thử và bàn giao W9
 
+Checkpoint backlog01/11: Docker Engine đã hoạt động; User/Content/Gateway và
+Assessment/Progress thật đã chạy trong project TEST riêng, PostgreSQL17.11.
+Network/pool/session faults, backup/restore/restart có evidence mới ở
+[review backlog](../reviews/2026-11-01-khoa-backlog.md) và
+[runbook tái hiện](khoa-backlog-w7-w8.md). Internal0.1.1 giữ baseline;
+review bản sửa mới, full group QA và production/HOLD-W10 là các gate riêng.
+
 Checkpoint01/11: W6-02 đã nghiệm thu HOST theo [hồ sơ hoàn tất](../reviews/2026-11-01-khoa-w6-completion.md).
 Internal0.1.1 đã có [quyết định baseline](../contracts/internal-auth-decision-2026-11-01.md)
 với nguồn xác nhận Huy/Hưng do Khoa chuyển lại. Các gate chờ trong hướng dẫn

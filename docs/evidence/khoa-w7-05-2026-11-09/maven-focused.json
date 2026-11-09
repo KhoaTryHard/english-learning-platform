@@ -1,0 +1,141 @@
+{
+  "status": "PASS",
+  "java": "25.0.5+8",
+  "tests": 22,
+  "transactionFaultDoubles": 8,
+  "postgresqlIntegrationWithOwnerHttpDoubles": 14,
+  "commands": [
+    "./mvnw.cmd -B -pl backend/services/user-service,backend/services/learning-content-service -Dtest=DbTransactionFailureTest -Dsurefire.failIfNoSpecifiedTests=false test",
+    "./mvnw.cmd -B -pl backend/services/user-service,backend/services/learning-content-service -Dtest=UserIntegrationTest,ContentIntegrationTest -Dsurefire.failIfNoSpecifiedTests=false test"
+  ],
+  "suites": [
+    {
+      "suite": "vn.group7.user.DbTransactionFailureTest",
+      "reportFileModifiedAtUtc": "2026-11-09T12:58:37.305402+00:00",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "name": "unrelatedTransactionFailureRemains500",
+          "result": "PASS"
+        },
+        {
+          "name": "connectionFailureBeforeTransactionReturnsSanitized503WithoutWriting",
+          "result": "PASS"
+        },
+        {
+          "name": "duplicateWriteRemains409",
+          "result": "PASS"
+        },
+        {
+          "name": "poolAcquisitionTimeoutReturns503AndNextRequestCanRecover",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "suite": "vn.group7.user.UserIntegrationTest",
+      "reportFileModifiedAtUtc": "2026-11-09T13:01:17.184399+00:00",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "name": "csrfRotationLogoutReplayAndProfile",
+          "result": "PASS"
+        },
+        {
+          "name": "cohortPagingFiltersKeepGlobalCountAndBlockedLearners",
+          "result": "PASS"
+        },
+        {
+          "name": "runtimeLeastPrivilegeAndExternalSetup",
+          "result": "PASS"
+        },
+        {
+          "name": "internalSetupAndCohortRequireOwnerCallers",
+          "result": "PASS"
+        },
+        {
+          "name": "blockedExpiredForgedAndOldContractFailClosed",
+          "result": "PASS"
+        },
+        {
+          "name": "registrationNormalizationAndNoEscalation",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "suite": "vn.group7.content.DbTransactionFailureTest",
+      "reportFileModifiedAtUtc": "2026-11-09T12:58:42.504850+00:00",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "name": "unrelatedTransactionFailureRemains500",
+          "result": "PASS"
+        },
+        {
+          "name": "connectionFailureBeforeTransactionReturnsSanitized503WithoutWriting",
+          "result": "PASS"
+        },
+        {
+          "name": "duplicateWriteRemains409",
+          "result": "PASS"
+        },
+        {
+          "name": "poolAcquisitionTimeoutReturns503AndNextRequestCanRecover",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "suite": "vn.group7.content.ContentIntegrationTest",
+      "reportFileModifiedAtUtc": "2026-11-09T13:01:34.571332+00:00",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "name": "atomicExcelAndWordRules",
+          "result": "PASS"
+        },
+        {
+          "name": "runtimePrivilegesAndForeignKeys",
+          "result": "PASS"
+        },
+        {
+          "name": "savedReferenceSurvivesHiddenParentAndSourceUpdates",
+          "result": "PASS"
+        },
+        {
+          "name": "concurrentSaveAndImportRollback",
+          "result": "PASS"
+        },
+        {
+          "name": "contextPagingIncludesDraftCoursesAndHiddenLessonDenominator",
+          "result": "PASS"
+        },
+        {
+          "name": "readinessHierarchyConstraintsAndDenominator",
+          "result": "PASS"
+        },
+        {
+          "name": "macroContainersLeaveNoBusinessRows",
+          "result": "PASS"
+        },
+        {
+          "name": "privateContextApisAndCallerAllowlist",
+          "result": "PASS"
+        }
+      ]
+    }
+  ]
+}
