@@ -3,6 +3,7 @@
 Source databases/volumes are never deleted. OPS_REPORT and GATEWAY_URL select output/endpoint.
 """
 from pathlib import Path
+from datetime import datetime, timezone
 import hashlib
 import json
 import os
@@ -11,6 +12,7 @@ import subprocess
 import time
 import urllib.request
 import uuid
+from test_runtime import fresh_report, require_docker_test, write_report
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -59,7 +61,7 @@ def wait_for_apps():
     raise AssertionError('Applications failed health after restart')
 
 
-def main():
+def verify(report):
     reports = []
     before_restart = {}
     for service in ['user', 'content']:
@@ -88,13 +90,26 @@ def main():
         assert expected == snapshot(service, service + '_db'), service + ' changed after restart'
     assert command('docker', 'compose', 'exec', '-T', 'api', 'sh', '-c',
                    'test ! -e /run/secrets/user_runtime && test ! -e /run/secrets/content_runtime && echo isolated') == 'isolated'
-    report = {'status': 'PASS', 'restartPersistence': 'PASS', 'restartScope': 'databases and applications',
+    report.update({'status': 'PASS', 'restartPersistence': 'PASS', 'restartScope': 'databases and applications',
               'gatewayNoDatabaseCredentials': 'PASS', 'restoreScope': 'new databases in same test cluster; not recovery to a new host',
-              'databases': reports}
-    destination = Path(os.environ.get('OPS_REPORT', str(ROOT / 'docs/verification-operations.json')))
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    destination.write_text(json.dumps(report, indent=2), encoding='utf-8')
+              'databases': reports})
     print('All-table backup/restore, ownership/grants and DB/application restart persistence: PASS')
+
+
+def main():
+    destination = fresh_report('OPS_REPORT', ROOT / 'docs/verification-operations.json')
+    project = require_docker_test(['user', 'content', 'user-db', 'content-db'])
+    report = {'status': 'FAIL', 'environment': 'TEST', 'composeProject': project,
+              'backendSha': command('git', 'rev-parse', 'HEAD'),
+              'startedAt': datetime.now(timezone.utc).isoformat()}
+    try:
+        verify(report)
+    except Exception as error:
+        report['failureType'] = type(error).__name__
+        raise
+    finally:
+        report['finishedAt'] = datetime.now(timezone.utc).isoformat()
+        write_report(destination, report)
 
 
 if __name__ == '__main__':

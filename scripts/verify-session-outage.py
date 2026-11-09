@@ -4,11 +4,13 @@ Requires ALLOW_TEST_FAULT_INJECTION=1 and COMPOSE_PROJECT_NAME. Restores session
 permission in finally. Never run on a shared/live application database.
 """
 from pathlib import Path
+from datetime import datetime, timezone
 import json
 import os
 import subprocess
 import uuid
 from smoke import Client, ROOT
+from test_runtime import fresh_report, require_docker_test, write_report
 
 
 def sql(service, statement):
@@ -31,7 +33,7 @@ def sql(service, statement):
         cwd=ROOT, text=True, stderr=subprocess.STDOUT).strip()
 
 
-def main():
+def verify():
     namespace = os.environ.get('LIVE_TEST_NAMESPACE') if os.environ.get('HOST_RUNTIME_EVIDENCE') else os.environ.get('COMPOSE_PROJECT_NAME')
     if os.environ.get('ALLOW_TEST_FAULT_INJECTION') != '1' or not namespace:
         raise SystemExit('Select a disposable TEST namespace and set ALLOW_TEST_FAULT_INJECTION=1.')
@@ -67,10 +69,25 @@ def main():
         'failureCode': 'DEPENDENCY_UNAVAILABLE', 'contentRowsUnchangedOnFailure': True,
         'permissionRestored': True, 'recoveryCreatesCourse': True,
         'notCovered': ['network partition', 'pool exhaustion', 'full Assessment/Progress integration']}
-    destination = Path(os.environ.get('SESSION_REPORT', str(ROOT / 'docs/evidence/session-runtime.json')))
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    destination.write_text(json.dumps(report, indent=2), encoding='utf-8')
     print('Session runtime: invalid CSRF/session 403; repository failure 503; no business row; recovery PASS')
+    return report
+
+
+def main():
+    destination = fresh_report('SESSION_REPORT', ROOT / 'docs/evidence/session-runtime.json')
+    if not os.environ.get('HOST_RUNTIME_EVIDENCE'):
+        require_docker_test(['user', 'content', 'user-db', 'content-db'])
+    report = {'status': 'FAIL', 'environment': 'TEST',
+              'backendSha': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
+              'startedAt': datetime.now(timezone.utc).isoformat()}
+    try:
+        report.update(verify())
+    except Exception as error:
+        report['failureType'] = type(error).__name__
+        raise
+    finally:
+        report['finishedAt'] = datetime.now(timezone.utc).isoformat()
+        write_report(destination, report)
 
 
 if __name__ == '__main__':
