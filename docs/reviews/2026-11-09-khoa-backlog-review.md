@@ -43,6 +43,20 @@ W6 baseline internal0.1.1 đã được ghi theo phản hồi thực Huy/Hưng q
 lịch sử, không dùng làm trạng thái hiện tại. #14 review WAIVED_BY_KHOA chỉ áp dụng
 cho #14. W5-01/W6-02/W7-05 giữ Done theo phạm vi đã nghiệm thu.
 
-Trello W8-05 cần hiển thị lại ở Review/Test cho bàn giao/QA; W8-06 tiếp tục Doing.
+Đã cập nhật và đọc lại23 thẻ Trello, xếp13 PB theo mức ưu tiên phần Khoa.
+W8-05 đã hiển thị lại ở Review/Test cho bàn giao/QA; W8-06 ở Doing.
+W7-07 hiện2/5 (smoke có evidence và bug/owner), ba gate nhóm còn pending.
+W5-01/W6-02/W7-05 giữ Done10/10,6/6,4/4; SRS9/10,UC10/11,API15/16 giữ
+review bổ sung đúng người. Đã append và đọc lại5 Google Docs: SRS,UC/AC,
+W3 register và nhật ký W7/W8, giữ nội dung trước đó.
+
+Review GitHub đã ghi dưới tài khoản Khoa (có hỗ trợ Codex):
+[PR22 REQUEST_CHANGES](https://github.com/KhoaTryHard/english-learning-platform/pull/22#pullrequestreview-5828813823),
+[PR46 REQUEST_CHANGES](https://github.com/KhoaTryHard/english-learning-platform/pull/46#pullrequestreview-5828814328),
+[PR43 REQUEST_CHANGES](https://github.com/KhoaTryHard/english-learning-platform/pull/43#pullrequestreview-5828814807).
+PR44 đã request Huy1188 review, reviews vẫn rỗng. #31 giữ Open5/7, #33 chỉ tick
+gate Khoa nghiệm thu backend Import; các issue/assignees/state khác được đọc lại.
+[Biên nhận đồng bộ](../evidence/khoa-backlog-review-2026-11-09/synchronization.json).
+
 PB vẫn là nhóm tính năng; ghi mức ưu tiên phần Khoa và dependency, không tự Done
 cả PB vì backend PASS. Giữ public v0.1, internal0.1.1 và V1; production HOLD W10.

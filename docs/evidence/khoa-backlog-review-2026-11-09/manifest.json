@@ -165,5 +165,10 @@
   ],
   "production": "HOLD_W10",
   "stackStopped": true,
-  "volumesPreserved": true
+  "volumesPreserved": true,
+  "synchronization": {
+    "file": "synchronization.json",
+    "sha256": "0d554d36f3fb6e119c67479bb09dd4c55d703973ae6c1e02181d77c32a3b738e",
+    "status": "VERIFIED"
+  }
 }
