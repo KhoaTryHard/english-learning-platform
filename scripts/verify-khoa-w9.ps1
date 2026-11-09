@@ -45,7 +45,23 @@ try {
  $env:ALLOW_TEST_FAULT_INJECTION = '1'
  $env:RUN_LIVE_ASSESSMENT = '1'
  Invoke-W9Command 'tooling-tests' $Python @('-m','unittest','discover','-s','scripts/tests','-v')
- Invoke-W9Command 'maven' "$w9Root/mvnw.cmd" @('-B','verify')
+ # The standalone JUnit fixtures use localhost:5173; Compose LIVE uses 127.0.0.1.
+ $w9LiveOrigin = $env:FRONTEND_ORIGIN
+ try {
+  Remove-Item Env:FRONTEND_ORIGIN -ErrorAction SilentlyContinue
+  Invoke-W9Command 'maven' "$w9Root/mvnw.cmd" @('-B','verify')
+ } finally { $env:FRONTEND_ORIGIN = $w9LiveOrigin }
+ $w9Suites = foreach ($w9Module in 'backend/services/user-service','backend/services/learning-content-service','backend/api-gateway') {
+  foreach ($w9Xml in Get-ChildItem -LiteralPath "$w9Root/$w9Module/target/surefire-reports" -Filter 'TEST-*.xml') {
+   [xml]$w9Suite = Get-Content -LiteralPath $w9Xml.FullName -Raw
+   @{
+    suite=$w9Suite.testsuite.name; tests=[int]$w9Suite.testsuite.tests
+    failures=[int]$w9Suite.testsuite.failures; errors=[int]$w9Suite.testsuite.errors; skipped=[int]$w9Suite.testsuite.skipped
+    cases=@($w9Suite.testsuite.testcase | ForEach-Object { @{name=$_.name; result=$(if ($_.skipped) {'SKIPPED'} elseif ($_.failure -or $_.error) {'FAIL'} else {'PASS'})} })
+   }
+  }
+ }
+ @{status='PASS';recordedAt=[datetime]::UtcNow.ToString('o');command='mvnw.cmd -B verify';suites=@($w9Suites)} | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath (Join-Path $w9Reports 'maven-summary.json') -Encoding utf8
  Invoke-W9Command 'contracts' $Python @('scripts/check-contracts.py')
  Invoke-W9Command 'layout' $Python @('scripts/check-service-layout.py')
  Invoke-W9Command 'historical-checksums' $Python @('scripts/check-backlog-evidence.py')
