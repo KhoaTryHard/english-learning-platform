@@ -1,0 +1,16 @@
+{
+  "status": "FAIL",
+  "sourceSha": "b56194fcfcf285297b905951e751896b6457922f",
+  "phase": "Maven standalone UserIntegrationTest",
+  "tests": 6,
+  "failures": 4,
+  "errors": 0,
+  "expectedStatus": 201,
+  "actualStatus": 403,
+  "actualCode": "CSRF_INVALID",
+  "cause": "Runner exported LIVE FRONTEND_ORIGIN=127.0.0.1:5173 into standalone JUnit which uses localhost:5173. Product correctly rejected mismatched Origin.",
+  "fixSha": "cb9c805200bf539596c29210b93fe5eeefe1f8b5",
+  "fix": "Scope FRONTEND_ORIGIN to standalone Maven defaults, restore LIVE Origin afterwards. Existing business assertions unchanged.",
+  "originalLocalLogSha256": "00a0d40a6a851cb371f8df99ec9377232f41add64d78d395adebedd49c030796",
+  "retest": "Full Maven verify in run b: 63 passed, 1 existing opt-in skip; LIVE uses 127.0.0.1:5173."
+}
