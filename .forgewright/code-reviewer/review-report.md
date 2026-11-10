@@ -1,5 +1,9 @@
 # Khoa — review backlog ngày 09/11/2026
 
+**Checkpoint mới10/11:** đã review phần W8 mới của PR47; xem
+[report PR47](2026-11-10-pr47-review.md). Finding49 vẫn còn, có thêm finding52
+Admin Question chặn điểm dương hợp lệ0.001. Nội dung09/11 bên dưới giữ lịch sử.
+
 **Kết luận: CHANGES_REQUESTED.** Reviewer: Khoa, có hỗ trợ Codex. Một lỗi frontend
 mới được tái hiện tại [#49](https://github.com/KhoaTryHard/english-learning-platform/issues/49);
 PR #43 còn thiếu bản sửa DB503 đã có ở PR #44. Không có approval được tạo thay

@@ -1,0 +1,161 @@
+{
+  "status": "REVIEW_COMPLETE_CHANGES_REQUIRED",
+  "recordedAt": "2026-11-10T09:38:16.523858+00:00",
+  "recordedBy": "Khoa with Codex assistance",
+  "pr47Sha": "ec373bdca31d10c9b1fe29e99b8137b776427d05",
+  "pr47BaseSha": "1e11c6d700a5f5e118f086ca23f9c5c66a3be031",
+  "baseDevelopSha": "af92253a95cf39fbdbfcbada2cfdd47fd413534d",
+  "assessmentProgressRuntimeSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+  "pr43UnmodifiedSha": "c1a2a074a4cc6c0d3d0bdf04ef77540a530c5930",
+  "serviceTreeIds": {
+    "backend/services/user-service": "6b2298167f2ce1da595133957540cbb2a65aecf1",
+    "backend/services/learning-content-service": "8850af6dfccf3a230ef5b9ea5e99f52ec52269ae",
+    "backend/api-gateway": "c5012a9f74c156be70f319895a32ccccf1f42bdb"
+  },
+  "environment": "Isolated Docker TEST; resumed prior project with new API-owned fixtures",
+  "project": "khoa-backlog-review-20261109",
+  "gateway": "http://127.0.0.1:18080",
+  "frontend": "Normal Vite, no demo for LIVE",
+  "containers": [
+    {
+      "service": "api",
+      "image": "sha256:d7eb3d06a659425654d2560945800598c683e68c634c8045564c26515ff6753a",
+      "configuredImage": "group7-api-gateway:khoa-backlog-20261101",
+      "stateAtCapture": "running"
+    },
+    {
+      "service": "user",
+      "image": "sha256:27128e2867ba47334471f7920978a6b505f654b1b745848c0d1d155d059c9c00",
+      "configuredImage": "group7-user-service:khoa-backlog-20261101",
+      "stateAtCapture": "running"
+    },
+    {
+      "service": "content",
+      "image": "sha256:5b457423b065104c21f72d93f4b1077a0f6e2b038958fb62541e5c1d73001383",
+      "configuredImage": "group7-learning-content-service:khoa-backlog-20261101",
+      "stateAtCapture": "running"
+    },
+    {
+      "service": "assessment-live",
+      "image": "sha256:98ea93c4d1fd59a0cbc8ae41991f583d9755ba06b8bf269032474ee93903da66",
+      "configuredImage": "group7-assessment-service:khoa-backlog-20261101",
+      "stateAtCapture": "running"
+    },
+    {
+      "service": "progress-live",
+      "image": "sha256:dedad6eaf56e654d240bc7c6fd49b3c75c1540299ccf0af60c2d383799c76adf",
+      "configuredImage": "group7-progress-service:khoa-backlog-20261101",
+      "stateAtCapture": "running"
+    },
+    {
+      "service": "content-migrate",
+      "image": "sha256:5b457423b065104c21f72d93f4b1077a0f6e2b038958fb62541e5c1d73001383",
+      "configuredImage": "group7-learning-content-service:khoa-backlog-20261101",
+      "stateAtCapture": "exited"
+    },
+    {
+      "service": "kafka",
+      "image": "sha256:3f7b939115cd4872e9cee9369d80bd69712fde55f9902f46d793f64848dedc75",
+      "configuredImage": "apache/kafka:4.0.0",
+      "stateAtCapture": "running"
+    },
+    {
+      "service": "user-migrate",
+      "image": "sha256:27128e2867ba47334471f7920978a6b505f654b1b745848c0d1d155d059c9c00",
+      "configuredImage": "group7-user-service:khoa-backlog-20261101",
+      "stateAtCapture": "exited"
+    },
+    {
+      "service": "content-db",
+      "image": "sha256:2d2b8998d31037bf721cfdf764d76ba74171b4fab3431b7f72c27c56ddbdf9e3",
+      "configuredImage": "postgres:17",
+      "stateAtCapture": "running"
+    },
+    {
+      "service": "assessment-db",
+      "image": "sha256:2d2b8998d31037bf721cfdf764d76ba74171b4fab3431b7f72c27c56ddbdf9e3",
+      "configuredImage": "postgres:17",
+      "stateAtCapture": "running"
+    },
+    {
+      "service": "user-db",
+      "image": "sha256:2d2b8998d31037bf721cfdf764d76ba74171b4fab3431b7f72c27c56ddbdf9e3",
+      "configuredImage": "postgres:17",
+      "stateAtCapture": "running"
+    },
+    {
+      "service": "progress-db",
+      "image": "sha256:2d2b8998d31037bf721cfdf764d76ba74171b4fab3431b7f72c27c56ddbdf9e3",
+      "configuredImage": "postgres:17",
+      "stateAtCapture": "running"
+    },
+    {
+      "service": "kafka-data-init",
+      "image": "sha256:3f7b939115cd4872e9cee9369d80bd69712fde55f9902f46d793f64848dedc75",
+      "configuredImage": "apache/kafka:4.0.0",
+      "stateAtCapture": "exited"
+    }
+  ],
+  "databases": {
+    "user": {
+      "version": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "flyway": "1|t"
+    },
+    "content": {
+      "version": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "flyway": "1|t"
+    },
+    "assessment": {
+      "version": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "flyway": "1|t"
+    },
+    "progress": {
+      "version": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "flyway": "1|t"
+    }
+  },
+  "newServiceBuild": false,
+  "maven": "NOT_RERUN: no backend application changes; reuse prior evidence by verified service trees",
+  "contracts": "Frozen baselines,43 User/Content operations,63 Gateway owner/role mappings PASS",
+  "reviewFindings": [
+    {
+      "issue": 49,
+      "priority": "P1",
+      "scope": "Inherited Attempt unsaved state"
+    },
+    {
+      "issue": 52,
+      "priority": "P2",
+      "scope": "New Admin Question valid fractional points blocked"
+    }
+  ],
+  "separatePerPbAcceptance": "OMITTED_BY_KHOA; technical tests accompany changes; issue31 stays Open by explicit decision",
+  "unchangedDependencies": [
+    "PR44 Huy review and incorporation into PR43",
+    "Hưng fixes49/52",
+    "Huy consumer35/36 and actual cross-review for31"
+  ],
+  "sourceChanges": false,
+  "production": "HOLD_W10",
+  "stackStopped": true,
+  "volumesPreserved": true,
+  "reports": [
+    {
+      "file": "browser-live.json",
+      "sha256": "3ef2da0ab87fba1e87acd38083afacbe408ccf7fddc2199bb1f3fe8aebb6dce1"
+    },
+    {
+      "file": "browser-mock.json",
+      "sha256": "09aa28b365cc229186a415c6e567d245bb8b6ea331eca81d1d97527b0abf0d3d"
+    },
+    {
+      "file": "defect-regressions.json",
+      "sha256": "8c982af15dfe61da6deccf330be830eb8981eb5cff6c7352d7975b115cb65c64"
+    },
+    {
+      "file": "frontend-checks.json",
+      "sha256": "32277dbec13f7392710be728fcb6c4ec8f0ac90dd3cdf43f1e84d387b1d37abc"
+    }
+  ],
+  "preservedVolumeCount": 5
+}

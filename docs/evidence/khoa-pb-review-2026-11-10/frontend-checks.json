@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "pr": 47,
+  "sha": "ec373bdca31d10c9b1fe29e99b8137b776427d05",
+  "command": "npm.cmd run check",
+  "unitUiTests": 55,
+  "suiteFiles": 15,
+  "node": "v24.22.1",
+  "finishedAt": "2026-11-10T09:26:36.741167+00:00",
+  "localLogSha256": "f94c0b58a7182443841eafd92e2541bb2de902a19aca581b5611324c2b3a1b10",
+  "checks": [
+    "ESLint",
+    "55 existing unit/UI tests",
+    "TypeScript/Vite production build",
+    "approved public contract and production bundle guard"
+  ],
+  "dependencies": "Same package-lock as prior PR46 snapshot; existing node_modules reused through an isolated snapshot junction.",
+  "note": "55 includes inherited tests; not 55 additional distinct business scenarios."
+}
