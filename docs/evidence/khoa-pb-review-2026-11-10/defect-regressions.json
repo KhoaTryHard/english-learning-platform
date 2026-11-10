@@ -1,0 +1,22 @@
+{
+  "status": "CONFIRMED_DEFECTS",
+  "sha": "ec373bdca31d10c9b1fe29e99b8137b776427d05",
+  "results": [
+    {
+      "issue": 49,
+      "title": "keeps a failed local answer visibly unsaved after a successful status GET",
+      "status": "failed",
+      "scope": "React/MSW HTTP doubles",
+      "actual": "GET200 clears unsaved error while server answers stay empty"
+    },
+    {
+      "issue": 52,
+      "title": "can edit a server question with contract-valid points below 0.01 without changing its score",
+      "status": "failed",
+      "scope": "React/MSW HTTP doubles",
+      "actual": "No PUT for valid0.001 because HTML min0.01"
+    }
+  ],
+  "command": "node node_modules/vitest/vitest.mjs run src/features/admin/QuestionForm.review.test.tsx src/features/assessment/AttemptPage.review.test.tsx --reporter=json --outputFile=../review-regressions.json",
+  "localReportSha256": "53253db9c32610867535135942ec82f62d5f6eec917f25f88281843bdfe218c0"
+}

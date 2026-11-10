@@ -1,0 +1,242 @@
+{
+  "status": "VERIFIED",
+  "recordedAt": "2026-11-10T09:46:28.145528+00:00",
+  "github": {
+    "recordedAt": "2026-11-10T09:43:44.279410+00:00",
+    "pr47Review": {
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/pull/47#pullrequestreview-5839749660",
+      "id": 5839749660,
+      "state": "CHANGES_REQUESTED",
+      "sha": "ec373bdca31d10c9b1fe29e99b8137b776427d05",
+      "inlineComment": {
+        "html_url": "https://github.com/KhoaTryHard/english-learning-platform/pull/47#discussion_r4523319415",
+        "path": "frontend/src/features/admin/AssessmentsPage.tsx",
+        "line": 522,
+        "side": "RIGHT",
+        "commit_id": "ec373bdca31d10c9b1fe29e99b8137b776427d05"
+      }
+    },
+    "issues": [
+      {
+        "number": 31,
+        "state": "OPEN",
+        "assignees": [
+          "KhoaTryHard"
+        ],
+        "bodyVerified": true,
+        "previousBodyPreserved": true
+      },
+      {
+        "number": 35,
+        "state": "OPEN",
+        "assignees": [
+          "Huy1188"
+        ],
+        "bodyVerified": true,
+        "previousBodyPreserved": true
+      },
+      {
+        "number": 36,
+        "state": "OPEN",
+        "assignees": [
+          "Huy1188"
+        ],
+        "bodyVerified": true,
+        "previousBodyPreserved": true
+      },
+      {
+        "number": 37,
+        "state": "OPEN",
+        "assignees": [
+          "LeTHung"
+        ],
+        "bodyVerified": true,
+        "previousBodyPreserved": true
+      },
+      {
+        "number": 40,
+        "state": "OPEN",
+        "assignees": [
+          "LeTHung"
+        ],
+        "bodyVerified": true,
+        "previousBodyPreserved": true
+      },
+      {
+        "number": 49,
+        "state": "OPEN",
+        "assignees": [
+          "LeTHung"
+        ],
+        "bodyVerified": true,
+        "previousBodyPreserved": true
+      },
+      {
+        "number": 52,
+        "state": "OPEN",
+        "assignees": [
+          "LeTHung"
+        ],
+        "bodyVerified": true,
+        "previousBodyPreserved": true
+      }
+    ],
+    "pr50": {
+      "state": "OPEN",
+      "draft": true,
+      "bodyVerified": true,
+      "headAtSync": "2a958d80c320c842a24456d4baf767e58d972551"
+    }
+  },
+  "trello": {
+    "updatedCards": 15,
+    "pbCards": 13,
+    "weeklyCards": 2,
+    "cards": [
+      {
+        "name": "PB-12 — Admin Basic Learning Statistics",
+        "url": "https://trello.com/c/iNCpSuto",
+        "descriptionVerified": true,
+        "historyPreserved": true,
+        "workflowAndMembershipPreserved": true,
+        "checklistProgress": "0/0",
+        "descriptionSha256": "b22479c6f5956adc4ab6896802945f39835e12f88eb3dc84854a102db87a1de3"
+      },
+      {
+        "name": "PB-08 — Progress / Learning History / Learner Dashboard",
+        "url": "https://trello.com/c/BRMQT2iR",
+        "descriptionVerified": true,
+        "historyPreserved": true,
+        "workflowAndMembershipPreserved": true,
+        "checklistProgress": "0/0",
+        "descriptionSha256": "6fc2babebba6fa1d20c147ccbb84499125c72e35275a76cef6aeccd3d5faf8dc"
+      },
+      {
+        "name": "PB-06 — Exercise Practice",
+        "url": "https://trello.com/c/3EAiHsZb",
+        "descriptionVerified": true,
+        "historyPreserved": true,
+        "workflowAndMembershipPreserved": true,
+        "checklistProgress": "0/0",
+        "descriptionSha256": "4a5bb35eb57a349e57c5595ede3dd54e87be35e8a3c0f612de7640d907cd8d69"
+      },
+      {
+        "name": "PB-04 — Course / Module / Lesson & Learning Content",
+        "url": "https://trello.com/c/rbr12yom",
+        "descriptionVerified": true,
+        "historyPreserved": true,
+        "workflowAndMembershipPreserved": true,
+        "checklistProgress": "0/0",
+        "descriptionSha256": "9cc0e1d7ae7d52fdda3c8e0f9964cf0f87ebaf23b2795617bde1c37778f29f3d"
+      },
+      {
+        "name": "PB-07 — Quiz / Test / Result",
+        "url": "https://trello.com/c/kBX1p4d2",
+        "descriptionVerified": true,
+        "historyPreserved": true,
+        "workflowAndMembershipPreserved": true,
+        "checklistProgress": "0/0",
+        "descriptionSha256": "99759437628ec95fd91999f05fc932a055b218c41f14ec8d302c51842d4bd038"
+      },
+      {
+        "name": "PB-11 — Admin Assessment Management",
+        "url": "https://trello.com/c/iXcUsUBy",
+        "descriptionVerified": true,
+        "historyPreserved": true,
+        "workflowAndMembershipPreserved": true,
+        "checklistProgress": "0/0",
+        "descriptionSha256": "ae931f76cf0e833dcf239dfa33112d0569c4e4d9d15e9a450d37011f044886e8"
+      },
+      {
+        "name": "PB-01 — Authentication & Account",
+        "url": "https://trello.com/c/ncEWydAl",
+        "descriptionVerified": true,
+        "historyPreserved": true,
+        "workflowAndMembershipPreserved": true,
+        "checklistProgress": "0/0",
+        "descriptionSha256": "26251a98741f4c4d1c42a5f7a4edd3aa230a19816d27dceb693147464b6c74fe"
+      },
+      {
+        "name": "PB-03 — Learning Setup: Course / Level",
+        "url": "https://trello.com/c/TABjUaUy",
+        "descriptionVerified": true,
+        "historyPreserved": true,
+        "workflowAndMembershipPreserved": true,
+        "checklistProgress": "0/0",
+        "descriptionSha256": "2f1ee6a8f436d6217a91c93194822711ccbd1373086a9bafae93e6c152638d94"
+      },
+      {
+        "name": "PB-02 — Learner Profile",
+        "url": "https://trello.com/c/rXnPOrW4",
+        "descriptionVerified": true,
+        "historyPreserved": true,
+        "workflowAndMembershipPreserved": true,
+        "checklistProgress": "0/0",
+        "descriptionSha256": "61ad9d62e00f3c8e3e549a4b7bb728fe465de435c716a9fb6def84e1fd606814"
+      },
+      {
+        "name": "PB-09 — Admin User & Access Management",
+        "url": "https://trello.com/c/ESTvIkZp",
+        "descriptionVerified": true,
+        "historyPreserved": true,
+        "workflowAndMembershipPreserved": true,
+        "checklistProgress": "0/0",
+        "descriptionSha256": "07b5c133e5644674363dc4e338c3c2c64ae8a0808df8e8314e98a3ebf7d9edc6"
+      },
+      {
+        "name": "PB-13 — Admin Import Data",
+        "url": "https://trello.com/c/YMuThXHl",
+        "descriptionVerified": true,
+        "historyPreserved": true,
+        "workflowAndMembershipPreserved": true,
+        "checklistProgress": "0/0",
+        "descriptionSha256": "cbe358b6ffaeb23b8cb5fd7a65112d12da7b4d8723cd5ab86c78314fa6e7505c"
+      },
+      {
+        "name": "PB-10 — Admin Course & Learning Content Management",
+        "url": "https://trello.com/c/qHqhVOdg",
+        "descriptionVerified": true,
+        "historyPreserved": true,
+        "workflowAndMembershipPreserved": true,
+        "checklistProgress": "0/0",
+        "descriptionSha256": "a3077b98494cedf79b1fbb5b9c7bbfc94ade83ba65698ac74e0e2e7642e1cde5"
+      },
+      {
+        "name": "PB-05 — My Vocabulary",
+        "url": "https://trello.com/c/0b4SSvSp",
+        "descriptionVerified": true,
+        "historyPreserved": true,
+        "workflowAndMembershipPreserved": true,
+        "checklistProgress": "0/0",
+        "descriptionSha256": "fe25f13981aba735406d62a4ac0c41d8444306232c84b097efe575dd92d5cdc8"
+      },
+      {
+        "name": "W7-07 — Kiểm thử tích hợp, review và bàn giao tuần 8",
+        "url": "https://trello.com/c/jtFJwAc7",
+        "descriptionVerified": true,
+        "historyPreserved": true,
+        "workflowAndMembershipPreserved": true,
+        "checklistProgress": "2/5",
+        "descriptionSha256": "51456c5cc6f45213a5e38fa0efe5a1c4dc6db7280373c6b5c9261e2d6154d02e"
+      },
+      {
+        "name": "W8-06 — Kiểm thử, review và bàn giao tuần 9",
+        "url": "https://trello.com/c/CS7a18g4",
+        "descriptionVerified": true,
+        "historyPreserved": true,
+        "workflowAndMembershipPreserved": true,
+        "checklistProgress": "0/0",
+        "descriptionSha256": "736bc67a69f8ec0fb73acaf39c6fba3f765de78c70d1ad97503edc963f5f941e"
+      }
+    ]
+  },
+  "googleDocs": {
+    "updatedDocuments": 1,
+    "documentId": "182FHzPWYauxEEFZ8H7XpebCGQhCXbCC7mUcaC1Q9ouQ",
+    "url": "https://docs.google.com/document/d/182FHzPWYauxEEFZ8H7XpebCGQhCXbCC7mUcaC1Q9ouQ/edit",
+    "markerCount": 1,
+    "previousBodyPreserved": true,
+    "beforePlaintextSha256": "2f71590e440d4ba9506a2fad5ac101096143069184d38d57e3625449f5c7cbd5",
+    "afterPlaintextSha256": "ce884f63c57f4e377244b8020409cd4d0f81cf9669f134ce7a692347375e72d7"
+  }
+}

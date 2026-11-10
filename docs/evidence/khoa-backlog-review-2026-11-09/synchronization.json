@@ -1,0 +1,432 @@
+{
+  "status": "VERIFIED",
+  "date": "2026-11-09",
+  "timezone": "Asia/Saigon",
+  "trello": {
+    "updated": [
+      {
+        "card": "kBX1p4d2",
+        "name": "PB-07 — Quiz / Test / Result",
+        "url": "https://trello.com/c/kBX1p4d2",
+        "verified": true,
+        "list": "6abe034fd65d9fd3c52d1974",
+        "pos": 50000,
+        "bodySha256": "06194232d7a14a25b05639f4218b4d1d78c42502611f4ea354d5054ee8b18a2d"
+      },
+      {
+        "card": "rbr12yom",
+        "name": "PB-04 — Course / Module / Lesson & Learning Content",
+        "url": "https://trello.com/c/rbr12yom",
+        "verified": true,
+        "list": "6abe034fd65d9fd3c52d1974",
+        "pos": 30000,
+        "bodySha256": "afd7ba5fc1de9ac1deecb6b092ff28b778fb9dd1b154cbf6f7b10c1cfd5da4dd"
+      },
+      {
+        "card": "3EAiHsZb",
+        "name": "PB-06 — Exercise Practice",
+        "url": "https://trello.com/c/3EAiHsZb",
+        "verified": true,
+        "list": "6abe034fd65d9fd3c52d1974",
+        "pos": 40000,
+        "bodySha256": "b53dd07237e2b542c02ed93fbcd9701801538ac30ecfb4f47d8a954107f8aa40"
+      },
+      {
+        "card": "BRMQT2iR",
+        "name": "PB-08 — Progress / Learning History / Learner Dashboard",
+        "url": "https://trello.com/c/BRMQT2iR",
+        "verified": true,
+        "list": "6abe034fd65d9fd3c52d1974",
+        "pos": 10000,
+        "bodySha256": "2b4f9b579278dbe4a5d091adaebb608eaa59d872d30fdec8940aaf1c6f329e63"
+      },
+      {
+        "card": "iNCpSuto",
+        "name": "PB-12 — Admin Basic Learning Statistics",
+        "url": "https://trello.com/c/iNCpSuto",
+        "verified": true,
+        "list": "6abe034fd65d9fd3c52d1974",
+        "pos": 20000,
+        "bodySha256": "bd93bd423a9608e44a890c7eebeae46c86159e23f066214967d897cbe5bf932a"
+      },
+      {
+        "card": "rXnPOrW4",
+        "name": "PB-02 — Learner Profile",
+        "url": "https://trello.com/c/rXnPOrW4",
+        "verified": true,
+        "list": "6abe034fd65d9fd3c52d1974",
+        "pos": 90000,
+        "bodySha256": "d0af9f1993e5d1750c266708e4b9624d7f6c6f58ff9504af2bafded28963edc7"
+      },
+      {
+        "card": "iXcUsUBy",
+        "name": "PB-11 — Admin Assessment Management",
+        "url": "https://trello.com/c/iXcUsUBy",
+        "verified": true,
+        "list": "6abe034fd65d9fd3c52d1974",
+        "pos": 60000,
+        "bodySha256": "345b86581fc595e0fcff2fe1e593659385e594726600093c20758cd934f30874"
+      },
+      {
+        "card": "ncEWydAl",
+        "name": "PB-01 — Authentication & Account",
+        "url": "https://trello.com/c/ncEWydAl",
+        "verified": true,
+        "list": "6abe034fd65d9fd3c52d1974",
+        "pos": 70000,
+        "bodySha256": "cdd8e3178b03a516e7e82293433d1f590769f463358aae78c30d13fe9e853524"
+      },
+      {
+        "card": "TABjUaUy",
+        "name": "PB-03 — Learning Setup: Course / Level",
+        "url": "https://trello.com/c/TABjUaUy",
+        "verified": true,
+        "list": "6abe034fd65d9fd3c52d1974",
+        "pos": 80000,
+        "bodySha256": "c782e05815e7561bc6c8c3f8ccfdb7bf11f5f5bc29d6297c012c0150585500dd"
+      },
+      {
+        "card": "ESTvIkZp",
+        "name": "PB-09 — Admin User & Access Management",
+        "url": "https://trello.com/c/ESTvIkZp",
+        "verified": true,
+        "list": "6abe034fd65d9fd3c52d1974",
+        "pos": 100000,
+        "bodySha256": "2b28695ecb43f3881a1978de0ea55352e8a1fc28fec964914d3512f3a331a38e"
+      },
+      {
+        "card": "qHqhVOdg",
+        "name": "PB-10 — Admin Course & Learning Content Management",
+        "url": "https://trello.com/c/qHqhVOdg",
+        "verified": true,
+        "list": "6abe034fd65d9fd3c52d1974",
+        "pos": 110000,
+        "bodySha256": "4eeed7eb3d22a3c4909ec420db0b971a7802bec34825427146b11fc7b5aa8fc0"
+      },
+      {
+        "card": "0b4SSvSp",
+        "name": "PB-05 — My Vocabulary",
+        "url": "https://trello.com/c/0b4SSvSp",
+        "verified": true,
+        "list": "6abe034fd65d9fd3c52d1974",
+        "pos": 130000,
+        "bodySha256": "865b50f24b2f4182b3858a38c83d092152e9bb3e80262a5d16d4a87fda2d3cce"
+      },
+      {
+        "card": "YMuThXHl",
+        "name": "PB-13 — Admin Import Data",
+        "url": "https://trello.com/c/YMuThXHl",
+        "verified": true,
+        "list": "6abe034fd65d9fd3c52d1974",
+        "pos": 120000,
+        "bodySha256": "a565b70b4c741848d2f19436ccbf1e12c1f6e92b63b0ba6465a6be953a411f42"
+      },
+      {
+        "card": "mgDcHFC8",
+        "name": "W7-05 — Khoa review backend và bàn giao API nguồn",
+        "url": "https://trello.com/c/mgDcHFC8",
+        "verified": true,
+        "list": "6aa26a19992ac2e25bf696af",
+        "pos": 140737488311808,
+        "bodySha256": "403888d4072a8a2340e6315ba2b816464e6bad450828dc4d4cb8f9f76a296582"
+      },
+      {
+        "card": "PlbJH9Q1",
+        "name": "W6-01 — Chốt đầu vào triển khai tuần 6",
+        "url": "https://trello.com/c/PlbJH9Q1",
+        "verified": true,
+        "list": "6aa26a19992ac2e25bf696ae",
+        "pos": 140737488338944,
+        "bodySha256": "81f2fbff42a62e818066c107559595e28e1120139b79fd64efe1d64af03ff149"
+      },
+      {
+        "card": "AZ1utgPB",
+        "name": "W8-05 — Khoa kiểm tra backend và môi trường",
+        "url": "https://trello.com/c/AZ1utgPB",
+        "verified": true,
+        "list": "6aa26f0b3d2213bb6c98a35f",
+        "pos": 140737488486400,
+        "bodySha256": "7575820850253a7077119e667327c103bc894543534e687fb4a1e1597de5da19"
+      },
+      {
+        "card": "CygoFX09",
+        "name": "W2-03 — Hoàn thiện Use Case & Acceptance Criteria",
+        "url": "https://trello.com/c/CygoFX09",
+        "verified": true,
+        "list": "6aa26a19992ac2e25bf696af",
+        "pos": 140737488334848,
+        "bodySha256": "b87faa86f0cd5e0239b72b5dd4574fed1890d5a4eb934aded8efb9e9f535cea7"
+      },
+      {
+        "card": "g7ELbiNF",
+        "name": "W2-02 — Đặc tả Software Requirements",
+        "url": "https://trello.com/c/g7ELbiNF",
+        "verified": true,
+        "list": "6aa26a19992ac2e25bf696af",
+        "pos": 140737488330752,
+        "bodySha256": "4c3b5696b91c778e1db057104e4f637e6889aab827a99b9cd723f6f84fd414a4"
+      },
+      {
+        "card": "CS7a18g4",
+        "name": "W8-06 — Kiểm thử, review và bàn giao tuần 9",
+        "url": "https://trello.com/c/CS7a18g4",
+        "verified": true,
+        "list": "6aa26a19992ac2e25bf696ae",
+        "pos": 140737488502784,
+        "bodySha256": "c381519eb609f5491b1ecc35d210e3887fe8ed3e13c83dbd90c5b569c24fa1bb"
+      },
+      {
+        "card": "jtFJwAc7",
+        "name": "W7-07 — Kiểm thử tích hợp, review và bàn giao tuần 8",
+        "url": "https://trello.com/c/jtFJwAc7",
+        "verified": true,
+        "list": "6aa26a19992ac2e25bf696ae",
+        "pos": 140737488273408,
+        "bodySha256": "27d3daafa612bff3c4e87db7b02ad771d2148cb4f91b3c38ca266c93f4e2fe35"
+      },
+      {
+        "card": "YeZ2O9rw",
+        "name": "W6-05 — Kiểm thử tích hợp, review và bàn giao tuần 7",
+        "url": "https://trello.com/c/YeZ2O9rw",
+        "verified": true,
+        "list": "6aa26a19992ac2e25bf696ae",
+        "pos": 140737488699392,
+        "bodySha256": "a2b679db92a7b048c603253076067521f60a50a59a9ac54e897ce9a6371c0031"
+      },
+      {
+        "card": "cshw4k4T",
+        "name": "W5-05 — Review kết quả tuần 5 và bàn giao W6",
+        "url": "https://trello.com/c/cshw4k4T",
+        "verified": true,
+        "list": "6aa26a19992ac2e25bf696ae",
+        "pos": 140737488388096,
+        "bodySha256": "4327624febc778bf66f7afd28a526e432fa6ca3e69ca0a5d8ff85d6528fe02e7"
+      },
+      {
+        "card": "zqeduhFA",
+        "name": "W3-04 — API Design & Integration Contract",
+        "url": "https://trello.com/c/zqeduhFA",
+        "verified": true,
+        "list": "6aa26a19992ac2e25bf696af",
+        "pos": 140737488306176,
+        "bodySha256": "e262f4d1dc9302a369a82d3b0c6098f432a382d576edf9acae2c3761b61bcee9"
+      }
+    ],
+    "errors": []
+  },
+  "documents": {
+    "updated": [
+      {
+        "id": "1AVLy5gSfx4SaNgb_4CE_Qrq3Xgybje3YfVF7nKz-PPk",
+        "title": "W3-06 — Review thiết kế và bàn giao",
+        "url": "https://docs.google.com/document/d/1AVLy5gSfx4SaNgb_4CE_Qrq3Xgybje3YfVF7nKz-PPk/edit",
+        "verified": true,
+        "revision": "AHj4eMS3LaPWk0bWKHcNT4JMjCFy4SU5COq_xNWCEVzWCAHpu07w31r1b5H0C9Taa88iCvns_EF4R4amT6R2QW7wK5D9KuyuWa3N8zc0TbU",
+        "noteSha256": "98dbfcda4f394daa8eb4e0716a8b85664ef8439ffbbbc5113737c73074436b2e"
+      },
+      {
+        "id": "14OKvB16aG1HgfH-aSe5fsp_3xm2jVDqmiNl482YWALs",
+        "title": "W2-03 — Use Case và tiêu chí chấp nhận",
+        "url": "https://docs.google.com/document/d/14OKvB16aG1HgfH-aSe5fsp_3xm2jVDqmiNl482YWALs/edit",
+        "verified": true,
+        "revision": "AHj4eMRSmc6yYVhhAb9bITQHYoFfBXcHdo1vv6R9cAk06M6W0XqVC17GpIQfw6SCKUsBxWdPacCHQL350dWo7J7qIc-2T6L9kCY5M9rWA1E",
+        "noteSha256": "bf1b0a7df7e923fb2d7b41166e72d0391a709ad0080f42e91de87cd7938d0ea8"
+      },
+      {
+        "id": "1GcHdmljWlC5P4o7V3UMh9OkKSThlYrPaxWFWdIlI8w0",
+        "title": "W2-02 — Đặc tả yêu cầu phần mềm",
+        "url": "https://docs.google.com/document/d/1GcHdmljWlC5P4o7V3UMh9OkKSThlYrPaxWFWdIlI8w0/edit",
+        "verified": true,
+        "revision": "AHj4eMRCkhvhLHLMViG2IoPcs8hCcujNuR0rqW8tcYniVlWk4epcI4MsjGdlaaF_AwZkX1urarZSh4Nkh-l3obKZdY9biSE6SDQGRpqV9QQ",
+        "noteSha256": "98d6b95d76be32ce4c9f6ab7bfec78c0d1d892807e073f0955944014a8be1c13"
+      },
+      {
+        "id": "1jZkPfrPddA3K_w_WIII1-nLA6sOneQHv-qHipf6bDhg",
+        "title": "W7 — Nhật ký kiểm thử và tổng kết",
+        "url": "https://docs.google.com/document/d/1jZkPfrPddA3K_w_WIII1-nLA6sOneQHv-qHipf6bDhg/edit",
+        "verified": true,
+        "revision": "AHj4eMQlewv9QCwvvuKl2yTqsh5qu9SMujBs43G2cUiwSncvG4vRF_7S9w50h76c6Jd0TnKheQe8v65QEV7g5KnhOJEJqmS3xmM06rrfmOA",
+        "noteSha256": "dcdbc6f59d6b7cd253359a897f7d665186dfbe76e1d7119e82e732a6a16a99d0"
+      },
+      {
+        "id": "182FHzPWYauxEEFZ8H7XpebCGQhCXbCC7mUcaC1Q9ouQ",
+        "title": "W8 — Nhật ký kiểm thử và tổng kết",
+        "url": "https://docs.google.com/document/d/182FHzPWYauxEEFZ8H7XpebCGQhCXbCC7mUcaC1Q9ouQ/edit",
+        "verified": true,
+        "revision": "AHj4eMQniaBJrQal63HWbM35Bl-8zhv6kUxMm4y21ZcxsTg7Sw7RM4ubxsg6XjDzLwdFh9iVtG8dl16T-M4iul8byArV2NzXsesXBjfgQFQ",
+        "noteSha256": "372ad930065f041922308fc0fdb699f83400f597ca81d94db127567169aaa0d5"
+      }
+    ],
+    "errors": []
+  },
+  "finalBoard": {
+    "checklists": [
+      {
+        "card": "jtFJwAc7",
+        "name": "W7-07 — Kiểm thử tích hợp, review và bàn giao tuần 8",
+        "done": 2,
+        "total": 5,
+        "list": "6aa26a19992ac2e25bf696ae",
+        "verified": true
+      },
+      {
+        "card": "mgDcHFC8",
+        "name": "W7-05 — Khoa review backend và bàn giao API nguồn",
+        "done": 4,
+        "total": 4,
+        "list": "6aa26a19992ac2e25bf696af",
+        "verified": true
+      },
+      {
+        "card": "g7ELbiNF",
+        "name": "W2-02 — Đặc tả Software Requirements",
+        "done": 9,
+        "total": 10,
+        "list": "6aa26a19992ac2e25bf696af",
+        "verified": true
+      },
+      {
+        "card": "CygoFX09",
+        "name": "W2-03 — Hoàn thiện Use Case & Acceptance Criteria",
+        "done": 10,
+        "total": 11,
+        "list": "6aa26a19992ac2e25bf696af",
+        "verified": true
+      },
+      {
+        "card": "zqeduhFA",
+        "name": "W3-04 — API Design & Integration Contract",
+        "done": 15,
+        "total": 16,
+        "list": "6aa26a19992ac2e25bf696af",
+        "verified": true
+      },
+      {
+        "card": "lSSj3wNO",
+        "name": "W5-01 — Khoa triển khai User, Learning Content và API Gateway",
+        "done": 10,
+        "total": 10,
+        "list": "6aa26a19992ac2e25bf696af",
+        "verified": true
+      },
+      {
+        "card": "RQwfmxTa",
+        "name": "W6-02 — Khoa hoàn thiện User, Content, Gateway và internal auth",
+        "done": 6,
+        "total": 6,
+        "list": "6aa26a19992ac2e25bf696af",
+        "verified": true
+      }
+    ],
+    "backlogOrder": [
+      "PB-08 — Progress / Learning History / Learner Dashboard",
+      "PB-12 — Admin Basic Learning Statistics",
+      "PB-04 — Course / Module / Lesson & Learning Content",
+      "PB-06 — Exercise Practice",
+      "PB-07 — Quiz / Test / Result",
+      "PB-11 — Admin Assessment Management",
+      "PB-01 — Authentication & Account",
+      "PB-03 — Learning Setup: Course / Level",
+      "PB-02 — Learner Profile",
+      "PB-09 — Admin User & Access Management",
+      "PB-10 — Admin Course & Learning Content Management",
+      "PB-13 — Admin Import Data",
+      "PB-05 — My Vocabulary"
+    ],
+    "verified": true
+  },
+  "githubIssueStates": {
+    "31": "OPEN_WAITING_CONSUMER_ACCEPTANCE",
+    "33": "OPEN_IMPORT_OWNER_ACCEPTED_FE49_PENDING",
+    "35": "OPEN_HUY_ACCEPTANCE_PENDING",
+    "36": "OPEN_STATISTICS_IMPLEMENTATION_PENDING",
+    "40": "OPEN_GROUP_QA_PENDING",
+    "41": "CLOSED_BY_OWNER",
+    "49": "OPEN_ASSIGNED_LETHUNG"
+  },
+  "pullRequest": 50,
+  "notes": [
+    "All card descriptions were read back byte-for-byte; members/closed status preserved.",
+    "Two W7-07 checklist items marked complete based on evidence; remaining three pending.",
+    "W5-01/W6-02/W7-05 remain Done; Huy SRS/UC review and grouped API11 remain unchecked.",
+    "Five Google Docs appended and read back, previous body content preserved.",
+    "No application source changed and no PR merged in this execution."
+  ],
+  "githubIssueReceipts": [
+    {
+      "number": 31,
+      "state": "open",
+      "bodyVerified": true,
+      "bodySha256": "ecb82fe1863db327a23a6ad9b8d23a3609234cd70b4857478a755abdb17ef8e3"
+    },
+    {
+      "number": 33,
+      "state": "open",
+      "bodyVerified": true,
+      "bodySha256": "4aeedfc85d2dd249941024a907b49e81367a75de94f70409cb88ca782d751c3d"
+    },
+    {
+      "number": 35,
+      "state": "open",
+      "bodyVerified": true,
+      "bodySha256": "b1d685e16c7312ab629c1569e9996fb2a45b698050ba22a21b08052235dc8349"
+    },
+    {
+      "number": 36,
+      "state": "open",
+      "bodyVerified": true,
+      "bodySha256": "782b38f4a4fda3784e6bc0597821e01e310df54cc738d2f008905249ea16bbfa"
+    },
+    {
+      "number": 40,
+      "state": "open",
+      "bodyVerified": true,
+      "bodySha256": "6a498493581b3c01f56972baa6146091389ee93bd80924aa3158037944aa028a"
+    },
+    {
+      "number": 26,
+      "state": "open",
+      "bodyVerified": true,
+      "bodySha256": "924e89ddf41e3b092257bfc0013b0427ffb49fa48f9170d74db8501ea272f6ca"
+    },
+    {
+      "number": 41,
+      "state": "closed",
+      "bodyVerified": true,
+      "bodySha256": "456d45c791f8613b8707836d44ddeafde89bc4238f6b5dd903872e8fe4e88851"
+    },
+    {
+      "number": 49,
+      "state": "open",
+      "bodyVerified": true,
+      "bodySha256": "7bd94c593902b823f9a8ef4a57b58357bfa055d91de232a8aeba98acf5edc3fc"
+    }
+  ],
+  "nativeReviewReceipts": [
+    {
+      "pr": 22,
+      "reviewId": 5828813823,
+      "state": "CHANGES_REQUESTED",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/pull/22#pullrequestreview-5828813823",
+      "commit": "f386170de0a788d2e21f1ece9b782aaa0cc52f47"
+    },
+    {
+      "pr": 46,
+      "reviewId": 5828814328,
+      "state": "CHANGES_REQUESTED",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/pull/46#pullrequestreview-5828814328",
+      "commit": "1e11c6d700a5f5e118f086ca23f9c5c66a3be031"
+    },
+    {
+      "pr": 43,
+      "reviewId": 5828814807,
+      "state": "CHANGES_REQUESTED",
+      "url": "https://github.com/KhoaTryHard/english-learning-platform/pull/43#pullrequestreview-5828814807",
+      "commit": "c1a2a074a4cc6c0d3d0bdf04ef77540a530c5930"
+    }
+  ],
+  "pr44RequestedReviewers": [
+    "Huy1188"
+  ],
+  "pr44NativeReviews": 0
+}

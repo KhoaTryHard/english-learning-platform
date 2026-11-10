@@ -1,0 +1,174 @@
+{
+  "status": "REVIEW_COMPLETE_CHANGES_REQUIRED",
+  "recordedAt": "2026-11-09T16:09:32.501927+00:00",
+  "recordedBy": "Khoa with Codex assistance",
+  "baseDevelopSha": "af92253a95cf39fbdbfcbada2cfdd47fd413534d",
+  "ownerSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+  "ownerPr43ReviewedSha": "c1a2a074a4cc6c0d3d0bdf04ef77540a530c5930",
+  "serviceTreeIds": {
+    "backend/services/user-service": "6b2298167f2ce1da595133957540cbb2a65aecf1",
+    "backend/services/learning-content-service": "8850af6dfccf3a230ef5b9ea5e99f52ec52269ae",
+    "backend/api-gateway": "c5012a9f74c156be70f319895a32ccccf1f42bdb"
+  },
+  "environment": "TEST",
+  "project": "khoa-backlog-review-20261109",
+  "gateway": "http://127.0.0.1:18080",
+  "fixtureProvenance": "New project/fresh volumes and API-created fixtures; original OOXML sample bytes reused.",
+  "imageProvenance": "Five existing service images reused; source service tree IDs unchanged. Kafka image pulled for this TEST project. No new service image build.",
+  "containers": [
+    {
+      "service": "api",
+      "image": "sha256:d7eb3d06a659425654d2560945800598c683e68c634c8045564c26515ff6753a",
+      "configuredImage": "group7-api-gateway:khoa-backlog-20261101",
+      "stateBeforeStop": "running",
+      "kafkaEnabled": null
+    },
+    {
+      "service": "user",
+      "image": "sha256:27128e2867ba47334471f7920978a6b505f654b1b745848c0d1d155d059c9c00",
+      "configuredImage": "group7-user-service:khoa-backlog-20261101",
+      "stateBeforeStop": "running",
+      "kafkaEnabled": null
+    },
+    {
+      "service": "content",
+      "image": "sha256:5b457423b065104c21f72d93f4b1077a0f6e2b038958fb62541e5c1d73001383",
+      "configuredImage": "group7-learning-content-service:khoa-backlog-20261101",
+      "stateBeforeStop": "running",
+      "kafkaEnabled": null
+    },
+    {
+      "service": "assessment-live",
+      "image": "sha256:98ea93c4d1fd59a0cbc8ae41991f583d9755ba06b8bf269032474ee93903da66",
+      "configuredImage": "group7-assessment-service:khoa-backlog-20261101",
+      "stateBeforeStop": "running",
+      "kafkaEnabled": "true"
+    },
+    {
+      "service": "progress-live",
+      "image": "sha256:dedad6eaf56e654d240bc7c6fd49b3c75c1540299ccf0af60c2d383799c76adf",
+      "configuredImage": "group7-progress-service:khoa-backlog-20261101",
+      "stateBeforeStop": "running",
+      "kafkaEnabled": "true"
+    },
+    {
+      "service": "content-migrate",
+      "image": "sha256:5b457423b065104c21f72d93f4b1077a0f6e2b038958fb62541e5c1d73001383",
+      "configuredImage": "group7-learning-content-service:khoa-backlog-20261101",
+      "stateBeforeStop": "exited",
+      "kafkaEnabled": null
+    },
+    {
+      "service": "kafka",
+      "image": "sha256:3f7b939115cd4872e9cee9369d80bd69712fde55f9902f46d793f64848dedc75",
+      "configuredImage": "apache/kafka:4.0.0",
+      "stateBeforeStop": "running",
+      "kafkaEnabled": null
+    },
+    {
+      "service": "user-migrate",
+      "image": "sha256:27128e2867ba47334471f7920978a6b505f654b1b745848c0d1d155d059c9c00",
+      "configuredImage": "group7-user-service:khoa-backlog-20261101",
+      "stateBeforeStop": "exited",
+      "kafkaEnabled": null
+    },
+    {
+      "service": "content-db",
+      "image": "sha256:2d2b8998d31037bf721cfdf764d76ba74171b4fab3431b7f72c27c56ddbdf9e3",
+      "configuredImage": "postgres:17",
+      "stateBeforeStop": "running",
+      "kafkaEnabled": null
+    },
+    {
+      "service": "assessment-db",
+      "image": "sha256:2d2b8998d31037bf721cfdf764d76ba74171b4fab3431b7f72c27c56ddbdf9e3",
+      "configuredImage": "postgres:17",
+      "stateBeforeStop": "running",
+      "kafkaEnabled": null
+    },
+    {
+      "service": "user-db",
+      "image": "sha256:2d2b8998d31037bf721cfdf764d76ba74171b4fab3431b7f72c27c56ddbdf9e3",
+      "configuredImage": "postgres:17",
+      "stateBeforeStop": "running",
+      "kafkaEnabled": null
+    },
+    {
+      "service": "progress-db",
+      "image": "sha256:2d2b8998d31037bf721cfdf764d76ba74171b4fab3431b7f72c27c56ddbdf9e3",
+      "configuredImage": "postgres:17",
+      "stateBeforeStop": "running",
+      "kafkaEnabled": null
+    },
+    {
+      "service": "kafka-data-init",
+      "image": "sha256:3f7b939115cd4872e9cee9369d80bd69712fde55f9902f46d793f64848dedc75",
+      "configuredImage": "apache/kafka:4.0.0",
+      "stateBeforeStop": "exited",
+      "kafkaEnabled": null
+    }
+  ],
+  "database": {
+    "user": {
+      "version": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "migration": "1|t"
+    },
+    "content": {
+      "version": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "migration": "1|t"
+    },
+    "assessment": {
+      "version": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "migration": "1|t"
+    },
+    "progress": {
+      "version": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "migration": "1|t"
+    }
+  },
+  "reports": [
+    {
+      "file": "attempt-resync-reproduction.json",
+      "sha256": "b61c55a7cc090fbc293bb3c9dfd7374352537e53101f6471e9d2785e388344e7"
+    },
+    {
+      "file": "browser-results.json",
+      "sha256": "a0a90d640024d1b3a05cff5de2f0afafcc8d7e145c9eb145537ec6156dcc3660"
+    },
+    {
+      "file": "fixture-and-statistics.json",
+      "sha256": "912110ca504e33d5dcb7be8e1479143e13e6103ab3076619f759b924820cfe71"
+    },
+    {
+      "file": "frontend-checks.json",
+      "sha256": "cf2927cde4887e5334ba411dcb36b65500141d06c73898c2f80b83733ec72e69"
+    },
+    {
+      "file": "import-rollback.json",
+      "sha256": "db3cc013943e9a6cfae471a9056558e41a9f754e48f0838a9d1a6293743f1c42"
+    }
+  ],
+  "hashScope": "UTF-8 LF bytes of published JSON files",
+  "fixtureCorrection": "First Content trigger probe lacked USAGE on its temporary sequence and returned503. Classified as fixture ACL error; cleaned up, granted sequence USAGE to content_runtime, reran with a new API fixture. Corrected run22 checks PASS. Initial report retained locally.",
+  "remaining": [
+    "FE issue49: unsaved answer status after GET",
+    "PR43 needs DB503 fix44 and actual Huy review of44",
+    "#31 consumer/cross-review acceptance, Statistics36 implementation",
+    "#40 full W8 UI/Statistics/accessibility and group acceptance",
+    "Huy SRS/UC follow-up review, API11 retention/server concurrency; capacity/actual by owners"
+  ],
+  "notRun": [
+    "Statistics six metrics consumer acceptance",
+    "broker outage/replay/DLQ/crash recovery",
+    "full W8 browser suite PR47",
+    "production deployment"
+  ],
+  "production": "HOLD_W10",
+  "stackStopped": true,
+  "volumesPreserved": true,
+  "synchronization": {
+    "file": "synchronization.json",
+    "sha256": "0d554d36f3fb6e119c67479bb09dd4c55d703973ae6c1e02181d77c32a3b738e",
+    "status": "VERIFIED"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "status": "PASS",
+  "pr": 47,
+  "sha": "ec373bdca31d10c9b1fe29e99b8137b776427d05",
+  "runs": [
+    {
+      "kind": "BROWSER_MOCK_REGRESSION",
+      "startedAt": "2026-11-10T09:29:30.556Z",
+      "results": [
+        {
+          "title": "Admin routes, draft CRUD and Learner boundary on desktop/mobile (MOCK)",
+          "project": "desktop",
+          "actual": "passed",
+          "durationMs": 5986,
+          "attachments": []
+        },
+        {
+          "title": "Admin routes, draft CRUD and Learner boundary on desktop/mobile (MOCK)",
+          "project": "mobile",
+          "actual": "passed",
+          "durationMs": 4047,
+          "attachments": []
+        },
+        {
+          "title": "register → login → setup → lesson → Exercise/Result, save vocabulary and retake",
+          "project": "desktop",
+          "actual": "passed",
+          "durationMs": 8645,
+          "attachments": []
+        },
+        {
+          "title": "Quiz deadline and saved FALSE survive refresh and logout/login",
+          "project": "desktop",
+          "actual": "passed",
+          "durationMs": 5025,
+          "attachments": []
+        },
+        {
+          "title": "responsive screens and assets have no horizontal overflow",
+          "project": "desktop",
+          "actual": "passed",
+          "durationMs": 3820,
+          "attachments": []
+        },
+        {
+          "title": "register → login → setup → lesson → Exercise/Result, save vocabulary and retake",
+          "project": "mobile",
+          "actual": "passed",
+          "durationMs": 7366,
+          "attachments": []
+        },
+        {
+          "title": "Quiz deadline and saved FALSE survive refresh and logout/login",
+          "project": "mobile",
+          "actual": "passed",
+          "durationMs": 4353,
+          "attachments": []
+        },
+        {
+          "title": "responsive screens and assets have no horizontal overflow",
+          "project": "mobile",
+          "actual": "passed",
+          "durationMs": 3801,
+          "attachments": []
+        }
+      ]
+    },
+    {
+      "kind": "BROWSER_MOCK_W8_CONTRACT",
+      "status": "PASS",
+      "projects": [
+        "w8-desktop",
+        "w8-mobile"
+      ],
+      "caseCount": 2,
+      "localLogSha256": "ae0a1f6179bd796c4df8c0a9756b811bb208452c37a79d546537daa1f80a9b40",
+      "reportProvenance": "Successful direct Playwright log. Later default regression cleaned its nested test-results JSON."
+    }
+  ],
+  "limitation": "Reused dependency junction caused font-file Vite serving warnings. These are functional/contract checks, not a typography or visual acceptance result."
+}

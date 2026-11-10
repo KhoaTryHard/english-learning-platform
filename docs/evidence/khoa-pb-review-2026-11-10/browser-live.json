@@ -1,0 +1,681 @@
+{
+  "status": "RUN_COMPLETE_WITH_CONFIRMED_DEFECT",
+  "pr": 47,
+  "sha": "ec373bdca31d10c9b1fe29e99b8137b776427d05",
+  "startedAt": "2026-11-10T09:34:34.634Z",
+  "functionalStatus": "PASS",
+  "functionalCases": [
+    {
+      "title": "LIVE W8 Admin Assessment creates draft, rejects early readiness, keeps false and publishes",
+      "project": "w8-live-desktop",
+      "actual": "passed",
+      "durationMs": 15764,
+      "attachments": [
+        {
+          "name": "fixture",
+          "data": {
+            "lessonId": "6520cb59-8ce6-4cfe-b5de-75f5a74357d1",
+            "assessmentId": "a998fca5-aedc-437f-8dc1-2a59fab1e4c6"
+          }
+        },
+        {
+          "name": "sanitized-http",
+          "data": [
+            {
+              "method": "PATCH",
+              "path": "/admin/courses/10000000-0000-4000-8000-000000000001",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "POST",
+              "path": "/admin/modules",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "PATCH",
+              "path": "/admin/modules/08a64236-09ad-48a7-8ddc-91e177263380",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "POST",
+              "path": "/admin/lessons",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "GET",
+              "path": "/admin/assessments/a998fca5-aedc-437f-8dc1-2a59fab1e4c6",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/admin/assessments/a998fca5-aedc-437f-8dc1-2a59fab1e4c6",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "PATCH",
+              "path": "/admin/lessons/6520cb59-8ce6-4cfe-b5de-75f5a74357d1",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/admin/statistics",
+              "expected": 404,
+              "actual": 404
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "LIVE W8 History keeps retakes and Level snapshot after setup change; Progress refresh uses current course",
+      "project": "w8-live-desktop",
+      "actual": "passed",
+      "durationMs": 10350,
+      "attachments": [
+        {
+          "name": "fixture",
+          "data": {
+            "assessmentId": "3c1b9297-2393-4b52-9191-22458d848cf2",
+            "attempts": [
+              "27db1735-da5f-4cca-82ac-a557bf2ca6fd",
+              "2655bed1-e05c-4f6b-bb28-d1f13e3cf8cd"
+            ],
+            "oldCourse": "10000000-0000-4000-8000-000000000001",
+            "oldLevel": "10000000-0000-4000-8000-000000000002",
+            "newCourse": "20000000-0000-4000-8000-000000000001",
+            "newLevel": "20000000-0000-4000-8000-000000000002"
+          }
+        },
+        {
+          "name": "sanitized-http",
+          "data": [
+            {
+              "method": "PATCH",
+              "path": "/admin/courses/10000000-0000-4000-8000-000000000001",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "POST",
+              "path": "/admin/modules",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "PATCH",
+              "path": "/admin/modules/69479f4c-d63d-480d-80f3-51e0541e41ea",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "POST",
+              "path": "/admin/lessons",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "POST",
+              "path": "/admin/assessments",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "POST",
+              "path": "/admin/assessments/3c1b9297-2393-4b52-9191-22458d848cf2/questions",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "PATCH",
+              "path": "/admin/assessments/3c1b9297-2393-4b52-9191-22458d848cf2",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "PATCH",
+              "path": "/admin/lessons/6b41d193-93f7-4287-9975-72041bef84fe",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "PATCH",
+              "path": "/admin/courses/20000000-0000-4000-8000-000000000001",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "POST",
+              "path": "/auth/logout",
+              "expected": 204,
+              "actual": 204
+            },
+            {
+              "method": "POST",
+              "path": "/auth/register",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "POST",
+              "path": "/auth/login",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "PUT",
+              "path": "/me/learning-setup",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/admin/assessments",
+              "expected": 403,
+              "actual": 403
+            },
+            {
+              "method": "GET",
+              "path": "/admin/statistics",
+              "expected": 403,
+              "actual": 403
+            },
+            {
+              "method": "POST",
+              "path": "/assessments/3c1b9297-2393-4b52-9191-22458d848cf2/attempts",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "POST",
+              "path": "/attempts/27db1735-da5f-4cca-82ac-a557bf2ca6fd/submit",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "POST",
+              "path": "/assessments/3c1b9297-2393-4b52-9191-22458d848cf2/attempts",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "POST",
+              "path": "/attempts/2655bed1-e05c-4f6b-bb28-d1f13e3cf8cd/submit",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/me/history",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/me/history",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/me/history",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/me/history",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/me/history",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/me/history",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/me/progress",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "PUT",
+              "path": "/me/learning-setup",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/me/progress",
+              "expected": 200,
+              "actual": 200
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "LIVE W8 Admin Assessment creates draft, rejects early readiness, keeps false and publishes",
+      "project": "w8-live-mobile",
+      "actual": "passed",
+      "durationMs": 4633,
+      "attachments": [
+        {
+          "name": "fixture",
+          "data": {
+            "lessonId": "092fc676-ed41-499f-88d2-f84ff55ec322",
+            "assessmentId": "284a512b-6944-4f48-aca1-ebb24afccdab"
+          }
+        },
+        {
+          "name": "sanitized-http",
+          "data": [
+            {
+              "method": "PATCH",
+              "path": "/admin/courses/10000000-0000-4000-8000-000000000001",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "POST",
+              "path": "/admin/modules",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "PATCH",
+              "path": "/admin/modules/1778d41e-6787-4d4c-baf9-5cbd9d206aef",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "POST",
+              "path": "/admin/lessons",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "GET",
+              "path": "/admin/assessments/284a512b-6944-4f48-aca1-ebb24afccdab",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/admin/assessments/284a512b-6944-4f48-aca1-ebb24afccdab",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "PATCH",
+              "path": "/admin/lessons/092fc676-ed41-499f-88d2-f84ff55ec322",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/admin/statistics",
+              "expected": 404,
+              "actual": 404
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "LIVE W8 History keeps retakes and Level snapshot after setup change; Progress refresh uses current course",
+      "project": "w8-live-mobile",
+      "actual": "passed",
+      "durationMs": 6005,
+      "attachments": [
+        {
+          "name": "fixture",
+          "data": {
+            "assessmentId": "754c73a5-35e0-455c-8b3e-d75995edda6c",
+            "attempts": [
+              "a43947ce-a229-48ba-b9e3-0dbd964861f5",
+              "19d532c9-773f-4e29-9516-b47e50408701"
+            ],
+            "oldCourse": "10000000-0000-4000-8000-000000000001",
+            "oldLevel": "10000000-0000-4000-8000-000000000002",
+            "newCourse": "20000000-0000-4000-8000-000000000001",
+            "newLevel": "20000000-0000-4000-8000-000000000002"
+          }
+        },
+        {
+          "name": "sanitized-http",
+          "data": [
+            {
+              "method": "PATCH",
+              "path": "/admin/courses/10000000-0000-4000-8000-000000000001",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "POST",
+              "path": "/admin/modules",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "PATCH",
+              "path": "/admin/modules/dc7598d4-2df4-4026-badf-16174edcd755",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "POST",
+              "path": "/admin/lessons",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "POST",
+              "path": "/admin/assessments",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "POST",
+              "path": "/admin/assessments/754c73a5-35e0-455c-8b3e-d75995edda6c/questions",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "PATCH",
+              "path": "/admin/assessments/754c73a5-35e0-455c-8b3e-d75995edda6c",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "PATCH",
+              "path": "/admin/lessons/68ac301e-62ba-4884-a26f-7e87756790de",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "PATCH",
+              "path": "/admin/courses/20000000-0000-4000-8000-000000000001",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "POST",
+              "path": "/auth/logout",
+              "expected": 204,
+              "actual": 204
+            },
+            {
+              "method": "POST",
+              "path": "/auth/register",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "POST",
+              "path": "/auth/login",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "PUT",
+              "path": "/me/learning-setup",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/admin/assessments",
+              "expected": 403,
+              "actual": 403
+            },
+            {
+              "method": "GET",
+              "path": "/admin/statistics",
+              "expected": 403,
+              "actual": 403
+            },
+            {
+              "method": "POST",
+              "path": "/assessments/754c73a5-35e0-455c-8b3e-d75995edda6c/attempts",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "POST",
+              "path": "/attempts/a43947ce-a229-48ba-b9e3-0dbd964861f5/submit",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "POST",
+              "path": "/assessments/754c73a5-35e0-455c-8b3e-d75995edda6c/attempts",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "POST",
+              "path": "/attempts/19d532c9-773f-4e29-9516-b47e50408701/submit",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/me/history",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/me/history",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/me/history",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/me/history",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/me/progress",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "PUT",
+              "path": "/me/learning-setup",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/me/progress",
+              "expected": 200,
+              "actual": 200
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "defectReproductions": [
+    {
+      "title": "LIVE reproduction: owner accepts 0.001 but Admin Question form blocks its unchanged score",
+      "project": "w8-live-desktop",
+      "actual": "passed",
+      "durationMs": 2295,
+      "attachments": [
+        {
+          "name": "confirmed-defect",
+          "data": {
+            "status": "CONFIRMED_DEFECT",
+            "owner": "LeTHung",
+            "points": 0.001,
+            "expected": "Question can be edited without changing contract-valid points",
+            "actual": "rangeUnderflow, no PUT, server retains original content",
+            "assessmentId": "a6dc3e28-1b0c-48d0-aa2f-e45ae2a8a4da",
+            "questionId": "ebc406fb-a89b-45b0-83c4-1d656cde99f1"
+          }
+        },
+        {
+          "name": "sanitized-http",
+          "data": [
+            {
+              "method": "PATCH",
+              "path": "/admin/courses/10000000-0000-4000-8000-000000000001",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "POST",
+              "path": "/admin/modules",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "PATCH",
+              "path": "/admin/modules/1db944e0-4851-45d4-9ed4-070997b9c719",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "POST",
+              "path": "/admin/lessons",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "POST",
+              "path": "/admin/assessments",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "POST",
+              "path": "/admin/assessments/a6dc3e28-1b0c-48d0-aa2f-e45ae2a8a4da/questions",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "GET",
+              "path": "/admin/assessments/a6dc3e28-1b0c-48d0-aa2f-e45ae2a8a4da",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/admin/assessments/a6dc3e28-1b0c-48d0-aa2f-e45ae2a8a4da",
+              "expected": 200,
+              "actual": 200
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "LIVE reproduction: owner accepts 0.001 but Admin Question form blocks its unchanged score",
+      "project": "w8-live-mobile",
+      "actual": "passed",
+      "durationMs": 2861,
+      "attachments": [
+        {
+          "name": "confirmed-defect",
+          "data": {
+            "status": "CONFIRMED_DEFECT",
+            "owner": "LeTHung",
+            "points": 0.001,
+            "expected": "Question can be edited without changing contract-valid points",
+            "actual": "rangeUnderflow, no PUT, server retains original content",
+            "assessmentId": "a2080d17-007a-4dda-bdda-f0aa99aab8d3",
+            "questionId": "3d0204fe-cde0-4715-8e85-dfb100d22a12"
+          }
+        },
+        {
+          "name": "sanitized-http",
+          "data": [
+            {
+              "method": "PATCH",
+              "path": "/admin/courses/10000000-0000-4000-8000-000000000001",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "POST",
+              "path": "/admin/modules",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "PATCH",
+              "path": "/admin/modules/c99b5bd1-2f19-485b-acb1-e84f4e186d2b",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "POST",
+              "path": "/admin/lessons",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "POST",
+              "path": "/admin/assessments",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "POST",
+              "path": "/admin/assessments/a2080d17-007a-4dda-bdda-f0aa99aab8d3/questions",
+              "expected": 201,
+              "actual": 201
+            },
+            {
+              "method": "GET",
+              "path": "/admin/assessments/a2080d17-007a-4dda-bdda-f0aa99aab8d3",
+              "expected": 200,
+              "actual": 200
+            },
+            {
+              "method": "GET",
+              "path": "/admin/assessments/a2080d17-007a-4dda-bdda-f0aa99aab8d3",
+              "expected": 200,
+              "actual": 200
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "defectIssue": 52,
+  "note": "Four functional cases PASS; two successful reproduction procedures confirm issue52, not a business-function PASS. Desktop/mobile repeat the same scenario families.",
+  "statistics": "Authenticated Admin GET returns404 at owner413a929; Learner is denied403. Six Statistics metrics remain unavailable.",
+  "preparationCorrection": "Initial reviewer setup logged Admin in through API without the UI navigation hint; stopped that attempt and reran using normal UI login. This was a test setup error, not an application finding.",
+  "notCovered": [
+    "Statistics LIVE metrics/filter/source503 consumer",
+    "broker fault/replay/crash recovery",
+    "full group MVP QA",
+    "production deployment"
+  ]
+}
