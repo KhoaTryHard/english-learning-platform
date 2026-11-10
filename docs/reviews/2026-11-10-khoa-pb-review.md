@@ -55,3 +55,8 @@ Publicv0.1/internal0.1.1/V1 giữ; production HOLD W10. Các issue đã Closed k
 - [Manifest mới](../evidence/khoa-pb-review-2026-11-10/manifest.json).
 - [Ma trận nguồn31 đã có](../handoffs/khoa-consumer-acceptance-2026-11-09.md).
 - [Gói09/11 đã công bố](2026-11-09-khoa-backlog-review.md).
+
+Đã đọc lại đồng bộ: native [review47 CHANGES_REQUESTED](https://github.com/KhoaTryHard/english-learning-platform/pull/47#pullrequestreview-5839749660)
+và inline522;7 issue giữ Open/assignee/checklist;15 thẻ Trello (13 PB và2 tuần)
+giữ list/members/checklist/order/lịch sử;1 W8 Google Doc giữ nội dung cũ và marker
+mới duy nhất. [Biên nhận](../evidence/khoa-pb-review-2026-11-10/synchronization.json).

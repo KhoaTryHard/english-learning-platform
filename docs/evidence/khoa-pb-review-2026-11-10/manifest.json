@@ -157,5 +157,10 @@
       "sha256": "32277dbec13f7392710be728fcb6c4ec8f0ac90dd3cdf43f1e84d387b1d37abc"
     }
   ],
-  "preservedVolumeCount": 5
+  "preservedVolumeCount": 5,
+  "synchronization": {
+    "status": "VERIFIED",
+    "file": "synchronization.json",
+    "sha256": "d96d859eaed9c2592b07f8bb014deaa54e1a8095342ed8d2dd91e2816064873f"
+  }
 }
