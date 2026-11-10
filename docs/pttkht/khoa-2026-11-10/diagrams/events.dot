@@ -1,0 +1,10 @@
+digraph G {
+ graph [rankdir=LR,bgcolor="white",pad="0.2",nodesep="0.4",ranksep="0.4"];
+ node [shape=box,style="rounded,filled",fillcolor="#F2F5FA",color="#8A9BB0",fontname="DejaVu Sans",fontsize=12,margin="0.15,0.10"];
+ edge [fontname="DejaVu Sans",fontsize=9,color="#52677D"];
+ result [label="Assessment DB\nResult và Outbox\nCùng transaction"];
+ kafka [label="Outbox relay\nKafka"];
+ progress [label="Progress DB\nProcessedEvent History\nUnique Completion"];
+ result -> kafka [label="AssessmentCompleted"];
+ kafka -> progress [label="Ghi DB trước ACK"];
+}

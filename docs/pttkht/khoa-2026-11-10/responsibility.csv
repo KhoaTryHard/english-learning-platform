@@ -1,0 +1,14 @@
+part,responsible,accountable,reviewer,informed
+1,Khoa,Khoa,Khang,Cả nhóm
+2,Khang,Khoa,Tùng,Cả nhóm
+3,Khang,Khoa,Khoa,Cả nhóm
+4,Tùng,Khoa,Huy,Cả nhóm
+5,Huy,Khoa,Khoa,Cả nhóm
+6,Khang,Khoa,Huy,Cả nhóm
+7,Huy,Khoa,Khoa,Cả nhóm
+8,Hưng,Khoa,Tùng,Cả nhóm
+9,Khoa,Khoa,Huy,Cả nhóm
+10,Khoa,Khoa,Huy,Cả nhóm
+11,Khoa,Khoa,Hưng,Cả nhóm
+12,Tùng,Khoa,Hưng,Cả nhóm
+13,Khoa,Khoa,Tùng,Cả nhóm

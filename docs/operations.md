@@ -12,4 +12,6 @@ Backups: `docker compose exec -T user-db pg_dump -U postgres -d user_db -Fc > us
 
 Restart: `docker compose --profile demo restart user content api`. Named volumes retain accounts, setup, saved references and session/revocation state. `docker compose down` stops services without removing volumes. Volume deletion is not a routine step.
 
-Review gates: internal v0.1.1 is a proposal; API-06 requires reviewer acceptance. Assessment mock never establishes real Assessment/Progress/Kafka readiness. W3-03 schema and W3-06 full design acceptance remain owner review tasks. No deadline or approval is fabricated by bootstrap/tests.
+Review gates: internal v0.1.1 is baselined under docs/contracts/internal-auth-decision-2026-11-01.md; public v0.1 remains frozen. The earlier proposal-only status is historical. Assessment mock never establishes real Assessment/Progress/Kafka readiness. W3-03 schema and W3-06 full design acceptance remain owner review tasks. No deadline or approval is fabricated by bootstrap/tests.
+
+Current TEST regression and bounded restore procedure: [W9 runbook](runbooks/khoa-w9.md). Production remains HOLD W10. Fresh PTTKHT handoff: [10 November dossier](pttkht/khoa-2026-11-10/README.md).

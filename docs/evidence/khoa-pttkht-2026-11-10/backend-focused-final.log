@@ -1,0 +1,140 @@
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-starter/5.0.3/spring-cloud-starter-5.0.3.pom (3.8 kB at 82 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-commons-parent/5.0.3/spring-cloud-commons-parent-5.0.3.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-commons-parent/5.0.3/spring-cloud-commons-parent-5.0.3.pom (3.6 kB at 90 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-context/5.0.3/spring-cloud-context-5.0.3.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-context/5.0.3/spring-cloud-context-5.0.3.pom (5.7 kB at 136 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-commons/5.0.3/spring-cloud-commons-5.0.3.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-commons/5.0.3/spring-cloud-commons-5.0.3.pom (7.0 kB at 160 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk18on/1.85.2/bcprov-jdk18on-1.85.2.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk18on/1.85.2/bcprov-jdk18on-1.85.2.pom (1.2 kB at 26 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-gateway-server-webmvc/5.0.3/spring-cloud-gateway-server-webmvc-5.0.3.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-gateway-server-webmvc/5.0.3/spring-cloud-gateway-server-webmvc-5.0.3.pom (5.5 kB at 127 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-restclient/4.0.8/spring-boot-restclient-4.0.8.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-restclient/4.0.8/spring-boot-restclient-4.0.8.pom (2.5 kB at 54 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-http-client/4.0.8/spring-boot-http-client-4.0.8.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-http-client/4.0.8/spring-boot-http-client-4.0.8.pom (2.4 kB at 59 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter-web/4.0.8/spring-boot-starter-web-4.0.8.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter-web/4.0.8/spring-boot-starter-web-4.0.8.pom (2.8 kB at 61 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter-validation/4.0.8/spring-boot-starter-validation-4.0.8.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter-validation/4.0.8/spring-boot-starter-validation-4.0.8.pom (2.3 kB at 54 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-validation/4.0.8/spring-boot-validation-4.0.8.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-validation/4.0.8/spring-boot-validation-4.0.8.pom (2.4 kB at 44 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/hibernate/validator/hibernate-validator/9.0.1.Final/hibernate-validator-9.0.1.Final.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/hibernate/validator/hibernate-validator/9.0.1.Final/hibernate-validator-9.0.1.Final.pom (5.0 kB at 107 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.pom (11 kB at 262 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-starter-gateway-server-webmvc/5.0.3/spring-cloud-starter-gateway-server-webmvc-5.0.3.jar
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-starter/5.0.3/spring-cloud-starter-5.0.3.jar
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-context/5.0.3/spring-cloud-context-5.0.3.jar
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-commons/5.0.3/spring-cloud-commons-5.0.3.jar
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk18on/1.85.2/bcprov-jdk18on-1.85.2.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-starter-gateway-server-webmvc/5.0.3/spring-cloud-starter-gateway-server-webmvc-5.0.3.jar (2.3 kB at 48 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-gateway-server-webmvc/5.0.3/spring-cloud-gateway-server-webmvc-5.0.3.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-starter/5.0.3/spring-cloud-starter-5.0.3.jar (2.2 kB at 28 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-restclient/4.0.8/spring-boot-restclient-4.0.8.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-context/5.0.3/spring-cloud-context-5.0.3.jar (200 kB at 1.8 MB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-http-client/4.0.8/spring-boot-http-client-4.0.8.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-commons/5.0.3/spring-cloud-commons-5.0.3.jar (314 kB at 2.7 MB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter-validation/4.0.8/spring-boot-starter-validation-4.0.8.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter-validation/4.0.8/spring-boot-starter-validation-4.0.8.jar (4.8 kB at 22 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-validation/4.0.8/spring-boot-validation-4.0.8.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-http-client/4.0.8/spring-boot-http-client-4.0.8.jar (116 kB at 487 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/hibernate/validator/hibernate-validator/9.0.1.Final/hibernate-validator-9.0.1.Final.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/cloud/spring-cloud-gateway-server-webmvc/5.0.3/spring-cloud-gateway-server-webmvc-5.0.3.jar (346 kB at 1.4 MB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-restclient/4.0.8/spring-boot-restclient-4.0.8.jar (45 kB at 171 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter-web/4.0.8/spring-boot-starter-web-4.0.8.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-validation/4.0.8/spring-boot-validation-4.0.8.jar (15 kB at 50 kB/s)
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter-web/4.0.8/spring-boot-starter-web-4.0.8.jar (4.8 kB at 15 kB/s)
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.jar (106 kB at 296 kB/s)
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk18on/1.85.2/bcprov-jdk18on-1.85.2.jar (10 MB at 29 MB/s)
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/hibernate/validator/hibernate-validator/9.0.1.Final/hibernate-validator-9.0.1.Final.jar (1.4 MB at 3.3 MB/s)
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api-gateway ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 2 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api-gateway ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 13 source files with javac [debug parameters release 25] to target/classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api-gateway ---
+[INFO] skip non existing resourceDirectory /workspace/scratch/9a8a87ad1940/repo/english-learning-platform/backend/api-gateway/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api-gateway ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 4 source files with javac [debug parameters release 25] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ api-gateway ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running vn.group7.api.GatewayRoutingTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.491 s -- in vn.group7.api.GatewayRoutingTest
+[INFO] Running vn.group7.api.GatewayPreflightHttpTest
+02:51:33.138 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [vn.group7.api.GatewayPreflightHttpTest]: GatewayPreflightHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+02:51:33.229 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration vn.group7.api.ApiApplication for test class vn.group7.api.GatewayPreflightHttpTest
+02:51:33.286 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [vn.group7.api.GatewayPreflightHttpTest]: GatewayPreflightHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+02:51:33.287 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration vn.group7.api.ApiApplication for test class vn.group7.api.GatewayPreflightHttpTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.8)
+
+2026-11-10T02:51:33.663Z  INFO 363 --- [api-gateway] [           main] vn.group7.api.GatewayPreflightHttpTest   : Starting GatewayPreflightHttpTest using Java 25.0.5 with PID 363 (started by agent in /workspace/scratch/9a8a87ad1940/repo/english-learning-platform/backend/api-gateway)
+2026-11-10T02:51:33.665Z  INFO 363 --- [api-gateway] [           main] vn.group7.api.GatewayPreflightHttpTest   : No active profile set, falling back to 1 default profile: "default"
+2026-11-10T02:51:34.639Z  INFO 363 --- [api-gateway] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=2b2368ba-2ea7-3c73-92be-cc07319fa644
+2026-11-10T02:51:35.007Z  INFO 363 --- [api-gateway] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-11-10T02:51:35.024Z  INFO 363 --- [api-gateway] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-10T02:51:35.025Z  INFO 363 --- [api-gateway] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-11-10T02:51:35.078Z  INFO 363 --- [api-gateway] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1393 ms
+2026-11-10T02:51:35.459Z  INFO 363 --- [api-gateway] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name unusedFormLogin
+2026-11-10T02:51:36.160Z  INFO 363 --- [api-gateway] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-11-10T02:51:36.225Z  INFO 363 --- [api-gateway] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 45799 (http) with context path '/'
+2026-11-10T02:51:36.239Z  INFO 363 --- [api-gateway] [           main] vn.group7.api.GatewayPreflightHttpTest   : Started GatewayPreflightHttpTest in 2.825 seconds (process running for 9.45)
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-11-10T02:51:36.776Z  INFO 363 --- [api-gateway] [1-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-10T02:51:36.777Z  INFO 363 --- [api-gateway] [1-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-10T02:51:36.779Z  INFO 363 --- [api-gateway] [1-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.751 s -- in vn.group7.api.GatewayPreflightHttpTest
+[INFO] Running vn.group7.core.InputTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s -- in vn.group7.core.InputTest
+[INFO] Running vn.group7.core.SecurityBoundaryTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.909 s -- in vn.group7.core.SecurityBoundaryTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ api-gateway ---
+[INFO] Building jar: /workspace/scratch/9a8a87ad1940/repo/english-learning-platform/backend/api-gateway/target/api-gateway-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot:4.0.8:repackage (repackage) @ api-gateway ---
+[INFO] Replacing main artifact /workspace/scratch/9a8a87ad1940/repo/english-learning-platform/backend/api-gateway/target/api-gateway-0.1.0-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /workspace/scratch/9a8a87ad1940/repo/english-learning-platform/backend/api-gateway/target/api-gateway-0.1.0-SNAPSHOT.jar.original
+[INFO] 
+[INFO] ----------------< vn.group7:english-learning-platform >-----------------
+[INFO] Building english-learning-platform 0.1.0-SNAPSHOT                  [4/4]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for english-learning-platform 0.1.0-SNAPSHOT:
+[INFO] 
+[INFO] user-service ....................................... SUCCESS [ 24.824 s]
+[INFO] content-service .................................... SUCCESS [ 13.218 s]
+[INFO] api-gateway ........................................ SUCCESS [ 14.748 s]
+[INFO] english-learning-platform .......................... SUCCESS [  0.000 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  53.189 s
+[INFO] Finished at: 2026-11-10T02:51:39Z
+[INFO] ------------------------------------------------------------------------

@@ -1,0 +1,37 @@
+{
+  "reviewed_at": "2026-11-10T02:47:17.635966+00:00",
+  "refs": {
+    "backend": "af92253a95cf39fbdbfcbada2cfdd47fd413534d",
+    "frontend": "ec373bdca31d10c9b1fe29e99b8137b776427d05",
+    "consumer": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd"
+  },
+  "attempt_blobs": {
+    "origin/feature/w6-hung-learner-frontend": "7dd9f0d46c6152bae9b49b4cf198047dbc232eaf",
+    "origin/feature/hung-w7": "7dd9f0d46c6152bae9b49b4cf198047dbc232eaf",
+    "origin/feature/hung-w8": "7dd9f0d46c6152bae9b49b4cf198047dbc232eaf"
+  },
+  "attempt_same_blob": true,
+  "statistics_controller_annotation_matches": [],
+  "statistics_interpretation": "No /admin/statistics implementation found in Progress candidate source; contract/route presence does not implement owner API",
+  "service_tree_comparison": {
+    "backend/services/user-service": {
+      "current": "6b2298167f2ce1da595133957540cbb2a65aecf1",
+      "historical_restore_source": "6b2298167f2ce1da595133957540cbb2a65aecf1"
+    },
+    "backend/services/learning-content-service": {
+      "current": "8850af6dfccf3a230ef5b9ea5e99f52ec52269ae",
+      "historical_restore_source": "8850af6dfccf3a230ef5b9ea5e99f52ec52269ae"
+    },
+    "backend/api-gateway": {
+      "current": "c5012a9f74c156be70f319895a32ccccf1f42bdb",
+      "historical_restore_source": "c5012a9f74c156be70f319895a32ccccf1f42bdb"
+    }
+  },
+  "historical_restore": "2026-11-09 TEST same-cluster restore; not rerun 2026-11-10",
+  "runtime": {
+    "docker_executable": false,
+    "docker_socket": false,
+    "jdk25": "task-local Temurin 25.0.5+8 installed",
+    "backend_focused": "see command/log for final result"
+  }
+}

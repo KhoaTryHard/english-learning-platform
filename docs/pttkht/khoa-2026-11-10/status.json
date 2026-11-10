@@ -1,0 +1,39 @@
+{
+  "as_of": "2026-11-10T02:48:44.668648+00:00",
+  "actual_date": "2026-11-10",
+  "planned_days": "2026-11-11 through 2026-11-20",
+  "author": "Khoa with Codex assistance",
+  "all_tasks_done": false,
+  "tasks": [
+    {
+      "code": "KO1",
+      "state": "READY_FOR_REVIEW",
+      "prepared": "Phần1/11, danh mục nguồn, crosswalk UC và trách nhiệm13phần",
+      "gate": "Khang review, KH1/TU1 xác nhận đối chiếu"
+    },
+    {
+      "code": "KO2",
+      "state": "READY_FOR_REVIEW",
+      "prepared": "Phần9/10, STRIDE, RBAC, session/import boundary, sơ đồ và runbook; sửa docs/operations.md lỗi thời",
+      "gate": "Huy review; TEST vận hành mới cần Docker"
+    },
+    {
+      "code": "KO3",
+      "state": "PARTIAL_WAITING_HANDOFF",
+      "prepared": "Đối chiếu source API/dictionary, giữ matrix31/35/36, chạy lại55test và tái hiện49FAIL",
+      "gate": "Hưng chưa bàn giao patch49; Huy chưa bàn giao Statistics; Khang/Huy review physical mapping"
+    },
+    {
+      "code": "KO4",
+      "state": "PARTIAL_BLOCKED_RUNTIME",
+      "prepared": "Phần13/demo/runbook, review dependency PR và kiểm tương đương service tree với evidence restore09/11",
+      "gate": "Docker/TEST restore mới chưa chạy; PR44 chưa có review và không merge Draft"
+    },
+    {
+      "code": "KO5",
+      "state": "DRAFT_ASSEMBLED_WAITING_OWNERS",
+      "prepared": "Bản ghép Word13phần từ đầu ra Khoa và baseline nhóm; bảng nguồn, review và hạn chế",
+      "gate": "Bản cuối/review của4thành viên; tập báo cáo, đóng góp và nghiệm thu thực tế chưa diễn ra"
+    }
+  ]
+}

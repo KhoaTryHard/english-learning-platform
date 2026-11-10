@@ -1,0 +1,6 @@
+{
+  "command": "bash mvnw -s <task-local proxy> -B -DargLine=-javaagent:<resolved mockito-core.jar> -Dtest=<focused class list> -Dsurefire.failIfNoSpecifiedTests=false verify",
+  "exit_code": 1,
+  "run_at": "2026-11-10T02:48:53.292265+00:00",
+  "scope": "Focused tests, no Docker integration or LIVE readiness; Mockito startup agent avoids restricted self-attach"
+}

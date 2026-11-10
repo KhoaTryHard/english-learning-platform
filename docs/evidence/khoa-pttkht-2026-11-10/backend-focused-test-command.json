@@ -1,0 +1,6 @@
+{
+  "command": "bash mvnw -s <task-local proxy> -B -DargLine=-javaagent:<mockito-core.jar> -Dtest=<focused class list> -Dsurefire.failIfNoSpecifiedTests=false test",
+  "exit_code": 1,
+  "run_at": "2026-11-10T02:49:49.187310+00:00",
+  "scope": "Focused JUnit in three owner modules; no packaging, Docker integration or LIVE readiness"
+}

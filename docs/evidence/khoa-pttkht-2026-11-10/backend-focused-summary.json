@@ -1,0 +1,148 @@
+{
+  "status": "PASS",
+  "source_sha": "af92253a95cf39fbdbfcbada2cfdd47fd413534d",
+  "services": [
+    {
+      "service": "user-service",
+      "suites": [
+        {
+          "name": "vn.group7.core.InputTest",
+          "tests": "2",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "0.014"
+        },
+        {
+          "name": "vn.group7.core.SecurityBoundaryTest",
+          "tests": "4",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "2.76"
+        },
+        {
+          "name": "vn.group7.user.DbTransactionFailureTest",
+          "tests": "4",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "2.208"
+        },
+        {
+          "name": "vn.group7.user.SessionValidationTest",
+          "tests": "3",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "0.377"
+        }
+      ],
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "service": "learning-content-service",
+      "suites": [
+        {
+          "name": "vn.group7.content.DbTransactionFailureTest",
+          "tests": "4",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "2.019"
+        },
+        {
+          "name": "vn.group7.content.ImportBoundaryTest",
+          "tests": "3",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "0.359"
+        },
+        {
+          "name": "vn.group7.content.ImportContainerTest",
+          "tests": "4",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "0.9"
+        },
+        {
+          "name": "vn.group7.content.ReadinessAcceptanceTest",
+          "tests": "4",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "1.544"
+        },
+        {
+          "name": "vn.group7.core.InputTest",
+          "tests": "2",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "0.006"
+        },
+        {
+          "name": "vn.group7.core.SecurityBoundaryTest",
+          "tests": "4",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "2.662"
+        }
+      ],
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "service": "api-gateway",
+      "suites": [
+        {
+          "name": "vn.group7.api.GatewayPreflightHttpTest",
+          "tests": "2",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "3.751"
+        },
+        {
+          "name": "vn.group7.api.GatewayRoutingTest",
+          "tests": "7",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "5.491"
+        },
+        {
+          "name": "vn.group7.core.InputTest",
+          "tests": "2",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "0.008"
+        },
+        {
+          "name": "vn.group7.core.SecurityBoundaryTest",
+          "tests": "4",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "1.909"
+        }
+      ],
+      "tests": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "total_executions": 49,
+  "interpretation": "JUnit executions across modules; shared core tests repeat per module, not unique business scenarios. No Docker integration/LIVE/restore in this run.",
+  "packaging": "3 executable Spring Boot JARs built; not Docker images"
+}

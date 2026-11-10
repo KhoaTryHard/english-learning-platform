@@ -1,0 +1,20 @@
+digraph G {
+ graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.28", ranksep="0.5"];
+ node [shape=box, style="rounded,filled", fillcolor="#F2F5FA", color="#8A9BB0", fontname="DejaVu Sans", fontsize=12, margin="0.15,0.10"];
+ edge [fontname="DejaVu Sans", fontsize=9, color="#52677D"];
+ browser [label="React web\nLearner và Admin"];
+ gateway [label="API Gateway\nSession CSRF RBAC"];
+ user [label="User\nAccount Profile Setup"];
+ content [label="Learning Content\nHọc liệu Import Saved words"];
+ assessment [label="Assessment\nAttempt Result Outbox"];
+ progress [label="Progress\nHistory Completion Statistics"];
+ userdb [shape=cylinder,label="User DB"];
+ contentdb [shape=cylinder,label="Content DB"];
+ assessmentdb [shape=cylinder,label="Assessment DB"];
+ progressdb [shape=cylinder,label="Progress DB"];
+ browser -> gateway [label="HTTP API"];
+ gateway -> user; gateway -> content; gateway -> assessment; gateway -> progress;
+ {rank=same;user;content;assessment;progress;}
+ user -> userdb;content -> contentdb;assessment -> assessmentdb;progress -> progressdb;
+ {rank=same;userdb;contentdb;assessmentdb;progressdb;}
+}

@@ -1,0 +1,17 @@
+local_id,local_name,baseline_uc,requirements,reconciliation
+UC01,Đăng ký,UC-01,FR-01,Gộp vào tài khoản; giữ alias mã cũ
+UC02,Đăng nhập,UC-01,FR-02,Không tạo mã mới cho login
+UC03,Đăng xuất,UC-01,FR-03,Thu hồi jti; không chỉ xóa token client
+UC04,Tra cứu nội dung,UC-03; UC-02 một phần,FR-06/08,Chọn/đổi Course-Level cần UC-02 riêng
+UC05,Học bài học,UC-03; UC-04,FR-08/09/12/16,"Chỉ completion khi Exercise có Result hợp lệ, kể cả 0 điểm"
+UC06,Học từ vựng,UC-03; UC-06,FR-09/10/11,"Không thêm mastery; saved relation ở Content, không Progress"
+UC07,Làm bài,UC-04,FR-12/13/14/15,Server deadline Quiz/Test; Exercise không timer; unlimited retake
+UC08,Xem tiến độ,UC-05,FR-15/16,"Sửa denominator published-only thành mọi Lesson, không Lesson trả null"
+UC09,Quản lý Learner,UC-07,FR-05,RBAC và whitelist; khóa thu hồi khả năng dùng protected API
+UC10,Quản lý khóa học,UC-08,FR-17,Không DELETE/soft-delete; giữ Course/Module/Lesson ownership
+UC11,Quản lý bài học,UC-08; UC-11,FR-17/18/21,Import DOCX moduleId/orderNo; API không có preview/commit riêng
+UC12,Quản lý từ vựng,UC-08; UC-11,FR-18/21,Bỏ tạo Vocabulary thủ công; XLSX all-or-nothing; không tạo API preview mới
+UC13,Ngân hàng câu hỏi,UC-09,FR-19,Question/Attempt snapshot; không sửa Result cũ
+GAP01,Profile chưa có đặc tả riêng tương xứng,UC-01,FR-04,Bổ sung own-only Profile/nullable display name
+GAP02,Course Level chưa có đặc tả lựa chọn riêng,UC-02,FR-07,Không Goal; đổi Setup giữ History/My Vocabulary
+GAP03,Statistics chưa có UC chi tiết trong Word cũ,UC-10,FR-20,Bổ sung sáu metric/filter/null/source503; implementation #36 còn mở

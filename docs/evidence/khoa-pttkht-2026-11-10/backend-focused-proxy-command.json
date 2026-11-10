@@ -1,0 +1,6 @@
+{
+  "command": "bash mvnw -s <task-local inherited proxy settings> -B -Dtest=<focused class list> -Dsurefire.failIfNoSpecifiedTests=false verify",
+  "exit_code": 1,
+  "run_at": "2026-11-10T02:47:44.543862+00:00",
+  "scope": "Focused tests only, Docker/LIVE excluded"
+}

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "bash",
+    "mvnw",
+    "-B",
+    "-Dstyle.color=never",
+    "-Dtest=InputTest,SecurityBoundaryTest,SessionValidationTest,DbTransactionFailureTest,ImportBoundaryTest,ImportContainerTest,GatewayRoutingTest,GatewayPreflightHttpTest,ReadinessAcceptanceTest",
+    "-Dsurefire.failIfNoSpecifiedTests=false",
+    "verify"
+  ],
+  "exit_code": 1,
+  "run_at": "2026-11-10T02:40:58.636270+00:00",
+  "java": "openjdk version \"25.0.5\" 2026-10-20 LTS\nOpenJDK Runtime Environment Temurin-25.0.5+8 (build 25.0.5+8-LTS)\nOpenJDK 64-Bit Server VM Temurin-25.0.5+8 (build 25.0.5+8-LTS, mixed mode, sharing)\n",
+  "excluded": "Docker-dependent UserIntegrationTest/ContentIntegrationTest and opt-in LIVE readiness not requested"
+}

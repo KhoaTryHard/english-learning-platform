@@ -1,0 +1,46 @@
+{
+  "source_sha": "af92253a95cf39fbdbfcbada2cfdd47fd413534d",
+  "checks": [
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "scripts/check-contracts.py"
+      ],
+      "exit_code": 0,
+      "stdout": "Frozen SHA-256 and 43 public owner operations: PASS; approved internal 0.1.1 matches reviewed proposal shape\nGateway routes: all 63 approved operations have matching owner and roles\n",
+      "stderr": "",
+      "run_at": "2026-11-10T02:37:44.415731+00:00"
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "scripts/check-service-layout.py"
+      ],
+      "exit_code": 0,
+      "stdout": "Standalone service folders verified\n",
+      "stderr": "",
+      "run_at": "2026-11-10T02:37:44.470547+00:00"
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "scripts/sync-sdk.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "Infrastructure snapshots verified for all standalone applications\n",
+      "stderr": "",
+      "run_at": "2026-11-10T02:37:44.521923+00:00"
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "scripts/check-backlog-evidence.py"
+      ],
+      "exit_code": 0,
+      "stdout": "Committed backlog report checksums PASS: 8\n",
+      "stderr": "",
+      "run_at": "2026-11-10T02:37:44.600709+00:00"
+    }
+  ]
+}
