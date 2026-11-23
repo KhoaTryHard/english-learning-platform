@@ -150,11 +150,11 @@ python scripts/verify-huy-services.py --build --report docs/evidence/huy-service
 |---|---|---|---|
 | assessment-service | H2 PostgreSQL mode | **50** (base PR #43: 31) | PASS |
 | assessment-service | PostgreSQL 17.11 | **50** | PASS |
-| progress-service | H2 PostgreSQL mode | **43** (base PR #43: 26) | PASS |
-| progress-service | PostgreSQL 17.11 | **43** | PASS |
+| progress-service | H2 PostgreSQL mode | **47** (base PR #43: 26) | PASS |
+| progress-service | PostgreSQL 17.11 | **47** | PASS |
 | verify-huy-services --build | — | 2 service | PASS (isolated build, owner-only jar) |
 
-Tổng **93 test**, 0 failure, 0 error. Flyway V1 đã áp dụng thật lên cluster
+Tổng **97 test**, 0 failure, 0 error. Flyway V1 đã áp dụng thật lên cluster
 PostgreSQL 17.11; bảng được kiểm lại qua `information_schema`.
 
 Môi trường: Windows 11, JDK 25.0.3, Maven 3.9.11 (offline, repo local),
@@ -198,6 +198,51 @@ PostgreSQL 17.11 tại `127.0.0.1:15543`.
    bản tích hợp local ở mục 4 không thay được điều đó.
 7. Delivery là **at-least-once**: relay có thể publish lại cùng `eventId`;
    Progress chống trùng bằng `processed_event`. Không coi producer PASS là Progress E2E.
+
+## 9b. Đối chiếu checklist nghiệm thu trong issue
+
+### #30 — W7-04 Kafka broker/topic và Outbox relay
+
+| Checklist | Trạng thái |
+|---|---|
+| Cấu hình broker/topic/env ở `infra/kafka` và Compose; start/stop test; không shared DB | **Đạt** — `compose.yaml` và phần topic/key có từ W5-02; bổ sung quy trình start/stop, câu khẳng định không dùng chung database, và bảng ba biến relay |
+| Relay/publish + retry trạng thái outbox, **không mở transaction DB quanh network call** | **Đạt** — đây chính là lý do bỏ `@Transactional`; checklist yêu cầu nguyên văn điều này |
+| Payload/schema/snapshot/`eventId`/`submissionId` đúng contract; duplicate publish không đổi `eventId` | **Đạt** |
+| Broker down/restart, retry/recovery, Result bền, không mất event khi crash sau DB commit | **Một phần** — phủ bằng `EventPublisher` double; restart broker thật `NOT_RUN` |
+| Log event thật và hướng dẫn bàn giao consumer W8 | **Một phần** — hướng dẫn có; log event thật `NOT_RUN` |
+| Peer review / migration / runtime evidence | `NOT_RUN` — tác giả không tự approve |
+
+### #36 — W8-03 Sáu nhóm Statistics
+
+| Checklist | Trạng thái |
+|---|---|
+| Progress sở hữu `GET /admin/statistics`, ADMIN-only, không thêm service/DB query chéo | **Đạt** |
+| Đúng 6 nhóm metric | **Đạt** |
+| Filter Course/Level; `totalLearners` global; cohort/snapshot/retake/TIMEOUT theo DD-11; không thêm time filter | **Đạt** |
+| Không denominator → average null; nguồn lỗi → 503, không điền 0; `generatedAt`/`syncState` | **Đạt** |
+| **Fixtures có kết quả tính tay đối chiếu**, tests filter/null/source failure, LIVE API evidence, peer review | **Đạt** phần fixtures và tests; LIVE evidence và peer review `NOT_RUN` |
+
+## 9c. Lỗi làm tròn phát hiện khi làm fixture
+
+Yêu cầu "fixtures có kết quả tính tay" trong checklist #36 đã lộ ra một lỗi thật
+trong code của chính tôi: `averageProgressPercent` làm tròn 2 số **cho từng
+learner** rồi mới cộng và chia, trong khi DD-11 ghi *"averaging uses unrounded
+ratios then DTO rounds 2 decimals"*.
+
+Đây là sai số thật, không chỉ sai hợp đồng. Course 3 Lesson, cohort 2 learner
+hoàn thành 2 và 0 Lesson:
+
+| | Phép tính | Kết quả |
+|---|---|---|
+| Đúng | `(66.666667 + 0) / 2 = 33.333333` | **33.33** |
+| Bản cũ | `(66.67 + 0.00) / 2 = 33.335` | **33.34** |
+
+Đã sửa: `percent()` không làm tròn, `clamp()` chỉ áp một lần sau khi chia.
+`StatisticsFixtureTest` giữ regression và **đã kiểm là có răng** — bật lại lỗi cũ
+thì 3/4 ca fail đúng ở `33.34`.
+
+Fixture `statistics-expected.json` có mục `handComputed` giải thích từng phép
+tính, nên reviewer đối chiếu được số mà không phải đọc Java.
 
 ## 10b. Trạng thái GitHub issue của Huy (đọc ngày 23/11/2026)
 

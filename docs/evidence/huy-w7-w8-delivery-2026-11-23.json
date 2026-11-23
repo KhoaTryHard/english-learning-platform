@@ -2,7 +2,7 @@
   "dateLocal": "2026-11-23",
   "timezone": "Asia/Saigon",
   "owner": "Nguyen Quang Huy",
-  "scope": "W7-06 Outbox relay, W8-01 verification, W8-02 Statistics, integrate fix #44; refs #30/#34/#35/#36/#44",
+  "scope": "W7-06 Outbox relay, W8-01 verification, W8-02 Statistics, integrate fix #44, DD-11 rounding fix; refs #30/#34/#35/#36/#44",
   "baseline": {
     "builtOn": "PR #43 head c1a2a074a4cc6c0d3d0bdf04ef77540a530c5930 (branch feature/huy-assessment-foundation), fetched from GitHub in this session",
     "developSnapshot": "english-learning-platform-develop export; assessment-service and progress-service were EMPTY SCAFFOLD (only .gitkeep) there",
@@ -55,12 +55,14 @@
   "filesAddedThisSession": {
     "backend/services/assessment-service/src/test/java/vn/group7/assessment/AssessmentMetricsTest.java": "e2954d5379d0aa768b2765f3dc716854ec283f8cd40232eb496322b4fc62883c",
     "backend/services/assessment-service/src/test/java/vn/group7/assessment/OutboxRelayTest.java": "db5e1486e5f6283d6c8bbbd97be6efc3a5499d2d794c209a8641eafda1a787ec",
-    "backend/services/progress-service/src/main/java/vn/group7/progress/StatisticsService.java": "bb4bbda15f2dcf7d1c0e8b2da8ebd223d64a02b79c12770fe1aef3a1bb0ff01a",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/StatisticsService.java": "76b49598ae9ba9d9f99ec1ee912a4c9435544b6d07e16a9dc6ecdc7f7543f23f",
     "backend/services/progress-service/src/main/java/vn/group7/progress/StatisticsController.java": "a51dabc5047b54772d035a4ee9f153abf332c339c64e6b9dcb9b702a251d6e77",
     "backend/services/progress-service/src/test/java/vn/group7/progress/StatisticsServiceTest.java": "d5a19a5bf7afd6703d192d13ce94ab9b1819b577fcb79dd37bb15bf713651944",
     "backend/services/progress-service/src/test/java/vn/group7/progress/StatisticsHttpTest.java": "b3129c90469400c6f66946632fda34d2ed122700525319d6a5a970cafa2e81ce",
     "backend/services/progress-service/src/test/java/vn/group7/progress/TransactionUnavailableHttpTest.java": "e7953711c98e0476bfec14e86dc3d4bae9fbd3815596baac2b1a743ff2849190",
-    "scripts/verify-huy-services.py": "05ace7a1ab1ff2a66ebf8fd744e0ee1fe704e5f93caa2a26c0714e44a98004ad"
+    "scripts/verify-huy-services.py": "05ace7a1ab1ff2a66ebf8fd744e0ee1fe704e5f93caa2a26c0714e44a98004ad",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/StatisticsFixtureTest.java": "a0696302857e96aad449a3cbcead78313b85bee613ca245b408cfcdd4bd93b1b",
+    "backend/services/progress-service/src/test/resources/fixtures/statistics-expected.json": "c2cd375aa567f6960bfbae25850d1d9fd673deb78b94c31da3d68e3f193d8368"
   },
   "filesTakenFromFix44": {
     "backend/services/assessment-service/src/test/java/vn/group7/assessment/TransactionUnavailableHttpTest.java": "b5c55c84281e314e44d020dbabffc7d90ec004d6809f5adfee1664ea156a8d95"
@@ -84,7 +86,8 @@
     "backend/services/progress-service/.env.example": "837c72deb169ed42968788790331901f634f6da8a67ab963101255ae4c51a510",
     "backend/services/progress-service/compose.yaml": "cec7e7802a54f2a8de184cf68716867673769122f1b75a54547529319e28488b",
     "backend/services/progress-service/README.md": "b0efb9a187b8705cad4153b4dd667b4096192d0e944a3cb74f2ab7fe33180ccb",
-    "backend/services/progress-service/src/test/java/vn/group7/progress/ProgressServiceTest.java": "27c1b6e5154c8c19beaec67b4c7c6eec2da562e92137c4b6ca94e310e56628a6"
+    "backend/services/progress-service/src/test/java/vn/group7/progress/ProgressServiceTest.java": "27c1b6e5154c8c19beaec67b4c7c6eec2da562e92137c4b6ca94e310e56628a6",
+    "infra/kafka/README.md": "fd53466c34be2243d791013b9572fc2c3dd73162c47a0af7209a67c47557e165"
   },
   "serviceTreeSha256": {
     "backend/services/assessment-service/.dockerignore": "af34644c544f1ad243e5c7e8ede85c91862a87fd378104fff7e4fb1210925a45",
@@ -161,7 +164,7 @@
     "backend/services/progress-service/src/main/java/vn/group7/progress/ProgressService.java": "3bd909a3d1907067426e67693c8418ea26225ba904db7bb0906c2aef5e6779f5",
     "backend/services/progress-service/src/main/java/vn/group7/progress/ProgressSources.java": "4b35297ad19536ed33fb43e35ce8543c060890cf7b6e4dbd3d5944da4edbd662",
     "backend/services/progress-service/src/main/java/vn/group7/progress/StatisticsController.java": "a51dabc5047b54772d035a4ee9f153abf332c339c64e6b9dcb9b702a251d6e77",
-    "backend/services/progress-service/src/main/java/vn/group7/progress/StatisticsService.java": "bb4bbda15f2dcf7d1c0e8b2da8ebd223d64a02b79c12770fe1aef3a1bb0ff01a",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/StatisticsService.java": "76b49598ae9ba9d9f99ec1ee912a4c9435544b6d07e16a9dc6ecdc7f7543f23f",
     "backend/services/progress-service/src/main/resources/application.properties": "6fbdfcb66bfa733e0a5437133af3544866a5599694d636912e7f5aef2b72e222",
     "backend/services/progress-service/src/main/resources/contracts/AssessmentCompleted_v1.schema.json": "524aa6dae4d98476d0eafeade28c053080db305fc19328f423b2716eb9248636",
     "backend/services/progress-service/src/main/resources/db/migration/.gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
@@ -172,10 +175,12 @@
     "backend/services/progress-service/src/test/java/vn/group7/progress/ProgressApplicationTest.java": "a077d4b773b8c8c44f8cb2a2bfaaa9a2dd7d64cfb33748fabffc5b1f44712675",
     "backend/services/progress-service/src/test/java/vn/group7/progress/ProgressHttpTest.java": "85643cefcd068febffd97d0926b6b9a6f44d3fb242585de10abc1d45ec709c03",
     "backend/services/progress-service/src/test/java/vn/group7/progress/ProgressServiceTest.java": "27c1b6e5154c8c19beaec67b4c7c6eec2da562e92137c4b6ca94e310e56628a6",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/StatisticsFixtureTest.java": "a0696302857e96aad449a3cbcead78313b85bee613ca245b408cfcdd4bd93b1b",
     "backend/services/progress-service/src/test/java/vn/group7/progress/StatisticsHttpTest.java": "b3129c90469400c6f66946632fda34d2ed122700525319d6a5a970cafa2e81ce",
     "backend/services/progress-service/src/test/java/vn/group7/progress/StatisticsServiceTest.java": "d5a19a5bf7afd6703d192d13ce94ab9b1819b577fcb79dd37bb15bf713651944",
     "backend/services/progress-service/src/test/java/vn/group7/progress/TransactionUnavailableHttpTest.java": "e7953711c98e0476bfec14e86dc3d4bae9fbd3815596baac2b1a743ff2849190",
-    "backend/services/progress-service/src/test/resources/.gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    "backend/services/progress-service/src/test/resources/.gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "backend/services/progress-service/src/test/resources/fixtures/statistics-expected.json": "c2cd375aa567f6960bfbae25850d1d9fd673deb78b94c31da3d68e3f193d8368"
   },
   "testRuns": [
     {
@@ -204,7 +209,7 @@
       "suite": "progress-service",
       "database": "H2 2.4.240 PostgreSQL mode",
       "command": "mvn -o -Dmaven.repo.local=.cache/maven test",
-      "testsRun": 43,
+      "testsRun": 47,
       "failures": 0,
       "errors": 0,
       "skipped": 0,
@@ -215,7 +220,7 @@
       "suite": "progress-service",
       "database": "PostgreSQL 17.11 (progress_test)",
       "command": "mvn -o test -Dprogress.test.jdbc-url=jdbc:postgresql://127.0.0.1:15543/progress_test -Dprogress.test.db-user=progress",
-      "testsRun": 43,
+      "testsRun": 47,
       "failures": 0,
       "errors": 0,
       "skipped": 0,
@@ -237,7 +242,8 @@
     "progress-service": {
       "StatisticsServiceTest": 8,
       "StatisticsHttpTest": 5,
-      "TransactionUnavailableHttpTest (fix #44 parity for Progress)": 4
+      "TransactionUnavailableHttpTest (fix #44 parity for Progress)": 4,
+      "StatisticsFixtureTest (3 fixture cases + 1 rounding guard)": 4
     }
   },
   "fix44Integration": {
@@ -285,5 +291,36 @@
     "averageProgressPercent keeps all Course Lessons as the denominator even under a levelId filter, following 'all Course Lessons' in the contract. If the team reads it as Lessons of that Level only, the formula changes.",
     "Multi-page cohort reads are not one global transaction; totalLearnersGlobal is taken from the first page. The internal contract already records cohort drift as an open review item.",
     "#20 physical mapping and #42 internal auth proposal remain unanswered by Huy and are unchanged by this delivery."
-  ]
+  ],
+  "pushedBranches": {
+    "feature/huy-assessment-foundation": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+    "feature/huy-w7": "see git; relay + broker runbook",
+    "feature/huy-w8": "see git; Statistics + DD-11 rounding fix",
+    "note": "PR #44 merged into feature/huy-assessment-foundation by fast-forward on 2026-11-23."
+  },
+  "roundingDefectFound": {
+    "where": "StatisticsService.averageProgressPercent",
+    "defect": "Each learner percentage was rounded to 2 decimals before being summed and divided, while DD-11 requires averaging unrounded ratios and rounding once in the DTO.",
+    "impact": "Real off-by-0.01 in a published Admin metric. Course with 3 Lessons and a cohort of two learners who completed 2 and 0 Lessons: correct 33.33, previous output 33.34.",
+    "foundBy": "Building the hand-computed fixture required by the #36 checklist.",
+    "fix": "percent() no longer rounds; clamp() is applied once after the division.",
+    "regressionGuard": "StatisticsFixtureTest. Reintroducing the per-learner rounding makes 3 of its 4 cases fail at exactly 33.34, so the test was verified to have teeth."
+  },
+  "checklistCoverage": {
+    "issue30": {
+      "broker/topic/env in infra/kafka and Compose, start/stop, no shared DB": "DONE - compose.yaml and topic/key notes existed from W5-02; this delivery adds the start/stop procedure, the explicit no-shared-database statement and the relay variable table.",
+      "relay/publish with outbox retry state, no DB transaction around the network call": "DONE",
+      "payload/schema/snapshot/eventId/submissionId per contract, duplicate publish keeps eventId": "DONE",
+      "broker down/restart, retry/recovery, Result durable, no event lost after crash": "PARTIAL - covered with an EventPublisher double; real broker restart NOT_RUN",
+      "real event log and consumer handoff": "PARTIAL - handoff written; real event log NOT_RUN",
+      "peer review / migration / runtime evidence": "NOT_RUN - author cannot self-approve"
+    },
+    "issue36": {
+      "Progress owns GET /admin/statistics, ADMIN only, no extra service or cross DB query": "DONE",
+      "exactly the six metric families": "DONE",
+      "Course/Level filter, global totalLearners, cohort/snapshot/retake/TIMEOUT per DD-11, no time filter": "DONE",
+      "null average without denominator, 503 for a failed mandatory source, generatedAt/syncState": "DONE",
+      "fixtures with hand-computed results, filter/null/source-failure tests, LIVE API evidence, peer review": "DONE for fixtures and tests; LIVE API evidence and peer review NOT_RUN"
+    }
+  }
 }
