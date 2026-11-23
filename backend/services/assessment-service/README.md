@@ -140,9 +140,24 @@ quyết định nhóm #42; implementation này không thay approved v0.1.
 - Submit/finalizer khóa cùng submission; Result unique submission. Result,
   Outbox và trạng thái submission commit trong cùng transaction.
 - Outbox topic `assessment.completed.v1`, key=userId. Relay chỉ mark SENT sau
-  broker ACK; lỗi giữ PENDING/retry count. Crash sau publish/trước mark sẽ phát
-  lại cùng eventId/payload. Khi Kafka tắt, event tiếp tục PENDING.
+  broker ACK; lỗi giữ PENDING, tăng `retry_count` và ghi `last_error` kèm loại
+  lỗi thật. Crash sau publish/trước mark sẽ phát lại cùng eventId/payload. Khi
+  Kafka tắt, event tiếp tục PENDING.
+- `OutboxRelay.runBatch` **không mở transaction**: publish diễn ra sau khi
+  Result/Outbox đã commit, nên broker treo không giữ row lock hay connection và
+  không bao giờ rollback Result đã lưu (yêu cầu W7-06).
+- Đổi lại, không có row lock nên hai instance relay có thể publish trùng. An toàn
+  vì delivery là at-least-once và Progress chống trùng bằng `processed_event`.
+- Event publish lỗi chỉ chặn các event **cùng partition key** trong sweep đó;
+  key khác vẫn tiếp tục. Giữ thứ tự theo key (đúng mức Kafka bảo đảm) mà một
+  event không gửi được không làm nghẽn toàn bộ outbox.
+- `relay-batch-size`, `relay-delay-ms` và `send-timeout-seconds` cấu hình qua
+  `assessment.kafka.*`; `backlogAgeSeconds()` cho biết tuổi event chờ lâu nhất.
 - Relay đã có DB/publisher tests; chưa chạy broker/Gateway E2E thật của nhóm.
+- Đã tích hợp fix #44 của Khoa: `CannotCreateTransactionException` không kế thừa
+  `DataAccessException`, nên DB không mở được connection từng trả 500 thay vì 503.
+  `core/Errors.java` nay xử lý cả hai; `TransactionUnavailableHttpTest` giữ regression
+  và kiểm cả việc không rò chi tiết kết nối ra client.
 - JSON lưu dạng TEXT; xem `docs/architecture/assessment-data-mapping.md` trong
   repository để review mapping với W3-03.
 

@@ -105,6 +105,9 @@ class AssessmentServiceTest {
   static class FakeContent extends ContentContext {
     boolean visible = true, unavailable = false;
 
+    /** Level returned as the attempt start snapshot; mutable so tests can span two Levels. */
+    String level = LEVEL;
+
     FakeContent() {
       super(null, "", "");
     }
@@ -118,7 +121,7 @@ class AssessmentServiceTest {
     @Override
     public String level(String user, String course) {
       if (unavailable) throw ApiError.dependency();
-      return LEVEL;
+      return level;
     }
   }
 
@@ -141,6 +144,7 @@ class AssessmentServiceTest {
     clock.now = Instant.parse("2026-10-29T10:00:00Z");
     content.visible = true;
     content.unavailable = false;
+    content.level = LEVEL;
   }
 
   String create(String type) {
