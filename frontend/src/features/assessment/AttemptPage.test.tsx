@@ -67,6 +67,30 @@ it('resumes the same attempt with saved answers and server deadline', async () =
   expect(demoStore.attempts[attempt.attemptId].data.deadlineAt).toBe(attempt.deadlineAt);
 });
 
+it('keeps a save failure visible after a status check until answers are acknowledged', async () => {
+  const user = userEvent.setup();
+  const attempt = await api.startAttempt(demoId(501), crypto.randomUUID());
+  server.use(
+    http.put('*/api/v1/attempts/:id/answers', () =>
+      HttpResponse.json({ message: 'Save failed' }, { status: 503 }),
+    { once: true }),
+  );
+  let checked = false;
+  server.use(http.get('*/api/v1/attempts/:id', () => {
+    checked = true;
+    return HttpResponse.json(attempt);
+  }));
+  renderAttempt(attempt.attemptId);
+  await user.click(await screen.findByRole('radio', { name: /Could I have the menu/ }));
+  await screen.findByText('Save failed');
+  checked = false;
+  await user.click(screen.getByRole('button', { name: 'Kiểm tra trạng thái máy chủ' }));
+  await waitFor(() => expect(checked).toBe(true));
+  expect(screen.getByText('Đáp án mới chưa lưu.')).toBeVisible();
+  await user.click(screen.getByRole('button', { name: 'Lưu lại đáp án' }));
+  await screen.findByText('Đã tải/lưu đáp án từ máy chủ.');
+});
+
 it('handles a terminal attempt returned by answer-save (200 TIMEOUT)', async () => {
   const user = userEvent.setup();
   const attempt = await api.startAttempt(demoId(510), crypto.randomUUID());
