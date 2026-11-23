@@ -51,3 +51,7 @@ Khoa owns User/Content/Gateway; Huy owns Assessment/Progress/Kafka; Hưng owns f
 See [architecture](docs/architecture.md), [data dictionary](docs/database.md), [contract change](docs/contracts/CHANGELOG.md), [traceability](docs/traceability.md), [operations](docs/operations.md), and [verification evidence](docs/verification.md).
 
 W3-00 v0.2 and public/internal v0.1 are frozen. Internal v0.1.1 is a user-authorized implementation proposal; it requires coordinated User/Gateway deployment and actual Huy/Khoa review. MySQL→PostgreSQL applies to Khoa's two services only. Nothing here signs reviewer acceptance or closes the full W3/MVP gate.
+
+## Frontend
+
+See the [React frontend guide](frontend/README.md) for local development and manual tests.

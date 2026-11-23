@@ -16,3 +16,8 @@ coverage/
 
 __pycache__/
 *.pyc
+
+playwright-report/
+test-results/
+live-test-results/
+*.tsbuildinfo

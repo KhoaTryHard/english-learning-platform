@@ -1,5 +1,9 @@
+* text=auto eol=lf
 *.sh text eol=lf
 mvnw text eol=lf
 *.cmd text eol=crlf
 docs/contracts/public-v0.1.yaml -text
 docs/contracts/internal-v0.1.yaml -text
+contracts/http/public-v0.1.yaml -text
+*.png binary
+*.svg text eol=lf

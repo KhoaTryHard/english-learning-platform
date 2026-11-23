@@ -1,0 +1,50 @@
+{
+  "sourceCommit": "33b16ef7b44e9dcdc5027f0e3d47d864d6c571c3",
+  "parentCommit": "1e11c6d700a5f5e118f086ca23f9c5c66a3be031",
+  "recordedAt": "2026-11-09T20:12:07.5384008+07:00",
+  "environment": "Windows / Node 24.22.1 / Playwright Chromium / no running backend",
+  "unit": {
+    "failed": 0,
+    "passed": 55
+  },
+  "browser": {
+    "regressionMockPassed": 8,
+    "contractMockPassed": 2
+  },
+  "lint": "PASS",
+  "typecheck": "PASS",
+  "build": "PASS",
+  "productionContractGuard": "PASS",
+  "live": "BLOCKED_ENVIRONMENT: Docker Desktop unable to start; docker info HTTP500",
+  "peerAcceptance": "PENDING",
+  "files": [
+    {
+      "path": "assessment-desktop.png",
+      "sha256": "38b2ae02fed200c0096076624989f9e00ae3fca9f016acb417df88fcb49b453f"
+    },
+    {
+      "path": "assessment-mobile.png",
+      "sha256": "1d1be22fd21403525245504282056954b6b8913bb232bcc8cbe2108938811ec6"
+    },
+    {
+      "path": "browser-contract.json",
+      "sha256": "ff55be9ed650b982d132e5cb6fd5eed3a5c8c8e0bfc1ebf9353cc791ec664416"
+    },
+    {
+      "path": "browser-regression.json",
+      "sha256": "3024b1019211cf178953a38c0971b1ea9f66c5fdc7d3620b8fb3ab96737f843f"
+    },
+    {
+      "path": "statistics-desktop.png",
+      "sha256": "1de62b49636f9f3f7030c598ddd812a07178ca78105720b931417a9c45b63902"
+    },
+    {
+      "path": "statistics-mobile.png",
+      "sha256": "f6075055183e739d79c3e1afb8c4fe03ff8b912053c61e7904de112b83849290"
+    },
+    {
+      "path": "unit.json",
+      "sha256": "98301ab9625acdc1a5c35b1960d4cbc156653c0539ed66b42e4a319be37c7590"
+    }
+  ]
+}
