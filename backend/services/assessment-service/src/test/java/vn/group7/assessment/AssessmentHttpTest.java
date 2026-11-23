@@ -171,6 +171,33 @@ class AssessmentHttpTest {
   }
 
   @Test
+  void assessmentMetricsAllowOnlyProgressAndValidateFilters() throws Exception {
+    String path = "/internal/v1/statistics/assessment-results";
+    var progressTokens = new TokenCodec(keys.toString(), "progress");
+
+    mvc.perform(get(path).header("Authorization", "Bearer " + progressTokens.service("assessment")))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.courses").isArray())
+        .andExpect(jsonPath("$.generatedAt").exists());
+    // Only Progress consumes this source; Content and the Gateway must be refused.
+    mvc.perform(get(path).header("Authorization", "Bearer " + contentTokens.service("assessment")))
+        .andExpect(status().isForbidden());
+    mvc.perform(get(path).header("Authorization", "Bearer " + api.service("assessment")))
+        .andExpect(status().isForbidden());
+    mvc.perform(get(path)).andExpect(status().isUnauthorized());
+    mvc.perform(
+            get(path)
+                .header("Authorization", "Bearer " + progressTokens.service("assessment"))
+                .param("levelId", AssessmentServiceTest.LEVEL))
+        .andExpect(status().isBadRequest());
+    mvc.perform(
+            get(path)
+                .header("Authorization", "Bearer " + progressTokens.service("assessment"))
+                .param("courseId", "not-a-uuid"))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
   void signedAdminCanCreateAndUnknownFieldsAreRejected() throws Exception {
     String path = "/api/v1/admin/assessments";
     var body =

@@ -44,8 +44,13 @@ public class ServiceGuard extends OncePerRequestFilter {
           tokens.verify(TokenCodec.bearer(request.getHeader("Authorization")), "service", self);
       String caller = identity.getSubject();
       if (path.startsWith("/internal/v1/")) {
-        if (!path.matches("/internal/v1/lessons/[^/]+/exercise-readiness")
-            || !"content".equals(caller))
+        // Each internal route is bound to the single owner service allowed to call it.
+        boolean allowed =
+            path.matches("/internal/v1/lessons/[^/]+/exercise-readiness")
+                    && "content".equals(caller)
+                || path.equals("/internal/v1/statistics/assessment-results")
+                    && "progress".equals(caller);
+        if (!allowed)
           throw new ApiError(403, "FORBIDDEN", "Caller is not allowed for this internal API");
       } else {
         if (!"api".equals(caller))

@@ -97,6 +97,13 @@ public class AssessmentController {
     return service.readiness(id(lessonId));
   }
 
+  @GetMapping("/internal/v1/statistics/assessment-results")
+  public Map<String, Object> metrics(
+      @RequestParam(required = false) String courseId,
+      @RequestParam(required = false) String levelId) {
+    return service.metrics(optionalId(courseId), optionalId(levelId));
+  }
+
   @PostMapping("/api/v1/assessments/{assessmentId}/attempts")
   @ResponseStatus(HttpStatus.CREATED)
   public Map<String, Object> start(

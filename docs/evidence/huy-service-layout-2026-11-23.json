@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "owner": "Nguyen Quang Huy",
+  "isolatedBuildRequested": true,
+  "services": [
+    {
+      "service": "backend/services/assessment-service",
+      "owner": "assessment",
+      "parent": "Spring Boot",
+      "siblingMavenDependency": false,
+      "dockerContext": "backend/services/assessment-service",
+      "requiredFiles": "PASS",
+      "ownedMigrations": "PASS",
+      "isolatedBuild": "PASS",
+      "ownerOnlyExecutableJar": "PASS",
+      "artifact": "assessment-service-0.1.0-SNAPSHOT.jar"
+    },
+    {
+      "service": "backend/services/progress-service",
+      "owner": "progress",
+      "parent": "Spring Boot",
+      "siblingMavenDependency": false,
+      "dockerContext": "backend/services/progress-service",
+      "requiredFiles": "PASS",
+      "ownedMigrations": "PASS",
+      "isolatedBuild": "PASS",
+      "ownerOnlyExecutableJar": "PASS",
+      "artifact": "progress-service-0.1.0-SNAPSHOT.jar"
+    }
+  ]
+}

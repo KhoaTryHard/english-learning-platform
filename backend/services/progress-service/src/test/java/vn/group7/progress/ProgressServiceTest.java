@@ -73,6 +73,11 @@ class ProgressServiceTest {
     ProgressService service(JdbcTemplate db, FakeSources sources, Clock clock) {
       return new ProgressService(db, sources, clock);
     }
+
+    @Bean
+    StatisticsService statistics(JdbcTemplate db, FakeSources sources, Clock clock) {
+      return new StatisticsService(db, sources, clock);
+    }
   }
 
   static class FakeSources extends ProgressSources {
@@ -82,8 +87,20 @@ class ProgressServiceTest {
         Json.nullable(
             "courseId", COURSE.toString(), "levelId", LEVEL.toString(), "updatedAt", null);
 
+    /** Statistics source doubles; each flag fails only its own owner API. */
+    boolean contextsDown = false, cohortDown = false, metricsDown = false;
+
+    List<CourseContext> contexts = defaultContexts();
+    long globalLearners = 0;
+    List<CohortMember> members = new ArrayList<>();
+    Map<String, AssessmentMetrics> metrics = new LinkedHashMap<>();
+
+    static List<CourseContext> defaultContexts() {
+      return new ArrayList<>(List.of(new CourseContext(COURSE, 2, Set.of(LEVEL))));
+    }
+
     FakeSources() {
-      super(null, "", "");
+      super(null, "", "", "");
     }
 
     @Override
@@ -96,6 +113,29 @@ class ProgressServiceTest {
     public Map<String, Object> setup(UUID user) {
       if (down) throw ApiError.dependency();
       return setup;
+    }
+
+    @Override
+    public List<CourseContext> courseContexts() {
+      if (down || contextsDown) throw ApiError.dependency();
+      return List.copyOf(contexts);
+    }
+
+    @Override
+    public Cohort cohort(UUID course, UUID level) {
+      if (down || cohortDown) throw ApiError.dependency();
+      var filtered =
+          members.stream()
+              .filter(m -> course == null || course.equals(m.courseId()))
+              .filter(m -> level == null || level.equals(m.levelId()))
+              .toList();
+      return new Cohort(globalLearners, filtered);
+    }
+
+    @Override
+    public Map<String, AssessmentMetrics> assessmentMetrics(UUID course, UUID level) {
+      if (down || metricsDown) throw ApiError.dependency();
+      return Map.copyOf(metrics);
     }
   }
 

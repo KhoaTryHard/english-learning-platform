@@ -60,6 +60,9 @@ Docker: copy `.env.example` thành `.env`, điền password/keys rồi chạy
   chọn, chỉ lịch sử principal, completedAt giảm dần + historyId ổn định.
 - `GET /api/v1/me/dashboard`: User setup + own Progress + tối đa 5 recentHistory;
   chưa setup thì progress=null. Không thêm Goal/recommendation.
+- `GET /api/v1/admin/statistics?courseId=<UUID>&levelId=<UUID>` (W8-02/#36, ADMIN):
+  sáu nhóm chỉ số DD-11. `levelId` phải kèm `courseId` và thuộc Course đó, nếu
+  không trả 400; `courseId` không tồn tại trả 404. Không có bộ lọc thời gian.
 
 Owner routes yêu cầu signed service JWT của Gateway và assertion audience
 progress/method/path/role/session. Không có HTTP endpoint nhận event hoặc tự seed
@@ -82,6 +85,51 @@ Event đến lệch thứ tự giữ first completion sớm nhất theo complete
 submissionId. Thay setup không gán lại snapshots cũ. Consumer retry 1/5/30 giây,
 DLT/replay giữ eventId/key/payload. Gửi DLT lỗi thì không commit offset.
 
-Chưa có broker E2E hoặc nghiệm thu Gateway/User/Content thật. Sáu metric Statistics,
-source APIs và repair/reconciliation đầy đủ tiếp tục #31/#34/#35/#36. Xem
-`docs/architecture/progress-data-mapping.md` trong repository để review W3-03.
+## Statistics — sáu nhóm chỉ số (W8-02/#36)
+
+Progress sở hữu shape công bố nhưng không sở hữu input nào. Nguồn dùng internal
+auth với caller `progress`:
+
+- User `GET /internal/v1/learners/cohort` — cohort theo Course/Level hiện tại và
+  `totalLearnersGlobal` (mọi LEARNER, kể cả BLOCKED, bỏ qua filter).
+- Content `GET /internal/v1/courses/contexts` — mọi Course persisted, kể cả
+  Course chưa publish / không có Lesson / không có Learner; `totalLessons` là
+  denominator.
+- Assessment `GET /internal/v1/statistics/assessment-results` — `attemptCounts`
+  mọi Result kể cả retake và TIMEOUT, cùng `quizTestScoreSum`/`quizTestResultCount`.
+
+Sáu nhóm: `totalLearners`; `currentLearnerCount`; `averageProgressPercent`;
+`completedLessonCount`; `attemptCounts`; `averageQuizTestScorePercent`.
+
+Quy tắc đã triển khai:
+
+- Average không có denominator trả **null**, không trả 0 giả. Cohort rỗng hoặc
+  Course không có Lesson => `averageProgressPercent` null; không có Quiz/Test
+  Result => `averageQuizTestScorePercent` null.
+- `averageProgressPercent` tính trên toàn cohort, learner chưa hoàn thành Lesson
+  nào vẫn vào mẫu với 0; denominator luôn là **toàn bộ Lesson của Course**, kể cả
+  khi lọc theo Level.
+- `completedLessonCount` đếm first completion theo snapshot Course/Level, nên
+  retake không cộng trùng.
+- Tỉ lệ Quiz/Test cộng dồn **chưa làm tròn** ở Assessment rồi Progress chia và
+  làm tròn 2 số một lần duy nhất.
+- Bất kỳ nguồn bắt buộc nào lỗi/sai shape đều trả **503**, không che bằng 0.
+- Không có bộ lọc thời gian theo hợp đồng.
+
+Điểm cần Khoa xác nhận: `quizTestScoreSum` được triển khai là **tổng scorePercent
+chưa làm tròn** (earned/max × 100). Hợp đồng ghi "unrounded point ratio" nên ratio
+0..1 cũng đọc được; hai service của Huy dùng cùng một quy ước nên số liệu nhất
+quán, nhưng cần chốt trước khi service khác đọc endpoint này.
+
+Giới hạn còn lại: cohort nhiều trang không nằm trong một transaction toàn cục —
+hợp đồng đã ghi đây là open review item; Progress lấy `totalLearnersGlobal` từ
+trang đầu. Bảng tổng hợp đọc trực tiếp từ `lesson_completion`, chưa có cache.
+
+Đã áp cùng fix #44 cho Progress: `CannotCreateTransactionException` không kế thừa
+`DataAccessException`, nên DB không mở được connection từng trả 500. Statistics bắt
+buộc trả 503 khi dependency không sẵn, nên `core/Errors.java` nay xử lý cả hai;
+`TransactionUnavailableHttpTest` giữ regression trên đúng route `/admin/statistics`.
+
+Chưa có broker E2E hoặc nghiệm thu Gateway/User/Content thật. Repair/reconciliation
+đầy đủ tiếp tục #31. Xem `docs/architecture/progress-data-mapping.md` trong
+repository để review W3-03.

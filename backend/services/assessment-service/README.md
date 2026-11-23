@@ -118,6 +118,13 @@ seed lại để tránh tạo trùng Exercise. Mapping V1 có một Exercise cho
 - Get Result, list own Attempts/Results với paging/filter theo approved API.
 - Internal: `GET /internal/v1/lessons/{lessonId}/exercise-readiness`, chỉ cho
   caller `content`. Endpoint chỉ đọc Assessment DB, không callback Content.
+- Internal: `GET /internal/v1/statistics/assessment-results?courseId=&levelId=`
+  (W8-02/#36), **chỉ cho caller `progress`**. Đếm mọi Result đã lưu theo loại, kể
+  cả retake và TIMEOUT, nhóm theo Course/Level trong snapshot lúc start. Có
+  `levelId` mà thiếu `courseId` trả 400. Không có `levelId` thì mọi Level của
+  Course gộp về một dòng `levelId: null`. `quizTestScoreSum` là tổng
+  `scorePercent` **chưa làm tròn**, Progress chia và làm tròn một lần. Chỉ đọc DB
+  của Assessment, không callback service khác.
 
 Ngoài health, các route cần signed service JWT. Public owner routes cần thêm
 `X-Gateway-Principal`, kiểm audience/method/path/role/session ID. Gateway/User

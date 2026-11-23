@@ -1,0 +1,289 @@
+{
+  "dateLocal": "2026-11-23",
+  "timezone": "Asia/Saigon",
+  "owner": "Nguyen Quang Huy",
+  "scope": "W7-06 Outbox relay, W8-01 verification, W8-02 Statistics, integrate fix #44; refs #30/#34/#35/#36/#44",
+  "baseline": {
+    "builtOn": "PR #43 head c1a2a074a4cc6c0d3d0bdf04ef77540a530c5930 (branch feature/huy-assessment-foundation), fetched from GitHub in this session",
+    "developSnapshot": "english-learning-platform-develop export; assessment-service and progress-service were EMPTY SCAFFOLD (only .gitkeep) there",
+    "fix44": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd (branch fix/khoa-assessment-db-503), sits directly on c1a2a07 and touches only core/Errors.java plus one new test in Huy's assessment service",
+    "supersededLocalCopies": ".cache/assessment-isolated and .cache/progress-isolated were snapshots taken BEFORE PR #43 and are no longer used as the base"
+  },
+  "outboxRelayReconciliation": {
+    "situation": "PR #43 already contained OutboxRelay.java, EventPublisher.java, OutboxKafkaConfiguration.java and OutboxKafkaWiringTest.java. An earlier independent implementation in this session was discarded in favour of merging onto the PR #43 design.",
+    "keptFromPR43": [
+      "EventPublisher as the transport abstraction, so tests need no KafkaTemplate subclass",
+      "OutboxKafkaConfiguration bean wiring gated on assessment.kafka.enabled, with the scheduled RelayJob",
+      "public int runBatch(int limit) signature and the 1..100 limit validation",
+      "Both existing relay tests in AssessmentServiceTest and OutboxKafkaWiringTest, unchanged and still passing"
+    ],
+    "changedFromPR43": [
+      {
+        "change": "Removed @Transactional from runBatch and dropped FOR UPDATE SKIP LOCKED",
+        "reason": "W7-06 requires the relay to publish outside the transaction. In PR #43 the broker call ran inside an open transaction holding row locks and a pooled connection for up to batch-size times the send timeout, and a mid-batch database failure discarded the retry bookkeeping for the whole batch.",
+        "tradeOff": "Without row locks two relay instances may publish the same event twice. Safe under at-least-once delivery with consumer deduplication on processed_event, and preferred over holding broker I/O inside a database transaction."
+      },
+      {
+        "change": "Mark-SENT and retry updates are guarded with AND status='PENDING'",
+        "reason": "Makes each update idempotent and makes the returned count the number of real PENDING to SENT transitions."
+      },
+      {
+        "change": "last_error records the exception type and message instead of the constant 'PUBLISH_FAILED'",
+        "reason": "W7-06 asks for retry/recovery evidence; a constant flag carries no diagnostic. Truncated to 1000 characters."
+      },
+      {
+        "change": "A failed publish blocks only the remaining events of that same partition key; other keys keep draining",
+        "reason": "PR #43 used continue, which could publish a later event of the same user before an earlier failed one, breaking per-key order. A plain break would let one undeliverable event block every learner. Skipping per key preserves the ordering Kafka actually guarantees without a global stall."
+      },
+      {
+        "change": "Added a Clock-based backlogAgeSeconds() and made batch size and send timeout configurable via assessment.kafka.*",
+        "reason": "Observability for the relay backlog and tunable sweeps without a rebuild."
+      }
+    ],
+    "compatibilityEvidence": "AssessmentServiceTest.relayFailureRetainsEventAndRetryUsesSamePayload, AssessmentServiceTest.crashWindowAfterPublishReplaysStableEventId and OutboxKafkaWiringTest are PR #43 tests kept verbatim and pass against the merged relay."
+  },
+  "environment": {
+    "os": "Windows 11 Home Single Language 10.0.22621",
+    "jdk": "25.0.3+9-LTS-195",
+    "maven": "3.9.11 (cached wrapper distribution)",
+    "mavenRepoLocal": ".cache/maven (offline, -o)",
+    "postgres": "17.11 local cluster 127.0.0.1:15543",
+    "docker": "NOT AVAILABLE (docker CLI not on PATH)",
+    "kafkaBroker": "NOT AVAILABLE"
+  },
+  "hashNote": "SHA-256 over LF-normalised bytes, matching what git stores. The repository blobs contain no CRLF; a Windows checkout with core.autocrlf=true shows CRLF in the working tree and will hash differently there.",
+  "filesAddedThisSession": {
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/AssessmentMetricsTest.java": "e2954d5379d0aa768b2765f3dc716854ec283f8cd40232eb496322b4fc62883c",
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/OutboxRelayTest.java": "db5e1486e5f6283d6c8bbbd97be6efc3a5499d2d794c209a8641eafda1a787ec",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/StatisticsService.java": "bb4bbda15f2dcf7d1c0e8b2da8ebd223d64a02b79c12770fe1aef3a1bb0ff01a",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/StatisticsController.java": "a51dabc5047b54772d035a4ee9f153abf332c339c64e6b9dcb9b702a251d6e77",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/StatisticsServiceTest.java": "d5a19a5bf7afd6703d192d13ce94ab9b1819b577fcb79dd37bb15bf713651944",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/StatisticsHttpTest.java": "b3129c90469400c6f66946632fda34d2ed122700525319d6a5a970cafa2e81ce",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/TransactionUnavailableHttpTest.java": "e7953711c98e0476bfec14e86dc3d4bae9fbd3815596baac2b1a743ff2849190",
+    "scripts/verify-huy-services.py": "05ace7a1ab1ff2a66ebf8fd744e0ee1fe704e5f93caa2a26c0714e44a98004ad"
+  },
+  "filesTakenFromFix44": {
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/TransactionUnavailableHttpTest.java": "b5c55c84281e314e44d020dbabffc7d90ec004d6809f5adfee1664ea156a8d95"
+  },
+  "filesModifiedThisSession": {
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/OutboxRelay.java": "60b1d9a731694a5b109f25f881c847fc6581c5b89950bda9907bc65635a291d7",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/OutboxKafkaConfiguration.java": "cdaedaf5d529458fbcf39991938dec47b56cdbeef910a882f59c3019e9a7ddea",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/AssessmentService.java": "3c1f33f4c70b832bf2a16d6e92355c51bfd37ebaa554fc961da636fee5fefaf0",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/AssessmentController.java": "3a4e86c34f2ddd4d82be6b1771f3019510482b01e2ac0479dba322bf1f47e970",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/ServiceGuard.java": "818019b361c269acdef42ef1fff8ac277c07c6f08c145b4683f00d74e5b44248",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/Errors.java": "e7faad761a2285cfa29eef47be0ea9ea8de0987948aa875a8a8cfa4c33e0946c",
+    "backend/services/assessment-service/src/main/resources/application.properties": "066b3b203073e847f655f90451e570988f9738d1faa45bd0ff7980a419d83c9a",
+    "backend/services/assessment-service/.env.example": "3632a7f00c2098dcbc1ad0bd29caeb280b3acedd1ac983592fef8588587398ed",
+    "backend/services/assessment-service/compose.yaml": "1bcb3e9a3a10218619c83502882fc9567041adffe1e8e2ca2de7915f4a9f8b2c",
+    "backend/services/assessment-service/README.md": "75ea7a4128d49be8e0930b98ffda76b57883ddfe84f4b7bea2de400600a06779",
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/AssessmentHttpTest.java": "c82a50f7440787dd2dced8b672448090bd1dd2c7dafd9308876c7ec699e9df73",
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/AssessmentServiceTest.java": "504319277da38b568d8993a9239085ab34a3389c53cbc472dcac029e9183c324",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/ProgressSources.java": "4b35297ad19536ed33fb43e35ce8543c060890cf7b6e4dbd3d5944da4edbd662",
+    "backend/services/progress-service/src/main/java/vn/group7/core/Errors.java": "e7faad761a2285cfa29eef47be0ea9ea8de0987948aa875a8a8cfa4c33e0946c",
+    "backend/services/progress-service/src/main/resources/application.properties": "6fbdfcb66bfa733e0a5437133af3544866a5599694d636912e7f5aef2b72e222",
+    "backend/services/progress-service/.env.example": "837c72deb169ed42968788790331901f634f6da8a67ab963101255ae4c51a510",
+    "backend/services/progress-service/compose.yaml": "cec7e7802a54f2a8de184cf68716867673769122f1b75a54547529319e28488b",
+    "backend/services/progress-service/README.md": "b0efb9a187b8705cad4153b4dd667b4096192d0e944a3cb74f2ab7fe33180ccb",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/ProgressServiceTest.java": "27c1b6e5154c8c19beaec67b4c7c6eec2da562e92137c4b6ca94e310e56628a6"
+  },
+  "serviceTreeSha256": {
+    "backend/services/assessment-service/.dockerignore": "af34644c544f1ad243e5c7e8ede85c91862a87fd378104fff7e4fb1210925a45",
+    "backend/services/assessment-service/.env.example": "3632a7f00c2098dcbc1ad0bd29caeb280b3acedd1ac983592fef8588587398ed",
+    "backend/services/assessment-service/.gitignore": "58f9a5a3dd4f735041d610dee0664f65740869ca58b4d43edc562ce19262b020",
+    "backend/services/assessment-service/.mvn/wrapper/maven-wrapper.properties": "e67de487071199117b7c9808dca5f56c73a44b656c925140ec68761947bdd384",
+    "backend/services/assessment-service/compose.yaml": "1bcb3e9a3a10218619c83502882fc9567041adffe1e8e2ca2de7915f4a9f8b2c",
+    "backend/services/assessment-service/Dockerfile": "508179af55465e3a69c56a55b0fe4372ca9fef7b20488e398dc1eb3ddc470300",
+    "backend/services/assessment-service/mvnw": "cae96cef89ebea3531221f4ae17c23cf8edf67d00eae8306d4186ae1bbed4d02",
+    "backend/services/assessment-service/mvnw.cmd": "4a361e1374a3e5ad6d03e18e9adc0cf181ac5058ac6203b76f0ba3b456b56481",
+    "backend/services/assessment-service/pom.xml": "13eafce5f79d0f4cba4e0970bae50c1065924c77576fa7fc4fc3257f22c2d988",
+    "backend/services/assessment-service/README.md": "75ea7a4128d49be8e0930b98ffda76b57883ddfe84f4b7bea2de400600a06779",
+    "backend/services/assessment-service/scripts/GenerateKey.java": "4b9111f0fc29a95231b70888fcf908408013feb7deaa7ea65f6a7f14ddbbec30",
+    "backend/services/assessment-service/src/main/java/.gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/AssessmentApplication.java": "a69696e66b0ab506c9aa4de85581c2341439b375c60b574d472ba435ba5909cd",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/AssessmentController.java": "3a4e86c34f2ddd4d82be6b1771f3019510482b01e2ac0479dba322bf1f47e970",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/AssessmentService.java": "3c1f33f4c70b832bf2a16d6e92355c51bfd37ebaa554fc961da636fee5fefaf0",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/ContentContext.java": "1e01ffd9996cbc24e7aa59b00f282c6368a24030a972293198f648b3046d529a",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/EventPublisher.java": "cdbd3138d82470d43eadd5d1945584303107d5f51f16cce113ace064563849f5",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/ExpiryJob.java": "dde27c0ef42e2edb3bda2291d9600a1d601a2b17cd8b48a165d7f7476f376b3a",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/OutboxKafkaConfiguration.java": "cdaedaf5d529458fbcf39991938dec47b56cdbeef910a882f59c3019e9a7ddea",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/OutboxRelay.java": "60b1d9a731694a5b109f25f881c847fc6581c5b89950bda9907bc65635a291d7",
+    "backend/services/assessment-service/src/main/java/vn/group7/assessment/Validation.java": "6fdbd409dcad7e3504dc2958d86665995a60e82a2a2dad9f011af28cfa598a1c",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/ApiError.java": "c7e7e2f10a6ffcf9ded7164ac9dfeac2e694b8607597c4204bbaa655490348bb",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/Errors.java": "e7faad761a2285cfa29eef47be0ea9ea8de0987948aa875a8a8cfa4c33e0946c",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/Input.java": "90360facbfa78bc474de2657d9772ba42681923049a67240b13c48d13f0d1965",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/Json.java": "d61e0daef2f83b0cdb91adbf07a1614496151aa77abc76d325b1f3f6e5a51970",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/OwnerClient.java": "817d63bdf7a71430482f6e7da7a79d8d5b1a767ab6539ecf19b1fdc9a8ed127a",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/Principal.java": "613f110438976a0eef8219513fcc84b09306f8dcffc74b064270ea9b314e39db",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/Security.java": "e9fa992a9d56a1d1e6675702ff20de4ad036d2129b22393656b55530a9782a70",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/ServiceGuard.java": "818019b361c269acdef42ef1fff8ac277c07c6f08c145b4683f00d74e5b44248",
+    "backend/services/assessment-service/src/main/java/vn/group7/core/TokenCodec.java": "0e94c1d41ecae84b0a7849b0aa0bdac2cdb3126c654c4590d1b32842fccae9cc",
+    "backend/services/assessment-service/src/main/resources/application.properties": "066b3b203073e847f655f90451e570988f9738d1faa45bd0ff7980a419d83c9a",
+    "backend/services/assessment-service/src/main/resources/db/migration/.gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "backend/services/assessment-service/src/main/resources/db/migration/V1__assessment_foundation.sql": "de9bb81c3803072a76d00b4fbbe2f1744761609d68cd023accd6b9d002cad357",
+    "backend/services/assessment-service/src/test/java/.gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/AssessmentApplicationTest.java": "bf64063f5bbf305707db5ed8c99c0c6d5e1a344d065c99a68e6d185498f2c9d8",
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/AssessmentHttpTest.java": "c82a50f7440787dd2dced8b672448090bd1dd2c7dafd9308876c7ec699e9df73",
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/AssessmentMetricsTest.java": "e2954d5379d0aa768b2765f3dc716854ec283f8cd40232eb496322b4fc62883c",
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/AssessmentServiceTest.java": "504319277da38b568d8993a9239085ab34a3389c53cbc472dcac029e9183c324",
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/ContentContextTest.java": "2de04abab93558e74c87fb1321692a556251a2b3c98164b87273f31919d99282",
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/OutboxKafkaWiringTest.java": "930c4cd5f0ff09466cd1bb58dd54a426611c5b7dac01e2d782ced2814b778c1d",
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/OutboxRelayTest.java": "db5e1486e5f6283d6c8bbbd97be6efc3a5499d2d794c209a8641eafda1a787ec",
+    "backend/services/assessment-service/src/test/java/vn/group7/assessment/TransactionUnavailableHttpTest.java": "b5c55c84281e314e44d020dbabffc7d90ec004d6809f5adfee1664ea156a8d95",
+    "backend/services/assessment-service/src/test/resources/.gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "backend/services/assessment-service/src/test/resources/contracts/AssessmentCompleted_v1.schema.json": "524aa6dae4d98476d0eafeade28c053080db305fc19328f423b2716eb9248636",
+    "backend/services/assessment-service/src/test/resources/contracts/README.txt": "159acdf84eefcdcced0530367667d5d2c9f3a6531d0b31f21176a2b6e50e96c3",
+    "backend/services/progress-service/.dockerignore": "af34644c544f1ad243e5c7e8ede85c91862a87fd378104fff7e4fb1210925a45",
+    "backend/services/progress-service/.env.example": "837c72deb169ed42968788790331901f634f6da8a67ab963101255ae4c51a510",
+    "backend/services/progress-service/.gitignore": "58f9a5a3dd4f735041d610dee0664f65740869ca58b4d43edc562ce19262b020",
+    "backend/services/progress-service/.mvn/wrapper/maven-wrapper.properties": "e67de487071199117b7c9808dca5f56c73a44b656c925140ec68761947bdd384",
+    "backend/services/progress-service/compose.yaml": "cec7e7802a54f2a8de184cf68716867673769122f1b75a54547529319e28488b",
+    "backend/services/progress-service/Dockerfile": "86c56368a3d3fd6f9028e5b0e650dcef0baeb5ff990df16bec8223403293352c",
+    "backend/services/progress-service/mvnw": "cae96cef89ebea3531221f4ae17c23cf8edf67d00eae8306d4186ae1bbed4d02",
+    "backend/services/progress-service/mvnw.cmd": "4a361e1374a3e5ad6d03e18e9adc0cf181ac5058ac6203b76f0ba3b456b56481",
+    "backend/services/progress-service/pom.xml": "8a6c8b5448b51f9d84bc17d08426b2f0b1aa4a3a4c30f659a32886b280869fdc",
+    "backend/services/progress-service/README.md": "b0efb9a187b8705cad4153b4dd667b4096192d0e944a3cb74f2ab7fe33180ccb",
+    "backend/services/progress-service/scripts/GenerateKey.java": "4bf3bb67ee483052c10e1b6cdf569a9a25229f384c316fc742d32b30a8e6e7c6",
+    "backend/services/progress-service/src/main/java/.gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "backend/services/progress-service/src/main/java/vn/group7/core/ApiError.java": "c7e7e2f10a6ffcf9ded7164ac9dfeac2e694b8607597c4204bbaa655490348bb",
+    "backend/services/progress-service/src/main/java/vn/group7/core/Errors.java": "e7faad761a2285cfa29eef47be0ea9ea8de0987948aa875a8a8cfa4c33e0946c",
+    "backend/services/progress-service/src/main/java/vn/group7/core/Input.java": "90360facbfa78bc474de2657d9772ba42681923049a67240b13c48d13f0d1965",
+    "backend/services/progress-service/src/main/java/vn/group7/core/Json.java": "d61e0daef2f83b0cdb91adbf07a1614496151aa77abc76d325b1f3f6e5a51970",
+    "backend/services/progress-service/src/main/java/vn/group7/core/OwnerClient.java": "817d63bdf7a71430482f6e7da7a79d8d5b1a767ab6539ecf19b1fdc9a8ed127a",
+    "backend/services/progress-service/src/main/java/vn/group7/core/Principal.java": "613f110438976a0eef8219513fcc84b09306f8dcffc74b064270ea9b314e39db",
+    "backend/services/progress-service/src/main/java/vn/group7/core/Security.java": "e9fa992a9d56a1d1e6675702ff20de4ad036d2129b22393656b55530a9782a70",
+    "backend/services/progress-service/src/main/java/vn/group7/core/ServiceGuard.java": "3e7b158ec872ad40f5a1636f0763efd9247fbf54e5be57e20fd635c0fdf8a289",
+    "backend/services/progress-service/src/main/java/vn/group7/core/TokenCodec.java": "0e94c1d41ecae84b0a7849b0aa0bdac2cdb3126c654c4590d1b32842fccae9cc",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/CompletedEvent.java": "112f706a5241061a2fc63b7096dbfd051e745a85b24c5fadee2cf967912ee20d",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/CompletedEventListener.java": "fc736bfb3aa8f050eabe8dcc0b73f604693baf36bc41f2ec6a4dfa79e163028b",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/KafkaConfiguration.java": "7a14bcded8c7c938430a6beca65d0fff00dadd960b0a871748a35e703195131d",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/ProgressApplication.java": "a7040f9d90fc4bf033cc7602a2cfa72b515232e28d5ff8c8dd43b390add8efb2",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/ProgressController.java": "45055db07ffd161aa0b3fe8137dc632dc4408a5f76530b671b6df54df5d236f9",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/ProgressService.java": "3bd909a3d1907067426e67693c8418ea26225ba904db7bb0906c2aef5e6779f5",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/ProgressSources.java": "4b35297ad19536ed33fb43e35ce8543c060890cf7b6e4dbd3d5944da4edbd662",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/StatisticsController.java": "a51dabc5047b54772d035a4ee9f153abf332c339c64e6b9dcb9b702a251d6e77",
+    "backend/services/progress-service/src/main/java/vn/group7/progress/StatisticsService.java": "bb4bbda15f2dcf7d1c0e8b2da8ebd223d64a02b79c12770fe1aef3a1bb0ff01a",
+    "backend/services/progress-service/src/main/resources/application.properties": "6fbdfcb66bfa733e0a5437133af3544866a5599694d636912e7f5aef2b72e222",
+    "backend/services/progress-service/src/main/resources/contracts/AssessmentCompleted_v1.schema.json": "524aa6dae4d98476d0eafeade28c053080db305fc19328f423b2716eb9248636",
+    "backend/services/progress-service/src/main/resources/db/migration/.gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "backend/services/progress-service/src/main/resources/db/migration/V1__progress_foundation.sql": "7a957cbdd890bbb8ddca69d9e93d82473fe40b8e4d0e77fa8b5e7e89376860f1",
+    "backend/services/progress-service/src/test/java/.gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/CompletedEventListenerTest.java": "003e2b55110c0ce496ca5dadc25d544c5f575c86cb452ade94e30b1e570663a1",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/KafkaWiringTest.java": "cab35a5263ace694ae9932b52d268cd34eb3a637ee0e0911429604b1621c0ec2",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/ProgressApplicationTest.java": "a077d4b773b8c8c44f8cb2a2bfaaa9a2dd7d64cfb33748fabffc5b1f44712675",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/ProgressHttpTest.java": "85643cefcd068febffd97d0926b6b9a6f44d3fb242585de10abc1d45ec709c03",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/ProgressServiceTest.java": "27c1b6e5154c8c19beaec67b4c7c6eec2da562e92137c4b6ca94e310e56628a6",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/StatisticsHttpTest.java": "b3129c90469400c6f66946632fda34d2ed122700525319d6a5a970cafa2e81ce",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/StatisticsServiceTest.java": "d5a19a5bf7afd6703d192d13ce94ab9b1819b577fcb79dd37bb15bf713651944",
+    "backend/services/progress-service/src/test/java/vn/group7/progress/TransactionUnavailableHttpTest.java": "e7953711c98e0476bfec14e86dc3d4bae9fbd3815596baac2b1a743ff2849190",
+    "backend/services/progress-service/src/test/resources/.gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  "testRuns": [
+    {
+      "suite": "assessment-service",
+      "database": "H2 2.4.240 PostgreSQL mode",
+      "command": "mvn -o -Dmaven.repo.local=.cache/maven test",
+      "testsRun": 50,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "result": "PASS",
+      "baselineOnPR43": 31
+    },
+    {
+      "suite": "assessment-service",
+      "database": "PostgreSQL 17.11 (assessment_test)",
+      "command": "mvn -o test -Dassessment.test.jdbc-url=jdbc:postgresql://127.0.0.1:15543/assessment_test -Dassessment.test.db-user=assessment",
+      "testsRun": 50,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "result": "PASS",
+      "note": "Flyway V1 applied to the real cluster; tables verified via information_schema"
+    },
+    {
+      "suite": "progress-service",
+      "database": "H2 2.4.240 PostgreSQL mode",
+      "command": "mvn -o -Dmaven.repo.local=.cache/maven test",
+      "testsRun": 43,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "result": "PASS",
+      "baselineOnPR43": 26
+    },
+    {
+      "suite": "progress-service",
+      "database": "PostgreSQL 17.11 (progress_test)",
+      "command": "mvn -o test -Dprogress.test.jdbc-url=jdbc:postgresql://127.0.0.1:15543/progress_test -Dprogress.test.db-user=progress",
+      "testsRun": 43,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "result": "PASS"
+    },
+    {
+      "suite": "scripts/verify-huy-services.py --build",
+      "result": "PASS",
+      "note": "Both services package standalone from a temp copy; jars contain only their own owner package and no platform-core"
+    }
+  ],
+  "newTestsAdded": {
+    "assessment-service": {
+      "AssessmentMetricsTest": 7,
+      "OutboxRelayTest": 7,
+      "AssessmentHttpTest.assessmentMetricsAllowOnlyProgressAndValidateFilters": 1,
+      "TransactionUnavailableHttpTest (from fix #44, integrated)": 4
+    },
+    "progress-service": {
+      "StatisticsServiceTest": 8,
+      "StatisticsHttpTest": 5,
+      "TransactionUnavailableHttpTest (fix #44 parity for Progress)": 4
+    }
+  },
+  "fix44Integration": {
+    "defect": "CannotCreateTransactionException does not extend DataAccessException, so a database unreachable before a transactional method obtained its connection surfaced as 500 INTERNAL_ERROR instead of 503 DEPENDENCY_UNAVAILABLE.",
+    "assessment": "Khoa's change to core/Errors.java and his TransactionUnavailableHttpTest taken as-is from 413a929.",
+    "progress": "The same latent defect existed in the Progress copy of core/Errors.java. The Statistics contract requires 503 for an unavailable mandatory dependency, so the same handler change was applied and an equivalent regression test was written against /api/v1/admin/statistics."
+  },
+  "notRun": [
+    {
+      "item": "Kafka broker end-to-end (Outbox -> broker -> Progress consumer)",
+      "status": "NOT_RUN",
+      "reason": "No broker and no Docker runtime in this environment",
+      "coveredInsteadBy": "OutboxRelayTest with a recording EventPublisher: publish success, broker outage with diagnostic last_error, repeated retries, crash republish with stable eventId, per-key failure isolation, batch limit, invalid batch size"
+    },
+    {
+      "item": "LIVE integration through Gateway/User/Content with real seed data",
+      "status": "NOT_RUN",
+      "reason": "Khoa test stack is stopped; no keys or seed IDs exchanged in this session",
+      "coveredInsteadBy": "Owner sources are test doubles; ServiceGuard runs real RS256 signing and verification"
+    },
+    {
+      "item": "scripts/check-contracts.py",
+      "status": "NOT_RUN",
+      "reason": "PyYAML is not installed and the environment is offline"
+    },
+    {
+      "item": "scripts/check-service-layout.py",
+      "status": "NOT_APPLICABLE",
+      "reason": "Its SERVICES map covers user/content/api only. Equivalent rules were run for Huy services by scripts/verify-huy-services.py; adding the two folders to Khoa guard is the owner call"
+    },
+    {
+      "item": "Docker Compose runtime for either service",
+      "status": "NOT_RUN",
+      "reason": "Docker CLI unavailable"
+    },
+    {
+      "item": "Peer review / reviewer acceptance",
+      "status": "NOT_RUN",
+      "reason": "Author cannot approve own work; W7-06/W8-01/W8-02 acceptance stays open on Trello"
+    }
+  ],
+  "openDecisions": [
+    "The relay change from PR #43 needs Khoa's review: publishing outside the transaction versus PR #43's transactional sweep with FOR UPDATE SKIP LOCKED. The trade-off is recorded under outboxRelayReconciliation.",
+    "quizTestScoreSum is implemented as the sum of unrounded scorePercent (earned/max*100). The contract phrase 'unrounded point ratio' also permits a 0..1 ratio. Both Huy services share one convention; Khoa to confirm before any other caller reads the endpoint.",
+    "averageProgressPercent keeps all Course Lessons as the denominator even under a levelId filter, following 'all Course Lessons' in the contract. If the team reads it as Lessons of that Level only, the formula changes.",
+    "Multi-page cohort reads are not one global transaction; totalLearnersGlobal is taken from the first page. The internal contract already records cohort drift as an open review item.",
+    "#20 physical mapping and #42 internal auth proposal remain unanswered by Huy and are unchanged by this delivery."
+  ]
+}

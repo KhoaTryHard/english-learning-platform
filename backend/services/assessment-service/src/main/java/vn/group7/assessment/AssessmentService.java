@@ -542,6 +542,69 @@ public class AssessmentService {
     return page(items, page, size);
   }
 
+  private static Map<String, Object> metricRow(String course, String level) {
+    var counts = new LinkedHashMap<String, Object>();
+    for (String type : List.of("EXERCISE", "QUIZ", "TEST")) counts.put(type, 0);
+    return Json.nullable(
+        "courseId",
+        course,
+        "levelId",
+        level,
+        "attemptCounts",
+        counts,
+        "quizTestScoreSum",
+        BigDecimal.ZERO,
+        "quizTestResultCount",
+        0);
+  }
+
+  /**
+   * Internal statistics source consumed by Progress for the Admin six-metric view (#36).
+   *
+   * <p>Counts every stored Result, including retakes and TIMEOUT finalizations, grouped by the
+   * Course and the Level captured in the attempt start snapshot. Quiz/Test scores are summed as
+   * unrounded percentages so the caller divides by {@code quizTestResultCount} and rounds once.
+   * Exercise Results never contribute to the score sum.
+   */
+  @Transactional(readOnly = true)
+  public Map<String, Object> metrics(String course, String level) {
+    if (level != null && course == null) throw ApiError.bad("levelId", "levelId requires courseId");
+    var grouped = new LinkedHashMap<String, Map<String, Object>>();
+    for (var entry : db.queryForList("SELECT payload FROM result ORDER BY result_id")) {
+      var value = Json.map(str(entry.get("payload")));
+      String resultCourse = str(value.get("courseId")),
+          resultLevel = str(value.get("levelIdAtStart"));
+      if (course != null && !course.equals(resultCourse)) continue;
+      if (level != null && !level.equals(resultLevel)) continue;
+      // Without a levelId filter every Level of the Course collapses into one row.
+      String groupLevel = level == null ? null : resultLevel;
+      var row =
+          grouped.computeIfAbsent(
+              resultCourse + "|" + groupLevel, key -> metricRow(resultCourse, groupLevel));
+      String type = str(value.get("assessmentType"));
+      if (!Validation.TYPES.contains(type))
+        throw new IllegalStateException("Unsupported stored assessment type");
+      var counts = Json.obj(row.get("attemptCounts"));
+      counts.put(type, ((Number) counts.get(type)).intValue() + 1);
+      row.put("attemptCounts", counts);
+      if (!type.equals("EXERCISE")) {
+        var earned = new BigDecimal(value.get("earnedPoints").toString());
+        var max = new BigDecimal(value.get("maxPoints").toString());
+        if (max.signum() <= 0) throw new IllegalStateException("Stored Result has no maxPoints");
+        row.put(
+            "quizTestScoreSum",
+            ((BigDecimal) row.get("quizTestScoreSum"))
+                .add(earned.multiply(BigDecimal.valueOf(100)).divide(max, MathContext.DECIMAL64)));
+        row.put("quizTestResultCount", ((Number) row.get("quizTestResultCount")).intValue() + 1);
+      }
+    }
+    var courses = new ArrayList<>(grouped.values());
+    courses.sort(
+        Comparator.comparing((Map<String, Object> row) -> str(row.get("courseId")))
+            .thenComparing(row -> str(row.get("levelId")), Comparator.nullsFirst(String::compareTo)));
+    return Json.nullable("courses", courses, "generatedAt", clock.instant().toString());
+  }
+
   public void expireDue() {
     for (var entry :
         db.queryForList(
