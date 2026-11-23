@@ -28,10 +28,14 @@ public class StatisticsService {
     this.clock = clock;
   }
 
-  private static BigDecimal percent(BigDecimal numerator, BigDecimal denominator) {
-    if (denominator.signum() <= 0) return null;
-    var value = numerator.multiply(BigDecimal.valueOf(100)).divide(denominator, MathContext.DECIMAL64);
-    return clamp(value);
+  /**
+   * Unrounded percentage. DD-11 requires averaging over unrounded ratios and rounding only once in
+   * the DTO, so no intermediate value may be rounded here.
+   */
+  private static BigDecimal percent(long numerator, long denominator) {
+    return BigDecimal.valueOf(numerator)
+        .multiply(BigDecimal.valueOf(100))
+        .divide(BigDecimal.valueOf(denominator), MathContext.DECIMAL64);
   }
 
   private static BigDecimal clamp(BigDecimal value) {
@@ -118,12 +122,11 @@ public class StatisticsService {
           long completed = completions.getOrDefault(learner, 0L);
           // A learner cannot have completed more Lessons than the Course contains.
           if (completed > context.totalLessons()) throw ApiError.dependency();
-          total =
-              total.add(
-                  percent(
-                      BigDecimal.valueOf(completed), BigDecimal.valueOf(context.totalLessons())));
+          total = total.add(percent(completed, context.totalLessons()));
         }
-        averageProgress = clamp(total.divide(BigDecimal.valueOf(learners.size()), MathContext.DECIMAL64));
+        // Round once, after the average, never per learner.
+        averageProgress =
+            clamp(total.divide(BigDecimal.valueOf(learners.size()), MathContext.DECIMAL64));
       }
 
       String key =

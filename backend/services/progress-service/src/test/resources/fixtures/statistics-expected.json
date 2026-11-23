@@ -1,0 +1,130 @@
+{
+  "fixtureId": "HUY-STATS-FIXTURE-01",
+  "owner": "Nguyen Quang Huy",
+  "trace": "BE-P2; PB-12; FR-20; UC-10; AC-18; DD-11; A-07",
+  "contract": "public v0.1 Statistics / CourseStatistics",
+  "note": "Every expected value below was computed by hand. Symbolic ids are mapped to random UUIDs by the test; assertions look rows up by courseId, never by position.",
+
+  "totalLearnersGlobal": 6,
+  "courses": {
+    "C1": { "totalLessons": 3, "levels": ["L1", "L2"] },
+    "C2": { "totalLessons": 0, "levels": ["L3"] },
+    "C3": { "totalLessons": 4, "levels": ["L4"] }
+  },
+  "cohort": [
+    { "learner": "U1", "course": "C1", "level": "L1" },
+    { "learner": "U2", "course": "C1", "level": "L1" },
+    { "learner": "U4", "course": "C2", "level": "L3" }
+  ],
+  "completions": [
+    { "learner": "U1", "course": "C1", "level": "L1", "lesson": "LA" },
+    { "learner": "U1", "course": "C1", "level": "L1", "lesson": "LB" },
+    { "learner": "U1", "course": "C1", "level": "L1", "lesson": "LA" }
+  ],
+  "assessmentMetrics": {
+    "C1": {
+      "attemptCounts": { "EXERCISE": 3, "QUIZ": 2, "TEST": 1 },
+      "quizTestScoreSum": "114.2857143",
+      "quizTestResultCount": 3
+    },
+    "C1|L1": {
+      "attemptCounts": { "EXERCISE": 3, "QUIZ": 1, "TEST": 0 },
+      "quizTestScoreSum": "33.3333333",
+      "quizTestResultCount": 1
+    }
+  },
+
+  "cases": [
+    {
+      "name": "unfiltered",
+      "courseId": null,
+      "levelId": null,
+      "totalLearners": 6,
+      "courses": [
+        {
+          "courseId": "C1",
+          "levelId": null,
+          "currentLearnerCount": 2,
+          "averageProgressPercent": "33.33",
+          "completedLessonCount": 2,
+          "attemptCounts": { "EXERCISE": 3, "QUIZ": 2, "TEST": 1 },
+          "averageQuizTestScorePercent": "38.10"
+        },
+        {
+          "courseId": "C2",
+          "levelId": null,
+          "currentLearnerCount": 1,
+          "averageProgressPercent": null,
+          "completedLessonCount": 0,
+          "attemptCounts": { "EXERCISE": 0, "QUIZ": 0, "TEST": 0 },
+          "averageQuizTestScorePercent": null
+        },
+        {
+          "courseId": "C3",
+          "levelId": null,
+          "currentLearnerCount": 0,
+          "averageProgressPercent": null,
+          "completedLessonCount": 0,
+          "attemptCounts": { "EXERCISE": 0, "QUIZ": 0, "TEST": 0 },
+          "averageQuizTestScorePercent": null
+        }
+      ]
+    },
+    {
+      "name": "filter C1 + L1",
+      "courseId": "C1",
+      "levelId": "L1",
+      "totalLearners": 6,
+      "courses": [
+        {
+          "courseId": "C1",
+          "levelId": "L1",
+          "currentLearnerCount": 2,
+          "averageProgressPercent": "33.33",
+          "completedLessonCount": 2,
+          "attemptCounts": { "EXERCISE": 3, "QUIZ": 1, "TEST": 0 },
+          "averageQuizTestScorePercent": "33.33"
+        }
+      ]
+    },
+    {
+      "name": "filter C1 + L2",
+      "courseId": "C1",
+      "levelId": "L2",
+      "totalLearners": 6,
+      "courses": [
+        {
+          "courseId": "C1",
+          "levelId": "L2",
+          "currentLearnerCount": 0,
+          "averageProgressPercent": null,
+          "completedLessonCount": 0,
+          "attemptCounts": { "EXERCISE": 0, "QUIZ": 0, "TEST": 0 },
+          "averageQuizTestScorePercent": null
+        }
+      ]
+    }
+  ],
+
+  "handComputed": {
+    "totalLearners": "6 from the User cohort totalLearnersGlobal. Independent of any filter and of how many learners appear in the cohort page.",
+
+    "C1.currentLearnerCount": "U1 and U2 have C1 as their current Course = 2. U4 belongs to C2 and is not counted here.",
+
+    "C1.completedLessonCount": "lesson_completion is unique(userId, lessonId). U1 completed LA, LB and then retook LA, so the retake adds no row: LA + LB = 2. The third event only adds a LearningHistory row.",
+
+    "C1.averageProgressPercent": "Denominator is every Lesson of the Course (3), including draft, and never only the Lessons of a filtered Level. U1 = 2/3 = 66.666667%, U2 = 0/3 = 0% and is still part of the sample. Average = (66.666667 + 0) / 2 = 33.333333 -> 33.33. REGRESSION GUARD: rounding each learner first gives 66.67 + 0.00 = 66.67, / 2 = 33.335 -> 33.34, which is wrong. DD-11 requires averaging unrounded ratios and rounding once.",
+
+    "C1.attemptCounts": "Straight from the Assessment source: every stored Result per type, including retakes and TIMEOUT. EXERCISE 3 matches the three Exercise Results even though only two Lessons were completed.",
+
+    "C1.averageQuizTestScorePercent": "Assessment returns the unrounded sum 114.2857143 over 3 Quiz/Test Results (1/3 = 33.3333333, 2/3 = 66.6666667, 1/7 = 14.2857143). 114.2857143 / 3 = 38.0952381 -> 38.10. Exercise Results never contribute.",
+
+    "C2": "Course has 0 Lessons, so there is no denominator: averageProgressPercent is null, not 0. The cohort still reports 1 current learner. No Result for this Course, so averageQuizTestScorePercent is null and attemptCounts are 0.",
+
+    "C3": "No learner and no Result, yet the Course must still appear because Content lists every persisted Course. Both averages are null.",
+
+    "filter C1 + L1": "Cohort narrows to the learners whose current Level is L1 (still U1 and U2). completedLessonCount counts only first completions whose Level snapshot is L1, which is both of them. The denominator stays 3, every Lesson of the Course. Assessment metrics come from the Level-keyed row: 33.3333333 / 1 = 33.33.",
+
+    "filter C1 + L2": "L2 belongs to C1 so the filter is valid, but no learner currently sits on L2 and no completion carries that Level snapshot. Everything is 0 or null; no value is fabricated."
+  }
+}
