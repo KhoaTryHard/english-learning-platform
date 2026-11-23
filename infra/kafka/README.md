@@ -4,12 +4,46 @@ Outbox/relay nằm Assessment, consumer/ProcessedEvent nằm Progress. `compose.
 là broker single-node KRaft cho development; port host chỉ bind localhost.
 Cấu hình tham khảo [Apache Kafka Docker examples](https://github.com/apache/kafka/tree/trunk/docker/examples).
 
+### Start và stop môi trường test
+
 ```powershell
+cd infra/kafka
 docker compose up -d
+docker compose ps                    # cho tới khi broker healthy
+docker compose logs -f kafka         # xem log, Ctrl+C de thoat
 ```
 
+Dừng, giữ dữ liệu trong volume để chạy lại:
+
+```powershell
+docker compose stop
+```
+
+Dừng và xoá sạch state broker, chỉ dùng khi muốn offset/topic về 0:
+
+```powershell
+docker compose down -v
+```
+
+Broker **không dùng chung database với service nào**. Mỗi service giữ PostgreSQL
+riêng (`assessment_db` port 5543, `progress_db` port 5544); broker chỉ giữ log
+Kafka trong volume của chính nó. Không trỏ hai service vào cùng một database và
+không query chéo database khi debug.
+
 Chạy hai service bằng Java trên host với `KAFKA_ENABLED=true` và
-`KAFKA_BOOTSTRAP_SERVERS=localhost:9092`. Progress tạo topic
+`KAFKA_BOOTSTRAP_SERVERS=localhost:9092`. Phía Assessment còn ba biến điều
+khiển relay, đều có mặc định nên bỏ trống vẫn chạy:
+
+| Biến | Mặc định | Ý nghĩa |
+|---|---|---|
+| `RELAY_DELAY_MS` | `1000` | khoảng nghỉ giữa hai sweep của relay |
+| `RELAY_BATCH_SIZE` | `20` | số event tối đa một sweep, chặn trong 1..100 |
+| `RELAY_SEND_TIMEOUT_SECONDS` | `10` | thời gian chờ broker ACK cho mỗi event |
+
+Để quan sát relay khi test: đặt `RELAY_DELAY_MS` lớn (ví dụ `3600000`) để relay
+không tự chạy, rồi gọi `OutboxRelay.runBatch(n)` từ test; hoặc để mặc định và
+theo dõi `outbox_event.status`, `retry_count`, `last_error` trong
+`assessment_db`. Progress tạo topic
 `assessment.completed.v1` và `assessment.completed.v1.DLT`, một partition mỗi
 topic cho demo; Kafka key là userId. Start Progress trước relay Assessment.
 
