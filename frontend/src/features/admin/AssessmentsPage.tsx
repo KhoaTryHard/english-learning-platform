@@ -519,7 +519,6 @@ function QuestionForm({
           <input
             type="number"
             required
-            min="0.01"
             step="any"
             value={points}
             onChange={(e) => setPoints(e.target.value)}

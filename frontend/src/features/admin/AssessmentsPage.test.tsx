@@ -82,14 +82,14 @@ it('preserves false answer and server-generated question identity with POST then
   await user.click(await screen.findByRole('button', { name: 'Sửa câu hỏi This is false.' }));
   expect(screen.getByLabelText('Đáp án đúng')).toHaveValue('false');
   await user.clear(screen.getByLabelText('Điểm'));
-  await user.type(screen.getByLabelText('Điểm'), '2');
+  await user.type(screen.getByLabelText('Điểm'), '0.001');
   await user.click(screen.getByRole('button', { name: 'Lưu câu hỏi' }));
   await waitFor(() => expect(writes).toHaveLength(2));
   expect(writes[0]).toMatchObject({ method: 'POST', body: { correctAnswer: false, points: 1 } });
   expect(writes[1]).toMatchObject({
     method: 'PUT',
     questionId: demoId(860),
-    body: { correctAnswer: false, points: 2 },
+    body: { correctAnswer: false, points: 0.001 },
   });
 });
 

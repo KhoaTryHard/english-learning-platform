@@ -27,6 +27,7 @@ export function AttemptEditor({ initial }: { initial: Schema<'Attempt'> }) {
   const [pending, setPending] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<unknown>();
+  const [syncError, setSyncError] = useState<unknown>();
   const [clock, setClock] = useState(() => {
     const now = performance.now();
     return { tick: now, receivedAt: now };
@@ -63,9 +64,9 @@ export function AttemptEditor({ initial }: { initial: Schema<'Attempt'> }) {
     }
     try {
       accept(await api.attempt(initial.attemptId));
-      setError(undefined);
+      setSyncError(undefined);
     } catch (e) {
-      setError(e);
+      setSyncError(e);
     }
   }, [queue, initial.attemptId, accept]);
 
@@ -128,10 +129,10 @@ export function AttemptEditor({ initial }: { initial: Schema<'Attempt'> }) {
     if (submitLock.current || terminal) return;
     submitLock.current = true;
     setSubmitting(true);
-    setError(undefined);
     try {
       // Wait for every queued write, then ACK the latest complete set before submitting without a body.
       const saved = await queue.enqueue(answers);
+      setError(undefined);
       accept(saved);
       if (!saved.result) {
         const result = await api.submit(initial.attemptId);
@@ -277,7 +278,8 @@ export function AttemptEditor({ initial }: { initial: Schema<'Attempt'> }) {
             </fieldset>
           </section>
           <FormError error={error} />
-          {!!error && (
+          <FormError error={syncError} />
+          {!!(error || syncError) && (
             <div className="inline-actions">
               <button
                 className="button secondary"
