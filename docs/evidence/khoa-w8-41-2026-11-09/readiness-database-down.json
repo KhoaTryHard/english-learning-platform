@@ -1,0 +1,117 @@
+{
+  "phase": "database-down",
+  "checkedAt": "2026-11-09T13:48:52.619362700Z",
+  "backendSha": "cb9c805200bf539596c29210b93fe5eeefe1f8b5",
+  "assessment": {
+    "migration": "1|t",
+    "runtimeEvidence": "audit.json + manifest.json",
+    "kind": "LIVE",
+    "image": "sha256:98ea93c4d1fd59a0cbc8ae41991f583d9755ba06b8bf269032474ee93903da66",
+    "sourceSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+    "seedCommand": "verify-assessment-live.py --phase seed (Admin API)",
+    "dbEngine": "PostgreSQL 17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "manifestSha256": "b3eb798ee39887a1843fc87841d4b5a6ba89b885e5485c28727d454a2e3c74ec",
+  "scope": "External HTTP acceptance; supplied LIVE runtime/DB provenance requires Huy/Khoa review",
+  "notCovered": [
+    "attempt retry/retake",
+    "Progress/Kafka",
+    "team contract approval"
+  ],
+  "checks": [
+    {
+      "path": "/api/v1/auth/csrf",
+      "actual": 200,
+      "method": "GET",
+      "expected": 200,
+      "case": "csrf"
+    },
+    {
+      "path": "/api/v1/auth/login",
+      "actual": 200,
+      "method": "POST",
+      "expected": 200,
+      "case": "login"
+    },
+    {
+      "path": "/api/v1/auth/csrf",
+      "actual": 200,
+      "method": "GET",
+      "expected": 200,
+      "case": "csrf"
+    },
+    {
+      "path": "/internal/v1/lessons/641e8952-49ae-40b7-88b8-9827e37c50b4/exercise-readiness",
+      "actual": 503,
+      "method": "GET",
+      "expected": 503,
+      "case": "direct databaseDown"
+    },
+    {
+      "path": "/api/v1/admin/lessons/641e8952-49ae-40b7-88b8-9827e37c50b4",
+      "actual": 200,
+      "method": "GET",
+      "expected": 200,
+      "case": "draft databaseDown"
+    },
+    {
+      "path": "/api/v1/admin/lessons/641e8952-49ae-40b7-88b8-9827e37c50b4",
+      "actual": 503,
+      "method": "PATCH",
+      "expected": 503,
+      "case": "publish databaseDown"
+    },
+    {
+      "path": "/api/v1/admin/lessons/641e8952-49ae-40b7-88b8-9827e37c50b4",
+      "actual": 200,
+      "method": "GET",
+      "expected": 200,
+      "case": "draft databaseDown"
+    }
+  ],
+  "status": "PHASE_PASS_REVIEW_REQUIRED",
+  "fixtureIds": {
+    "missingMapping": {
+      "lessonId": "28f5aa27-1f87-4ed6-a9e6-cc6e726b0eff",
+      "exerciseId": null,
+      "questionCount": null
+    },
+    "notReady": {
+      "lessonId": "65bce529-1a8c-4122-ae7f-571b3168745a",
+      "exerciseId": "06081d44-de73-4f25-aa98-14d2e9450cae",
+      "questionCount": 0
+    },
+    "ready": {
+      "lessonId": "6f4bdcc8-0173-4061-87b1-a73d48cddb65",
+      "exerciseId": "98e0f46a-b7d6-4747-ab26-eb4fdc64be5c",
+      "questionCount": 1,
+      "questionId": "3d9a89df-a4c3-4a64-a547-bfd6968fb7cb"
+    },
+    "serviceDown": {
+      "lessonId": "a4b31730-1a14-45e7-b72f-bcbc1dd9a052",
+      "exerciseId": "c36f941e-2945-4732-a76d-0600350ce96f",
+      "questionCount": 1,
+      "questionId": "3cd3935b-a094-40b7-9502-1db9a0db7b4f"
+    },
+    "databaseDown": {
+      "lessonId": "641e8952-49ae-40b7-88b8-9827e37c50b4",
+      "exerciseId": "e43c639a-9aa9-47dd-a7dd-1ade045a57a2",
+      "questionCount": 1,
+      "questionId": "6827412c-515b-4f0f-ace2-9fd0e8ba1ad1"
+    },
+    "recovery": {
+      "lessonId": "0205768a-3c14-4861-9fca-a2ce17f2805c",
+      "exerciseId": "1fc570c9-0aa3-4ea1-99be-3371a314f037",
+      "questionCount": 1,
+      "questionId": "5901f25d-3f80-46b3-93ca-3ccf649a5dbb"
+    }
+  },
+  "runtimeMode": "DOCKER",
+  "contentAssessmentUrl": "http://assessment-live:8090",
+  "composeProject": "khoa-backlog-w9-20261109",
+  "backendImageIds": {
+    "content": "sha256:5b457423b065104c21f72d93f4b1077a0f6e2b038958fb62541e5c1d73001383",
+    "api": "sha256:d7eb3d06a659425654d2560945800598c683e68c634c8045564c26515ff6753a",
+    "user": "sha256:27128e2867ba47334471f7920978a6b505f654b1b745848c0d1d155d059c9c00"
+  }
+}

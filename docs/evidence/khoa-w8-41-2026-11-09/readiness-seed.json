@@ -1,0 +1,372 @@
+{
+  "phase": "seed",
+  "checkedAt": "2026-11-09T13:48:15.857589+00:00",
+  "backendSha": "cb9c805200bf539596c29210b93fe5eeefe1f8b5",
+  "assessment": {
+    "migration": "1|t",
+    "runtimeEvidence": "audit.json + manifest.json",
+    "kind": "LIVE",
+    "image": "sha256:98ea93c4d1fd59a0cbc8ae41991f583d9755ba06b8bf269032474ee93903da66",
+    "sourceSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+    "seedCommand": "verify-assessment-live.py --phase seed (Admin API)",
+    "dbEngine": "PostgreSQL 17.11 (Debian 17.11-1.pgdg13+2)"
+  },
+  "runtimeMode": "DOCKER",
+  "testNamespace": "khoa-backlog-w9-20261109",
+  "manifestSha256": "048c9c3e6ea46b1ff2a473f073ef439842eff711d0be90af4dfbee1938c67c33",
+  "scriptSha256": "86b4eb00b947f1b1a90f17618336207ecbcfbd7114059bca30f92f4255ebfa34",
+  "status": "SEED_READY_REVIEW_REQUIRED",
+  "checks": [
+    {
+      "case": "csrf before login",
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "login",
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "csrf after login",
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "list Assessment fixtures",
+      "method": "GET",
+      "path": "/api/v1/admin/assessments",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "inspect draft missingMapping",
+      "method": "GET",
+      "path": "/api/v1/admin/lessons/28f5aa27-1f87-4ed6-a9e6-cc6e726b0eff",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "missingMapping belongs to prepared draft Module",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "missingMapping unique mapping",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "missingMapping has no Exercise",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "inspect draft notReady",
+      "method": "GET",
+      "path": "/api/v1/admin/lessons/65bce529-1a8c-4122-ae7f-571b3168745a",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "notReady belongs to prepared draft Module",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "notReady unique mapping",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "create notReady",
+      "method": "POST",
+      "path": "/api/v1/admin/assessments",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "inspect notReady",
+      "method": "GET",
+      "path": "/api/v1/admin/assessments/06081d44-de73-4f25-aa98-14d2e9450cae",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "notReady belongs to fixture",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "notReady remains draft without questions",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "inspect draft ready",
+      "method": "GET",
+      "path": "/api/v1/admin/lessons/6f4bdcc8-0173-4061-87b1-a73d48cddb65",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "ready belongs to prepared draft Module",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "ready unique mapping",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "create ready",
+      "method": "POST",
+      "path": "/api/v1/admin/assessments",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "inspect ready",
+      "method": "GET",
+      "path": "/api/v1/admin/assessments/98e0f46a-b7d6-4747-ab26-eb4fdc64be5c",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "ready belongs to fixture",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "question ready",
+      "method": "POST",
+      "path": "/api/v1/admin/assessments/98e0f46a-b7d6-4747-ab26-eb4fdc64be5c/questions",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "ready expected seed question",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "ready ready",
+      "method": "PATCH",
+      "path": "/api/v1/admin/assessments/98e0f46a-b7d6-4747-ab26-eb4fdc64be5c",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "inspect draft serviceDown",
+      "method": "GET",
+      "path": "/api/v1/admin/lessons/a4b31730-1a14-45e7-b72f-bcbc1dd9a052",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "serviceDown belongs to prepared draft Module",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "serviceDown unique mapping",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "create serviceDown",
+      "method": "POST",
+      "path": "/api/v1/admin/assessments",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "inspect serviceDown",
+      "method": "GET",
+      "path": "/api/v1/admin/assessments/c36f941e-2945-4732-a76d-0600350ce96f",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "serviceDown belongs to fixture",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "question serviceDown",
+      "method": "POST",
+      "path": "/api/v1/admin/assessments/c36f941e-2945-4732-a76d-0600350ce96f/questions",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "serviceDown expected seed question",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "ready serviceDown",
+      "method": "PATCH",
+      "path": "/api/v1/admin/assessments/c36f941e-2945-4732-a76d-0600350ce96f",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "inspect draft databaseDown",
+      "method": "GET",
+      "path": "/api/v1/admin/lessons/641e8952-49ae-40b7-88b8-9827e37c50b4",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "databaseDown belongs to prepared draft Module",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "databaseDown unique mapping",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "create databaseDown",
+      "method": "POST",
+      "path": "/api/v1/admin/assessments",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "inspect databaseDown",
+      "method": "GET",
+      "path": "/api/v1/admin/assessments/e43c639a-9aa9-47dd-a7dd-1ade045a57a2",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "databaseDown belongs to fixture",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "question databaseDown",
+      "method": "POST",
+      "path": "/api/v1/admin/assessments/e43c639a-9aa9-47dd-a7dd-1ade045a57a2/questions",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "databaseDown expected seed question",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "ready databaseDown",
+      "method": "PATCH",
+      "path": "/api/v1/admin/assessments/e43c639a-9aa9-47dd-a7dd-1ade045a57a2",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "inspect draft recovery",
+      "method": "GET",
+      "path": "/api/v1/admin/lessons/0205768a-3c14-4861-9fca-a2ce17f2805c",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "recovery belongs to prepared draft Module",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "recovery unique mapping",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "create recovery",
+      "method": "POST",
+      "path": "/api/v1/admin/assessments",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "inspect recovery",
+      "method": "GET",
+      "path": "/api/v1/admin/assessments/1fc570c9-0aa3-4ea1-99be-3371a314f037",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "recovery belongs to fixture",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "question recovery",
+      "method": "POST",
+      "path": "/api/v1/admin/assessments/1fc570c9-0aa3-4ea1-99be-3371a314f037/questions",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "recovery expected seed question",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "ready recovery",
+      "method": "PATCH",
+      "path": "/api/v1/admin/assessments/1fc570c9-0aa3-4ea1-99be-3371a314f037",
+      "expected": 200,
+      "actual": 200
+    }
+  ],
+  "notCovered": [
+    "Kafka/Progress E2E",
+    "team approval"
+  ],
+  "fixtures": {
+    "missingMapping": {
+      "lessonId": "28f5aa27-1f87-4ed6-a9e6-cc6e726b0eff",
+      "exerciseId": null,
+      "questionCount": null
+    },
+    "notReady": {
+      "lessonId": "65bce529-1a8c-4122-ae7f-571b3168745a",
+      "exerciseId": "06081d44-de73-4f25-aa98-14d2e9450cae",
+      "questionCount": 0
+    },
+    "ready": {
+      "lessonId": "6f4bdcc8-0173-4061-87b1-a73d48cddb65",
+      "exerciseId": "98e0f46a-b7d6-4747-ab26-eb4fdc64be5c",
+      "questionCount": 1,
+      "questionId": "3d9a89df-a4c3-4a64-a547-bfd6968fb7cb"
+    },
+    "serviceDown": {
+      "lessonId": "a4b31730-1a14-45e7-b72f-bcbc1dd9a052",
+      "exerciseId": "c36f941e-2945-4732-a76d-0600350ce96f",
+      "questionCount": 1,
+      "questionId": "3cd3935b-a094-40b7-9502-1db9a0db7b4f"
+    },
+    "databaseDown": {
+      "lessonId": "641e8952-49ae-40b7-88b8-9827e37c50b4",
+      "exerciseId": "e43c639a-9aa9-47dd-a7dd-1ade045a57a2",
+      "questionCount": 1,
+      "questionId": "6827412c-515b-4f0f-ace2-9fd0e8ba1ad1"
+    },
+    "recovery": {
+      "lessonId": "0205768a-3c14-4861-9fca-a2ce17f2805c",
+      "exerciseId": "1fc570c9-0aa3-4ea1-99be-3371a314f037",
+      "questionCount": 1,
+      "questionId": "5901f25d-3f80-46b3-93ca-3ccf649a5dbb"
+    }
+  }
+}

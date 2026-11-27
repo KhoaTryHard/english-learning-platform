@@ -1,0 +1,151 @@
+{
+  "status": "PASS",
+  "command": "mvnw.cmd -B verify",
+  "java": "25.0.5+8",
+  "totals": {
+    "tests": 64,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "passed": 63,
+  "suites": [
+    {
+      "service": "backend/api-gateway",
+      "name": "vn.group7.api.GatewayPreflightHttpTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "service": "backend/api-gateway",
+      "name": "vn.group7.api.GatewayRoutingTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "service": "backend/api-gateway",
+      "name": "vn.group7.core.InputTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "service": "backend/api-gateway",
+      "name": "vn.group7.core.SecurityBoundaryTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "service": "backend/services/learning-content-service",
+      "name": "vn.group7.content.AssessmentReadinessLiveTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    {
+      "service": "backend/services/learning-content-service",
+      "name": "vn.group7.content.ContentIntegrationTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "service": "backend/services/learning-content-service",
+      "name": "vn.group7.content.DbTransactionFailureTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "service": "backend/services/learning-content-service",
+      "name": "vn.group7.content.ImportBoundaryTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "service": "backend/services/learning-content-service",
+      "name": "vn.group7.content.ImportContainerTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "service": "backend/services/learning-content-service",
+      "name": "vn.group7.content.ReadinessAcceptanceTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "service": "backend/services/learning-content-service",
+      "name": "vn.group7.core.InputTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "service": "backend/services/learning-content-service",
+      "name": "vn.group7.core.SecurityBoundaryTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "service": "backend/services/user-service",
+      "name": "vn.group7.core.InputTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "service": "backend/services/user-service",
+      "name": "vn.group7.core.SecurityBoundaryTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "service": "backend/services/user-service",
+      "name": "vn.group7.user.DbTransactionFailureTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "service": "backend/services/user-service",
+      "name": "vn.group7.user.SessionValidationTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "service": "backend/services/user-service",
+      "name": "vn.group7.user.UserIntegrationTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "scope": "User/Content tests use real Testcontainers PostgreSQL with owner HTTP doubles; fault MVC tests use transaction/JDBC doubles. Shared SDK tests repeat per service; counts are executions, not unique business scenarios."
+}

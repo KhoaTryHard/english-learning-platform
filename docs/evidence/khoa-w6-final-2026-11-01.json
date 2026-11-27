@@ -1,0 +1,204 @@
+{
+  "checkedAt": "2026-11-01T09:51:39.667991+00:00",
+  "task": "W6-02",
+  "status": "DONE_W6_HOST_ACCEPTED_WITH_RELAYED_TEAM_CONFIRMATIONS",
+  "sources": {
+    "khoaTestedSha": "b8bdcfe350989e7c98075fa004890cc76a48b7f2",
+    "assessmentFixedSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+    "assessmentBaseSha": "c1a2a074a4cc6c0d3d0bdf04ef77540a530c5930",
+    "assessmentFixPr": "https://github.com/KhoaTryHard/english-learning-platform/pull/44",
+    "khoaPr": "https://github.com/KhoaTryHard/english-learning-platform/pull/1"
+  },
+  "assessmentRegression": {
+    "before": {
+      "tests": 4,
+      "failures": 1,
+      "expected": 503,
+      "actual": 500
+    },
+    "after": {
+      "tests": 35,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "suites": [
+        {
+          "name": "vn.group7.assessment.AssessmentApplicationTest",
+          "tests": "1",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "vn.group7.assessment.AssessmentHttpTest",
+          "tests": "11",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "vn.group7.assessment.AssessmentServiceTest",
+          "tests": "15",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "vn.group7.assessment.ContentContextTest",
+          "tests": "3",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "vn.group7.assessment.OutboxKafkaWiringTest",
+          "tests": "1",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "vn.group7.assessment.TransactionUnavailableHttpTest",
+          "tests": "4",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        }
+      ]
+    },
+    "beforeLogSha256": "3237f167511f46b7e8db95744d3e53f4787fcf9c238536ab52144bdcad018b10",
+    "afterLogSha256": "69c674b861fcec0444d0d6674699048101e016fd1f8f0ed27e992a9f59066db2",
+    "scope": "H2/test doubles for verify; LIVE PostgreSQL outage recorded separately"
+  },
+  "live": {
+    "runtimeMode": "HOST",
+    "database": "PostgreSQL17.11; three isolated clusters; FlywayV1 per service",
+    "online": "PASS",
+    "service-down": "PASS",
+    "database-down": "PASS_DIRECT503_AND_PUBLISH503_DRAFT_PRESERVED",
+    "recovery": "PASS",
+    "retryRetakeSecurity": "PASS",
+    "sessionStoreFault": "PASS",
+    "kafkaEnabled": false
+  },
+  "exports": {
+    "prepare": {
+      "file": "docs/evidence/w6-final-2026-11-01/prepare.json",
+      "originalSha256": "3f750fa5bedd873f79f902bc302926793e80a0154c3d6c17475479be55d0357b",
+      "publishedSha256": "d25e6a19da5fb5d62a17fd8013bfb397613c0c5b94e257552ceb4f25d630ec17",
+      "status": "FIXTURES_CREATED_LIVE_NOT_RUN",
+      "checks": 12
+    },
+    "seed": {
+      "file": "docs/evidence/w6-final-2026-11-01/seed.json",
+      "originalSha256": "af1fca15d19b895679639dd194dcc4a23b425ced0997bf3f60125ccfa9686027",
+      "publishedSha256": "8bb673a276a6a3f1d863fb4b1b0a0f0638ef669fb9d61aad97cabe4e5c111578",
+      "status": "SEED_READY_REVIEW_REQUIRED",
+      "checks": 51
+    },
+    "online": {
+      "file": "docs/evidence/w6-final-2026-11-01/online.json",
+      "originalSha256": "faccea3502e09c8a83a0af89bbab235fdd6bdb8d5e7438ab04b388438f687e50",
+      "publishedSha256": "438c88d0fbc3a5b9426ee9f27da6b224cd06f00b73e988fdc8c0f7b11837d78a",
+      "status": "PHASE_PASS_REVIEW_REQUIRED",
+      "checks": 30
+    },
+    "service-down": {
+      "file": "docs/evidence/w6-final-2026-11-01/service-down.json",
+      "originalSha256": "ab0e280eaca89caabe707f64b56bff8a7c491fb885569ae1f543f90e97f67de4",
+      "publishedSha256": "dc6c9d8a1327aa0af2d1170e3fa1f13eca5f6292fefe1d1e5ea4ed20e1f39250",
+      "status": "PHASE_PASS_REVIEW_REQUIRED",
+      "checks": 7
+    },
+    "database-down": {
+      "file": "docs/evidence/w6-final-2026-11-01/database-down.json",
+      "originalSha256": "a67306bf8e3cdef30eacf727ca8880fdfc18690dd8027ca395864a25e84b1347",
+      "publishedSha256": "a715529e75edf712526d457bec93157aa8563443f1bcd4c5e4898d831489f853",
+      "status": "PHASE_PASS_REVIEW_REQUIRED",
+      "checks": 7
+    },
+    "recovery": {
+      "file": "docs/evidence/w6-final-2026-11-01/recovery.json",
+      "originalSha256": "6bed078e8adcff2d050b197c15867aa3c801e11f20daee3a685f746ca9d17573",
+      "publishedSha256": "5198ea0a8755150646cbd1ea34e3956362144b02961776163d9455013f723642",
+      "status": "PHASE_PASS_REVIEW_REQUIRED",
+      "checks": 16
+    },
+    "retry": {
+      "file": "docs/evidence/w6-final-2026-11-01/retry.json",
+      "originalSha256": "d07290c68a80f6c7fdaadcde83ab9c4053490237f338943640d9d1270ca10395",
+      "publishedSha256": "8468d37b00e91d98e650a0fac17b75f7e48e71c3a632ab3003e9b000e1821ae4",
+      "status": "PASS_REVIEW_REQUIRED",
+      "checks": 40
+    },
+    "session": {
+      "file": "docs/evidence/w6-final-2026-11-01/session.json",
+      "originalSha256": "984f7e0143fbb8365ae460b1b762b6c1716f78e7041f3ced3cfc0a242115bc15",
+      "publishedSha256": "93aacc3546b50cc819d072f07dcbdd9d8b61f240a29261740529fc44d856be5a",
+      "status": "PASS",
+      "checks": 0
+    },
+    "runtime": {
+      "file": "docs/evidence/w6-final-2026-11-01/runtime.json",
+      "originalSha256": "f5f74b85e97d0fcdc6d31b35bfc48417a6b8872f9a52f7da53be6068c20d42c3",
+      "publishedSha256": "92aaa5809c315e7aff05df377d2a37a524415a576803243b80cbd710d04833d5",
+      "status": null,
+      "checks": 0
+    },
+    "manifest.json.prepared": {
+      "file": "docs/evidence/w6-final-2026-11-01/manifest.json.prepared.json",
+      "originalSha256": "6179e7999608cf30d89c6009486e7add01bd5331520dea84b58d54e7c6ce5fe7",
+      "publishedSha256": "7d47807bf1a610922baf16c786966168b2d40b85f28cbcc8c73f1ed607efb7a8",
+      "status": null,
+      "checks": 0
+    }
+  },
+  "approvalProvenance": {
+    "source": "Direct statements from Khoa in this task conversation on 2026-11-01",
+    "huyReply": [
+      "1. đồng ý",
+      "2. approval",
+      "3. chấp nhận em sửa"
+    ],
+    "huyReplyClarification": "Anh chuyển phản hồi thực tế của Huy",
+    "huyScope": "Auth proposal and peer approval PR #1 as discussed at b8bdcfe; acceptance to repair Assessment, not a native GitHub review for PR #44",
+    "hungConfirmation": "Hưng đã xác nhận, anh chuyển lại",
+    "hungScope": "Internal0.1.1 breaking request; coordinated User/Gateway release and rollback; W6 HOST acceptance; production HOLD W10",
+    "nativeGitHubReviewsCreated": false,
+    "assumedApproval": false
+  },
+  "contractBaseline": {
+    "version": "0.1.1",
+    "file": "docs/contracts/internal-v0.1.1.yaml",
+    "sha256": "bc8f7da4bb3d04aa5832fd080be7c5e44fc972197af7fa183df3e90cdd454067",
+    "reviewedProposalSha256": "54280e3b1c0f864aea4a1e49f027ca1ffc49bd754823ee27c5d39343b7de1ae1",
+    "decision": "docs/contracts/internal-auth-decision-2026-11-01.md",
+    "compatibility": "BREAKING_TOKEN_AND_REQUEST_METHOD_CSRF",
+    "production": "HOLD_W10",
+    "decisionSha256": "a166d17e553cbb7e13c9b233926321c725597f2bb4c40f5972ac6fde17cb6334"
+  },
+  "checklist": {
+    "1": "COMPLETE",
+    "2": "COMPLETE",
+    "3": "COMPLETE",
+    "4": "COMPLETE",
+    "5": "COMPLETE",
+    "6": "COMPLETE"
+  },
+  "cleanup": {
+    "allProcessesStopped": true,
+    "stoppedAt": "2026-11-01T09:48:38.328749+00:00",
+    "testDataPreserved": true
+  },
+  "followUpNotIncludedInW6Done": [
+    "Docker image/digest and production deployment W10",
+    "PR #44/#1 merge under repository workflow",
+    "Kafka/Progress E2E"
+  ],
+  "historicalFailedReport": "docs/evidence/w6-host-live-2026-11-01/database-down.json",
+  "effort": {
+    "actualKhoaHours": null,
+    "remainingHours": null,
+    "note": "No owner effort/capacity invented."
+  }
+}

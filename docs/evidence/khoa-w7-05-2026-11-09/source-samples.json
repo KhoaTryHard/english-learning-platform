@@ -1,0 +1,178 @@
+{
+  "status": "PASS",
+  "recordedAt": "2026-11-09T13:05:38.290307+00:00",
+  "environment": "TEST",
+  "scope": "8 signed owner HTTP sample requests; no credentials or raw headers",
+  "requests": [
+    {
+      "name": "setup",
+      "method": "GET",
+      "caller": "progress",
+      "owner": "user",
+      "path": "/internal/v1/users/ae18b0d7-2521-4611-8e53-bb0609cbc984/learning-setup",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "body": {
+        "courseId": "10000000-0000-4000-8000-000000000001",
+        "levelId": "10000000-0000-4000-8000-000000000002",
+        "updatedAt": "2026-11-01T10:35:13.211763Z"
+      }
+    },
+    {
+      "name": "cohort",
+      "method": "GET",
+      "caller": "progress",
+      "owner": "user",
+      "path": "/internal/v1/learners/cohort?courseId=10000000-0000-4000-8000-000000000001&page=0&size=100",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "body": {
+        "totalElements": 4,
+        "totalLearnersGlobal": 4,
+        "size": 100,
+        "generatedAt": "2026-11-09T13:05:20.174744590Z",
+        "page": 0,
+        "items": [
+          {
+            "userId": "916b0772-99d1-4ac5-999c-1ef4e83c5bff",
+            "currentCourseId": "10000000-0000-4000-8000-000000000001",
+            "currentLevelId": "10000000-0000-4000-8000-000000000002"
+          },
+          {
+            "userId": "9c828ec4-f2a9-491e-8df4-a24d66f13d2e",
+            "currentCourseId": "10000000-0000-4000-8000-000000000001",
+            "currentLevelId": "10000000-0000-4000-8000-000000000002"
+          },
+          {
+            "userId": "abbd1464-e767-4625-bcbd-e9465dbfd750",
+            "currentCourseId": "10000000-0000-4000-8000-000000000001",
+            "currentLevelId": "10000000-0000-4000-8000-000000000002"
+          },
+          {
+            "userId": "ae18b0d7-2521-4611-8e53-bb0609cbc984",
+            "currentCourseId": "10000000-0000-4000-8000-000000000001",
+            "currentLevelId": "10000000-0000-4000-8000-000000000002"
+          }
+        ]
+      }
+    },
+    {
+      "name": "course",
+      "method": "GET",
+      "caller": "progress",
+      "owner": "content",
+      "path": "/internal/v1/courses/10000000-0000-4000-8000-000000000001/context",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "body": {
+        "totalLessons": 5,
+        "courseId": "10000000-0000-4000-8000-000000000001",
+        "published": true,
+        "levels": [
+          {
+            "levelId": "10000000-0000-4000-8000-000000000002",
+            "courseId": "10000000-0000-4000-8000-000000000001",
+            "name": "A1"
+          }
+        ],
+        "generatedAt": "2026-11-09T13:05:22.418819593Z"
+      }
+    },
+    {
+      "name": "coursesPage",
+      "method": "GET",
+      "caller": "progress",
+      "owner": "content",
+      "path": "/internal/v1/courses/contexts?page=0&size=1",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "body": {
+        "totalElements": 7,
+        "page": 0,
+        "size": 1,
+        "items": [
+          {
+            "totalLessons": 5,
+            "courseId": "10000000-0000-4000-8000-000000000001",
+            "published": true,
+            "levels": [
+              {
+                "levelId": "10000000-0000-4000-8000-000000000002",
+                "courseId": "10000000-0000-4000-8000-000000000001",
+                "name": "A1"
+              }
+            ],
+            "generatedAt": "2026-11-09T13:05:24.916877125Z"
+          }
+        ],
+        "generatedAt": "2026-11-09T13:05:24.916915519Z"
+      }
+    },
+    {
+      "name": "lesson",
+      "method": "GET",
+      "caller": "assessment",
+      "owner": "content",
+      "path": "/internal/v1/lessons/11b2e3ee-1729-4768-b308-059bb9ed88e0/context",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "body": {
+        "lessonId": "11b2e3ee-1729-4768-b308-059bb9ed88e0",
+        "visibleToLearner": true,
+        "courseId": "10000000-0000-4000-8000-000000000001",
+        "moduleId": "3d428ce7-9c95-4cfd-b400-0aed5dfb3cd8"
+      }
+    },
+    {
+      "name": "wrongCaller",
+      "method": "GET",
+      "caller": "api",
+      "owner": "user",
+      "path": "/internal/v1/learners/cohort",
+      "expectedStatus": 403,
+      "actualStatus": 403,
+      "body": {
+        "code": "FORBIDDEN",
+        "message": "Caller không có quy?n",
+        "traceId": "6dce194e-fe4d-45f7-81d5-c5d015ad0ca6",
+        "errors": []
+      }
+    },
+    {
+      "name": "invalidUuid",
+      "method": "GET",
+      "caller": "progress",
+      "owner": "content",
+      "path": "/internal/v1/courses/not-a-uuid/context",
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "body": {
+        "code": "VALIDATION_ERROR",
+        "message": "D? li?u không h?p l?",
+        "traceId": "364dc6d0-5800-47e0-bd0d-44de93debd6a",
+        "errors": [
+          {
+            "field": "id",
+            "message": "UUID không h?p l?",
+            "code": "INVALID"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalidSignature",
+      "method": "GET",
+      "caller": "progress",
+      "owner": "content",
+      "path": "/internal/v1/courses/10000000-0000-4000-8000-000000000001/context",
+      "expectedStatus": 401,
+      "actualStatus": 401,
+      "body": {
+        "code": "SESSION_INVALID",
+        "message": "Phiên không h?p l?",
+        "traceId": "8c3b929b-a81c-4190-90a6-61aea39462bc",
+        "errors": []
+      }
+    }
+  ]
+}

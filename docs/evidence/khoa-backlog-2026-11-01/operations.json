@@ -1,0 +1,87 @@
+{
+  "status": "PASS",
+  "restartPersistence": "PASS",
+  "restartScope": "databases and applications",
+  "gatewayNoDatabaseCredentials": "PASS",
+  "restoreScope": "new databases in same test cluster; not recovery to a new host",
+  "databases": [
+    {
+      "database": "user_db",
+      "backupRestore": "PASS",
+      "tables": {
+        "app_user": {
+          "rows": 5,
+          "digest": "80b08ff6f5669bfb5f08d7ed40f79c78a54aa6a1d28bb908d5543c515b8e2e24"
+        },
+        "flyway_schema_history": {
+          "rows": 1,
+          "digest": "f25a7317429b52a410f96aeffc61096562edc3e68b6983f217d9ec53a0f1e52d"
+        },
+        "learner_profile": {
+          "rows": 4,
+          "digest": "beba0e81b6aa677615a623fe77b0675e44427e85a764f6814b3d01f79b8cbed1"
+        },
+        "learning_setup": {
+          "rows": 4,
+          "digest": "a12c43f94b1cc5737edf357817470aaed95bf0c3b96219acd5e2020eb768e8af"
+        },
+        "revoked_token": {
+          "rows": 2,
+          "digest": "115005a8713a7bcddf772a4e5e0acd659e9574334f22e1622db7edc98cdb5e24"
+        },
+        "spring_session": {
+          "rows": 15,
+          "digest": "d9d6ad11abf608648fa1a5dcf7c9e87efbbbe3d3b75f4c2ff2ffb8d5d77b2567"
+        },
+        "spring_session_attributes": {
+          "rows": 39,
+          "digest": "ad6d8d5b3fc1f2c884b8cd6e30791b4b9d6ee46d6ed119e84a99758e79b57e01"
+        }
+      },
+      "constraints": "PASS",
+      "ownersAndGrants": "PASS",
+      "flywayHistory": "PASS"
+    },
+    {
+      "database": "content_db",
+      "backupRestore": "PASS",
+      "tables": {
+        "course": {
+          "rows": 6,
+          "digest": "04ba29f301c4491894f8bbc6d85248695bf7a276a4797ded921e963c2b75bef3"
+        },
+        "course_module": {
+          "rows": 2,
+          "digest": "3ceb6eeb24a3fad8cc728b61356d63283ebe430dda21a7f159c5c884ae12d331"
+        },
+        "flyway_schema_history": {
+          "rows": 1,
+          "digest": "477c193f921948441c0cf5893537ff34549b9241d7cf1dcf3519dccbde897992"
+        },
+        "learning_content": {
+          "rows": 6,
+          "digest": "d54b59b8132748ec49d733b2b86bdbd321c1dfdf13bb3fae1aad8603b21649ca"
+        },
+        "lesson": {
+          "rows": 5,
+          "digest": "e0a33b6905372ce9ca883ce88d89411b921bbe42b43e9ba78497d783af46cfc8"
+        },
+        "level": {
+          "rows": 2,
+          "digest": "cf9242973510f5767a270253a36f37ef3a12ed1981b05d06680c696fcedc3f30"
+        },
+        "user_vocabulary": {
+          "rows": 2,
+          "digest": "3ac5e004b72af6aad316782d2829015d7f46ff8a26a64f75e7a06590cd6075cd"
+        },
+        "vocabulary": {
+          "rows": 6,
+          "digest": "7810d68531410b13bcedba3f53927bac54ef0b0cffe937aabbb1903a90c68fad"
+        }
+      },
+      "constraints": "PASS",
+      "ownersAndGrants": "PASS",
+      "flywayHistory": "PASS"
+    }
+  ]
+}

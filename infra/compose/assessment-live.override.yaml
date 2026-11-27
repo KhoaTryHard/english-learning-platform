@@ -1,0 +1,17 @@
+# Apply after the standalone Compose file from Huy's pinned checkout.
+services:
+  assessment:
+    image: group7-assessment-service:${ASSESSMENT_IMAGE_TAG:?Set the pinned Assessment image tag}
+    environment:
+      USER_URL: http://user:8081
+      CONTENT_URL: http://content:8082
+      KAFKA_ENABLED: 'false'
+    networks:
+      default: {}
+      khoa-backend:
+        aliases:
+        - assessment-live
+networks:
+  khoa-backend:
+    external: true
+    name: ${KHOA_BACKEND_NETWORK:?Set the isolated Khoa backend network}

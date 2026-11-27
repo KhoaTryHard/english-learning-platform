@@ -1,0 +1,145 @@
+{
+  "status": "W7_05_ACCEPTED_BY_KHOA_OWNER_DECISION",
+  "recordedAt": "2026-11-09T13:05:43.038174+00:00",
+  "dateVietnam": "2026-11-09",
+  "reviewer": "Khoa with Codex assistance; not Huy human peer approval",
+  "sourceSha": "c3e5e2f97cf771a7e3d1f6e0d2ab1ec0b957ff98",
+  "applicationChangeSha": "68b5367093edfdb350a9ac1390c6d58ce60f6cf1",
+  "developSha": "5704557c986a91d6549c002269360085695a79d6",
+  "ownerSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+  "frontendEvidenceSha": "1e11c6d700a5f5e118f086ca23f9c5c66a3be031",
+  "serviceTreeIds": {
+    "backend/services/user-service": "6b2298167f2ce1da595133957540cbb2a65aecf1",
+    "backend/services/learning-content-service": "8850af6dfccf3a230ef5b9ea5e99f52ec52269ae",
+    "backend/api-gateway": "c5012a9f74c156be70f319895a32ccccf1f42bdb"
+  },
+  "environment": "TEST",
+  "project": "khoa-backlog-20261101",
+  "fixtureProvenance": "Inherited fixture state-b from 01/11. Reused read-only fixture IDs; reports are new. Fault phase creates one new recovery Course through the Admin API.",
+  "fixtures": {
+    "userId": "ae18b0d7-2521-4611-8e53-bb0609cbc984",
+    "otherUserId": "9c828ec4-f2a9-491e-8df4-a24d66f13d2e",
+    "courseId": "10000000-0000-4000-8000-000000000001",
+    "levelId": "10000000-0000-4000-8000-000000000002",
+    "emptyCourseId": "11067c36-52db-4a6d-9bfd-2729b0ca5b8d",
+    "moduleId": "3d428ce7-9c95-4cfd-b400-0aed5dfb3cd8",
+    "lessonId": "11b2e3ee-1729-4768-b308-059bb9ed88e0",
+    "assessmentId": "33f1d1c7-a9ca-4eee-b704-7567486750d9",
+    "questionId": "72edee8d-5697-4bec-a56c-17f8400e11a6",
+    "vocabularyIds": [
+      "1cbaaca2-18be-4742-9c3c-796d775b4e9d",
+      "efd81c53-7fd8-4f52-bd28-173ff65e2c7f"
+    ],
+    "draftLessonId": "e8891e44-394d-44a8-bb94-58e4fae52139",
+    "raceLessonId": "d26e8a76-f383-4629-b396-008fd9a32d4b"
+  },
+  "databases": {
+    "user": {
+      "postgresql": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "flyway": "1|t"
+    },
+    "content": {
+      "postgresql": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "flyway": "1|t"
+    },
+    "assessment": {
+      "postgresql": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "flyway": "1|t"
+    },
+    "progress": {
+      "postgresql": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "flyway": "1|t"
+    }
+  },
+  "images": {
+    "user": "sha256:27128e2867ba47334471f7920978a6b505f654b1b745848c0d1d155d059c9c00",
+    "content": "sha256:5b457423b065104c21f72d93f4b1077a0f6e2b038958fb62541e5c1d73001383",
+    "api": "sha256:d7eb3d06a659425654d2560945800598c683e68c634c8045564c26515ff6753a",
+    "assessment-live": "sha256:98ea93c4d1fd59a0cbc8ae41991f583d9755ba06b8bf269032474ee93903da66",
+    "progress-live": "sha256:dedad6eaf56e654d240bc7c6fd49b3c75c1540299ccf0af60c2d383799c76adf"
+  },
+  "fixtureFiles": [
+    {
+      "path": "docs/fixtures/khoa-backlog-course-levels.json",
+      "sha256GitBlob": "3e3743b61252157ab72421263cf267e131511e5d52cc756246a46a1f7a99a11e"
+    },
+    {
+      "path": "docs/fixtures/vocabulary-valid.xlsx",
+      "sha256GitBlob": "842196ef4b7cb2ae1cc115d99121e1ecc4bfc0adcae19062714ff1f79b5851b6"
+    },
+    {
+      "path": "docs/fixtures/vocabulary-invalid.xlsx",
+      "sha256GitBlob": "94068640a21199d123ac924a8dfd532d6b9c809c1346ed4758b92fd9a6b5e205"
+    },
+    {
+      "path": "docs/fixtures/lesson-valid.docx",
+      "sha256GitBlob": "2cce20b72c6c1ba8a85361a5b30a9cde15856c3ea9dadb96490ed6bca0c532d8"
+    },
+    {
+      "path": "docs/fixtures/lesson-missing-title.docx",
+      "sha256GitBlob": "64be1547727b47769c655389979be150e5d85c248c6091eada5ef8d209e24dea"
+    },
+    {
+      "path": "docs/fixtures/lesson-leading-empty.docx",
+      "sha256GitBlob": "0452ef8d00b83bfe8a2ad1896b7b87d7917c7d889e6be9e5073326dd8a303e32"
+    }
+  ],
+  "checks": {
+    "transactionRegressions": 8,
+    "postgresqlIntegration": 14,
+    "ownerLive": 40,
+    "faultLive": 33,
+    "responseSamples": 8
+  },
+  "staticChecks": [
+    "frozen public/internal contracts and 63 Gateway routes PASS",
+    "standalone layout PASS",
+    "8 historical committed report checksums PASS"
+  ],
+  "reports": [
+    {
+      "path": "maven-focused.json",
+      "sha256LfBytes": "8875e2ff622395c81683e8e70dd40b0a104364be63ff112c270d001588171020"
+    },
+    {
+      "path": "owners.json",
+      "sha256LfBytes": "5b7cc44bc44e94169f1623cb02c6811e54b8e09427a1f7e8646d88a937ff1062"
+    },
+    {
+      "path": "faults.json",
+      "sha256LfBytes": "4a1ba23a056840fb61581cc470680eddf817b027ac2004017ead83e6a4c309d4"
+    },
+    {
+      "path": "source-samples.json",
+      "sha256LfBytes": "fb3e47d01b9a08f0ba42c7fde2ec917b28844b36906e0a83f1c01484a7c64018"
+    }
+  ],
+  "acceptance": {
+    "decisionBy": "Khoa",
+    "source": "User message in this chat on 09/11/2026",
+    "verbatim": "xem nhÆ° Huy cháº¥p nháº­n nha em",
+    "interpretation": "Khoa accepts W7-05 delivery and semantics under owner decision; independent Huy review requirement waived for task closure.",
+    "actualHuyResponseObserved": false,
+    "nativeGithubApproval": false,
+    "scope": "W7-05 handoff/retest/source semantics only. Does not approve merge or accept Statistics/W8 QA."
+  },
+  "remainingOutsideTaskClosure": [
+    "independent human PR review and merge PR45 under repository workflow",
+    "Statistics consumer not implemented at owner snapshot413a929",
+    "full W7/W8 QA"
+  ],
+  "historicalEvidence": "dc2662f21ea9778f104d14c7d0e956190b234170",
+  "kafka": "disabled for this rerun; 03/11 frontend event evidence inherited separately; no broker failure/replay claim",
+  "production": "HOLD W10",
+  "commands": {
+    "owners": "python scripts/verify-khoa-backlog.py --phase owners --state .tools/w7-05-20261109/state.json --report .tools/w7-05-20261109/owners.json",
+    "faults": "python scripts/verify-khoa-backlog.py --phase faults --state .tools/w7-05-20261109/state.json --report .tools/w7-05-20261109/faults.json",
+    "samples": "Use scripts/OwnerSourceProbe.java with each caller/owner/path in source-samples.json; runtime classpath prepared per runbook. Input JSON contains caller,owner,path,tamper. JWT stays in process.",
+    "static": [
+      "python scripts/check-contracts.py",
+      "python scripts/check-service-layout.py",
+      "python scripts/check-backlog-evidence.py"
+    ]
+  },
+  "checkoutPublication": "Subsequent commits only add handoff/evidence; tested application source and serviceTreeIds remain c3e5e2f."
+}

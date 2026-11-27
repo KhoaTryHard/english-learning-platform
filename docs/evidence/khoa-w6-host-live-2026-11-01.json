@@ -1,0 +1,222 @@
+{
+  "checkedAt": "2026-11-01T09:16:28.404284+00:00",
+  "task": "W6-02",
+  "status": "LIVE_PARTIAL_ASSESSMENT_DB_DEFECT_AND_TEAM_GATES_OPEN",
+  "sources": {
+    "initialKhoa": "626b3d4853293504f1af6ad3483a238d01af9bf7",
+    "gatewayFix": "85462cf57945de58a9f79d5d22f7d2a542bcd05a",
+    "huyAssessment": "c1a2a074a4cc6c0d3d0bdf04ef77540a530c5930",
+    "huySourceModified": false
+  },
+  "environment": {
+    "runtimeMode": "HOST",
+    "java": "25.0.5",
+    "database": "PostgreSQL17.11, three independent clusters, FlywayV1 per owner",
+    "dockerStatus": "NOT_RUN_ENGINE_UNAVAILABLE",
+    "kafkaEnabled": false,
+    "dataPreserved": true,
+    "servicesStopped": true,
+    "postgresBinaryDownload": {
+      "sourceUrl": "https://get.enterprisedb.com/postgresql/postgresql-17.11-1-windows-x64-binaries.zip",
+      "sha256": "6eabdf00d2893713b75db4336a23c3fdf505f056e217ec6e2e95d901750cfea3",
+      "bytes": 340719294
+    }
+  },
+  "gatewayFix": {
+    "problem": "Spring MVC intercepted browser preflight before the controller; OPTIONS200 lacked CORS headers",
+    "solution": "GatewayPreflight filter invokes existing route/origin policy before MVC",
+    "regressionBefore": {
+      "tests": 2,
+      "failures": 2
+    },
+    "regressionAfter": {
+      "tests": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "suites": [
+        {
+          "name": "vn.group7.api.GatewayPreflightHttpTest",
+          "tests": "2",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "vn.group7.api.GatewayRoutingTest",
+          "tests": "7",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "vn.group7.core.InputTest",
+          "tests": "2",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "vn.group7.core.SecurityBoundaryTest",
+          "tests": "4",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0"
+        }
+      ]
+    },
+    "package": "PASS_AFTER_STOPPING_LOCKED_GATEWAY_JAR",
+    "verifyNote": "Tests15 PASS; first verify package failed because runtime held the JAR. Stopped only test Gateway and packaged with skipTests, no duplicate test count."
+  },
+  "liveResults": {
+    "online": "PASS_REVIEW_REQUIRED",
+    "service-down": "PASS_REVIEW_REQUIRED",
+    "database-down": "FAIL_EXPECTED503_ACTUAL500",
+    "gatewayDatabasePropagation": "PASS_503_DRAFT_PRESERVED",
+    "recovery": "PASS_REVIEW_REQUIRED",
+    "retryRetake": "PASS_REVIEW_REQUIRED",
+    "sessionPrivilegeFault": "PASS"
+  },
+  "assessmentDefect": {
+    "owner": "Huy",
+    "issue": 25,
+    "expected": 503,
+    "actual": 500,
+    "endpoint": "GET /internal/v1/lessons/{lessonId}/exercise-readiness",
+    "patchApplied": false,
+    "rootCauseStatus": "SOURCE_HYPOTHESIS_TRANSACTION_BEGIN_EXCEPTION_NOT_MAPPED"
+  },
+  "exports": {
+    "prepare": {
+      "file": "docs/evidence/w6-host-live-2026-11-01/prepare.json",
+      "originalSha256": "1101cce664005d869d0ade2d0a81685271d48f541f3fc228fc8758c029bd9fbc",
+      "publishedSha256": "556c7e1235819bc2859f087a77a3a5780a841f3cb30e86ba8ff3d0e08ccb7303",
+      "status": "FIXTURES_CREATED_LIVE_NOT_RUN",
+      "checks": 12
+    },
+    "seed": {
+      "file": "docs/evidence/w6-host-live-2026-11-01/seed.json",
+      "originalSha256": "24be397aa5207b5b9e9068302bec2999b4025165d1a7457ec6de65f90f9d611d",
+      "publishedSha256": "e0aec33f72848fc20b8897cb7ac3d5efe9f33758656d9d213cdb5be3e69f5680",
+      "status": "SEED_READY_REVIEW_REQUIRED",
+      "checks": 51
+    },
+    "online": {
+      "file": "docs/evidence/w6-host-live-2026-11-01/online.json",
+      "originalSha256": "41925f875381c484752c2dbdfb13bdd04aee36b56acd3b75875fefed9813b5fa",
+      "publishedSha256": "77732f2caa0506f93abc583e30dcbf30a2e8fd72aa7b0debf2bb24ac43061928",
+      "status": "PHASE_PASS_REVIEW_REQUIRED",
+      "checks": 30
+    },
+    "service-down": {
+      "file": "docs/evidence/w6-host-live-2026-11-01/service-down.json",
+      "originalSha256": "d65d71e4e368677a3dda402bc5c34b321e9670e9a407d4433ccd057927ddeb4d",
+      "publishedSha256": "92d1e2781efcc209d67136c8a581bd9a19bc17c2e68697f4c38a70af0320555f",
+      "status": "PHASE_PASS_REVIEW_REQUIRED",
+      "checks": 7
+    },
+    "database-down": {
+      "file": "docs/evidence/w6-host-live-2026-11-01/database-down.json",
+      "originalSha256": "a6c66dc09666f6920b5dba82ea5cdf69707db5cbb1ae011e853c51824a7a849a",
+      "publishedSha256": "d80f5d435cff32f8c29161147fbbc41f2e8c8e1cfbfc1d5b86576b59947e5ded",
+      "status": "FAIL",
+      "checks": 4
+    },
+    "database-propagation": {
+      "file": "docs/evidence/w6-host-live-2026-11-01/database-propagation.json",
+      "originalSha256": "ddddd7ad76575c992451daf5f3d93a3f16535e7b442cc22307c473f32c97986b",
+      "publishedSha256": "ddddd7ad76575c992451daf5f3d93a3f16535e7b442cc22307c473f32c97986b",
+      "status": "PASS_GATEWAY_ONLY_OWNER_DATABASE_PHASE_STILL_FAIL",
+      "checks": 9
+    },
+    "recovery": {
+      "file": "docs/evidence/w6-host-live-2026-11-01/recovery.json",
+      "originalSha256": "6679b7d7ae4a84925a18fcd230c452793cb40aff327cd98c404df2075fae9981",
+      "publishedSha256": "130bf81badd31ee68720e2ff6d2284b746249f621a82ff36cacabd5562a9b160",
+      "status": "PHASE_PASS_REVIEW_REQUIRED",
+      "checks": 16
+    },
+    "retry-before-gateway-fix": {
+      "file": "docs/evidence/w6-host-live-2026-11-01/retry-before-gateway-fix.json",
+      "originalSha256": "0c1c5e3dd885cfdc600d4b40f0c53e537d0c53444da76aeb130b78d41c00f8a2",
+      "publishedSha256": "9b7d341706a948ee0b03d88a73908a4df56cb3d5d3b030a30519355aa9c8be3c",
+      "status": "FAIL",
+      "checks": 5
+    },
+    "retry-fixed-gateway": {
+      "file": "docs/evidence/w6-host-live-2026-11-01/retry-fixed-gateway.json",
+      "originalSha256": "36ad9c357627cdb44fa6f4cf5411bce1331c239d7bfa2982c3f1b6cd84cb253e",
+      "publishedSha256": "1702c1e8f4f0d6d5df61925fd082578e35b31978c0d8479fb51c9d9f1f45c1ea",
+      "status": "PASS_REVIEW_REQUIRED",
+      "checks": 40
+    },
+    "session": {
+      "file": "docs/evidence/w6-host-live-2026-11-01/session.json",
+      "originalSha256": "bc4feed42d203d846e17e35777b6c410e059dba418f51ad0d9d000e051ca8ef8",
+      "publishedSha256": "b940d22f66b9da6138d419fe4340075efb4f41bbb43c195bca4cd45b4979db44",
+      "status": "PASS",
+      "checks": 0
+    },
+    "runtime-stopped": {
+      "file": "docs/evidence/w6-host-live-2026-11-01/runtime-stopped.json",
+      "originalSha256": "1254153bb5f8c1157fd786633cd90542aee910075f71257cb92c9e948a9b96fd",
+      "publishedSha256": "c6a553defacfa3d83ce22f1a2e9912595e3d0f97e64c30289d92f024677b1b14",
+      "status": null,
+      "checks": 0
+    },
+    "manifest-final": {
+      "file": "docs/evidence/w6-host-live-2026-11-01/manifest-final.json",
+      "originalSha256": "5f7f9e4d170ad3ca238295130ab8a9c8e656141c60d04238d799dcd73ab9f5d7",
+      "publishedSha256": "8086c34b5f7dfc33599861c3e0fdd6abac445cb480e348a4edaa0fe93e65e6bf",
+      "status": null,
+      "checks": 0
+    },
+    "manifest-before-gateway-fix": {
+      "file": "docs/evidence/w6-host-live-2026-11-01/manifest-before-gateway-fix.json",
+      "originalSha256": "d1114ac9eb8b4d66da2017a3119da694ba784192e011aa177aa3c7a265363d77",
+      "publishedSha256": "526f6908d0257871ee5ceb5ef1d601c21f1afd8d8cc3534566b93cf813efe73a",
+      "status": null,
+      "checks": 0
+    }
+  },
+  "commands": {
+    "start": "python scripts/w6-host-runtime.py start --namespace khoa-w6-host-20261101-b --pg-bin .tools/pgsql-17.11/pgsql/bin --huy-root .tools/huy-w6-source",
+    "readiness": "scripts/verify-readiness-live.ps1 -RuntimeMode HOST -Phase <phase> -Manifest <prepared> -Report <fresh>",
+    "seedRetry": "python scripts/verify-assessment-live.py --phase <seed|retry> --manifest <prepared> --report <fresh>",
+    "session": "Python3.12 scripts/verify-session-outage.py with HOST_RUNTIME_EVIDENCE, HOST_PG_BIN, LIVE_TEST_NAMESPACE and ALLOW_TEST_FAULT_INJECTION=1",
+    "stop": "python scripts/w6-host-runtime.py stop --namespace khoa-w6-host-20261101-b --pg-bin .tools/pgsql-17.11/pgsql/bin --huy-root .tools/huy-w6-source"
+  },
+  "scriptSha256": {
+    "scripts/w6-host-runtime.py": "2b2f7b89370b1bb4657a78c34e30c5910d71a2f073cbd769d8d05de2e89de3b5",
+    "scripts/verify-readiness-live.ps1": "38c3a697b5d7bceb18454f5171e8064be71ce78c597a6f424655f12cb6291bac",
+    "scripts/verify-assessment-live.py": "7e36194456a96caf1c29d01afa84522b209ff4a1f78e202e127800a2fa622822",
+    "scripts/verify-session-outage.py": "0eea28ff9e2c1a2f8a8cfd7c57e3b6c1b9c713ea2f251f531f54a0ff0566297f",
+    ".tools/khoa-w6-host-20261101-b/check-db-propagation.py": "60ce14fe322f255b4f978caf29e229241d9e3930bd02d97fd4bb47e60d8b7101"
+  },
+  "publicKeys": {
+    "api.public.pem": "065a19774d9e6c558eb86e503a5debf5b32d36a42c56d8aee398a2b24e83fb8a",
+    "assessment.public.pem": "e5411f33c5e167419e9831a8acc9844e9b0553d0fbda332ac331a754ccc1c1ac",
+    "content.public.pem": "43c4e1f46023a77fbe7dc8258be9f1e17d3c95ea71f0ff18adbab7661bdec2ce"
+  },
+  "checklist": {
+    "1": "REVIEW_COMPLETE",
+    "2": "REVIEW_COMPLETE_WITH_PREFLIGHT_FIX",
+    "3": "PENDING_HUY_KHOA_PM_DECISION",
+    "4": "TECHNICAL_HANDOFF_PUBLISHED_WITH_PUBLIC_KEYS_NOT_PEER_APPROVAL",
+    "5": "PARTIAL_FAIL_ASSESSMENT_DATABASE_DOWN",
+    "6": "PENDING_PEER_REVIEW"
+  },
+  "notCovered": [
+    "Docker images/network deployment",
+    "Kafka/Progress E2E",
+    "Production rollout",
+    "Team contract approval",
+    "Peer acceptance"
+  ],
+  "effort": {
+    "actualOwnerHours": null,
+    "remainingHours": null
+  },
+  "finalCleanupHelperSha256": "9655655fa75da696d13fe1b1987adae9a99a2815229bf5219b3542761f6a2e78",
+  "cleanupVerification": "All seven app/database loopback ports closed; data directories preserved. Repeated stop passed."
+}

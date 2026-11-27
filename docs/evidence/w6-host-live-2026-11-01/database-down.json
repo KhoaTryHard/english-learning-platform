@@ -1,0 +1,90 @@
+{
+  "phase": "database-down",
+  "checkedAt": "2026-11-01T09:06:32.317374700Z",
+  "backendSha": "626b3d4853293504f1af6ad3483a238d01af9bf7",
+  "assessment": {
+    "kind": "LIVE",
+    "sourceSha": "c1a2a074a4cc6c0d3d0bdf04ef77540a530c5930",
+    "image": "NOT_APPLICABLE_HOST_JAR",
+    "jarSha256": "f9e37dbb119544d1c78c2d223c2c4efb6efa1ccaafa49e95aa747a1a5daea9bf",
+    "dbEngine": "PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit",
+    "migration": "V1__assessment_foundation.sql",
+    "seedCommand": "python scripts/verify-assessment-live.py --phase seed --manifest <prepared> --report <fresh>",
+    "runtimeEvidence": "<workspace>\\.tools\\khoa-w6-host-20261101-b\\runtime.json"
+  },
+  "manifestSha256": "d1114ac9eb8b4d66da2017a3119da694ba784192e011aa177aa3c7a265363d77",
+  "scope": "External HTTP acceptance; supplied LIVE runtime/DB provenance requires Huy/Khoa review",
+  "notCovered": [
+    "attempt retry/retake",
+    "Progress/Kafka",
+    "team contract approval"
+  ],
+  "checks": [
+    {
+      "actual": 200,
+      "method": "GET",
+      "expected": 200,
+      "case": "csrf",
+      "path": "/api/v1/auth/csrf"
+    },
+    {
+      "actual": 200,
+      "method": "POST",
+      "expected": 200,
+      "case": "login",
+      "path": "/api/v1/auth/login"
+    },
+    {
+      "actual": 200,
+      "method": "GET",
+      "expected": 200,
+      "case": "csrf",
+      "path": "/api/v1/auth/csrf"
+    },
+    {
+      "actual": 500,
+      "method": "GET",
+      "expected": 503,
+      "case": "direct databaseDown",
+      "path": "/internal/v1/lessons/0dfd643c-20e0-4931-bb91-5fa69a4d9539/exercise-readiness"
+    }
+  ],
+  "status": "FAIL",
+  "failureType": "IllegalStateException",
+  "fixtureIds": {
+    "missingMapping": {
+      "lessonId": "6c336dad-186a-42f8-bb3f-7883af7cfae9",
+      "exerciseId": null,
+      "questionCount": null
+    },
+    "notReady": {
+      "lessonId": "84e511c1-01e0-46f3-95b2-a9ff414b0087",
+      "exerciseId": "f10c2ccf-c140-4597-8dd8-0e68582d19bb",
+      "questionCount": 0
+    },
+    "ready": {
+      "lessonId": "22a6d38e-6795-46a9-93ea-ff81a64c963a",
+      "exerciseId": "0165d891-ef2a-4e27-99d3-66d1e6b56f8f",
+      "questionCount": 1,
+      "questionId": "9d9ea79b-a707-47b4-9320-4e3b3c4e1ed8"
+    },
+    "serviceDown": {
+      "lessonId": "2a31b37f-7e32-4aa8-8015-35f8722c403d",
+      "exerciseId": "8a93ea51-71bf-4987-99f8-1105ecd91d84",
+      "questionCount": 1,
+      "questionId": "923cfc7c-2562-4a72-92b3-bfaff173b422"
+    },
+    "databaseDown": {
+      "lessonId": "0dfd643c-20e0-4931-bb91-5fa69a4d9539",
+      "exerciseId": "e412a7ca-e2da-4d58-a0b2-5733011757ae",
+      "questionCount": 1,
+      "questionId": "47b7d738-c411-4b24-9b36-c1e71c4a0f93"
+    },
+    "recovery": {
+      "lessonId": "92a4aaba-4578-47d0-9afe-3d9550f53832",
+      "exerciseId": "369289e0-caa7-4f82-b67c-d1dfc7480d53",
+      "questionCount": 1,
+      "questionId": "a7b5ad33-1590-4397-a9f3-217d68ea7154"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "provenance": "New TEST project, four fresh DB volumes and API-created fixture on 09/11. Older projects/volumes preserved.",
+  "state": {
+    "userId": "2bcac686-4886-4d15-b062-7cd4feaecc55",
+    "otherUserId": "bf66fbed-2641-4711-854f-343f276eabb2",
+    "courseId": "10000000-0000-4000-8000-000000000001",
+    "levelId": "10000000-0000-4000-8000-000000000002",
+    "emptyCourseId": "663efee2-d3b9-41aa-929e-2e37eae1ec69",
+    "moduleId": "70713596-5239-432a-8e1a-6300f3f84417",
+    "lessonId": "870235b2-7f81-4a9e-948d-192169157ae3",
+    "assessmentId": "a927e7e6-077f-4eef-9f34-3871edec5669",
+    "questionId": "4b71d5ec-ee9f-49fa-a6f4-4989d9622554",
+    "vocabularyIds": [
+      "916d01dd-4782-40db-b2e4-df1f7ccd3431",
+      "34b6cadf-6ef7-47b9-9ab8-9c44309ada66"
+    ],
+    "draftLessonId": "673f1584-0ac4-42d5-84a7-59329c68dec0",
+    "raceLessonId": "03b0449e-eb68-42f4-9300-dce746b8c1da"
+  },
+  "readiness": {
+    "backendSha": "cb9c805200bf539596c29210b93fe5eeefe1f8b5",
+    "runtimeMode": "DOCKER",
+    "gatewayUrl": "http://127.0.0.1:18080",
+    "environment": "TEST",
+    "assessmentUrlFromContent": "http://assessment-live:8090",
+    "courseId": "10000000-0000-4000-8000-000000000001",
+    "assessment": {
+      "migration": "1|t",
+      "runtimeEvidence": "audit.json + manifest.json",
+      "kind": "LIVE",
+      "image": "sha256:98ea93c4d1fd59a0cbc8ae41991f583d9755ba06b8bf269032474ee93903da66",
+      "sourceSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+      "seedCommand": "verify-assessment-live.py --phase seed (Admin API)",
+      "dbEngine": "PostgreSQL 17.11 (Debian 17.11-1.pgdg13+2)"
+    },
+    "assessmentUrl": "http://127.0.0.1:8090",
+    "levelId": "10000000-0000-4000-8000-000000000002",
+    "moduleId": "3401eb23-84bd-42b7-b770-a0b3b16a0282",
+    "fixtures": {
+      "missingMapping": {
+        "lessonId": "28f5aa27-1f87-4ed6-a9e6-cc6e726b0eff",
+        "exerciseId": null,
+        "questionCount": null
+      },
+      "notReady": {
+        "lessonId": "65bce529-1a8c-4122-ae7f-571b3168745a",
+        "exerciseId": "06081d44-de73-4f25-aa98-14d2e9450cae",
+        "questionCount": 0
+      },
+      "ready": {
+        "lessonId": "6f4bdcc8-0173-4061-87b1-a73d48cddb65",
+        "exerciseId": "98e0f46a-b7d6-4747-ab26-eb4fdc64be5c",
+        "questionCount": 1,
+        "questionId": "3d9a89df-a4c3-4a64-a547-bfd6968fb7cb"
+      },
+      "serviceDown": {
+        "lessonId": "a4b31730-1a14-45e7-b72f-bcbc1dd9a052",
+        "exerciseId": "c36f941e-2945-4732-a76d-0600350ce96f",
+        "questionCount": 1,
+        "questionId": "3cd3935b-a094-40b7-9502-1db9a0db7b4f"
+      },
+      "databaseDown": {
+        "lessonId": "641e8952-49ae-40b7-88b8-9827e37c50b4",
+        "exerciseId": "e43c639a-9aa9-47dd-a7dd-1ade045a57a2",
+        "questionCount": 1,
+        "questionId": "6827412c-515b-4f0f-ace2-9fd0e8ba1ad1"
+      },
+      "recovery": {
+        "lessonId": "0205768a-3c14-4861-9fca-a2ce17f2805c",
+        "exerciseId": "1fc570c9-0aa3-4ea1-99be-3371a314f037",
+        "questionCount": 1,
+        "questionId": "5901f25d-3f80-46b3-93ca-3ccf649a5dbb"
+      }
+    }
+  }
+}

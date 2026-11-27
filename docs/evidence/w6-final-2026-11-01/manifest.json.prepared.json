@@ -1,0 +1,58 @@
+{
+  "environment": "TEST",
+  "backendSha": "b8bdcfe350989e7c98075fa004890cc76a48b7f2",
+  "gatewayUrl": "http://127.0.0.1:18080",
+  "assessmentUrl": "http://127.0.0.1:8090",
+  "assessmentUrlFromContent": "http://127.0.0.1:8090",
+  "courseId": "10000000-0000-4000-8000-000000000001",
+  "levelId": "10000000-0000-4000-8000-000000000002",
+  "assessment": {
+    "kind": "LIVE",
+    "sourceSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+    "image": "NOT_APPLICABLE_HOST_JAR",
+    "jarSha256": "2e3b4f3d81f4808a9b79d690029b99ede587a451baa11fc007664cc67c03ff9f",
+    "dbEngine": "PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit",
+    "migration": "V1__assessment_foundation.sql",
+    "seedCommand": "python scripts/verify-assessment-live.py --phase seed --manifest <prepared> --report <fresh>",
+    "runtimeEvidence": "<workspace>\\.tools\\khoa-w6-host-20261101-c\\runtime.json"
+  },
+  "runtimeMode": "HOST",
+  "hostRuntimeEvidence": "<workspace>\\.tools\\khoa-w6-host-20261101-c\\runtime.json",
+  "moduleId": "d0c875cb-4048-4dac-81fa-7019dc7fa6f4",
+  "fixtures": {
+    "missingMapping": {
+      "lessonId": "47d3df8f-bc20-41df-9cf2-ce095eb8bc60",
+      "exerciseId": null,
+      "questionCount": null
+    },
+    "notReady": {
+      "lessonId": "b4790ec9-37b2-4323-8c79-50dc89c91bc6",
+      "exerciseId": "41e61698-c9a9-4901-87b0-85090417eadb",
+      "questionCount": 0
+    },
+    "ready": {
+      "lessonId": "ad5be82a-a556-4ab5-9f2b-5f0ed876d1ad",
+      "exerciseId": "83da005c-17eb-4bec-999d-17d9ee58b99f",
+      "questionCount": 1,
+      "questionId": "6b2083be-46d3-48c7-8e7c-8da033cedd15"
+    },
+    "serviceDown": {
+      "lessonId": "9f19d97b-1d66-4f8b-8f4e-ad2a0321e407",
+      "exerciseId": "7ab0c11b-75d2-4bc6-889a-f80bb5938811",
+      "questionCount": 1,
+      "questionId": "8bf6a5e0-4c8b-427a-bdb5-31a838ace878"
+    },
+    "databaseDown": {
+      "lessonId": "1805288f-6901-4cef-a16a-831226030b33",
+      "exerciseId": "cd2d3ebf-3e96-4b69-9604-1545e72b03ce",
+      "questionCount": 1,
+      "questionId": "853278c9-bd31-4e57-b628-e099f8935aff"
+    },
+    "recovery": {
+      "lessonId": "e201e052-e699-4fa1-9a7e-be7231653c9d",
+      "exerciseId": "c52efa9e-8688-4edb-ad6f-6286f5f959c6",
+      "questionCount": 1,
+      "questionId": "a1d482a6-42b6-40ef-b78a-c4fa35c3be89"
+    }
+  }
+}

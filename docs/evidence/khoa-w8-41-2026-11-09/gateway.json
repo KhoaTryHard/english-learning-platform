@@ -1,0 +1,229 @@
+{
+  "status": "PASS_REVIEW_REQUIRED",
+  "phase": "gateway",
+  "environment": "TEST",
+  "runtime": "DOCKER_REAL_SERVICES_POSTGRESQL",
+  "startedAt": "2026-11-09T13:46:19.858323+00:00",
+  "backendSha": "cb9c805200bf539596c29210b93fe5eeefe1f8b5",
+  "ownerSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+  "composeProject": "khoa-backlog-w9-20261109",
+  "checks": [
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "login",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "login",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "GET /api/v1/me/attempts",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/assessments/a927e7e6-077f-4eef-9f34-3871edec5669/attempts",
+      "expected": 403,
+      "actual": 403,
+      "errorCode": "CSRF_INVALID"
+    },
+    {
+      "case": "GET /api/v1/me/attempts",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "denied start never reaches Assessment business write",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "POST /api/v1/assessments/a927e7e6-077f-4eef-9f34-3871edec5669/attempts",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/assessments/a927e7e6-077f-4eef-9f34-3871edec5669/attempts",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/assessments/a927e7e6-077f-4eef-9f34-3871edec5669/attempts",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "Gateway preserves Idempotency-Key",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "retake with new key creates a new attempt",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "PUT /api/v1/attempts/db06a45c-9751-4895-8d24-09f5ed958b6e/answers",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/attempts/db06a45c-9751-4895-8d24-09f5ed958b6e/submit",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "real Assessment scores saved answer",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "POST /api/v1/assessments/a927e7e6-077f-4eef-9f34-3871edec5669/attempts",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "terminal transport retry keeps original attempt",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "GET /api/v1/me/attempts",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "transport retries created only two attempts",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "OPTIONS /api/v1/assessments/a927e7e6-077f-4eef-9f34-3871edec5669/attempts",
+      "expected": 204,
+      "actual": 204,
+      "errorCode": null
+    },
+    {
+      "case": "preflight allows credentialed Idempotency-Key",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "login",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "patchUser",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "GET /api/v1/me/profile",
+      "expected": 401,
+      "actual": 401,
+      "errorCode": "SESSION_INVALID"
+    },
+    {
+      "case": "patchUser",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "GET /api/v1/me/progress",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "Kafka disabled does not fabricate Progress completion",
+      "expected": true,
+      "actual": true
+    }
+  ],
+  "images": {
+    "user": "sha256:27128e2867ba47334471f7920978a6b505f654b1b745848c0d1d155d059c9c00",
+    "content": "sha256:5b457423b065104c21f72d93f4b1077a0f6e2b038958fb62541e5c1d73001383",
+    "api": "sha256:d7eb3d06a659425654d2560945800598c683e68c634c8045564c26515ff6753a",
+    "assessment-live": "sha256:98ea93c4d1fd59a0cbc8ae41991f583d9755ba06b8bf269032474ee93903da66",
+    "progress-live": "sha256:dedad6eaf56e654d240bc7c6fd49b3c75c1540299ccf0af60c2d383799c76adf"
+  },
+  "publicOperations": [
+    "getCsrf",
+    "login",
+    "patchUser"
+  ],
+  "notCovered": [
+    "Kafka delivery/Progress completion E2E"
+  ],
+  "fixtures": {
+    "userId": "2bcac686-4886-4d15-b062-7cd4feaecc55",
+    "otherUserId": "bf66fbed-2641-4711-854f-343f276eabb2",
+    "courseId": "10000000-0000-4000-8000-000000000001",
+    "levelId": "10000000-0000-4000-8000-000000000002",
+    "emptyCourseId": "663efee2-d3b9-41aa-929e-2e37eae1ec69",
+    "moduleId": "70713596-5239-432a-8e1a-6300f3f84417",
+    "lessonId": "870235b2-7f81-4a9e-948d-192169157ae3",
+    "assessmentId": "a927e7e6-077f-4eef-9f34-3871edec5669",
+    "questionId": "4b71d5ec-ee9f-49fa-a6f4-4989d9622554",
+    "vocabularyIds": [
+      "916d01dd-4782-40db-b2e4-df1f7ccd3431",
+      "34b6cadf-6ef7-47b9-9ab8-9c44309ada66"
+    ],
+    "draftLessonId": "673f1584-0ac4-42d5-84a7-59329c68dec0",
+    "raceLessonId": "03b0449e-eb68-42f4-9300-dce746b8c1da"
+  },
+  "finishedAt": "2026-11-09T13:46:29.136585+00:00"
+}

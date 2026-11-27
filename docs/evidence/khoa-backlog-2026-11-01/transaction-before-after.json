@@ -1,0 +1,24 @@
+{
+  "status": "REPRODUCED_BEFORE_FIX",
+  "baseSha": "5fe5f39bd35bc67c1bac2abcff96d798b9febdd0",
+  "user": {
+    "tests": 4,
+    "failures": 2
+  },
+  "content": {
+    "tests": 4,
+    "failures": 2
+  },
+  "expected": 503,
+  "actual": 500,
+  "cause": "CannotCreateTransactionException escapes Db.tx; JDBC/pool acquisition failure before callback",
+  "after": {
+    "tests": 8,
+    "failures": 0
+  },
+  "controls": [
+    "UnexpectedRollbackException stays 500",
+    "DuplicateKeyException stays 409"
+  ],
+  "scope": "Standalone MVC with actual Db adapter and fault doubles, not a live DB outage"
+}

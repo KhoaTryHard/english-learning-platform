@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "sourceCommit": "72cddb1d9f2715cfdad142950667503f7fc779f3",
+  "runUrl": "https://github.com/KhoaTryHard/english-learning-platform/actions/runs/38436751397",
+  "tests": 16,
+  "suites": [
+    {
+      "class": "vn.group7.core.InputTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "vn.group7.user.UserIntegrationTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "vn.group7.content.ImportBoundaryTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "vn.group7.content.ContentIntegrationTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ]
+}

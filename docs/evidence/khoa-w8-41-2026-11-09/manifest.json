@@ -1,0 +1,236 @@
+{
+  "status": "KHOA_TECHNICAL_PASS_PEER_REVIEW_AND_QA40_PENDING",
+  "recordedAt": "2026-11-09T13:51:03.174766+00:00",
+  "issue": 41,
+  "branch": "feature/khoa-w8-41-regression",
+  "testedSha": "cb9c805200bf539596c29210b93fe5eeefe1f8b5",
+  "baseDevelopSha": "663b482fc198ed24ca4c36d3b6449aee11fc92dd",
+  "ownerSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+  "serviceTreeIds": {
+    "backend/services/user-service": "6b2298167f2ce1da595133957540cbb2a65aecf1",
+    "backend/services/learning-content-service": "8850af6dfccf3a230ef5b9ea5e99f52ec52269ae",
+    "backend/api-gateway": "c5012a9f74c156be70f319895a32ccccf1f42bdb"
+  },
+  "applicationSourceChanged": false,
+  "environment": "TEST",
+  "runtime": "DOCKER_REAL_SERVICES_POSTGRESQL",
+  "project": "khoa-backlog-w9-20261109",
+  "gateway": "http://127.0.0.1:18080",
+  "database": {
+    "user": {
+      "version": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "migration": "1|t"
+    },
+    "content": {
+      "version": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "migration": "1|t"
+    },
+    "assessment": {
+      "version": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "migration": "1|t"
+    },
+    "progress": {
+      "version": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "migration": "1|t"
+    }
+  },
+  "images": {
+    "user": "sha256:27128e2867ba47334471f7920978a6b505f654b1b745848c0d1d155d059c9c00",
+    "content": "sha256:5b457423b065104c21f72d93f4b1077a0f6e2b038958fb62541e5c1d73001383",
+    "api": "sha256:d7eb3d06a659425654d2560945800598c683e68c634c8045564c26515ff6753a",
+    "assessment-live": "sha256:98ea93c4d1fd59a0cbc8ae41991f583d9755ba06b8bf269032474ee93903da66",
+    "progress-live": "sha256:dedad6eaf56e654d240bc7c6fd49b3c75c1540299ccf0af60c2d383799c76adf"
+  },
+  "imageProvenance": "Reused five images from 01/11 manifest; matched all IDs against W7-05 manifest and Khoa service Git trees unchanged. No new image build is claimed.",
+  "fixtureProvenance": "New project and fresh volumes, new API-created core and readiness fixture. Never reused published Lesson IDs.",
+  "maven": {
+    "tests": 64,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 63,
+    "scope": "SDK repeats by app; PostgreSQL Testcontainers and explicit owner HTTP doubles, not 63 independent business scenarios."
+  },
+  "toolingTests": {
+    "status": "PASS",
+    "tests": 9,
+    "scope": "TEST preflight guard with Docker metadata doubles; separate from application JUnit."
+  },
+  "staticChecks": [
+    {
+      "name": "contracts",
+      "status": "PASS",
+      "localLogSha256": "b32cc29247d6484a63c299e69d2d815887b3aa96828a576d95282ae7fd1bc3ee"
+    },
+    {
+      "name": "layout",
+      "status": "PASS",
+      "localLogSha256": "d8154c8b93cadc3fe923642f608f4d3e239bfd049552820819d8867e0f7361d3"
+    },
+    {
+      "name": "historical-checksums",
+      "status": "PASS",
+      "localLogSha256": "84371d254c1a03f1323a1ce47addcbcb598851d85f875e04d71b23e0d80cf4f4"
+    },
+    {
+      "name": "compose",
+      "status": "PASS",
+      "localLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "probe-build",
+      "status": "PASS",
+      "localLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "probe-classpath",
+      "status": "PASS",
+      "localLogSha256": "f070a101cc5d502f8100116c6838ba9d1692f77fd7a0d50ce4beeb57059343a0"
+    },
+    {
+      "name": "tooling-tests",
+      "status": "PASS",
+      "localLogSha256": "62a263b36f81a17afa8224301eb227152388622abd625b6f1e3ea620f8909a3a"
+    }
+  ],
+  "reports": [
+    {
+      "report": "maven-summary.json",
+      "status": "PASS",
+      "checks": 0,
+      "sha256": "8e0b20c58d8028bc94ed2ac12ab8d790cc365acf2232ea091fa5e2deb3981114"
+    },
+    {
+      "report": "core.json",
+      "status": "PASS_REVIEW_REQUIRED",
+      "checks": 153,
+      "sha256": "879cbdd36be7c2891641bd93e01761c1c47a6a5a6c15c4d80353b7cacededbc2"
+    },
+    {
+      "report": "owners.json",
+      "status": "PASS_REVIEW_REQUIRED",
+      "checks": 40,
+      "sha256": "3f2a8f8135a70d72a0ae36e944e675e9608669f52a86e45421b5106dc577a846"
+    },
+    {
+      "report": "gateway.json",
+      "status": "PASS_REVIEW_REQUIRED",
+      "checks": 32,
+      "sha256": "3ddf7076803c8329ff95d0b8cf22b227ff439d38fbde4b49645cd7bd54a1031e"
+    },
+    {
+      "report": "faults.json",
+      "status": "PASS_REVIEW_REQUIRED",
+      "checks": 33,
+      "sha256": "e7b49581a126be2ba2412b1d1542bd397a4a8969ac3d2d1279c9112fd224cbdb"
+    },
+    {
+      "report": "audit.json",
+      "status": "PASS_REVIEW_REQUIRED",
+      "checks": 29,
+      "sha256": "40ca72fc6b9aff9aa6406cf8964f53a741415772e28218201629dcb02802268b"
+    },
+    {
+      "report": "readiness-prepare.json",
+      "status": "FIXTURES_CREATED_LIVE_NOT_RUN",
+      "checks": 12,
+      "sha256": "8c9ca1c651319b79c8070ee4192913545ddf42c82cdf9dd43ca36dcc71ac43a4"
+    },
+    {
+      "report": "readiness-seed.json",
+      "status": "SEED_READY_REVIEW_REQUIRED",
+      "checks": 51,
+      "sha256": "fe0d1871963b0b69d78d85331f5c41c8b1c66752547e6e8ee0af4190cf87a2ae"
+    },
+    {
+      "report": "readiness-online.json",
+      "status": "PHASE_PASS_REVIEW_REQUIRED",
+      "checks": 30,
+      "sha256": "ad7515db7cf9478c4bb5e674f2cf0478fa0d43c6f9998863ee0134e109636298"
+    },
+    {
+      "report": "readiness-service-down.json",
+      "status": "PHASE_PASS_REVIEW_REQUIRED",
+      "checks": 7,
+      "sha256": "eec50110356259fe58be76c2d2e17d1c8a1138bc268d100a994caf2e737bba5c"
+    },
+    {
+      "report": "readiness-database-down.json",
+      "status": "PHASE_PASS_REVIEW_REQUIRED",
+      "checks": 7,
+      "sha256": "d64d41df8bd0ce8cb213033ae6600a3c8d7cbef7bf6e3b5dfdfe7918e6a52552"
+    },
+    {
+      "report": "readiness-recovery.json",
+      "status": "PHASE_PASS_REVIEW_REQUIRED",
+      "checks": 16,
+      "sha256": "1c773eb59fab4db8fe02e3d690ae9c8432e8864d3adea5d908129cb8deb05a88"
+    },
+    {
+      "report": "retry-security.json",
+      "status": "PASS_REVIEW_REQUIRED",
+      "checks": 40,
+      "sha256": "fdc3c5f5154aea9808479ec89f65a306c3e173cb7c2788f62c83feac3870b492"
+    },
+    {
+      "report": "session.json",
+      "status": "PASS",
+      "checks": 0,
+      "sha256": "f07bf7642c23408dd41d24437d3beb28d84a82a9d89aff4a41fea795546c0249"
+    },
+    {
+      "report": "operations.json",
+      "status": "PASS",
+      "checks": 0,
+      "sha256": "0dce4bcd1e48fa6374cfeb78554e29a7ad44a778c594c6e6416477aaeff7ef47"
+    },
+    {
+      "report": "post-restart.json",
+      "status": "PASS_REVIEW_REQUIRED",
+      "checks": 11,
+      "sha256": "33ea896c7c39cf9c711eca25674f4844ce18e65b6b1fad2c9916b6e202ae5052"
+    },
+    {
+      "report": "fixture.json",
+      "sha256": "6db19abf92b41fa88c1d170636113df88039c6707947cb3aa7d47396ef51698c"
+    },
+    {
+      "report": "historical-runner-failure.json",
+      "sha256": "b3e1de9aeb237992d97c3f09aa9f38f533e062ea0171a954852514248a5626a5"
+    }
+  ],
+  "commands": [
+    "verify-khoa-w9.ps1 -HuySourceRoot <owner413a929> -Project khoa-backlog-w9-20261109 -ImageTag khoa-backlog-20261101 -ReportDirectory .tools/w9-20261109-b -Python <Python3.12>",
+    "mvnw.cmd -B verify (standalone default Origin)",
+    "python -m unittest discover -s scripts/tests -v",
+    "check-contracts.py; check-service-layout.py; check-backlog-evidence.py; docker compose config --quiet",
+    "verify-khoa-backlog.py --phase core|owners|gateway|faults|audit|post-restart (sequential)",
+    "verify-readiness-live.ps1 prepare|online|service-down|database-down|recovery with new manifest",
+    "verify-assessment-live.py --phase seed|retry; verify-session-outage.py; verify-operations.py"
+  ],
+  "operations": {
+    "runningProjectContainersAfterRun": 0,
+    "dataVolumesPreserved": true,
+    "restoreScope": "New databases in same TEST clusters; no multi-host disaster recovery"
+  },
+  "acceptance": {
+    "khoaTechnicalDelivery": "PASS",
+    "peerReviewNewPR": "PENDING",
+    "groupQa40": "PENDING",
+    "issue41": "OPEN",
+    "production": "HOLD_W10"
+  },
+  "notCovered": [
+    "Kafka broker fault/replay/DLQ/crash recovery (#30/#34)",
+    "Statistics consumer (#36)",
+    "W8 frontend LIVE/full MVP QA (#40, PR47)",
+    "production TLS/ingress/Secure cookie on deployed HTTPS",
+    "second Windows account impersonation",
+    "Assessment/Progress production DB role separation (Huy)"
+  ],
+  "inheritedEvidence": {
+    "w7Frontend": "PR46 at1e11c6d, 03/11 Exercise/Outbox/Kafka/Progress and retake. Not rerun or expanded to broker fault/replay.",
+    "w6Approvals": "Recorded auth0.1.1 baseline and PR1 relay approvals; no new approval inherited by #41/PR44."
+  },
+  "checksumScope": "Git blob bytes (LF), not platform checkout line endings"
+}

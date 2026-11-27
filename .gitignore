@@ -1,8 +1,10 @@
+.tools/
+.secrets/
+**/target/
 node_modules/
 dist/
 build/
 coverage/
-target/
 .env
 .env.*
 !.env.example
@@ -12,8 +14,15 @@ target/
 .vscode/*
 !.vscode/extensions.json
 
+__pycache__/
+*.pyc
+
+playwright-report/
+test-results/
+live-test-results/
+*.tsbuildinfo
+
 # Credentials, machine-local files and documentation scratch output.
-.secrets/
 .cache/
 .local/
 local-notes/

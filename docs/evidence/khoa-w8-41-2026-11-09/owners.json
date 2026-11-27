@@ -1,0 +1,259 @@
+{
+  "status": "PASS_REVIEW_REQUIRED",
+  "phase": "owners",
+  "environment": "TEST",
+  "runtime": "DOCKER_REAL_SERVICES_POSTGRESQL",
+  "startedAt": "2026-11-09T13:45:32.940196+00:00",
+  "backendSha": "cb9c805200bf539596c29210b93fe5eeefe1f8b5",
+  "ownerSha": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+  "composeProject": "khoa-backlog-w9-20261109",
+  "checks": [
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "login",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "login",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "owner progress -> user /internal/v1/users/2bcac686-4886-4d15-b062-7cd4feaecc55/learning-setup HTTP 200",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "Progress reads real User setup",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "owner progress -> content /internal/v1/courses/10000000-0000-4000-8000-000000000001/context HTTP 200",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "denominator includes published and draft Lessons",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "owner progress -> content /internal/v1/courses/contexts HTTP 200",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "owner progress -> content /internal/v1/courses/contexts HTTP 200",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "context pagination stable",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "owner progress -> user /internal/v1/learners/cohort HTTP 200",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "patchUser",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "owner progress -> user /internal/v1/learners/cohort HTTP 200",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "cohort includes BLOCKED Learner",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "patchUser",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "owner progress -> user /internal/v1/learners/cohort HTTP 200",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "global Learner count independent of filter",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "owner progress -> user /internal/v1/learners/cohort HTTP 200",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "owner progress -> user /internal/v1/learners/cohort HTTP 200",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "cohort paging stable",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "owner progress -> user /internal/v1/learners/cohort HTTP 400",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "owner progress -> content /internal/v1/courses/not-a-uuid/context HTTP 400",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "owner progress -> content /internal/v1/courses/2565753f-27a5-4161-a770-ffd85d0008c5/context HTTP 404",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "owner api -> user /internal/v1/learners/cohort HTTP 403",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "owner api -> content /internal/v1/courses/contexts HTTP 403",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "owner progress -> content /internal/v1/lessons/870235b2-7f81-4a9e-948d-192169157ae3/context HTTP 403",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "owner assessment -> content /internal/v1/lessons/870235b2-7f81-4a9e-948d-192169157ae3/context HTTP 200",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "Assessment reads correct Lesson owner context",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "owner progress -> content /internal/v1/courses/10000000-0000-4000-8000-000000000001/context HTTP 401",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "GET /api/v1/me/progress",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "real Progress denominator from Content",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "GET /api/v1/me/dashboard",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "real Dashboard reads User setup",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "GET /api/v1/me/progress",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "empty Course progress is null",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "GET /api/v1/me/history",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "no fabricated event history",
+      "expected": true,
+      "actual": true
+    }
+  ],
+  "images": {
+    "user": "sha256:27128e2867ba47334471f7920978a6b505f654b1b745848c0d1d155d059c9c00",
+    "content": "sha256:5b457423b065104c21f72d93f4b1077a0f6e2b038958fb62541e5c1d73001383",
+    "api": "sha256:d7eb3d06a659425654d2560945800598c683e68c634c8045564c26515ff6753a",
+    "assessment-live": "sha256:98ea93c4d1fd59a0cbc8ae41991f583d9755ba06b8bf269032474ee93903da66",
+    "progress-live": "sha256:dedad6eaf56e654d240bc7c6fd49b3c75c1540299ccf0af60c2d383799c76adf"
+  },
+  "publicOperations": [
+    "getCsrf",
+    "login",
+    "patchUser"
+  ],
+  "notCovered": [
+    "non-empty event projection/Kafka E2E",
+    "Statistics consumer not implemented by owner",
+    "Huy peer acceptance"
+  ],
+  "fixtures": {
+    "userId": "2bcac686-4886-4d15-b062-7cd4feaecc55",
+    "otherUserId": "bf66fbed-2641-4711-854f-343f276eabb2",
+    "courseId": "10000000-0000-4000-8000-000000000001",
+    "levelId": "10000000-0000-4000-8000-000000000002",
+    "emptyCourseId": "663efee2-d3b9-41aa-929e-2e37eae1ec69",
+    "moduleId": "70713596-5239-432a-8e1a-6300f3f84417",
+    "lessonId": "870235b2-7f81-4a9e-948d-192169157ae3",
+    "assessmentId": "a927e7e6-077f-4eef-9f34-3871edec5669",
+    "questionId": "4b71d5ec-ee9f-49fa-a6f4-4989d9622554",
+    "vocabularyIds": [
+      "916d01dd-4782-40db-b2e4-df1f7ccd3431",
+      "34b6cadf-6ef7-47b9-9ab8-9c44309ada66"
+    ],
+    "draftLessonId": "673f1584-0ac4-42d5-84a7-59329c68dec0",
+    "raceLessonId": "03b0449e-eb68-42f4-9300-dce746b8c1da"
+  },
+  "finishedAt": "2026-11-09T13:46:18.549800+00:00"
+}
