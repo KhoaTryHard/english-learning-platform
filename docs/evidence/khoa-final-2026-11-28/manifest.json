@@ -1,0 +1,148 @@
+{
+  "status": "KHOA_TECHNICAL_PASS_REVIEW_AND_EXTERNAL_SYNC_PENDING",
+  "recordedAt": "2026-11-28T12:27:14.516457+00:00",
+  "testedBackendSha": "de8fe13addba487aa9ea652544a21ba99e243734",
+  "integratedDevelopSha": "7119946b49d63ea43e98adac64917aa0679267bf",
+  "treeEquivalence": "Backend test snapshot has exactly the merged develop Git tree; handoff adds only historical review artifacts.",
+  "serviceTrees": {
+    "backend/services/user-service": "6b2298167f2ce1da595133957540cbb2a65aecf1",
+    "backend/services/learning-content-service": "8850af6dfccf3a230ef5b9ea5e99f52ec52269ae",
+    "backend/api-gateway": "c5012a9f74c156be70f319895a32ccccf1f42bdb",
+    "backend/services/assessment-service": "d7df20f4dec71e1d6753580f31a826a12ec55781",
+    "backend/services/progress-service": "dd0052c808c298a81589ef4724e86ad70dfd1f5d",
+    "frontend/src": "d7e651afb802891d680ef36e998d0c8eea450194"
+  },
+  "runtime": "DOCKER TEST, real five services/four PostgreSQL databases, Kafka disabled",
+  "project": "khoa-backlog-final-20261128",
+  "images": {
+    "user": "sha256:b2ca92bd6ac9ad7f78bf1a999861292ebcfbf19688f1b853352f575759e61ce8",
+    "content": "sha256:f97bd2d62685859e7d0495d6d3202a7f8047a9562bc7b2bd475dbe03331d658a",
+    "api": "sha256:ad536ab13bf645da62b4afb0cff6cf1d32358b8422e69bd78896faf4d44d0c67",
+    "assessment-live": "sha256:9b5671cedc2481965173723a6de6a00a47650bf25fdd7cba43fc5fd3ad89b323",
+    "progress-live": "sha256:0222d2d26f54d2252ac2e6d7afb85112a173b872d180e4fb95bb36dd7917610b"
+  },
+  "maven": {
+    "passed": 63,
+    "skipped": 1,
+    "failed": 0,
+    "scope": "SDK repeats by service; PostgreSQL Testcontainers and explicit HTTP doubles; readiness opt-in run separately"
+  },
+  "toolingTests": 9,
+  "reports": [
+    {
+      "file": "maven-summary.json",
+      "sha256": "3a311509d5f7b4a2e7f80942235945eabfbe989b02c8e72361940a00ddbf10c4",
+      "status": "PASS"
+    },
+    {
+      "file": "core.json",
+      "sha256": "77ba5e0f601cd829d3f1b3280eb0b581073db20572b3b84c16516fece91c17cb",
+      "status": "PASS_REVIEW_REQUIRED"
+    },
+    {
+      "file": "owners.json",
+      "sha256": "782214faf243faac9b7d8a904a6012e0ebd1f02f794b01eb49bb6fd3526d30ce",
+      "status": "PASS_REVIEW_REQUIRED"
+    },
+    {
+      "file": "gateway.json",
+      "sha256": "9964b0f9c9c7233e5ec59f0be1841fee5b3ebdc3f3698d5cdfafc45b51179f56",
+      "status": "PASS_REVIEW_REQUIRED"
+    },
+    {
+      "file": "faults.json",
+      "sha256": "a885c5274b18382e8ff60c54075c4f09b4e38aa6559ca64578e3cc675122a92b",
+      "status": "PASS_REVIEW_REQUIRED"
+    },
+    {
+      "file": "audit.json",
+      "sha256": "d02ba55bb7170f2eb5495bf26df2fa3bf148797e053c698b475815d1884f2654",
+      "status": "PASS_REVIEW_REQUIRED"
+    },
+    {
+      "file": "readiness-prepare.json",
+      "sha256": "5dd646a6cdbb4cc568ccc503c285281638e3d36138c60e4e7cebd4b08448845b",
+      "status": "FIXTURES_CREATED_LIVE_NOT_RUN"
+    },
+    {
+      "file": "readiness-seed.json",
+      "sha256": "df3906209f77548d7628416e71d3484bbed216913e07f788873abcc07ff1b719",
+      "status": "SEED_READY_REVIEW_REQUIRED"
+    },
+    {
+      "file": "readiness-online.json",
+      "sha256": "9d77a52ab4a543bb321e619f059db593c71e713c8929aa8830e1937ebcf0251d",
+      "status": "PHASE_PASS_REVIEW_REQUIRED"
+    },
+    {
+      "file": "readiness-service-down.json",
+      "sha256": "552347b7f352f83e41d5a568ceee79d1515a85e1bb487cea3bfd2945cca310ed",
+      "status": "PHASE_PASS_REVIEW_REQUIRED"
+    },
+    {
+      "file": "readiness-database-down.json",
+      "sha256": "ee7772555cad4bfe44124f3e0527cac15fd7e47ba9256bfdb88c824cd3d1331d",
+      "status": "PHASE_PASS_REVIEW_REQUIRED"
+    },
+    {
+      "file": "readiness-recovery.json",
+      "sha256": "991000f789947b87f507657597b96b0a41bc4fd6e86882d3221704eefc11326c",
+      "status": "PHASE_PASS_REVIEW_REQUIRED"
+    },
+    {
+      "file": "retry-security.json",
+      "sha256": "96763fa3005e03b500efb8b2401fdf392611ae8f064faf1dd59e0ceb2a1cca4a",
+      "status": "PASS_REVIEW_REQUIRED"
+    },
+    {
+      "file": "session.json",
+      "sha256": "8bc6183db59a4ea192771951c77a330e0fb88bbb3a63add10aeb28089a588230",
+      "status": "PASS"
+    },
+    {
+      "file": "operations.json",
+      "sha256": "cfde2d28619d8f28f099db280d93e9b4315efa3453db92340fb3bfc21ff11226",
+      "status": "PASS"
+    },
+    {
+      "file": "post-restart.json",
+      "sha256": "a7c23f2dfca4d072a7ef0adcb147ddd1392406cd4fde1c2cf29539df217165e5",
+      "status": "PASS_REVIEW_REQUIRED"
+    },
+    {
+      "file": "environment-history.json",
+      "sha256": "1a6803706746c17c7ade231b94923d43efbaa0886aecaa7dac7b71fabc0bed5d"
+    },
+    {
+      "file": "frontend.json",
+      "sha256": "57b5fe54896db6631555d066be705c7832060fe6094fb6ae69d789710cb696f1"
+    },
+    {
+      "file": "browser-w7-live.json",
+      "sha256": "09fb6870cf2d81e3f865653ca295e649765d8e883c464488c6d8292981e4e1e1"
+    },
+    {
+      "file": "browser-regressions-live.json",
+      "sha256": "70563d152240673aded3fa6173e12e9420781de8e3bbefd2ac547a4cb5ab344f"
+    },
+    {
+      "file": "demo-runtime.json",
+      "sha256": "402676e20bbe9d93ac148a2fcefbf4c003861af9befe680db52cbd55d339e159"
+    }
+  ],
+  "runtimeStopped": true,
+  "volumesPreserved": true,
+  "notCovered": [
+    "Kafka broker fault/replay/DLT",
+    "#36 Statistics implementation and #31 consumer acceptance",
+    "full group QA40",
+    "production HTTPS/deployment"
+  ],
+  "checksumScope": "UTF-8 LF committed artifact bytes; verify against Git blobs before publication",
+  "demoVersion": "7e510250fe70d9f4e1bb919d7f0cabd82c4ca6aa",
+  "browserLive": {
+    "w7": 6,
+    "regressions49and52": 4,
+    "note": "49 uses browser fault injection; no double-counting prior MOCK tests"
+  }
+}

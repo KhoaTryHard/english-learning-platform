@@ -1,0 +1,197 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "pr": 22,
+      "sha": "f386170de0a788d2e21f1ece9b782aaa0cc52f47",
+      "scope": "BROWSER_MOCK",
+      "tests": [
+        {
+          "title": "register → login → setup → lesson → Exercise/Result, save vocabulary and retake",
+          "project": "desktop",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 8148
+        },
+        {
+          "title": "Quiz deadline and saved FALSE survive refresh and logout/login",
+          "project": "desktop",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 5501
+        },
+        {
+          "title": "responsive screens and assets have no horizontal overflow",
+          "project": "desktop",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 4090
+        },
+        {
+          "title": "register → login → setup → lesson → Exercise/Result, save vocabulary and retake",
+          "project": "mobile",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 6985
+        },
+        {
+          "title": "Quiz deadline and saved FALSE survive refresh and logout/login",
+          "project": "mobile",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 4231
+        },
+        {
+          "title": "responsive screens and assets have no horizontal overflow",
+          "project": "mobile",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 3741
+        }
+      ],
+      "startedAt": "2026-11-09T15:56:36.966Z",
+      "status": "PASS"
+    },
+    {
+      "pr": 22,
+      "sha": "f386170de0a788d2e21f1ece9b782aaa0cc52f47",
+      "scope": "BROWSER_LIVE",
+      "tests": [
+        {
+          "title": "LIVE: Register → Login → Profile → Course/Level → Lesson → save/remove word → Logout",
+          "project": "live-desktop",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 7517
+        },
+        {
+          "title": "LIVE: Register → Login → Profile → Course/Level → Lesson → save/remove word → Logout",
+          "project": "live-mobile",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 4709
+        }
+      ],
+      "startedAt": "2026-11-09T16:07:05.542Z",
+      "status": "PASS"
+    },
+    {
+      "pr": 46,
+      "sha": "1e11c6d700a5f5e118f086ca23f9c5c66a3be031",
+      "scope": "BROWSER_MOCK",
+      "tests": [
+        {
+          "title": "Admin routes, draft CRUD and Learner boundary on desktop/mobile (MOCK)",
+          "project": "desktop",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 10256
+        },
+        {
+          "title": "Admin routes, draft CRUD and Learner boundary on desktop/mobile (MOCK)",
+          "project": "mobile",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 5515
+        },
+        {
+          "title": "register → login → setup → lesson → Exercise/Result, save vocabulary and retake",
+          "project": "desktop",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 12760
+        },
+        {
+          "title": "Quiz deadline and saved FALSE survive refresh and logout/login",
+          "project": "desktop",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 7242
+        },
+        {
+          "title": "responsive screens and assets have no horizontal overflow",
+          "project": "desktop",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 6096
+        },
+        {
+          "title": "register → login → setup → lesson → Exercise/Result, save vocabulary and retake",
+          "project": "mobile",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 8102
+        },
+        {
+          "title": "Quiz deadline and saved FALSE survive refresh and logout/login",
+          "project": "mobile",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 5596
+        },
+        {
+          "title": "responsive screens and assets have no horizontal overflow",
+          "project": "mobile",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 4873
+        }
+      ],
+      "startedAt": "2026-11-09T15:58:20.017Z",
+      "status": "PASS"
+    },
+    {
+      "pr": 46,
+      "sha": "1e11c6d700a5f5e118f086ca23f9c5c66a3be031",
+      "scope": "BROWSER_LIVE",
+      "tests": [
+        {
+          "title": "LIVE W7: Admin User, hierarchy, resources and atomic XLSX/DOCX import",
+          "project": "live-desktop",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 22022
+        },
+        {
+          "title": "LIVE W7: source-backed vocabulary, setup retention, Exercise and timed QUIZ resume/retake",
+          "project": "live-desktop",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 32639
+        },
+        {
+          "title": "LIVE W7: source-backed vocabulary, setup retention, Exercise and timed TEST resume/retake",
+          "project": "live-desktop",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 30537
+        },
+        {
+          "title": "LIVE W7: Admin User, hierarchy, resources and atomic XLSX/DOCX import",
+          "project": "live-mobile",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 13715
+        },
+        {
+          "title": "LIVE W7: source-backed vocabulary, setup retention, Exercise and timed QUIZ resume/retake",
+          "project": "live-mobile",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 29908
+        },
+        {
+          "title": "LIVE W7: source-backed vocabulary, setup retention, Exercise and timed TEST resume/retake",
+          "project": "live-mobile",
+          "expected": "passed",
+          "actual": "passed",
+          "durationMs": 31416
+        }
+      ],
+      "startedAt": "2026-11-09T16:00:20.414Z",
+      "status": "PASS"
+    }
+  ],
+  "liveEnvironment": "Normal Vite (no demo), Gateway/User/Content/Assessment/Progress, four PostgreSQL DBs, Kafka4.0.0.",
+  "firstSliceScopeNote": "PR22 original attachment mentions readiness MOCK historically. This run uses real Assessment413a929; only the owner flows actually exercised by first-slice are claimed."
+}

@@ -1,0 +1,142 @@
+{
+  "status": "PASS",
+  "scope": "HTTP LIVE + PostgreSQL Content-owner fault injection",
+  "startedAt": "2026-11-09T16:04:27.730209+00:00",
+  "project": "khoa-backlog-review-20261109",
+  "sourceSha": "af92253a95cf39fbdbfcbada2cfdd47fd413534d",
+  "checks": [
+    {
+      "case": "fault target belongs to task TEST project",
+      "expected": "khoa-backlog-review-20261109",
+      "actual": "khoa-backlog-review-20261109"
+    },
+    {
+      "case": "fault target is Content owner DB",
+      "expected": "content-db",
+      "actual": "content-db"
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "login",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/admin/modules",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/admin/lessons",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/admin/imports/vocabulary",
+      "expected": 409,
+      "actual": 409,
+      "errorCode": "IMPORT_DUPLICATE"
+    },
+    {
+      "case": "both INSERT statements reached real PostgreSQL",
+      "expected": "2",
+      "actual": "2"
+    },
+    {
+      "case": "rejected import createdCount",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "case": "rejected import createdIds",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "case": "GET /api/v1/admin/vocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "first inserted row was rolled back",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "case": "POST /api/v1/admin/imports/vocabulary",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "recovery creates both rows",
+      "expected": 2,
+      "actual": 2
+    },
+    {
+      "case": "GET /api/v1/admin/vocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "recovery persisted both rows",
+      "expected": 2,
+      "actual": 2
+    },
+    {
+      "case": "POST /api/v1/admin/imports/vocabulary",
+      "expected": 503,
+      "actual": 503,
+      "errorCode": "DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "case": "GET /api/v1/admin/vocabulary",
+      "expected": 200,
+      "actual": 503,
+      "errorCode": "DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "case": "GET /api/v1/admin/vocabulary",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "DB outage and recovery preserved count",
+      "expected": 2,
+      "actual": 2
+    },
+    {
+      "case": "ephemeral trigger removed",
+      "expected": "0",
+      "actual": "0"
+    }
+  ],
+  "publicOperations": [
+    "getCsrf",
+    "login"
+  ],
+  "fixture": {
+    "courseId": "10000000-0000-4000-8000-000000000001",
+    "moduleId": "01bd19f5-4bfc-4a2e-87cd-d3e0245a0a16",
+    "lessonId": "04ad09fe-75d6-4b7c-88f7-e6200ecf4d65",
+    "file": "docs/fixtures/vocabulary-valid.xlsx"
+  },
+  "finishedAt": "2026-11-09T16:04:46.033336+00:00"
+}

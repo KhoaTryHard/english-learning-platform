@@ -1,0 +1,847 @@
+{
+  "status": "PASS",
+  "stats": {
+    "startTime": "2026-11-28T12:32:54.774Z",
+    "duration": 318831.597,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "applicationBaseSha": "7119946b49d63ea43e98adac64917aa0679267bf",
+  "demoVersion": "7e510250fe70d9f4e1bb919d7f0cabd82c4ca6aa",
+  "scope": "LIVE five services/four PostgreSQL/Kafka; response-loss abort injected at browser for retry case",
+  "cases": [
+    {
+      "title": "LIVE W7: Admin User, hierarchy, resources and atomic XLSX/DOCX import",
+      "project": "live-desktop",
+      "status": "PASS",
+      "startedAt": "2026-11-28T12:32:55.463Z",
+      "durationMs": 32484,
+      "evidence": {
+        "HTTP statuses (no credentials)": [
+          {
+            "method": "POST",
+            "path": "/auth/login",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "path": "/auth/register",
+            "status": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/courses/10000000-0000-4000-8000-000000000001",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/modules",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/lessons",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/lessons/18fad664-9edf-4f8f-ba2e-31d60328376e",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments",
+            "status": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments/fe3918e4-5691-43aa-a822-ade18961fa88/questions",
+            "status": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/assessments/fe3918e4-5691-43aa-a822-ade18961fa88",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/lessons/18fad664-9edf-4f8f-ba2e-31d60328376e",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/vocabulary",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/vocabulary",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/lessons",
+            "status": 200
+          }
+        ]
+      }
+    },
+    {
+      "title": "LIVE W7: source-backed vocabulary, setup retention, Exercise and timed QUIZ resume/retake",
+      "project": "live-desktop",
+      "status": "PASS",
+      "startedAt": "2026-11-28T12:33:28.436Z",
+      "durationMs": 53648,
+      "evidence": {
+        "HTTP statuses (no credentials)": [
+          {
+            "method": "POST",
+            "path": "/auth/login",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/courses/10000000-0000-4000-8000-000000000001",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/courses/20000000-0000-4000-8000-000000000001",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/modules",
+            "status": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/modules/17c6dbce-9936-4836-b0c3-a92878582303",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/lessons",
+            "status": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments",
+            "status": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments/1c3a5380-abbb-4c25-889c-fe93659a7efe/questions",
+            "status": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/assessments/1c3a5380-abbb-4c25-889c-fe93659a7efe",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/lessons/6aa2a2f4-6162-4b85-bb51-c7cf1c210486",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/auth/csrf",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/vocabulary/9bfc484f-bffa-428b-aeb8-9a43713e84b2",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments",
+            "status": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments/11a28191-540d-499c-8235-2b12c07f6310/questions",
+            "status": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/assessments/11a28191-540d-499c-8235-2b12c07f6310",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/users",
+            "status": 403
+          },
+          {
+            "method": "PUT",
+            "path": "/me/vocabulary/9bfc484f-bffa-428b-aeb8-9a43713e84b2",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "path": "/me/vocabulary/9bfc484f-bffa-428b-aeb8-9a43713e84b2",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/vocabulary",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/vocabulary/9bfc484f-bffa-428b-aeb8-9a43713e84b2",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/lessons/6aa2a2f4-6162-4b85-bb51-c7cf1c210486",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/vocabulary/9bfc484f-bffa-428b-aeb8-9a43713e84b2",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "path": "/me/learning-setup",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/lessons/6aa2a2f4-6162-4b85-bb51-c7cf1c210486",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/progress",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/progress",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/progress",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/progress",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/progress",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/progress",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/progress",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/progress",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/history",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/progress",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/attempts/a2512336-0d60-451c-8885-8cab7a1f7e57",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/attempts/a2512336-0d60-451c-8885-8cab7a1f7e57",
+            "status": 200
+          }
+        ]
+      }
+    },
+    {
+      "title": "LIVE W7: source-backed vocabulary, setup retention, Exercise and timed TEST resume/retake",
+      "project": "live-desktop",
+      "status": "PASS",
+      "startedAt": "2026-11-28T12:34:22.148Z",
+      "durationMs": 65471,
+      "evidence": {
+        "HTTP statuses (no credentials)": [
+          {
+            "method": "POST",
+            "path": "/auth/login",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/courses/10000000-0000-4000-8000-000000000001",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/courses/20000000-0000-4000-8000-000000000001",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/modules",
+            "status": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/modules/0eb27955-83e3-44d1-b36d-1fc47026c41b",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/lessons",
+            "status": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments",
+            "status": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments/117273ce-5327-49f9-b09e-56e4c24111a9/questions",
+            "status": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/assessments/117273ce-5327-49f9-b09e-56e4c24111a9",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/lessons/d97b3efb-cfe7-4787-b1e9-b7e9a2cf6d67",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/auth/csrf",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/vocabulary/6bb3009f-cb92-4bdd-b99b-d2920fad242c",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments",
+            "status": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments/9cda64e4-1467-47a6-8d0c-091b24efe72e/questions",
+            "status": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/assessments/9cda64e4-1467-47a6-8d0c-091b24efe72e",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/users",
+            "status": 403
+          },
+          {
+            "method": "PUT",
+            "path": "/me/vocabulary/6bb3009f-cb92-4bdd-b99b-d2920fad242c",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "path": "/me/vocabulary/6bb3009f-cb92-4bdd-b99b-d2920fad242c",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/vocabulary",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/vocabulary/6bb3009f-cb92-4bdd-b99b-d2920fad242c",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/lessons/d97b3efb-cfe7-4787-b1e9-b7e9a2cf6d67",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/vocabulary/6bb3009f-cb92-4bdd-b99b-d2920fad242c",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "path": "/me/learning-setup",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/lessons/d97b3efb-cfe7-4787-b1e9-b7e9a2cf6d67",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/progress",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/history",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/progress",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/attempts/ddfa7ba1-fcbe-49dc-be8c-5fbb9ddc738f",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/attempts/ddfa7ba1-fcbe-49dc-be8c-5fbb9ddc738f",
+            "status": 200
+          }
+        ]
+      }
+    },
+    {
+      "title": "LIVE W7: Admin User, hierarchy, resources and atomic XLSX/DOCX import",
+      "project": "live-mobile",
+      "status": "PASS",
+      "startedAt": "2026-11-28T12:35:33.396Z",
+      "durationMs": 65967,
+      "evidence": {
+        "HTTP statuses (no credentials)": [
+          {
+            "method": "POST",
+            "path": "/auth/login",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "path": "/auth/register",
+            "status": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/courses/10000000-0000-4000-8000-000000000001",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/modules",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/lessons",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/lessons/c835fc17-0423-4c0e-8ad3-de5c293bc68c",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments",
+            "status": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments/fba77082-9326-45f1-ad21-e7a9d44b117e/questions",
+            "status": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/assessments/fba77082-9326-45f1-ad21-e7a9d44b117e",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/lessons/c835fc17-0423-4c0e-8ad3-de5c293bc68c",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/vocabulary",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/vocabulary",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/lessons",
+            "status": 200
+          }
+        ]
+      }
+    },
+    {
+      "title": "LIVE W7: source-backed vocabulary, setup retention, Exercise and timed QUIZ resume/retake",
+      "project": "live-mobile",
+      "status": "PASS",
+      "startedAt": "2026-11-28T12:36:39.746Z",
+      "durationMs": 48741,
+      "evidence": {
+        "HTTP statuses (no credentials)": [
+          {
+            "method": "POST",
+            "path": "/auth/login",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/courses/10000000-0000-4000-8000-000000000001",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/courses/20000000-0000-4000-8000-000000000001",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/modules",
+            "status": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/modules/f888948b-6fb7-4860-b344-02ebd6b5e3e5",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/lessons",
+            "status": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments",
+            "status": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments/e233b21a-b832-4f66-bb8c-0fd2ef3472a9/questions",
+            "status": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/assessments/e233b21a-b832-4f66-bb8c-0fd2ef3472a9",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/lessons/3ec09963-8aa1-4ec9-9584-3c116310c1bb",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/auth/csrf",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/vocabulary/757e53c8-edef-462f-b913-53958db2684f",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments",
+            "status": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments/50fd6386-5620-4ecf-b756-11ca50f51166/questions",
+            "status": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/assessments/50fd6386-5620-4ecf-b756-11ca50f51166",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/users",
+            "status": 403
+          },
+          {
+            "method": "PUT",
+            "path": "/me/vocabulary/757e53c8-edef-462f-b913-53958db2684f",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "path": "/me/vocabulary/757e53c8-edef-462f-b913-53958db2684f",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/vocabulary",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/vocabulary/757e53c8-edef-462f-b913-53958db2684f",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/lessons/3ec09963-8aa1-4ec9-9584-3c116310c1bb",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/vocabulary/757e53c8-edef-462f-b913-53958db2684f",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "path": "/me/learning-setup",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/lessons/3ec09963-8aa1-4ec9-9584-3c116310c1bb",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/progress",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/history",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/history",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/history",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/progress",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/attempts/82484932-5e26-409c-a24a-30eb247e84cb",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/attempts/82484932-5e26-409c-a24a-30eb247e84cb",
+            "status": 200
+          }
+        ]
+      }
+    },
+    {
+      "title": "LIVE W7: source-backed vocabulary, setup retention, Exercise and timed TEST resume/retake",
+      "project": "live-mobile",
+      "status": "PASS",
+      "startedAt": "2026-11-28T12:37:28.529Z",
+      "durationMs": 43962,
+      "evidence": {
+        "HTTP statuses (no credentials)": [
+          {
+            "method": "POST",
+            "path": "/auth/login",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/courses/10000000-0000-4000-8000-000000000001",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/courses/20000000-0000-4000-8000-000000000001",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/modules",
+            "status": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/modules/d16cb6e8-c2fc-443b-8240-d34955e6d813",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/lessons",
+            "status": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments",
+            "status": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments/e2850ac4-7a0a-44a9-a487-7ee21134c949/questions",
+            "status": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/assessments/e2850ac4-7a0a-44a9-a487-7ee21134c949",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/lessons/6c2eda7f-331d-4528-b659-c8f7dedc32e8",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/auth/csrf",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/vocabulary/6b9f8a42-8a0b-41c7-a665-d7cc474038d3",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments",
+            "status": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments/0a2cdb7a-06d0-43ba-a402-4962b9211424/questions",
+            "status": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/assessments/0a2cdb7a-06d0-43ba-a402-4962b9211424",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/admin/users",
+            "status": 403
+          },
+          {
+            "method": "PUT",
+            "path": "/me/vocabulary/6b9f8a42-8a0b-41c7-a665-d7cc474038d3",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "path": "/me/vocabulary/6b9f8a42-8a0b-41c7-a665-d7cc474038d3",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/vocabulary",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/vocabulary/6b9f8a42-8a0b-41c7-a665-d7cc474038d3",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/lessons/6c2eda7f-331d-4528-b659-c8f7dedc32e8",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/vocabulary/6b9f8a42-8a0b-41c7-a665-d7cc474038d3",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "path": "/me/learning-setup",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/lessons/6c2eda7f-331d-4528-b659-c8f7dedc32e8",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/progress",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/progress",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/progress",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/history",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/me/progress",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/attempts/e6e2f642-ab00-4832-9429-f8f06fc3dddf",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/attempts/e6e2f642-ab00-4832-9429-f8f06fc3dddf",
+            "status": 200
+          }
+        ]
+      }
+    }
+  ]
+}

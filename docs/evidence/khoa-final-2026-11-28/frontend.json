@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "sourceSha": "167f26cd1e8301a57f3de1ff41db32a13fc6f509",
+  "commands": [
+    "npm ci --no-audit --no-fund",
+    "npm run check",
+    "npx playwright test --config playwright.config.ts"
+  ],
+  "unitUi": {
+    "passed": 56,
+    "files": 15,
+    "scope": "Vitest/MSW, includes regressions49/52; not LIVE"
+  },
+  "lintBuildContract": "PASS",
+  "browserMock": {
+    "startTime": "2026-11-28T10:58:28.615Z",
+    "duration": 28357.032,
+    "expected": 8,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "logHashes": {
+    "final-frontend-check.log": "b7764e34f82c91bb23dbbf299798807b487cc5f3a7a3e0ef06dec482476802f1",
+    "final-browser-mock.log": "48a0a09909843bd27ff116075b0301b0e7e57c7be04bdab43eace9cb9f14cfaf"
+  }
+}

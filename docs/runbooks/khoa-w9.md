@@ -1,17 +1,19 @@
 # User/Content/Gateway — regression và bàn giao W9 (#41)
 
-Runbook hiện hành ngày 09/11/2026. Khoa phụ trách User/Content/Gateway; Huy phụ
+Runbook hiện hành ngày 28/11/2026. Khoa phụ trách User/Content/Gateway; Huy phụ
 trách Assessment/Progress/Kafka; Hưng phụ trách frontend và QA #40. Public API v0.1,
 internal auth 0.1.1; User/Gateway triển khai và rollback theo cặp theo
 [baseline đã ghi nhận](../contracts/internal-auth-decision-2026-11-01.md).
 
 ## Chọn source và chuẩn bị
 
-Dùng checkout sạch có PR #45 đã merge vào develop (`663b482`), hoặc nhánh #41
-phát triển từ phiên bản đó. Ghi SHA đầy đủ của checkout Khoa và checkout Huy.
-Assessment/Progress candidate `413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd` gồm
-PR #44 DB503 fix; review/merge PR #43/#44 vẫn theo owner. Không thay candidate
-bằng head cũ thiếu fix khi chạy database-down.
+Dùng checkout sạch từ develop có PR #43 đã merge:
+`7119946b49d63ea43e98adac64917aa0679267bf`. Assessment/Progress đã gồm PR #44
+DB503 fix. Có thể dùng cùng checkout làm HuySourceRoot; ghi SHA đầy đủ và
+service tree IDs. Lượt Docker ngày 28/11 dùng `de8fe13addba487aa9ea652544a21ba99e243734`,
+có Git tree bằng merge develop; xem [manifest W9](../evidence/khoa-final-2026-11-28/manifest.json).
+Quyết định chấp nhận physical V1/JSON/count projection chỉ áp dụng foundation;
+#20 tiếp tục đối chiếu dictionary/ERD. Không thay bằng head cũ thiếu DB503 fix.
 
 Cần Docker Engine/Compose hỗ trợ `!override`, PowerShell 7, JDK25, OpenSSL và
 Python3.12. Dùng Python venv riêng nếu chưa có dependencies:

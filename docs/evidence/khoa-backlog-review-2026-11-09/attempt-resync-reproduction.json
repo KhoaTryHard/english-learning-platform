@@ -1,0 +1,26 @@
+{
+  "status": "CONFIRMED_DEFECT",
+  "issue": 49,
+  "owner": "LeTHung",
+  "priority": "P1",
+  "scope": "React/MSW HTTP doubles, not LIVE DB outage",
+  "blob": "7dd9f0d46c6152bae9b49b4cf198047dbc232eaf",
+  "results": [
+    {
+      "pr": 22,
+      "expected": "local answer remains visibly unsaved until PUT ACK",
+      "actual": "UI reports saved; radio selected; server answers=[]",
+      "regressionStatus": "FAIL",
+      "localLogSha256": "a75c6e32a85793ca39ceb8a2c121c1956eec46a695e388d1e24a4daed529b09a"
+    },
+    {
+      "pr": 46,
+      "expected": "local answer remains visibly unsaved until PUT ACK",
+      "actual": "UI reports saved; radio selected; server answers=[]",
+      "regressionStatus": "FAIL",
+      "localLogSha256": "e2d036453985270e736046162f3b4ceea5b1007bba3da976e188181891cfefea"
+    }
+  ],
+  "inheritedByPr47": true,
+  "uniqueDefects": 1
+}

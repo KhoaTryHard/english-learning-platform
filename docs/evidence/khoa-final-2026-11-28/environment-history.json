@@ -1,0 +1,19 @@
+{
+  "status": "ENVIRONMENT_FAILURES_RESOLVED",
+  "attempts": [
+    {
+      "run": "1720",
+      "phase": "Maven preflight",
+      "cause": "JAVA_HOME pointed at the parent JDK directory; no application tests ran.",
+      "resolution": "Use jdk-25.0.5+8 directory."
+    },
+    {
+      "run": "1720-r2",
+      "phase": "Compose startup",
+      "cause": "Docker default address pools exhausted by preserved historical networks.",
+      "resolution": "Create five dedicated TEST networks with explicit, nonoverlapping 10.240.10.0/24 through 10.240.14.0/24 subnets; no old networks/volumes removed.",
+      "applicationTests": "63 PASS, 1 opt-in skipped before startup failure"
+    }
+  ],
+  "successfulRun": "1720-r3"
+}

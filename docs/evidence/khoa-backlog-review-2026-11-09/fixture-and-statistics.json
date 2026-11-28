@@ -1,0 +1,117 @@
+{
+  "checks": [
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "login",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "getCsrf",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "PATCH /api/v1/admin/courses/10000000-0000-4000-8000-000000000001",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/admin/modules",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "PATCH /api/v1/admin/modules/6bff5aa5-4d72-41e8-999d-50262fd4065d",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/admin/lessons",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/admin/assessments",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/admin/assessments/0bcea93e-f4db-406d-9662-6c58b4f9806e/questions",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "PATCH /api/v1/admin/assessments/0bcea93e-f4db-406d-9662-6c58b4f9806e",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "patchLesson",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "POST /api/v1/admin/imports/vocabulary",
+      "expected": 201,
+      "actual": 201,
+      "errorCode": null
+    },
+    {
+      "case": "PATCH /api/v1/admin/vocabulary/018b3cac-63ba-4a58-8dc2-29d31f36e4cb",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "PATCH /api/v1/admin/vocabulary/67daa66e-9ae3-4c09-96a4-9d4c9ff0faf1",
+      "expected": 200,
+      "actual": 200,
+      "errorCode": null
+    },
+    {
+      "case": "GET /api/v1/admin/statistics",
+      "expected": 404,
+      "actual": 404,
+      "errorCode": "NOT_FOUND"
+    }
+  ],
+  "publicOperations": [
+    "getCsrf",
+    "login",
+    "patchLesson"
+  ],
+  "status": "PASS",
+  "scope": "fixture via owner APIs and Statistics absence probe",
+  "fixture": {
+    "courseId": "10000000-0000-4000-8000-000000000001",
+    "moduleId": "6bff5aa5-4d72-41e8-999d-50262fd4065d",
+    "lessonId": "e7e5b97b-d54d-4863-96b2-705721e6473e",
+    "exerciseId": "0bcea93e-f4db-406d-9662-6c58b4f9806e",
+    "questionId": "ebe5a05e-38ae-48fe-81d8-f5133d006587",
+    "vocabularyIds": [
+      "018b3cac-63ba-4a58-8dc2-29d31f36e4cb",
+      "67daa66e-9ae3-4c09-96a4-9d4c9ff0faf1"
+    ]
+  },
+  "statistics": {
+    "expected": 404,
+    "actual": 404,
+    "meaning": "consumer absent at owner413a929; #36 remains BLOCKED"
+  }
+}

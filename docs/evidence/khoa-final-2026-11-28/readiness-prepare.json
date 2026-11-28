@@ -1,0 +1,143 @@
+{
+  "phase": "prepare",
+  "checkedAt": "2026-11-28T10:59:30.513903Z",
+  "backendSha": "de8fe13addba487aa9ea652544a21ba99e243734",
+  "assessment": {
+    "status": "NOT_PROVIDED_OR_NOT_EXERCISED"
+  },
+  "manifestSha256": "9cac93cc0cad0f95791093764b7056d29dcc748eab9dd297be6b78f513eae06a",
+  "scope": "Real User/Content/Gateway fixture preparation only; no Assessment requests",
+  "notCovered": [
+    "attempt retry/retake",
+    "Progress/Kafka",
+    "team contract approval"
+  ],
+  "checks": [
+    {
+      "expected": 200,
+      "case": "csrf",
+      "path": "/api/v1/auth/csrf",
+      "actual": 200,
+      "method": "GET"
+    },
+    {
+      "expected": 200,
+      "case": "login",
+      "path": "/api/v1/auth/login",
+      "actual": 200,
+      "method": "POST"
+    },
+    {
+      "expected": 200,
+      "case": "csrf",
+      "path": "/api/v1/auth/csrf",
+      "actual": 200,
+      "method": "GET"
+    },
+    {
+      "expected": 200,
+      "case": "publish course",
+      "path": "/api/v1/admin/courses/10000000-0000-4000-8000-000000000001",
+      "actual": 200,
+      "method": "PATCH"
+    },
+    {
+      "expected": 201,
+      "case": "create module",
+      "path": "/api/v1/admin/modules",
+      "actual": 201,
+      "method": "POST"
+    },
+    {
+      "expected": 200,
+      "case": "publish module",
+      "path": "/api/v1/admin/modules/0b7e16dc-b894-428f-a2cc-678fd708e3a2",
+      "actual": 200,
+      "method": "PATCH"
+    },
+    {
+      "expected": 201,
+      "case": "create missingMapping",
+      "path": "/api/v1/admin/lessons",
+      "actual": 201,
+      "method": "POST"
+    },
+    {
+      "expected": 201,
+      "case": "create notReady",
+      "path": "/api/v1/admin/lessons",
+      "actual": 201,
+      "method": "POST"
+    },
+    {
+      "expected": 201,
+      "case": "create ready",
+      "path": "/api/v1/admin/lessons",
+      "actual": 201,
+      "method": "POST"
+    },
+    {
+      "expected": 201,
+      "case": "create serviceDown",
+      "path": "/api/v1/admin/lessons",
+      "actual": 201,
+      "method": "POST"
+    },
+    {
+      "expected": 201,
+      "case": "create databaseDown",
+      "path": "/api/v1/admin/lessons",
+      "actual": 201,
+      "method": "POST"
+    },
+    {
+      "expected": 201,
+      "case": "create recovery",
+      "path": "/api/v1/admin/lessons",
+      "actual": 201,
+      "method": "POST"
+    }
+  ],
+  "preparedManifest": "D:\\University\\nam4_ki1\\QLDA\\.worktrees\\pr43-closeout\\.tools\\w9-final-20261128-1720-r3\\readiness-input.json.prepared.json",
+  "status": "FIXTURES_CREATED_LIVE_NOT_RUN",
+  "fixtureIds": {
+    "missingMapping": {
+      "lessonId": "68f0153f-77da-4549-bece-2dc85cbf75fd",
+      "exerciseId": null,
+      "questionCount": null
+    },
+    "notReady": {
+      "lessonId": "e8c2fe33-45ff-491c-a29b-61d4187458bf",
+      "exerciseId": null,
+      "questionCount": null
+    },
+    "ready": {
+      "lessonId": "a05bccfd-8f3b-4313-b1c1-36a794032323",
+      "exerciseId": null,
+      "questionCount": null
+    },
+    "serviceDown": {
+      "lessonId": "1f51fad1-1760-4063-992f-1d6b7102ea54",
+      "exerciseId": null,
+      "questionCount": null
+    },
+    "databaseDown": {
+      "lessonId": "8ee55ce1-1db6-403e-9a23-f4ea2bf07137",
+      "exerciseId": null,
+      "questionCount": null
+    },
+    "recovery": {
+      "lessonId": "f8d2aedb-ada9-4946-9185-85d18a32b5eb",
+      "exerciseId": null,
+      "questionCount": null
+    }
+  },
+  "runtimeMode": "DOCKER",
+  "contentAssessmentUrl": "http://assessment-live:8090",
+  "composeProject": "khoa-backlog-final-20261128",
+  "backendImageIds": {
+    "user": "sha256:b2ca92bd6ac9ad7f78bf1a999861292ebcfbf19688f1b853352f575759e61ce8",
+    "api": "sha256:ad536ab13bf645da62b4afb0cff6cf1d32358b8422e69bd78896faf4d44d0c67",
+    "content": "sha256:f97bd2d62685859e7d0495d6d3202a7f8047a9562bc7b2bd475dbe03331d658a"
+  }
+}
