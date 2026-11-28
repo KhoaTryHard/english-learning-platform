@@ -1,0 +1,187 @@
+{
+  "recordedAt": "2026-11-28T09:45:11.885793+00:00",
+  "status": "FOUNDATION_TECHNICAL_PASS_REVIEW_READY",
+  "issue": 4,
+  "pullRequest": 43,
+  "testedSha": "6e263f972522584a9071d80b3c32ead276ec6606",
+  "baseDevelopSha": "793810e1c035b143c119119f08a950b372ebce7b",
+  "versionBranch": "version/20261128-163403-pr43-closeout",
+  "applicationSourceChanged": false,
+  "serviceTreeIds": {
+    "backend/services/user-service": "6b2298167f2ce1da595133957540cbb2a65aecf1",
+    "backend/services/learning-content-service": "8850af6dfccf3a230ef5b9ea5e99f52ec52269ae",
+    "backend/api-gateway": "c5012a9f74c156be70f319895a32ccccf1f42bdb",
+    "backend/services/assessment-service": "e8fde6f1a40988670170533937c1d97dbb15ecda",
+    "backend/services/progress-service": "55b96514dd255a2facfe7188be10f16010457f24"
+  },
+  "comparedToFix44": "413a9297d4d63f61b0ad4b81a0c1f1e7a9370abd",
+  "assessmentProgressTreeUnchangedFromFix44": true,
+  "environment": "TEST",
+  "runtimeMode": "HOST",
+  "namespace": "khoa-w6-host-pr43-20261128",
+  "java": "25.0.5+8",
+  "database": "PostgreSQL17.11; three fresh runtime clusters and two separate test clusters",
+  "runtimeStoppedAt": "2026-11-28T09:43:43.741230+00:00",
+  "testDatabasesStopped": true,
+  "fixtures": "Fresh owner-API-created fixture; prior clusters/reports retained",
+  "jars": {
+    "user": {
+      "sourceSha": "6e263f972522584a9071d80b3c32ead276ec6606",
+      "sha256": "fc8a6d611a43eca86d454786371c1c5af15ecf5b27c85ad079269029c8f4fc4f"
+    },
+    "content": {
+      "sourceSha": "6e263f972522584a9071d80b3c32ead276ec6606",
+      "sha256": "9db1eb648f5962987b8652639abf2d0b04b4f2932fbe38bb57aed1de15d6aec1"
+    },
+    "api": {
+      "sourceSha": "6e263f972522584a9071d80b3c32ead276ec6606",
+      "sha256": "f81e3ec7ecd7001eaccfdffd33be9ecb40e151c6087a64cb58252a4e04bce1e3"
+    },
+    "assessment": {
+      "sourceSha": "6e263f972522584a9071d80b3c32ead276ec6606",
+      "sha256": "41a304baa305f4a5e244a948e8f69336d13364b805d7f7440ebd1dad34c29f38"
+    }
+  },
+  "progressJar": {
+    "sha256": "1bedea58e3e56ed47bdc9e5955efecadc43139ebcec4b7e8458a2a28d6882d5a",
+    "runtime": "NOT_STARTED; PostgreSQL verify suite only"
+  },
+  "imageIds": "NOT_APPLICABLE_HOST_JARS",
+  "reports": [
+    {
+      "file": "prepare.json",
+      "status": "FIXTURES_CREATED_LIVE_NOT_RUN",
+      "checks": 12,
+      "sha256": "6f56d8e204305b51434661c34084611f1fdc8a1e009cb7f445db49ea7344d1a6"
+    },
+    {
+      "file": "seed.json",
+      "status": "SEED_READY_REVIEW_REQUIRED",
+      "checks": 51,
+      "sha256": "1e900a1452622964f861d631f4d5b2331a473340518fe95243499fa4ec9a791a"
+    },
+    {
+      "file": "online.json",
+      "status": "PHASE_PASS_REVIEW_REQUIRED",
+      "checks": 30,
+      "sha256": "7b7e4f104e37ed4ca6f509a63d96fd12ce4aee3a72121b6ab73d8a4762a8b6c6"
+    },
+    {
+      "file": "service-down.json",
+      "status": "PHASE_PASS_REVIEW_REQUIRED",
+      "checks": 7,
+      "sha256": "72c06e9bdc574ffc8b2bfe54b524d3fb3b04d9dd7d2ce30e59ef347b317a2a5d"
+    },
+    {
+      "file": "database-down.json",
+      "status": "PHASE_PASS_REVIEW_REQUIRED",
+      "checks": 7,
+      "sha256": "247a1ba514b2df986374bded24916deca2aa804145077cdeaeac44de17f923fd"
+    },
+    {
+      "file": "recovery.json",
+      "status": "PHASE_PASS_REVIEW_REQUIRED",
+      "checks": 16,
+      "sha256": "88d89f4abf2e1754d29486b1098682150484c7306259149901f5e21634b46479"
+    },
+    {
+      "file": "retry.json",
+      "status": "PASS_REVIEW_REQUIRED",
+      "checks": 40,
+      "sha256": "64a3d4bb7193a9119c79c5ac77635d8b7cb6a01cbf272a5ab29281e121baa45a"
+    },
+    {
+      "file": "supplemental.json",
+      "status": "PASS",
+      "checks": 29,
+      "sha256": "bb79d6c2230d01bc095d585137e3ebcbd9371e46b656ba42ee69dbc95bc33517"
+    }
+  ],
+  "maven": {
+    "assessment": 35,
+    "progress": 26,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "detail": "maven.json; classifications distinguish PostgreSQL, H2, HTTP/ACK doubles"
+  },
+  "staticChecks": {
+    "eventSchemaCopies": "PASS",
+    "publicInternalContractAnd63GatewayRoutes": "PASS",
+    "eventSchemaSha256": "524aa6dae4d98476d0eafeade28c053080db305fc19328f423b2716eb9248636",
+    "gitDiffCheck": "PASS"
+  },
+  "packagingKhoaServices": {
+    "status": "PASS",
+    "tests": "SKIPPED packaging only; prior unchanged service-tree evidence retained"
+  },
+  "foundationDecision": {
+    "by": "Khoa",
+    "source": "Direct user selection and implementation instruction,28/11/2026",
+    "accepted": "PostgreSQL17/physical V1/JSON/count projection for foundation; #20 remains Open"
+  },
+  "reviewProvenance": "Khoa/Codex review of Huy foundation; DB503 fix originally authored by Khoa is self-verification. No native Huy approval for44 is claimed.",
+  "notCovered": [
+    "Docker deployment/image/network acceptance",
+    "Kafka broker E2E/retry/DLT/replay",
+    "Statistics six metrics",
+    "full consumer acceptance31/35/36",
+    "full MVP QA40",
+    "production rollout"
+  ],
+  "reproduction": [
+    "Use JDK25 and isolated localhost PostgreSQL17 databases with credentials in ignored local files.",
+    "scripts/w6-host-runtime.py start --namespace khoa-w6-host-<fresh> --pg-bin <PG17-bin> --huy-root <pinned-PR43-checkout>",
+    "scripts/verify-readiness-live.ps1 -RuntimeMode HOST: prepare; verify-assessment-live.py seed; online; stop-assessment/service-down/start-assessment; stop-assessment-db/database-down/start-assessment-db; recovery; verify-assessment-live.py retry",
+    "Supplemental: register/setup new learner, save FALSE, relogin/resume, repeated submit/GET Result; new-key attempt full-set empty replacement earns0; read-only Assessment counts ensure one Result/Outbox and stable eventId. Requests/expected/actual in supplemental.json.",
+    "Stop namespace processes/clusters using helper; stop separate test databases by their recorded data directories. Preserve data."
+  ],
+  "artifacts": [
+    {
+      "file": "database-down.json",
+      "sha256": "247a1ba514b2df986374bded24916deca2aa804145077cdeaeac44de17f923fd"
+    },
+    {
+      "file": "fixture-manifest.json",
+      "sha256": "42f03e5fdc580f3f520e8872783c3b1b44cdaf86f03b6401be105cfcfbfe3d7a"
+    },
+    {
+      "file": "maven.json",
+      "sha256": "7072ffd7f85f9af032943ea851f14582c35972ddeb31e761c7feceaec63883ce"
+    },
+    {
+      "file": "online.json",
+      "sha256": "7b7e4f104e37ed4ca6f509a63d96fd12ce4aee3a72121b6ab73d8a4762a8b6c6"
+    },
+    {
+      "file": "prepare.json",
+      "sha256": "6f56d8e204305b51434661c34084611f1fdc8a1e009cb7f445db49ea7344d1a6"
+    },
+    {
+      "file": "recovery.json",
+      "sha256": "88d89f4abf2e1754d29486b1098682150484c7306259149901f5e21634b46479"
+    },
+    {
+      "file": "retry.json",
+      "sha256": "64a3d4bb7193a9119c79c5ac77635d8b7cb6a01cbf272a5ab29281e121baa45a"
+    },
+    {
+      "file": "runtime-stopped.json",
+      "sha256": "faf1a65ab61bc3b8a836fd68b5a1b28f47b17a8cd8cd20a8829db15b4a8bf103"
+    },
+    {
+      "file": "seed.json",
+      "sha256": "1e900a1452622964f861d631f4d5b2331a473340518fe95243499fa4ec9a791a"
+    },
+    {
+      "file": "service-down.json",
+      "sha256": "72c06e9bdc574ffc8b2bfe54b524d3fb3b04d9dd7d2ce30e59ef347b317a2a5d"
+    },
+    {
+      "file": "supplemental.json",
+      "sha256": "bb79d6c2230d01bc095d585137e3ebcbd9371e46b656ba42ee69dbc95bc33517"
+    }
+  ],
+  "publicationVersionBranch": "version/20261128-164702-pr43-evidence-hashes",
+  "artifactEncoding": "UTF-8 with LF; hashes verified against committed Git blobs, not Windows working-copy newline conversion."
+}

@@ -1,4 +1,4 @@
-# English Learning Platform — Khoa implementation
+# English Learning Platform
 
 Java 25 / Spring Boot 4.0.8 / PostgreSQL 17. User Service and Learning Content Service own separate databases. Gateway routes all 63 public operations, including 43 User/Content operations implemented here; 6 internal operations remain private. Assessment/Progress runtime is supplied by Huy. Assessment is mocked only in the demo profile.
 
@@ -7,11 +7,15 @@ Java 25 / Spring Boot 4.0.8 / PostgreSQL 17. User Service and Learning Content S
 ```text
 backend/services/user-service/              # standalone Maven app + Dockerfile + compose + user_db
 backend/services/learning-content-service/  # standalone Maven app + Dockerfile + compose + content_db
+backend/services/assessment-service/        # standalone Maven app + Exercise + transactional Outbox
+backend/services/progress-service/          # standalone Maven app + progress_db
 backend/api-gateway/               # separate gateway image; no business database
 shared/platform-core/      # canonical infrastructure SDK snapshot, no business entities
 ```
 
-You can copy either service folder to another machine and build it there: `./mvnw.cmd verify` or `docker build -t group7-user-service:local .` inside `backend/services/user-service/`; use `group7-learning-content-service:local` in `backend/services/learning-content-service/`. Each application inherits directly from Spring Boot and includes its SDK snapshot, migrations, templates/test fixtures, wrapper and deployment files. It does not need a sibling folder, repository parent POM or unpublished SDK JAR. See the README inside each folder for peer URLs/public keys and standalone database provisioning.
+See the [Assessment runbook](backend/services/assessment-service/README.md), [Progress runbook](backend/services/progress-service/README.md) and [Huy handoff](docs/planning/w5-02-huy-handoff.md) for the standalone Huy services.
+
+You can copy either User or Learning Content service folder to another machine and build it there: `./mvnw.cmd verify` or `docker build -t group7-user-service:local .` inside `backend/services/user-service/`; use `group7-learning-content-service:local` in `backend/services/learning-content-service/`. Each application inherits directly from Spring Boot and includes its SDK snapshot, migrations, templates/test fixtures, wrapper and deployment files. It does not need a sibling folder, repository parent POM or unpublished SDK JAR. See the README inside each folder for peer URLs/public keys and standalone database provisioning.
 
 Root Maven/Compose are optional integration conveniences. Root Compose now uses three different images, each containing only its owner's executable JAR; database volume names are preserved. SDK updates are explicit and checked with `python scripts/sync-sdk.py --check`.
 
@@ -44,13 +48,13 @@ Default compose exposes only Gateway. `compose.debug.yaml` binds PostgreSQL to l
 
 ## Monorepo ownership
 
-Khoa owns User/Content/Gateway; Huy owns Assessment/Progress/Kafka; Hưng owns frontend. Assessment/Progress folders are scaffold only. See [migration](docs/architecture/migration-plan.md) and [Khoa checkpoint](docs/reviews/2026-10-28-khoa.md).
+Khoa owns User/Content/Gateway; Huy owns Assessment/Progress/Kafka; Hưng owns frontend. See [migration](docs/architecture/migration-plan.md) and [Khoa checkpoint](docs/reviews/2026-10-28-khoa.md).
 
 ## Delivery and review
 
 See [architecture](docs/architecture.md), [data dictionary](docs/database.md), [contract change](docs/contracts/CHANGELOG.md), [traceability](docs/traceability.md), [operations](docs/operations.md), and [verification evidence](docs/verification.md).
 
-W3-00 v0.2 and public/internal v0.1 are frozen. Internal v0.1.1 is a user-authorized implementation proposal; it requires coordinated User/Gateway deployment and actual Huy/Khoa review. MySQL→PostgreSQL applies to Khoa's two services only. Nothing here signs reviewer acceptance or closes the full W3/MVP gate.
+W3-00 v0.2 and public/internal v0.1 are frozen. The [internal v0.1.1 baseline](docs/contracts/internal-auth-decision-2026-11-01.md) requires coordinated User/Gateway deployment. User/Content and Assessment/Progress each use their own PostgreSQL17 database. Khoa's28/11 foundation decision accepts the current physical V1/JSON/count projection; dictionary/ERD reconciliation continues in #20. Full consumer/MVP acceptance remains tracked separately.
 
 ## Frontend
 
