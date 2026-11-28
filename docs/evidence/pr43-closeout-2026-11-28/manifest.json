@@ -52,49 +52,49 @@
       "file": "prepare.json",
       "status": "FIXTURES_CREATED_LIVE_NOT_RUN",
       "checks": 12,
-      "sha256": "6ffd9c5693a10df9bb559819c9ab374c52b22fc7312b7f5ec3c97823e887591f"
+      "sha256": "6f56d8e204305b51434661c34084611f1fdc8a1e009cb7f445db49ea7344d1a6"
     },
     {
       "file": "seed.json",
       "status": "SEED_READY_REVIEW_REQUIRED",
       "checks": 51,
-      "sha256": "aba8f75a288bde2beb985fbf5578680b57872c47530956c09a36c17a654d5960"
+      "sha256": "1e900a1452622964f861d631f4d5b2331a473340518fe95243499fa4ec9a791a"
     },
     {
       "file": "online.json",
       "status": "PHASE_PASS_REVIEW_REQUIRED",
       "checks": 30,
-      "sha256": "f2daf2bdfc086ce8a4b688672ec55669bc641b8271ddba320c744c048b8f5786"
+      "sha256": "7b7e4f104e37ed4ca6f509a63d96fd12ce4aee3a72121b6ab73d8a4762a8b6c6"
     },
     {
       "file": "service-down.json",
       "status": "PHASE_PASS_REVIEW_REQUIRED",
       "checks": 7,
-      "sha256": "ef7e3867d53871fade7f0ca8729552fc1233c1ecbe5b5d4122ebfa0fc0fecadc"
+      "sha256": "72c06e9bdc574ffc8b2bfe54b524d3fb3b04d9dd7d2ce30e59ef347b317a2a5d"
     },
     {
       "file": "database-down.json",
       "status": "PHASE_PASS_REVIEW_REQUIRED",
       "checks": 7,
-      "sha256": "b32fd947218db18056c4f01d21e7598d325072c15f7a049ad1db1b6fd1f88f6e"
+      "sha256": "247a1ba514b2df986374bded24916deca2aa804145077cdeaeac44de17f923fd"
     },
     {
       "file": "recovery.json",
       "status": "PHASE_PASS_REVIEW_REQUIRED",
       "checks": 16,
-      "sha256": "e9a37750f55c53701231e15d4476c8be35e061286041f68b4ec03e08bc0d90ed"
+      "sha256": "88d89f4abf2e1754d29486b1098682150484c7306259149901f5e21634b46479"
     },
     {
       "file": "retry.json",
       "status": "PASS_REVIEW_REQUIRED",
       "checks": 40,
-      "sha256": "fe5d1917334d6661749d12137e144a3c719f33dd03a84b96f3cba685f2418d9d"
+      "sha256": "64a3d4bb7193a9119c79c5ac77635d8b7cb6a01cbf272a5ab29281e121baa45a"
     },
     {
       "file": "supplemental.json",
       "status": "PASS",
       "checks": 29,
-      "sha256": "3d6f5c7fb9968bc1d5fcbb9db168c0f630f898a36a89cdb56fb246ddf8dc4cee"
+      "sha256": "bb79d6c2230d01bc095d585137e3ebcbd9371e46b656ba42ee69dbc95bc33517"
     }
   ],
   "maven": {
@@ -139,47 +139,49 @@
   "artifacts": [
     {
       "file": "database-down.json",
-      "sha256": "b32fd947218db18056c4f01d21e7598d325072c15f7a049ad1db1b6fd1f88f6e"
+      "sha256": "247a1ba514b2df986374bded24916deca2aa804145077cdeaeac44de17f923fd"
     },
     {
       "file": "fixture-manifest.json",
-      "sha256": "f9c52102b106b78d49da277505799247957114a0adfe21862945ec359ceae6b4"
+      "sha256": "42f03e5fdc580f3f520e8872783c3b1b44cdaf86f03b6401be105cfcfbfe3d7a"
     },
     {
       "file": "maven.json",
-      "sha256": "6220d5096044e6f9044927bd52e19a174d7d1c0ffbaf7268bf10fbe145f2bd4c"
+      "sha256": "7072ffd7f85f9af032943ea851f14582c35972ddeb31e761c7feceaec63883ce"
     },
     {
       "file": "online.json",
-      "sha256": "f2daf2bdfc086ce8a4b688672ec55669bc641b8271ddba320c744c048b8f5786"
+      "sha256": "7b7e4f104e37ed4ca6f509a63d96fd12ce4aee3a72121b6ab73d8a4762a8b6c6"
     },
     {
       "file": "prepare.json",
-      "sha256": "6ffd9c5693a10df9bb559819c9ab374c52b22fc7312b7f5ec3c97823e887591f"
+      "sha256": "6f56d8e204305b51434661c34084611f1fdc8a1e009cb7f445db49ea7344d1a6"
     },
     {
       "file": "recovery.json",
-      "sha256": "e9a37750f55c53701231e15d4476c8be35e061286041f68b4ec03e08bc0d90ed"
+      "sha256": "88d89f4abf2e1754d29486b1098682150484c7306259149901f5e21634b46479"
     },
     {
       "file": "retry.json",
-      "sha256": "fe5d1917334d6661749d12137e144a3c719f33dd03a84b96f3cba685f2418d9d"
+      "sha256": "64a3d4bb7193a9119c79c5ac77635d8b7cb6a01cbf272a5ab29281e121baa45a"
     },
     {
       "file": "runtime-stopped.json",
-      "sha256": "5fc8d6ea9444a7b9ea86b99ca241d148dd070f1c3a312e7642d2eb64531447a8"
+      "sha256": "faf1a65ab61bc3b8a836fd68b5a1b28f47b17a8cd8cd20a8829db15b4a8bf103"
     },
     {
       "file": "seed.json",
-      "sha256": "aba8f75a288bde2beb985fbf5578680b57872c47530956c09a36c17a654d5960"
+      "sha256": "1e900a1452622964f861d631f4d5b2331a473340518fe95243499fa4ec9a791a"
     },
     {
       "file": "service-down.json",
-      "sha256": "ef7e3867d53871fade7f0ca8729552fc1233c1ecbe5b5d4122ebfa0fc0fecadc"
+      "sha256": "72c06e9bdc574ffc8b2bfe54b524d3fb3b04d9dd7d2ce30e59ef347b317a2a5d"
     },
     {
       "file": "supplemental.json",
-      "sha256": "3d6f5c7fb9968bc1d5fcbb9db168c0f630f898a36a89cdb56fb246ddf8dc4cee"
+      "sha256": "bb79d6c2230d01bc095d585137e3ebcbd9371e46b656ba42ee69dbc95bc33517"
     }
-  ]
+  ],
+  "publicationVersionBranch": "version/20261128-164702-pr43-evidence-hashes",
+  "artifactEncoding": "UTF-8 with LF; hashes verified against committed Git blobs, not Windows working-copy newline conversion."
 }
