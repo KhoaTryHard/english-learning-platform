@@ -15,25 +15,42 @@ services:
       interval: 5s
       timeout: 3s
       retries: 30
+  kafka-volume-init:
+    image: apache/kafka:4.0.0
+    user: '0:0'
+    entrypoint: [/bin/sh, -ec]
+    command: ['chown 1000:1000 /tmp/kraft-combined-logs']
+    volumes:
+      - kafka_data:/tmp/kraft-combined-logs
+    network_mode: none
+    restart: 'no'
   kafka:
     ports: !reset []
     networks: [backend]
     environment:
       KAFKA_HEAP_OPTS: -Xms128m -Xmx256m
+    depends_on:
+      kafka-volume-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: [CMD, /opt/kafka/bin/kafka-broker-api-versions.sh, --bootstrap-server, localhost:29092]
+      interval: 10s
+      timeout: 10s
+      retries: 18
   assessment-live:
     environment:
       KAFKA_ENABLED: 'true'
       KAFKA_BOOTSTRAP_SERVERS: kafka:29092
     depends_on:
       kafka:
-        condition: service_started
+        condition: service_healthy
   progress-live:
     environment:
       KAFKA_ENABLED: 'true'
       KAFKA_BOOTSTRAP_SERVERS: kafka:29092
     depends_on:
       kafka:
-        condition: service_started
+        condition: service_healthy
 networks:
   backend:
     ipam:
