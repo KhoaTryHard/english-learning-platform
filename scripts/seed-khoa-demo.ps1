@@ -38,7 +38,21 @@ $question=Call-Demo $admin POST "/admin/assessments/$($exercise.assessmentId)/qu
 $null=Call-Demo $admin PATCH "/admin/assessments/$($exercise.assessmentId)" @{ready=$true}
 $null=Call-Demo $admin PATCH "/admin/lessons/$($lesson.lessonId)" @{published=$true}
 $csrf=(Call-Demo $admin GET '/auth/csrf').csrfToken
-$import=Invoke-RestMethod "$base/admin/imports/vocabulary" -Method Post -WebSession $admin -Headers @{Origin='http://127.0.0.1:5173';'X-CSRF-Token'=$csrf} -Form @{lessonId=$lesson.lessonId;file=Get-Item "$root/docs/fixtures/vocabulary-valid.xlsx"}
+$handler=[Net.Http.HttpClientHandler]::new()
+$handler.CookieContainer=$admin.Cookies
+$http=[Net.Http.HttpClient]::new($handler)
+$multipart=[Net.Http.MultipartFormDataContent]::new()
+try {
+ $multipart.Add([Net.Http.StringContent]::new($lesson.lessonId),'lessonId')
+ $file=[Net.Http.ByteArrayContent]::new([IO.File]::ReadAllBytes("$root/docs/fixtures/vocabulary-valid.xlsx"))
+ $file.Headers.ContentType=[Net.Http.Headers.MediaTypeHeaderValue]::new('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+ $multipart.Add($file,'file','vocabulary-valid.xlsx')
+ $http.DefaultRequestHeaders.Add('Origin','http://127.0.0.1:5173')
+ $http.DefaultRequestHeaders.Add('X-CSRF-Token',$csrf)
+ $response=$http.PostAsync("$base/admin/imports/vocabulary",$multipart).GetAwaiter().GetResult()
+ $null=$response.EnsureSuccessStatusCode()
+ $import=$response.Content.ReadAsStringAsync().GetAwaiter().GetResult() | ConvertFrom-Json
+} finally { $multipart.Dispose(); $http.Dispose() }
 foreach ($id in $import.createdIds) { $null=Call-Demo $admin PATCH "/admin/vocabulary/$id" @{published=$true} }
 $learner=[Microsoft.PowerShell.Commands.WebRequestSession]::new()
 $email="khoa-demo-$suffix@example.com"
