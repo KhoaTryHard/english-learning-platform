@@ -1,0 +1,357 @@
+{
+  "phase": "online",
+  "checkedAt": "2026-11-28T09:40:45.194645500Z",
+  "backendSha": "6e263f972522584a9071d80b3c32ead276ec6606",
+  "assessment": {
+    "kind": "LIVE",
+    "sourceSha": "6e263f972522584a9071d80b3c32ead276ec6606",
+    "image": "NOT_APPLICABLE_HOST_JAR",
+    "jarSha256": "41a304baa305f4a5e244a948e8f69336d13364b805d7f7440ebd1dad34c29f38",
+    "dbEngine": "PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit",
+    "migration": "V1__assessment_foundation.sql",
+    "seedCommand": "python scripts/verify-assessment-live.py --phase seed --manifest <prepared> --report <fresh>",
+    "runtimeEvidence": "<CHECKOUT>\\.tools\\khoa-w6-host-pr43-20261128\\runtime.json"
+  },
+  "manifestSha256": "ffc1e7e58ca0f9f068a3ec7b7b32f6948888e90c1fb46f99bdd9f8a5eafce58c",
+  "scope": "External HTTP acceptance; supplied LIVE runtime/DB provenance requires Huy/Khoa review",
+  "notCovered": [
+    "attempt retry/retake",
+    "Progress/Kafka",
+    "team contract approval"
+  ],
+  "checks": [
+    {
+      "actual": 200,
+      "path": "/api/v1/auth/csrf",
+      "case": "csrf",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 200,
+      "path": "/api/v1/auth/login",
+      "case": "login",
+      "expected": 200,
+      "method": "POST"
+    },
+    {
+      "actual": 200,
+      "path": "/api/v1/auth/csrf",
+      "case": "csrf",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 200,
+      "path": "/internal/v1/lessons/23b85143-9189-4bfe-b15c-92d1d2c28fec/exercise-readiness",
+      "case": "direct missingMapping",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 200,
+      "path": "/api/v1/admin/lessons/23b85143-9189-4bfe-b15c-92d1d2c28fec",
+      "case": "draft missingMapping",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 409,
+      "path": "/api/v1/admin/lessons/23b85143-9189-4bfe-b15c-92d1d2c28fec",
+      "case": "publish missingMapping",
+      "expected": 409,
+      "method": "PATCH"
+    },
+    {
+      "actual": 200,
+      "path": "/api/v1/admin/lessons/23b85143-9189-4bfe-b15c-92d1d2c28fec",
+      "case": "draft missingMapping",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 200,
+      "path": "/internal/v1/lessons/262ee5d9-de14-481e-a7c7-1f856f3adb9c/exercise-readiness",
+      "case": "direct notReady",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 200,
+      "path": "/api/v1/admin/lessons/262ee5d9-de14-481e-a7c7-1f856f3adb9c",
+      "case": "draft notReady",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 409,
+      "path": "/api/v1/admin/lessons/262ee5d9-de14-481e-a7c7-1f856f3adb9c",
+      "case": "publish notReady",
+      "expected": 409,
+      "method": "PATCH"
+    },
+    {
+      "actual": 200,
+      "path": "/api/v1/admin/lessons/262ee5d9-de14-481e-a7c7-1f856f3adb9c",
+      "case": "draft notReady",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 200,
+      "path": "/internal/v1/lessons/84b5f29b-74bf-4807-8dea-4bac71a72ee4/exercise-readiness",
+      "case": "direct ready",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 200,
+      "path": "/api/v1/admin/lessons/535c8cf4-a312-449e-8c49-86421c0c17d3",
+      "case": "draft serviceDown",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 200,
+      "path": "/internal/v1/lessons/535c8cf4-a312-449e-8c49-86421c0c17d3/exercise-readiness",
+      "case": "direct serviceDown",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 200,
+      "path": "/api/v1/admin/lessons/bd883e43-bf15-44fa-a1c6-86789bc5a070",
+      "case": "draft databaseDown",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 200,
+      "path": "/internal/v1/lessons/bd883e43-bf15-44fa-a1c6-86789bc5a070/exercise-readiness",
+      "case": "direct databaseDown",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 200,
+      "path": "/api/v1/admin/lessons/0bcae599-6912-4754-b3e0-e147f6310f55",
+      "case": "draft recovery",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 200,
+      "path": "/internal/v1/lessons/0bcae599-6912-4754-b3e0-e147f6310f55/exercise-readiness",
+      "case": "direct recovery",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 403,
+      "path": "/internal/v1/lessons/84b5f29b-74bf-4807-8dea-4bac71a72ee4/exercise-readiness",
+      "case": "wrong caller",
+      "expected": 403,
+      "method": "GET"
+    },
+    {
+      "actual": 401,
+      "path": "/internal/v1/lessons/84b5f29b-74bf-4807-8dea-4bac71a72ee4/exercise-readiness",
+      "case": "invalid signature",
+      "expected": 401,
+      "method": "GET"
+    },
+    {
+      "actual": 200,
+      "path": "/api/v1/admin/lessons/84b5f29b-74bf-4807-8dea-4bac71a72ee4",
+      "case": "draft ready",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 200,
+      "path": "/api/v1/admin/lessons/84b5f29b-74bf-4807-8dea-4bac71a72ee4",
+      "case": "publish ready",
+      "expected": 200,
+      "method": "PATCH"
+    },
+    {
+      "actual": 200,
+      "path": "/api/v1/auth/csrf",
+      "case": "csrf",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 201,
+      "path": "/api/v1/auth/register",
+      "case": "register learner",
+      "expected": 201,
+      "method": "POST"
+    },
+    {
+      "actual": 200,
+      "path": "/api/v1/auth/csrf",
+      "case": "csrf",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 200,
+      "path": "/api/v1/auth/login",
+      "case": "login",
+      "expected": 200,
+      "method": "POST"
+    },
+    {
+      "actual": 200,
+      "path": "/api/v1/auth/csrf",
+      "case": "csrf",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 200,
+      "path": "/api/v1/me/learning-setup",
+      "case": "learner setup",
+      "expected": 200,
+      "method": "PUT"
+    },
+    {
+      "actual": 200,
+      "path": "/api/v1/lessons/84b5f29b-74bf-4807-8dea-4bac71a72ee4",
+      "case": "learner reads ready",
+      "expected": 200,
+      "method": "GET"
+    },
+    {
+      "actual": 204,
+      "path": "/api/v1/auth/logout",
+      "case": "logout learner",
+      "expected": 204,
+      "method": "POST"
+    }
+  ],
+  "status": "PHASE_PASS_REVIEW_REQUIRED",
+  "fixtureIds": {
+    "missingMapping": {
+      "lessonId": "23b85143-9189-4bfe-b15c-92d1d2c28fec",
+      "exerciseId": null,
+      "questionCount": null
+    },
+    "notReady": {
+      "lessonId": "262ee5d9-de14-481e-a7c7-1f856f3adb9c",
+      "exerciseId": "b707ef1b-1fda-4410-aec4-bcdbccb2792e",
+      "questionCount": 0
+    },
+    "ready": {
+      "lessonId": "84b5f29b-74bf-4807-8dea-4bac71a72ee4",
+      "exerciseId": "6b61bcdc-bddc-4e83-a29a-cb369a64e8ab",
+      "questionCount": 1,
+      "questionId": "4d15111f-e0f4-4c5b-a173-66bf2642fc39"
+    },
+    "serviceDown": {
+      "lessonId": "535c8cf4-a312-449e-8c49-86421c0c17d3",
+      "exerciseId": "6fac4327-d1e4-4882-be4a-2f26e1a26821",
+      "questionCount": 1,
+      "questionId": "92ffb81f-2d57-4b70-8ba2-5171a86ad5bc"
+    },
+    "databaseDown": {
+      "lessonId": "bd883e43-bf15-44fa-a1c6-86789bc5a070",
+      "exerciseId": "6b2934b0-c256-4a36-b8eb-30da6aee4065",
+      "questionCount": 1,
+      "questionId": "ee61693b-b31e-4031-8be7-877c680b0ddb"
+    },
+    "recovery": {
+      "lessonId": "0bcae599-6912-4754-b3e0-e147f6310f55",
+      "exerciseId": "3386354c-3bac-4d63-bb13-1493540ddca0",
+      "questionCount": 1,
+      "questionId": "4a42aaff-db89-4b94-b903-7845b878c6cc"
+    }
+  },
+  "runtimeMode": "HOST",
+  "contentAssessmentUrl": "http://127.0.0.1:8090",
+  "hostRuntime": {
+    "namespace": "khoa-w6-host-pr43-20261128",
+    "runtimeMode": "HOST",
+    "backendSha": "6e263f972522584a9071d80b3c32ead276ec6606",
+    "assessmentSha": "6e263f972522584a9071d80b3c32ead276ec6606",
+    "startedAt": "2026-11-28T16:37:34.579248+07:00",
+    "contentAssessmentUrl": "http://127.0.0.1:8090",
+    "services": {
+      "user": {
+        "pid": 33752,
+        "processPath": "<CHECKOUT>\\.tools\\jdk\\jdk-25.0.5+8\\bin\\java.exe",
+        "processStartedAt": "2026-11-28T09:38:35.259577Z",
+        "port": 8081,
+        "jarPath": "<CHECKOUT>\\backend\\services\\user-service\\target\\user-service-0.1.0-SNAPSHOT.jar",
+        "jarSha256": "fc8a6d611a43eca86d454786371c1c5af15ecf5b27c85ad079269029c8f4fc4f",
+        "sourceSha": "6e263f972522584a9071d80b3c32ead276ec6606"
+      },
+      "content": {
+        "pid": 39116,
+        "processPath": "<CHECKOUT>\\.tools\\jdk\\jdk-25.0.5+8\\bin\\java.exe",
+        "processStartedAt": "2026-11-28T09:38:37.78564Z",
+        "port": 8082,
+        "jarPath": "<CHECKOUT>\\backend\\services\\learning-content-service\\target\\content-service-0.1.0-SNAPSHOT.jar",
+        "jarSha256": "9db1eb648f5962987b8652639abf2d0b04b4f2932fbe38bb57aed1de15d6aec1",
+        "sourceSha": "6e263f972522584a9071d80b3c32ead276ec6606"
+      },
+      "api": {
+        "pid": 35880,
+        "processPath": "<CHECKOUT>\\.tools\\jdk\\jdk-25.0.5+8\\bin\\java.exe",
+        "processStartedAt": "2026-11-28T09:38:40.8117187Z",
+        "port": 18080,
+        "jarPath": "<CHECKOUT>\\backend\\api-gateway\\target\\api-gateway-0.1.0-SNAPSHOT.jar",
+        "jarSha256": "f81e3ec7ecd7001eaccfdffd33be9ecb40e151c6087a64cb58252a4e04bce1e3",
+        "sourceSha": "6e263f972522584a9071d80b3c32ead276ec6606"
+      },
+      "assessment": {
+        "pid": 25492,
+        "processPath": "<CHECKOUT>\\.tools\\jdk\\jdk-25.0.5+8\\bin\\java.exe",
+        "processStartedAt": "2026-11-28T09:38:43.5876638Z",
+        "port": 8090,
+        "jarPath": "<CHECKOUT>\\backend\\services\\assessment-service\\target\\assessment-service-0.1.0-SNAPSHOT.jar",
+        "jarSha256": "41a304baa305f4a5e244a948e8f69336d13364b805d7f7440ebd1dad34c29f38",
+        "sourceSha": "6e263f972522584a9071d80b3c32ead276ec6606"
+      }
+    },
+    "databases": {
+      "user": {
+        "port": 15541,
+        "dataDirectory": "<CHECKOUT>\\.tools\\khoa-w6-host-pr43-20261128\\user-data",
+        "version": "PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit",
+        "flyway": [
+          {
+            "version": "1",
+            "description": "user schema",
+            "success": true
+          }
+        ]
+      },
+      "content": {
+        "port": 15542,
+        "dataDirectory": "<CHECKOUT>\\.tools\\khoa-w6-host-pr43-20261128\\content-data",
+        "version": "PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit",
+        "flyway": [
+          {
+            "version": "1",
+            "description": "content schema",
+            "success": true
+          }
+        ]
+      },
+      "assessment": {
+        "port": 15543,
+        "dataDirectory": "<CHECKOUT>\\.tools\\khoa-w6-host-pr43-20261128\\assessment-data",
+        "version": "PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit",
+        "flyway": [
+          {
+            "version": "1",
+            "description": "assessment foundation",
+            "success": true
+          }
+        ]
+      }
+    }
+  }
+}

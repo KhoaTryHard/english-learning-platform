@@ -1,0 +1,196 @@
+{
+  "testedSha": "6e263f972522584a9071d80b3c32ead276ec6606",
+  "suites": [
+    {
+      "service": "assessment",
+      "name": "vn.group7.assessment.AssessmentApplicationTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "H2_BOOT_WIRING",
+      "cases": [
+        "bootsWithFlywayAndScheduledFinalizer"
+      ]
+    },
+    {
+      "service": "assessment",
+      "name": "vn.group7.assessment.AssessmentHttpTest",
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "POSTGRESQL17_TEST_DOUBLE_OWNER_HTTP_OR_ACK",
+      "cases": [
+        "learnerCannotUseAdminEndpoints",
+        "directBrowserAndSpoofedHeadersAreDenied",
+        "paginationAndMalformedIdsReturnContractErrors",
+        "signedAdminCanCreateAndUnknownFieldsAreRejected",
+        "ownerDependencyFailureReturns503WithoutLeakingDetails",
+        "startRequiresKeyAndNoBody",
+        "expiredAndWrongServiceAudienceAreRejected",
+        "signedExerciseFlowReturnsPrivateSafeAttemptAndStableResult",
+        "principalIsBoundToMethodPathAndAudience",
+        "readinessAllowsOnlyContentAndDoesNotCallContent",
+        "explicitNullTypeReturns400AndMissingRoleReturns401"
+      ]
+    },
+    {
+      "service": "assessment",
+      "name": "vn.group7.assessment.AssessmentServiceTest",
+      "tests": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "POSTGRESQL17_TEST_DOUBLE_OWNER_HTTP_OR_ACK",
+      "cases": [
+        "retryRetakeAndRetryAfterUnpublish",
+        "relayFailureRetainsEventAndRetryUsesSamePayload",
+        "exerciseHasNoDeadlineAndFinalizerWorksWithoutBrowser",
+        "ownershipAndUnknownAnswerAreRejected",
+        "crashWindowAfterPublishReplaysStableEventId",
+        "readinessIsDatabaseOnlyAndDraftUntilExplicitlyReady",
+        "fullReplacementClearsAnswersAndZeroScoreRemainsValid",
+        "concurrentStartAndSubmitAreIdempotent",
+        "singleChoiceGradingRejectsForeignOptionAndUsesSnapshot",
+        "questionValidationRejectsUnknownFieldsZeroPointsAndInvalidOptions",
+        "dependencyFailureCreatesNoAttempt",
+        "timeoutUsesSavedAnswersAndNeverResetsDeadline",
+        "questionCannotBeReplacedThroughAnotherAssessment",
+        "snapshotFalseAnswerAndRepeatedSubmitProduceOneAtomicOutbox",
+        "outboxFailureRollsBackResultAndAttemptTransition"
+      ]
+    },
+    {
+      "service": "assessment",
+      "name": "vn.group7.assessment.ContentContextTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "OWNER_HTTP_DOUBLE_NO_DATABASE",
+      "cases": [
+        "malformedOrUnavailableSourceFailsClosed",
+        "signedOwnerCallsValidateSetupAndLevel",
+        "wrongSetupNeverInventsLevel"
+      ]
+    },
+    {
+      "service": "assessment",
+      "name": "vn.group7.assessment.OutboxKafkaWiringTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "H2_BOOT_WIRING",
+      "cases": [
+        "enabledTransportWiresAndEmptyBatchDoesNotPublish"
+      ]
+    },
+    {
+      "service": "assessment",
+      "name": "vn.group7.assessment.TransactionUnavailableHttpTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "MOCKMVC_EXCEPTION_DOUBLE_NO_DATABASE",
+      "cases": [
+        "unrelatedRollbackRemainsInternalError",
+        "transactionConnectionFailureReturnsSanitized503",
+        "integrityConflictRemains409",
+        "queryConnectionFailureStillReturns503"
+      ]
+    },
+    {
+      "service": "progress",
+      "name": "vn.group7.progress.CompletedEventListenerTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "POSTGRESQL17_TEST_DOUBLE_OWNER_HTTP_OR_ACK",
+      "cases": [
+        "failedEventNeverAcknowledges",
+        "acknowledgesOnlyAfterCommittedProjection",
+        "databaseFailureDoesNotCommitOffset"
+      ]
+    },
+    {
+      "service": "progress",
+      "name": "vn.group7.progress.KafkaWiringTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "H2_BOOT_WIRING",
+      "cases": [
+        "enabledAdapterWiresWithoutConnectingToBroker"
+      ]
+    },
+    {
+      "service": "progress",
+      "name": "vn.group7.progress.ProgressApplicationTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "H2_BOOT_WIRING",
+      "cases": [
+        "bootsWithoutBrokerAndMigratesSchema"
+      ]
+    },
+    {
+      "service": "progress",
+      "name": "vn.group7.progress.ProgressHttpTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "POSTGRESQL17_TEST_DOUBLE_OWNER_HTTP_OR_ACK",
+      "cases": [
+        "assertionCannotBeReusedForAnotherPath",
+        "invalidPaginationAndIdsReturn400",
+        "consumerHasNoHttpIngress",
+        "sourceFailureIs503WhileEmptyCourseIsNull",
+        "realSignedPrincipalControlsOwnership",
+        "dashboardWithoutSetupHasNullProgress",
+        "unsignedAndWrongRoleAreDenied"
+      ]
+    },
+    {
+      "service": "progress",
+      "name": "vn.group7.progress.ProgressServiceTest",
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "POSTGRESQL17_TEST_DOUBLE_OWNER_HTTP_OR_ACK",
+      "cases": [
+        "zeroScoreExerciseAndRetakeNeverDoubleCount",
+        "immutableLessonCourseConflictRollsBack",
+        "historyIsOwnerScopedFilteredAndPaged",
+        "duplicateEventAndSubmissionAreSeparateDedupeBoundaries",
+        "progressWriteFailureRollsBackAllConsumerWrites",
+        "concurrentReplayHasOneProjection",
+        "quizAndTestOnlyCreateHistory",
+        "courseLevelSnapshotsSurviveSetupChangeAndLateArrival",
+        "dashboardRetainsHistoryWithoutCurrentSetupAndLimitsToFive",
+        "zeroDataEmptyCourseAndUnavailableSourceAreDistinct",
+        "schemaRejectsUnknownSensitiveFieldsAndNonUtc",
+        "fractionalScoresAreRetained",
+        "invalidSchemaKeyIdsAndScoreAreRejectedBeforeAnyWrite",
+        "conflictingPayloadNeverOverwritesHistory"
+      ]
+    }
+  ],
+  "totals": {
+    "assessment": 35,
+    "progress": 26
+  },
+  "commands": [
+    "cd backend/services/assessment-service; ./mvnw.cmd -B verify -Dassessment.test.jdbc-url=jdbc:postgresql://127.0.0.1:15545/assessment_test -Dassessment.test.db-user=assessment",
+    "cd backend/services/progress-service; ./mvnw.cmd -B verify -Dprogress.test.jdbc-url=jdbc:postgresql://127.0.0.1:15546/progress_test -Dprogress.test.db-user=progress"
+  ],
+  "credentials": "ASSESSMENT_TEST_DB_PASSWORD/PROGRESS_TEST_DB_PASSWORD were set locally; omitted from evidence."
+}

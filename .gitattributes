@@ -1,5 +1,15 @@
+* text=auto eol=lf
 *.sh text eol=lf
 mvnw text eol=lf
 *.cmd text eol=crlf
 docs/contracts/public-v0.1.yaml -text
 docs/contracts/internal-v0.1.yaml -text
+contracts/http/public-v0.1.yaml -text
+*.png binary
+*.svg text eol=lf
+
+# Preserve approved event bytes across Windows/Linux checkouts.
+contracts/events/AssessmentCompleted_v1.schema.json -text
+contracts/events/AssessmentCompleted_v1.example.json -text
+backend/services/assessment-service/src/test/resources/contracts/AssessmentCompleted_v1.schema.json -text
+backend/services/progress-service/src/main/resources/contracts/AssessmentCompleted_v1.schema.json -text

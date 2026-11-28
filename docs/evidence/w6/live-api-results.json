@@ -1,0 +1,422 @@
+{
+  "dateVN": "2026-10-27",
+  "backendCommit": "56450fc0034021f1653a95a0b8ad7e3f1aa6e73f",
+  "results": [
+    {
+      "project": "live-desktop",
+      "status": "passed",
+      "durationMs": 17282,
+      "scope": "REAL User/Content/Gateway/PostgreSQL; Assessment readiness MOCK, no Assessment/Progress/Kafka E2E",
+      "responses": [
+        {
+          "method": "GET",
+          "path": "/api/v1/me/profile",
+          "status": 401
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/auth/csrf",
+          "status": 200
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/auth/register",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/auth/login",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/dashboard",
+          "status": 404
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/learning-setup",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/profile",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/learning-setup",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/auth/csrf",
+          "status": 200
+        },
+        {
+          "method": "PATCH",
+          "path": "/api/v1/me/profile",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/profile",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/profile",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/learning-setup",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses/10000000-0000-4000-8000-000000000001/levels",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/auth/csrf",
+          "status": 200
+        },
+        {
+          "method": "PUT",
+          "path": "/api/v1/me/learning-setup",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/learning-setup",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses/10000000-0000-4000-8000-000000000001",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses/10000000-0000-4000-8000-000000000001/modules",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/modules/26b4d999-5592-42dc-b6ed-936c58f74354/lessons",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/vocabulary",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/lessons/76bd4064-e0cf-436f-9aad-ecaf8b23e380",
+          "status": 200
+        },
+        {
+          "method": "PUT",
+          "path": "/api/v1/me/vocabulary/36f2dae3-5af7-4c4a-b547-88e0e53860b2",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/vocabulary",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/profile",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/vocabulary",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/learning-setup",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/auth/csrf",
+          "status": 200
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/v1/me/vocabulary/36f2dae3-5af7-4c4a-b547-88e0e53860b2",
+          "status": 204
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/vocabulary",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/profile",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/learning-setup",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/auth/csrf",
+          "status": 200
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/auth/logout",
+          "status": 204
+        }
+      ]
+    },
+    {
+      "project": "live-mobile",
+      "status": "passed",
+      "durationMs": 6466,
+      "scope": "REAL User/Content/Gateway/PostgreSQL; Assessment readiness MOCK, no Assessment/Progress/Kafka E2E",
+      "responses": [
+        {
+          "method": "GET",
+          "path": "/api/v1/me/profile",
+          "status": 401
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/auth/csrf",
+          "status": 200
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/auth/register",
+          "status": 201
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/auth/login",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/dashboard",
+          "status": 404
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/learning-setup",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/profile",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/learning-setup",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/auth/csrf",
+          "status": 200
+        },
+        {
+          "method": "PATCH",
+          "path": "/api/v1/me/profile",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/profile",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/profile",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/learning-setup",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses/10000000-0000-4000-8000-000000000001/levels",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/auth/csrf",
+          "status": 200
+        },
+        {
+          "method": "PUT",
+          "path": "/api/v1/me/learning-setup",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/learning-setup",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses/10000000-0000-4000-8000-000000000001",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses/10000000-0000-4000-8000-000000000001/modules",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/modules/26b4d999-5592-42dc-b6ed-936c58f74354/lessons",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/vocabulary",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/lessons/76bd4064-e0cf-436f-9aad-ecaf8b23e380",
+          "status": 200
+        },
+        {
+          "method": "PUT",
+          "path": "/api/v1/me/vocabulary/36f2dae3-5af7-4c4a-b547-88e0e53860b2",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/vocabulary",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/profile",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/vocabulary",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/learning-setup",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/auth/csrf",
+          "status": 200
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/v1/me/vocabulary/36f2dae3-5af7-4c4a-b547-88e0e53860b2",
+          "status": 204
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/vocabulary",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/profile",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/courses",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/learning-setup",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/auth/csrf",
+          "status": 200
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/auth/logout",
+          "status": 204
+        }
+      ]
+    }
+  ]
+}

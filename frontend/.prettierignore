@@ -1,0 +1,9 @@
+dist
+coverage
+public/mockServiceWorker.js
+src/shared/api/schema.d.ts
+playwright-report
+test-results
+live-test-results
+package-lock.json
+**/README.md

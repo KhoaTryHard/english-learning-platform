@@ -1,0 +1,34 @@
+{
+  "asOfDateVN": "2026-10-27",
+  "timezone": "Asia/Saigon",
+  "owner": "Lê Tiến Hưng",
+  "branch": "feature/w6-hung-learner-frontend",
+  "baseCommit": "bb81db926eccca9fba00d6e696ac5d0c4d276444",
+  "testedTree": "base commit plus LessonPage.test.tsx; no production business-code changes",
+  "testFileSHA256": "70216601d0e4b1c6853e505b3ecded0650bf2d8acb268ce014a9d136f16f8731",
+  "newLessonClientTests": {
+    "status": "PASS",
+    "passed": 8,
+    "scope": "React UI + API client + MSW responses; no real backend visibility/security validation"
+  },
+  "fullCheck": {
+    "command": "npm run check",
+    "status": "PASS",
+    "passedUnitUI": 22,
+    "testFiles": 6,
+    "lint": "PASS",
+    "typecheckProductionBuild": "PASS",
+    "approvedContractProductionGuard": "PASS"
+  },
+  "historicalBrowserEvidence": {
+    "mockPassed": 6,
+    "liveFirstSlicePassed": 2,
+    "rerunThisCheckpoint": false,
+    "source": "docs/evidence/w6-frontend.md",
+    "backendCommit": "56450fc0034021f1653a95a0b8ad7e3f1aa6e73f",
+    "assessmentReadiness": "WireMock"
+  },
+  "fullExerciseKafkaProgress": "BLOCKED",
+  "peerReview": "PENDING",
+  "merged": false
+}

@@ -1,0 +1,208 @@
+{
+  "recordedAt": "2026-11-28T09:43:09.720206+00:00",
+  "testedSha": "6e263f972522584a9071d80b3c32ead276ec6606",
+  "environment": "TEST",
+  "runtime": "HOST",
+  "checks": [
+    {
+      "case": "supplemental registration CSRF",
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "supplemental learner",
+      "method": "POST",
+      "path": "/api/v1/auth/register",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "csrf before login",
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "login",
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "csrf after login",
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "supplemental setup",
+      "method": "PUT",
+      "path": "/api/v1/me/learning-setup",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "resume fixture start",
+      "method": "POST",
+      "path": "/api/v1/assessments/6b61bcdc-bddc-4e83-a29a-cb369a64e8ab/attempts",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "save before relogin",
+      "method": "PUT",
+      "path": "/api/v1/attempts/84595f2f-396b-4109-9ed9-6cce8f961276/answers",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "csrf before login",
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "login",
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "csrf after login",
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "resume after relogin",
+      "method": "GET",
+      "path": "/api/v1/attempts/84595f2f-396b-4109-9ed9-6cce8f961276",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "resume retains questions and saved FALSE",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "first submit",
+      "method": "POST",
+      "path": "/api/v1/attempts/84595f2f-396b-4109-9ed9-6cce8f961276/submit",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "repeated submit",
+      "method": "POST",
+      "path": "/api/v1/attempts/84595f2f-396b-4109-9ed9-6cce8f961276/submit",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "repeated submit returns identical result",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "get owned result",
+      "method": "GET",
+      "path": "/api/v1/results/d73acd2e-4cad-41c5-be0e-80a3df5852d5",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "result endpoint equals submitted result",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "zero score attempt",
+      "method": "POST",
+      "path": "/api/v1/assessments/6b61bcdc-bddc-4e83-a29a-cb369a64e8ab/attempts",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "zero fixture initial saved answer",
+      "method": "PUT",
+      "path": "/api/v1/attempts/c77da96e-c835-46da-a34a-7d0e4fa3d2a6/answers",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "full-set empty replacement",
+      "method": "PUT",
+      "path": "/api/v1/attempts/c77da96e-c835-46da-a34a-7d0e4fa3d2a6/answers",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "read empty replacement",
+      "method": "GET",
+      "path": "/api/v1/attempts/c77da96e-c835-46da-a34a-7d0e4fa3d2a6",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "full-set replacement removed previous answer",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "submit unanswered attempt",
+      "method": "POST",
+      "path": "/api/v1/attempts/c77da96e-c835-46da-a34a-7d0e4fa3d2a6/submit",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "unanswered attempt earns zero with positive maximum",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "one Result and Outbox for 84595f2f-396b-4109-9ed9-6cce8f961276",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "one Result and Outbox for c77da96e-c835-46da-a34a-7d0e4fa3d2a6",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "additional repeated submit",
+      "method": "POST",
+      "path": "/api/v1/attempts/84595f2f-396b-4109-9ed9-6cce8f961276/submit",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "repeat retains outbox event identity",
+      "expected": true,
+      "actual": true
+    }
+  ],
+  "status": "PASS",
+  "fixtures": {
+    "userId": "5b291a50-cf96-4575-a4fb-63cf9dc147ef",
+    "attempts": [
+      "84595f2f-396b-4109-9ed9-6cce8f961276",
+      "c77da96e-c835-46da-a34a-7d0e4fa3d2a6"
+    ],
+    "resultIds": [
+      "d73acd2e-4cad-41c5-be0e-80a3df5852d5",
+      "ba0f1908-552b-4028-ac80-10a45631aa34"
+    ]
+  },
+  "databaseEvidence": "Read-only queries in Assessment-owned TEST database; no cross-service SQL writes."
+}
