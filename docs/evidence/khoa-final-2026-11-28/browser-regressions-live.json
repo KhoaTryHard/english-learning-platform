@@ -1,0 +1,310 @@
+{
+  "status": "PASS",
+  "stats": {
+    "startTime": "2026-11-28T12:40:09.730Z",
+    "duration": 36236.96,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "applicationBaseSha": "7119946b49d63ea43e98adac64917aa0679267bf",
+  "demoVersion": "7e510250fe70d9f4e1bb919d7f0cabd82c4ca6aa",
+  "scope": "52 LIVE;49 LIVE with first save503 injected at browser, real GET/retry/submit",
+  "cases": [
+    {
+      "title": "LIVE regression52: edit question retains fractional points",
+      "project": "live-desktop",
+      "status": "PASS",
+      "startedAt": "2026-11-28T12:40:11.034Z",
+      "durationMs": 7251,
+      "evidence": {
+        "fixture": {
+          "assessmentId": "3a9fe709-d5a8-4e57-b39b-105c4daad237",
+          "questionId": "d6c57703-1399-40ff-b21d-5d441f623eb6"
+        },
+        "sanitized-http": [
+          {
+            "method": "PATCH",
+            "path": "/admin/courses/10000000-0000-4000-8000-000000000001",
+            "expected": 200,
+            "actual": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/modules",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/modules/ed5bd845-99a7-412c-89a1-460f8384dcd2",
+            "expected": 200,
+            "actual": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/lessons",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments/3a9fe709-d5a8-4e57-b39b-105c4daad237/questions",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "GET",
+            "path": "/admin/assessments/3a9fe709-d5a8-4e57-b39b-105c4daad237",
+            "expected": 200,
+            "actual": 200
+          }
+        ]
+      }
+    },
+    {
+      "title": "LIVE with injected save503 regression49: GET and tab return preserve unsaved until real ACK",
+      "project": "live-desktop",
+      "status": "PASS",
+      "startedAt": "2026-11-28T12:40:18.646Z",
+      "durationMs": 8516,
+      "evidence": {
+        "scope": {
+          "type": "LIVE_WITH_BROWSER_FAULT_INJECTION",
+          "injection": "first PUT answered503 in browser; all GET/retry/submit real",
+          "assessmentId": "b5273c54-b34b-40ca-8e86-a1c11c1bb206",
+          "attemptId": "477c2252-d241-4cae-ba6a-ccc7beea544e",
+          "questionId": "e514b6e1-ce65-471b-82d9-c45b69981252"
+        },
+        "sanitized-http": [
+          {
+            "method": "PATCH",
+            "path": "/admin/courses/10000000-0000-4000-8000-000000000001",
+            "expected": 200,
+            "actual": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/modules",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/modules/7a0f3598-e2ec-488e-851c-677a9ef8a6a0",
+            "expected": 200,
+            "actual": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/lessons",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments/b5273c54-b34b-40ca-8e86-a1c11c1bb206/questions",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/assessments/b5273c54-b34b-40ca-8e86-a1c11c1bb206",
+            "expected": 200,
+            "actual": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/lessons/6e270066-3d55-404a-bba1-6d59f524f4b7",
+            "expected": 200,
+            "actual": 200
+          },
+          {
+            "method": "POST",
+            "path": "/auth/logout",
+            "expected": 204,
+            "actual": 204
+          },
+          {
+            "method": "POST",
+            "path": "/auth/register",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "PUT",
+            "path": "/me/learning-setup",
+            "expected": 200,
+            "actual": 200
+          },
+          {
+            "method": "POST",
+            "path": "/assessments/b5273c54-b34b-40ca-8e86-a1c11c1bb206/attempts",
+            "expected": 201,
+            "actual": 201
+          }
+        ]
+      }
+    },
+    {
+      "title": "LIVE regression52: edit question retains fractional points",
+      "project": "live-mobile",
+      "status": "PASS",
+      "startedAt": "2026-11-28T12:40:28.592Z",
+      "durationMs": 7493,
+      "evidence": {
+        "fixture": {
+          "assessmentId": "0202fa65-0f3d-4c52-8587-bce723fe48c8",
+          "questionId": "1f3a06b1-8574-4d7b-8b89-132aa3ccb642"
+        },
+        "sanitized-http": [
+          {
+            "method": "PATCH",
+            "path": "/admin/courses/10000000-0000-4000-8000-000000000001",
+            "expected": 200,
+            "actual": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/modules",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/modules/33a5f3e0-fff1-4e9f-9380-3fb2dfe4daa3",
+            "expected": 200,
+            "actual": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/lessons",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments/0202fa65-0f3d-4c52-8587-bce723fe48c8/questions",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "GET",
+            "path": "/admin/assessments/0202fa65-0f3d-4c52-8587-bce723fe48c8",
+            "expected": 200,
+            "actual": 200
+          }
+        ]
+      }
+    },
+    {
+      "title": "LIVE with injected save503 regression49: GET and tab return preserve unsaved until real ACK",
+      "project": "live-mobile",
+      "status": "PASS",
+      "startedAt": "2026-11-28T12:40:36.832Z",
+      "durationMs": 8848,
+      "evidence": {
+        "scope": {
+          "type": "LIVE_WITH_BROWSER_FAULT_INJECTION",
+          "injection": "first PUT answered503 in browser; all GET/retry/submit real",
+          "assessmentId": "b7b30240-2f17-4674-a8ab-3012e6d779f9",
+          "attemptId": "2e2a6b0a-28fb-4030-ac2c-46e7393c353c",
+          "questionId": "2c0ce922-8624-4f3e-a1be-ecc030b919ea"
+        },
+        "sanitized-http": [
+          {
+            "method": "PATCH",
+            "path": "/admin/courses/10000000-0000-4000-8000-000000000001",
+            "expected": 200,
+            "actual": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/modules",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/modules/3ee25256-0353-42e7-aa58-9ebfef8181c2",
+            "expected": 200,
+            "actual": 200
+          },
+          {
+            "method": "POST",
+            "path": "/admin/lessons",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "POST",
+            "path": "/admin/assessments/b7b30240-2f17-4674-a8ab-3012e6d779f9/questions",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/assessments/b7b30240-2f17-4674-a8ab-3012e6d779f9",
+            "expected": 200,
+            "actual": 200
+          },
+          {
+            "method": "PATCH",
+            "path": "/admin/lessons/83b5a870-21ce-453a-b9c1-dca6ad4edcb8",
+            "expected": 200,
+            "actual": 200
+          },
+          {
+            "method": "POST",
+            "path": "/auth/logout",
+            "expected": 204,
+            "actual": 204
+          },
+          {
+            "method": "POST",
+            "path": "/auth/register",
+            "expected": 201,
+            "actual": 201
+          },
+          {
+            "method": "PUT",
+            "path": "/me/learning-setup",
+            "expected": 200,
+            "actual": 200
+          },
+          {
+            "method": "POST",
+            "path": "/assessments/b7b30240-2f17-4674-a8ab-3012e6d779f9/attempts",
+            "expected": 201,
+            "actual": 201
+          }
+        ]
+      }
+    }
+  ]
+}

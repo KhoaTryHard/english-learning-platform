@@ -1,0 +1,267 @@
+{
+  "status": "PASS_REVIEW_REQUIRED",
+  "phase": "audit",
+  "environment": "TEST",
+  "runtime": "DOCKER_REAL_SERVICES_POSTGRESQL",
+  "startedAt": "2026-11-28T10:59:12.117302+00:00",
+  "backendSha": "de8fe13addba487aa9ea652544a21ba99e243734",
+  "ownerSha": "de8fe13addba487aa9ea652544a21ba99e243734",
+  "composeProject": "khoa-backlog-final-20261128",
+  "checks": [
+    {
+      "case": "user only owns its readonly private key",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "user application is non-root",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "user TEST probes bind loopback only",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "content only owns its readonly private key",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "content application is non-root",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "content TEST probes bind loopback only",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "api only owns its readonly private key",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "api application is non-root",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "api TEST probes bind loopback only",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "Gateway has no database secrets",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "assessment-live only owns its readonly private key",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "assessment-live application is non-root",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "assessment-live TEST probes bind loopback only",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "progress-live only owns its readonly private key",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "progress-live application is non-root",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "progress-live TEST probes bind loopback only",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "user runtime has no superuser/database/role/DDL privileges",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "user V1 migration succeeded",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "content runtime has no superuser/database/role/DDL privileges",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "content V1 migration succeeded",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "user database has no published port",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "user data network is internal",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "content database has no published port",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "content data network is internal",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "assessment database has no published port",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "assessment data network is internal",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "progress database has no published port",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "progress data network is internal",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "Windows private TEST secrets have protected allowlisted ACLs",
+      "expected": true,
+      "actual": true
+    }
+  ],
+  "images": {
+    "user": "sha256:b2ca92bd6ac9ad7f78bf1a999861292ebcfbf19688f1b853352f575759e61ce8",
+    "content": "sha256:f97bd2d62685859e7d0495d6d3202a7f8047a9562bc7b2bd475dbe03331d658a",
+    "api": "sha256:ad536ab13bf645da62b4afb0cff6cf1d32358b8422e69bd78896faf4d44d0c67",
+    "assessment-live": "sha256:9b5671cedc2481965173723a6de6a00a47650bf25fdd7cba43fc5fd3ad89b323",
+    "progress-live": "sha256:0222d2d26f54d2252ac2e6d7afb85112a173b872d180e4fb95bb36dd7917610b"
+  },
+  "deployment": {
+    "user": {
+      "imageId": "sha256:b2ca92bd6ac9ad7f78bf1a999861292ebcfbf19688f1b853352f575759e61ce8",
+      "user": "10001",
+      "privateKey": "/private/user.private.pem",
+      "privateKeyReadOnly": true,
+      "publishedPorts": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "18081"
+        }
+      ]
+    },
+    "content": {
+      "imageId": "sha256:f97bd2d62685859e7d0495d6d3202a7f8047a9562bc7b2bd475dbe03331d658a",
+      "user": "10001",
+      "privateKey": "/private/content.private.pem",
+      "privateKeyReadOnly": true,
+      "publishedPorts": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "18082"
+        }
+      ]
+    },
+    "api": {
+      "imageId": "sha256:ad536ab13bf645da62b4afb0cff6cf1d32358b8422e69bd78896faf4d44d0c67",
+      "user": "10001",
+      "privateKey": "/private/api.private.pem",
+      "privateKeyReadOnly": true,
+      "publishedPorts": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "18080"
+        }
+      ]
+    },
+    "assessment-live": {
+      "imageId": "sha256:9b5671cedc2481965173723a6de6a00a47650bf25fdd7cba43fc5fd3ad89b323",
+      "user": "assessment",
+      "privateKey": "/private/assessment.private.pem",
+      "privateKeyReadOnly": true,
+      "publishedPorts": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "8090"
+        }
+      ]
+    },
+    "progress-live": {
+      "imageId": "sha256:0222d2d26f54d2252ac2e6d7afb85112a173b872d180e4fb95bb36dd7917610b",
+      "user": "progress",
+      "privateKey": "/private/progress.private.pem",
+      "privateKeyReadOnly": true,
+      "publishedPorts": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "8091"
+        }
+      ]
+    }
+  },
+  "databases": {
+    "user": {
+      "version": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "migration": "1|t",
+      "runtimeLeastPrivilege": true
+    },
+    "content": {
+      "version": "17.11 (Debian 17.11-1.pgdg13+2)",
+      "migration": "1|t",
+      "runtimeLeastPrivilege": true
+    }
+  },
+  "windowsAcl": {
+    "filesAndDirectories": 17,
+    "allProtected": true,
+    "onlyCurrentUserSystemAdministrators": true,
+    "scope": "Static Windows directory/file ACL inspection; no second-account impersonation"
+  },
+  "notCovered": [
+    "Windows access attempt under a second account",
+    "production HTTPS/transport",
+    "Assessment/Progress production DB role separation owned by Huy"
+  ],
+  "fixtures": {
+    "userId": "8e181576-30ce-4500-8f62-9beb1e1b82f5",
+    "otherUserId": "d4604f08-be53-4982-9efa-f9a923f5cc2e",
+    "courseId": "10000000-0000-4000-8000-000000000001",
+    "levelId": "10000000-0000-4000-8000-000000000002",
+    "emptyCourseId": "6e882c6f-4405-42ea-b48f-641f3a556e81",
+    "moduleId": "a5c46b85-3465-4951-8a88-ae4410fd5029",
+    "lessonId": "7fb74814-8819-420c-8f68-53ec99923729",
+    "assessmentId": "834dca83-ca43-4478-8e6c-db6953b67559",
+    "questionId": "c279b6bf-bff1-46b1-bd0f-95831eddceff",
+    "vocabularyIds": [
+      "11a71452-473a-4b86-90be-32467691f3cb",
+      "74da0e4f-f89b-44dd-bf28-7c76672814a7"
+    ],
+    "draftLessonId": "66deac27-d49f-4613-a113-9b55fa7d793d",
+    "raceLessonId": "990bc84c-2804-4de1-bd2b-58454e1a6eef"
+  },
+  "finishedAt": "2026-11-28T10:59:19.058174+00:00"
+}

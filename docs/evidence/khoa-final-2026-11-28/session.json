@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "environment": "TEST",
+  "backendSha": "de8fe13addba487aa9ea652544a21ba99e243734",
+  "startedAt": "2026-11-28T11:00:31.410393+00:00",
+  "scope": "REAL Gateway/User/Content/PostgreSQL; session-table privilege fault only",
+  "runtimeMode": "DOCKER",
+  "testNamespace": "khoa-backlog-final-20261128",
+  "invalidCsrf": 403,
+  "missingSession": 403,
+  "sessionStoreFailure": 503,
+  "failureCode": "DEPENDENCY_UNAVAILABLE",
+  "contentRowsUnchangedOnFailure": true,
+  "permissionRestored": true,
+  "recoveryCreatesCourse": true,
+  "notCovered": [
+    "network partition",
+    "pool exhaustion",
+    "full Assessment/Progress integration"
+  ],
+  "finishedAt": "2026-11-28T11:00:33.409318+00:00"
+}

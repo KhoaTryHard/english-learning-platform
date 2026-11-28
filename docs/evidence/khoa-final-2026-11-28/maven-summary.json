@@ -1,0 +1,416 @@
+{
+  "status": "PASS",
+  "command": "mvnw.cmd -B verify",
+  "suites": [
+    {
+      "tests": 2,
+      "suite": "vn.group7.core.InputTest",
+      "cases": [
+        {
+          "name": "unknownFieldsAndUnicode",
+          "result": "PASS"
+        },
+        {
+          "name": "nullableProfile",
+          "result": "PASS"
+        }
+      ],
+      "skipped": 0,
+      "errors": 0,
+      "failures": 0
+    },
+    {
+      "tests": 4,
+      "suite": "vn.group7.core.SecurityBoundaryTest",
+      "cases": [
+        {
+          "name": "wrongAudienceExpiredForgedAndUnknownIdentityAreDenied",
+          "result": "PASS"
+        },
+        {
+          "name": "validProgressCanReadCohortButGatewayAndUserTokenCannot",
+          "result": "PASS"
+        },
+        {
+          "name": "missingKeysDenyAccessWithoutLeakingPathsOrToken",
+          "result": "PASS"
+        },
+        {
+          "name": "onlyGatewayCanValidateSessionAndUnknownInternalRouteIsDenied",
+          "result": "PASS"
+        }
+      ],
+      "skipped": 0,
+      "errors": 0,
+      "failures": 0
+    },
+    {
+      "tests": 4,
+      "suite": "vn.group7.user.DbTransactionFailureTest",
+      "cases": [
+        {
+          "name": "unrelatedTransactionFailureRemains500",
+          "result": "PASS"
+        },
+        {
+          "name": "connectionFailureBeforeTransactionReturnsSanitized503WithoutWriting",
+          "result": "PASS"
+        },
+        {
+          "name": "duplicateWriteRemains409",
+          "result": "PASS"
+        },
+        {
+          "name": "poolAcquisitionTimeoutReturns503AndNextRequestCanRecover",
+          "result": "PASS"
+        }
+      ],
+      "skipped": 0,
+      "errors": 0,
+      "failures": 0
+    },
+    {
+      "tests": 3,
+      "suite": "vn.group7.user.SessionValidationTest",
+      "cases": [
+        {
+          "name": "wrongCsrfRemains403AndValidSessionSucceeds",
+          "result": "PASS"
+        },
+        {
+          "name": "missingSessionRemains403",
+          "result": "PASS"
+        },
+        {
+          "name": "sessionStoreOutageIs503WithoutLeakingDetails",
+          "result": "PASS"
+        }
+      ],
+      "skipped": 0,
+      "errors": 0,
+      "failures": 0
+    },
+    {
+      "tests": 6,
+      "suite": "vn.group7.user.UserIntegrationTest",
+      "cases": [
+        {
+          "name": "csrfRotationLogoutReplayAndProfile",
+          "result": "PASS"
+        },
+        {
+          "name": "cohortPagingFiltersKeepGlobalCountAndBlockedLearners",
+          "result": "PASS"
+        },
+        {
+          "name": "runtimeLeastPrivilegeAndExternalSetup",
+          "result": "PASS"
+        },
+        {
+          "name": "internalSetupAndCohortRequireOwnerCallers",
+          "result": "PASS"
+        },
+        {
+          "name": "blockedExpiredForgedAndOldContractFailClosed",
+          "result": "PASS"
+        },
+        {
+          "name": "registrationNormalizationAndNoEscalation",
+          "result": "PASS"
+        }
+      ],
+      "skipped": 0,
+      "errors": 0,
+      "failures": 0
+    },
+    {
+      "tests": 1,
+      "suite": "vn.group7.content.AssessmentReadinessLiveTest",
+      "cases": [
+        {
+          "name": "acceptReadinessPhase",
+          "result": "SKIPPED"
+        }
+      ],
+      "skipped": 1,
+      "errors": 0,
+      "failures": 0
+    },
+    {
+      "tests": 8,
+      "suite": "vn.group7.content.ContentIntegrationTest",
+      "cases": [
+        {
+          "name": "atomicExcelAndWordRules",
+          "result": "PASS"
+        },
+        {
+          "name": "runtimePrivilegesAndForeignKeys",
+          "result": "PASS"
+        },
+        {
+          "name": "savedReferenceSurvivesHiddenParentAndSourceUpdates",
+          "result": "PASS"
+        },
+        {
+          "name": "concurrentSaveAndImportRollback",
+          "result": "PASS"
+        },
+        {
+          "name": "contextPagingIncludesDraftCoursesAndHiddenLessonDenominator",
+          "result": "PASS"
+        },
+        {
+          "name": "readinessHierarchyConstraintsAndDenominator",
+          "result": "PASS"
+        },
+        {
+          "name": "macroContainersLeaveNoBusinessRows",
+          "result": "PASS"
+        },
+        {
+          "name": "privateContextApisAndCallerAllowlist",
+          "result": "PASS"
+        }
+      ],
+      "skipped": 0,
+      "errors": 0,
+      "failures": 0
+    },
+    {
+      "tests": 4,
+      "suite": "vn.group7.content.DbTransactionFailureTest",
+      "cases": [
+        {
+          "name": "unrelatedTransactionFailureRemains500",
+          "result": "PASS"
+        },
+        {
+          "name": "connectionFailureBeforeTransactionReturnsSanitized503WithoutWriting",
+          "result": "PASS"
+        },
+        {
+          "name": "duplicateWriteRemains409",
+          "result": "PASS"
+        },
+        {
+          "name": "poolAcquisitionTimeoutReturns503AndNextRequestCanRecover",
+          "result": "PASS"
+        }
+      ],
+      "skipped": 0,
+      "errors": 0,
+      "failures": 0
+    },
+    {
+      "tests": 3,
+      "suite": "vn.group7.content.ImportBoundaryTest",
+      "cases": [
+        {
+          "name": "expandedSizeIsBounded",
+          "result": "PASS"
+        },
+        {
+          "name": "zipTraversalAndEntityAreRejected",
+          "result": "PASS"
+        },
+        {
+          "name": "unavailableFallbackDoesNotWeakenForeignKeyOrMaskDatabaseOutage",
+          "result": "PASS"
+        }
+      ],
+      "skipped": 0,
+      "errors": 0,
+      "failures": 0
+    },
+    {
+      "tests": 4,
+      "suite": "vn.group7.content.ImportContainerTest",
+      "cases": [
+        {
+          "name": "ordinaryContainerStillImports(String, String, int)[1]",
+          "result": "PASS"
+        },
+        {
+          "name": "ordinaryContainerStillImports(String, String, int)[2]",
+          "result": "PASS"
+        },
+        {
+          "name": "renamedMacroContainerIsRejectedBeforeTransaction(String, String)[1]",
+          "result": "PASS"
+        },
+        {
+          "name": "renamedMacroContainerIsRejectedBeforeTransaction(String, String)[2]",
+          "result": "PASS"
+        }
+      ],
+      "skipped": 0,
+      "errors": 0,
+      "failures": 0
+    },
+    {
+      "tests": 4,
+      "suite": "vn.group7.content.ReadinessAcceptanceTest",
+      "cases": [
+        {
+          "name": "errorsCannotPassWhenLessonWasWritten",
+          "result": "PASS"
+        },
+        {
+          "name": "provenanceAndSeparateFixturesAreRequired",
+          "result": "PASS"
+        },
+        {
+          "name": "onlineCoversSignedCallerRejectionAndLearnerRead",
+          "result": "PASS"
+        },
+        {
+          "name": "sourceMismatchAndUnavailableDatabaseAreDetected",
+          "result": "PASS"
+        }
+      ],
+      "skipped": 0,
+      "errors": 0,
+      "failures": 0
+    },
+    {
+      "tests": 2,
+      "suite": "vn.group7.core.InputTest",
+      "cases": [
+        {
+          "name": "unknownFieldsAndUnicode",
+          "result": "PASS"
+        },
+        {
+          "name": "nullableProfile",
+          "result": "PASS"
+        }
+      ],
+      "skipped": 0,
+      "errors": 0,
+      "failures": 0
+    },
+    {
+      "tests": 4,
+      "suite": "vn.group7.core.SecurityBoundaryTest",
+      "cases": [
+        {
+          "name": "wrongAudienceExpiredForgedAndUnknownIdentityAreDenied",
+          "result": "PASS"
+        },
+        {
+          "name": "validProgressCanReadCohortButGatewayAndUserTokenCannot",
+          "result": "PASS"
+        },
+        {
+          "name": "missingKeysDenyAccessWithoutLeakingPathsOrToken",
+          "result": "PASS"
+        },
+        {
+          "name": "onlyGatewayCanValidateSessionAndUnknownInternalRouteIsDenied",
+          "result": "PASS"
+        }
+      ],
+      "skipped": 0,
+      "errors": 0,
+      "failures": 0
+    },
+    {
+      "tests": 2,
+      "suite": "vn.group7.api.GatewayPreflightHttpTest",
+      "cases": [
+        {
+          "name": "foreignOriginAndUnknownPublicRouteAreRejected",
+          "result": "PASS"
+        },
+        {
+          "name": "browserCanPreflightAttemptWithCredentialsAndIdempotencyKey",
+          "result": "PASS"
+        }
+      ],
+      "skipped": 0,
+      "errors": 0,
+      "failures": 0
+    },
+    {
+      "tests": 7,
+      "suite": "vn.group7.api.GatewayRoutingTest",
+      "cases": [
+        {
+          "name": "ownerDownDoesNotFallBackToContentAndInternalStaysPrivate",
+          "result": "PASS"
+        },
+        {
+          "name": "malformedSuccessfulSessionResponsesNeverReachAnOwner",
+          "result": "PASS"
+        },
+        {
+          "name": "sessionValidationReceivesActualMethodAndCsrfContext",
+          "result": "PASS"
+        },
+        {
+          "name": "progressAndStatisticsUseProgressOwner",
+          "result": "PASS"
+        },
+        {
+          "name": "preflightAllowsIdempotencyWithoutSession",
+          "result": "PASS"
+        },
+        {
+          "name": "missingCookieWrongOriginBlockedAndUnavailableFailClosed",
+          "result": "PASS"
+        },
+        {
+          "name": "retryAndRetakeKeepKeysAndCorrectOwner",
+          "result": "PASS"
+        }
+      ],
+      "skipped": 0,
+      "errors": 0,
+      "failures": 0
+    },
+    {
+      "tests": 2,
+      "suite": "vn.group7.core.InputTest",
+      "cases": [
+        {
+          "name": "unknownFieldsAndUnicode",
+          "result": "PASS"
+        },
+        {
+          "name": "nullableProfile",
+          "result": "PASS"
+        }
+      ],
+      "skipped": 0,
+      "errors": 0,
+      "failures": 0
+    },
+    {
+      "tests": 4,
+      "suite": "vn.group7.core.SecurityBoundaryTest",
+      "cases": [
+        {
+          "name": "wrongAudienceExpiredForgedAndUnknownIdentityAreDenied",
+          "result": "PASS"
+        },
+        {
+          "name": "validProgressCanReadCohortButGatewayAndUserTokenCannot",
+          "result": "PASS"
+        },
+        {
+          "name": "missingKeysDenyAccessWithoutLeakingPathsOrToken",
+          "result": "PASS"
+        },
+        {
+          "name": "onlyGatewayCanValidateSessionAndUnknownInternalRouteIsDenied",
+          "result": "PASS"
+        }
+      ],
+      "skipped": 0,
+      "errors": 0,
+      "failures": 0
+    }
+  ],
+  "recordedAt": "2026-11-28T10:56:03.9925732Z"
+}

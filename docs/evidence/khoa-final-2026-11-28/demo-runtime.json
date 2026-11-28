@@ -1,0 +1,202 @@
+{
+  "status": "PASS",
+  "recordedAt": "2026-11-28T12:48:41.241962+00:00",
+  "project": "khoa-backlog-demo-local",
+  "version": "7e510250fe70d9f4e1bb919d7f0cabd82c4ca6aa",
+  "fixture": {
+    "assessmentId": "eb18efa7-642f-41ad-a269-056be3211056",
+    "lessonId": "6445fcd3-4b00-441f-a0b8-8aef5e698ee3",
+    "createdAt": "2026-11-28T12:39:53.7684294+00:00",
+    "courseId": "10000000-0000-4000-8000-000000000001",
+    "levelId": "10000000-0000-4000-8000-000000000002",
+    "vocabularyIds": [
+      "30f66eaf-d3ce-4735-b132-150654bacf23",
+      "1d39061c-23a6-4805-abae-68aead5b720c"
+    ],
+    "project": "khoa-backlog-demo-local",
+    "learnerId": "b66f506d-71ff-41cc-a0e6-0647a66e3d71",
+    "learnerEmail": "khoa-demo-8043d31c@example.com",
+    "questionId": "678d3936-f477-40c6-9fc0-535ad1c97f0d",
+    "moduleId": "818bc996-b1de-4216-8f48-d6feccc2024e"
+  },
+  "runtime": [
+    {
+      "service": "kafka",
+      "imageId": "sha256:3f7b939115cd4872e9cee9369d80bd69712fde55f9902f46d793f64848dedc75",
+      "state": "running",
+      "health": "healthy",
+      "ports": {
+        "9092/tcp": null
+      }
+    },
+    {
+      "service": "frontend",
+      "imageId": "sha256:9164f7c68ab3a9fbf7364116735aeca0054f27435f4ef8fe3f951e7d9095d374",
+      "state": "running",
+      "health": "healthy",
+      "ports": {
+        "8080/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "5173"
+          }
+        ]
+      }
+    },
+    {
+      "service": "api",
+      "imageId": "sha256:5adc0f91570094a28a77bb0cf91432d4f70406bc3e51f1f4cc005fe02a5d75d0",
+      "state": "running",
+      "health": "healthy",
+      "ports": {
+        "8080/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "18080"
+          }
+        ]
+      }
+    },
+    {
+      "service": "content",
+      "imageId": "sha256:fbf2ab41bbb901baa1a64c15c8b3fd6d9fcecafe99a98ac633d1446065df0d37",
+      "state": "running",
+      "health": "healthy",
+      "ports": {
+        "8082/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "18082"
+          }
+        ]
+      }
+    },
+    {
+      "service": "user",
+      "imageId": "sha256:f7b354941ac64d0e9fb01b88128d137fc1767226c174187f97a6964beb2bf6ad",
+      "state": "running",
+      "health": "healthy",
+      "ports": {
+        "8081/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "18081"
+          }
+        ]
+      }
+    },
+    {
+      "service": "assessment-live",
+      "imageId": "sha256:04b7cd478a7afbc586b3358d4b1ba3ffdabe554d97521eca81f86bc84087ff95",
+      "state": "running",
+      "health": null,
+      "ports": {
+        "8090/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "8090"
+          }
+        ]
+      }
+    },
+    {
+      "service": "progress-live",
+      "imageId": "sha256:9c37529667b70001f4159cc374c3ca44aae3a5be8c4dde6d2eadb5c439d63bd8",
+      "state": "running",
+      "health": null,
+      "ports": {
+        "8091/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "8091"
+          }
+        ]
+      }
+    },
+    {
+      "service": "content-db",
+      "imageId": "sha256:2d2b8998d31037bf721cfdf764d76ba74171b4fab3431b7f72c27c56ddbdf9e3",
+      "state": "running",
+      "health": "healthy",
+      "ports": {
+        "5432/tcp": null
+      }
+    },
+    {
+      "service": "user-db",
+      "imageId": "sha256:2d2b8998d31037bf721cfdf764d76ba74171b4fab3431b7f72c27c56ddbdf9e3",
+      "state": "running",
+      "health": "healthy",
+      "ports": {
+        "5432/tcp": null
+      }
+    },
+    {
+      "service": "progress-db",
+      "imageId": "sha256:2d2b8998d31037bf721cfdf764d76ba74171b4fab3431b7f72c27c56ddbdf9e3",
+      "state": "running",
+      "health": "healthy",
+      "ports": {
+        "5432/tcp": null
+      }
+    },
+    {
+      "service": "assessment-db",
+      "imageId": "sha256:2d2b8998d31037bf721cfdf764d76ba74171b4fab3431b7f72c27c56ddbdf9e3",
+      "state": "running",
+      "health": "healthy",
+      "ports": {
+        "5432/tcp": null
+      }
+    }
+  ],
+  "checks": [
+    {
+      "case": "seed repeated retains original fixture IDs",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "stop/start preserves owner records",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "desktop restart /me/learning-setup",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "desktop restart /lessons/6445fcd3-4b00-441f-a0b8-8aef5e698ee3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "desktop SPA direct URL reload",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "mobile restart /me/learning-setup",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "mobile restart /lessons/6445fcd3-4b00-441f-a0b8-8aef5e698ee3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "mobile SPA direct URL reload",
+      "expected": true,
+      "actual": true
+    }
+  ],
+  "limitations": [
+    "Normal Kafka delivery only; no broker fault/replay/DLT",
+    "Statistics36 absent; consumer acceptance31 remains open",
+    "Peer review demo54 pending"
+  ],
+  "finalStopped": true,
+  "volumesPreserved": true
+}
