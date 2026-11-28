@@ -1,0 +1,52 @@
+# Local presentation only. All published ports remain on loopback.
+services:
+  frontend:
+    image: group7-frontend:${IMAGE_TAG:?Select a version}
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.local-demo
+    ports: ["127.0.0.1:5173:8080"]
+    networks: [backend]
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, wget, -q, --spider, http://127.0.0.1:8080/]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+  kafka:
+    ports: !reset []
+    networks: [backend]
+    environment:
+      KAFKA_HEAP_OPTS: -Xms128m -Xmx256m
+  assessment-live:
+    environment:
+      KAFKA_ENABLED: 'true'
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+    depends_on:
+      kafka:
+        condition: service_started
+  progress-live:
+    environment:
+      KAFKA_ENABLED: 'true'
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+    depends_on:
+      kafka:
+        condition: service_started
+networks:
+  backend:
+    ipam:
+      config: [{subnet: "${DEMO_SUBNET_PREFIX:-10.241}.0.0/24"}]
+  user-data:
+    ipam:
+      config: [{subnet: "${DEMO_SUBNET_PREFIX:-10.241}.1.0/24"}]
+  content-data:
+    ipam:
+      config: [{subnet: "${DEMO_SUBNET_PREFIX:-10.241}.2.0/24"}]
+  assessment-data:
+    ipam:
+      config: [{subnet: "${DEMO_SUBNET_PREFIX:-10.241}.3.0/24"}]
+  progress-data:
+    ipam:
+      config: [{subnet: "${DEMO_SUBNET_PREFIX:-10.241}.4.0/24"}]
