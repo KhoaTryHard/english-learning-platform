@@ -48,6 +48,7 @@ try {
  }
  & "$PSScriptRoot/bootstrap-admin.ps1" -Email 'admin@example.com'
  & "$PSScriptRoot/seed-content.ps1"
+ & "$PSScriptRoot/seed-khoa-demo.ps1" -Project $Project
  Write-Host 'Local UI: http://127.0.0.1:5173 ; Gateway: http://127.0.0.1:18080'
  Write-Host 'Admin: admin@example.com ; password is in this checkout .secrets/admin_password.'
  Write-Host 'Real API and Kafka enabled. Statistics remains unavailable until the owner implements #36.'
