@@ -54,7 +54,7 @@ Khoa owns User/Content/Gateway; Huy owns Assessment/Progress/Kafka; Hưng owns f
 
 See [architecture](docs/architecture.md), [data dictionary](docs/database.md), [contract change](docs/contracts/CHANGELOG.md), [traceability](docs/traceability.md), [operations](docs/operations.md), and [verification evidence](docs/verification.md).
 
-W3-00 v0.2 and public/internal v0.1 are frozen. The [internal v0.1.1 baseline](docs/contracts/internal-auth-decision-2026-11-01.md) requires coordinated User/Gateway deployment. MySQL→PostgreSQL applies to Khoa's two services only. Nothing here signs reviewer acceptance or closes the full W3/MVP gate.
+W3-00 v0.2 and public/internal v0.1 are frozen. The [internal v0.1.1 baseline](docs/contracts/internal-auth-decision-2026-11-01.md) requires coordinated User/Gateway deployment. User/Content and Assessment/Progress each use their own PostgreSQL17 database. Khoa's28/11 foundation decision accepts the current physical V1/JSON/count projection; dictionary/ERD reconciliation continues in #20. Full consumer/MVP acceptance remains tracked separately.
 
 ## Frontend
 

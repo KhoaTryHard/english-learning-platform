@@ -2,7 +2,9 @@
 
 Owner: Huy. Nguồn: W5-02/#4, #20, #25; DD v0.2, approved API v0.1.
 Huy chọn PostgreSQL 17 trong phiên triển khai. Peer review schema/ERD và quyết
-định tương thích chung vẫn được theo dõi ở #20/#42.
+định tương thích chung vẫn được theo dõi ở #20. Khoa chấp nhận physical V1/JSON
+cho foundation ngày28/11/2026; đây là quyết định Khoa, không ghi thành Huy đã
+cross-review dictionary. Internal auth0.1.1 đã baselined tại #42.
 
 | Logical data | Physical mapping V1 |
 |---|---|

@@ -2,7 +2,9 @@
 
 Foundation BE-P1/P2/K2 cho #4/#16/#17: History, Completion, Progress/Dashboard APIs,
 ProcessedEvent và Kafka consumer idempotent. PostgreSQL 17 triển khai theo hướng
-Assessment; lựa chọn/mapping của Huy chờ review chung #20. Java 25/Spring Boot 4.0.8.
+Assessment. Khoa chấp nhận PostgreSQL17/physical V1/count projection cho foundation
+ngày28/11/2026; dictionary/ERD/cross-review còn lại giữ tại #20.
+Java25/Spring Boot4.0.8, internal auth0.1.1; publicv0.1 giữ nguyên.
 
 ## Build và test độc lập
 
@@ -82,6 +84,7 @@ Event đến lệch thứ tự giữ first completion sớm nhất theo complete
 submissionId. Thay setup không gán lại snapshots cũ. Consumer retry 1/5/30 giây,
 DLT/replay giữ eventId/key/payload. Gửi DLT lỗi thì không commit offset.
 
-Chưa có broker E2E hoặc nghiệm thu Gateway/User/Content thật. Sáu metric Statistics,
-source APIs và repair/reconciliation đầy đủ tiếp tục #31/#34/#35/#36. Xem
+Broker E2E đầy đủ tiếp tục #30/#34; source/Progress có evidence từng phần trong
+`docs/handoffs/khoa-consumer-acceptance-2026-11-09.md`, không thay consumer acceptance.
+Sáu metric Statistics và repair/reconciliation đầy đủ tiếp tục #31/#34/#35/#36. Xem
 `docs/architecture/progress-data-mapping.md` trong repository để review W3-03.

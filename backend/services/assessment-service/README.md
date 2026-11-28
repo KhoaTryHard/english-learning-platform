@@ -3,7 +3,9 @@
 Triển khai W5-02/#4 và Exercise thật #25: Question/readiness, Attempt, snapshot,
 save/resume/submit/Result, deadline Quiz/Test và transactional Outbox.
 Huy đã chọn PostgreSQL 17 trong phiên triển khai. Java 25/Spring Boot 4.0.8
-khớp nhánh backend Khoa tại `bf183461`.
+khớp baseline backend Khoa. Checkpoint review28/11/2026 tại PR43
+`6e263f972522584a9071d80b3c32ead276ec6606` đã gồm fix DB503 #44.
+Khoa chấp nhận physical V1/JSON cho foundation; dictionary/ERD còn lại theo #20.
 
 Service build độc lập. Đã bổ sung Outbox relay foundation; Progress consumer nằm
 trong service Progress riêng. Adapter Kafka mặc định tắt; bật `KAFKA_ENABLED=true`
@@ -124,8 +126,10 @@ Ngoài health, các route cần signed service JWT. Public owner routes cần th
 xác minh JWT cookie và CSRF trước khi ký assertion; browser không gọi owner
 trực tiếp. Không có profile bỏ qua authentication.
 
-Adapter sử dụng cơ chế bàn giao của Khoa. Internal v0.1.1 vẫn là proposal chờ
-quyết định nhóm #42; implementation này không thay approved v0.1.
+Adapter sử dụng cơ chế bàn giao của Khoa. Internal auth0.1.1 đã được baseline tại
+#42: session validation bắt buộc token+requestMethod, unsafe methods có CSRF;
+User/Gateway đổi và rollback theo cặp. Publicv0.1 và bản frozen internalv0.1 được
+giữ nguyên. Xem `docs/contracts/internal-auth-decision-2026-11-01.md`.
 
 ## Consistency và bàn giao
 
@@ -142,7 +146,9 @@ quyết định nhóm #42; implementation này không thay approved v0.1.
 - Outbox topic `assessment.completed.v1`, key=userId. Relay chỉ mark SENT sau
   broker ACK; lỗi giữ PENDING/retry count. Crash sau publish/trước mark sẽ phát
   lại cùng eventId/payload. Khi Kafka tắt, event tiếp tục PENDING.
-- Relay đã có DB/publisher tests; chưa chạy broker/Gateway E2E thật của nhóm.
+- Relay có DB/publisher tests; broker E2E thuộc #30/#34. Gateway/readiness/DB503
+  HOST integration có checkpoint riêng trong bàn giao hiện hành; không suy thành
+  Kafka E2E hoặc Docker deployment.
 - JSON lưu dạng TEXT; xem `docs/architecture/assessment-data-mapping.md` trong
   repository để review mapping với W3-03.
 

@@ -2,7 +2,9 @@
 
 Owner: Huy; #4/#16/#17/#20, các lát đầy đủ #30/#34/#35. Triển khai PostgreSQL 17
 cho Progress, database/credentials/migration riêng, cùng hướng công nghệ Assessment.
-Đây là lựa chọn triển khai của Huy; cần Khoa/Huy review mapping và cập nhật ERD chung.
+Khoa chấp nhận physical V1/count projection cho foundation ngày28/11/2026;
+dictionary/ERD/cross-review còn lại giữ ở #20. Không ghi quyết định Khoa thành
+review hoặc approval của Huy.
 
 | Logical W3-03 | Physical V1 |
 |---|---|
